@@ -1,0 +1,102 @@
+
+name: Cadastrar material na biblioteca
+
+on:
+  workflow_dispatch:
+    inputs:
+      titulo:
+        description: "Título do material"
+        required: true
+        type: string
+
+      disciplina:
+        description: "Nome da disciplina"
+        required: true
+        type: string
+
+      categoria:
+        description: "Categoria"
+        required: true
+        type: choice
+        options:
+          - Texto de estudo
+          - Resumo
+          - Exercício
+          - Mapa conceitual
+
+      descricao:
+        description: "Descrição do material"
+        required: false
+        type: string
+
+      arquivo:
+        description: "Caminho do PDF no repositório"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  cadastrar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Cadastrar documento
+        env:
+          TITULO: ${{ inputs.titulo }}
+          DISCIPLINA: ${{ inputs.disciplina }}
+          CATEGORIA: ${{ inputs.categoria }}
+          DESCRICAO: ${{ inputs.descricao }}
+          ARQUIVO: ${{ inputs.arquivo }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+
+          caminho = "documentos.json"
+
+          with open(caminho, "r", encoding="utf-8") as f:
+              documentos = json.load(f)
+
+          novo = {
+              "titulo": os.environ["TITULO"].strip(),
+              "categoria": os.environ["CATEGORIA"],
+              "descricao": os.environ["DESCRICAO"].strip(),
+              "disciplina": os.environ["DISCIPLINA"].strip(),
+              "arquivo": os.environ["ARQUIVO"].strip()
+          }
+
+          duplicado = any(
+              d.get("titulo") == novo["titulo"]
+              and d.get("disciplina") == novo["disciplina"]
+              for d in documentos
+          )
+
+          if duplicado:
+              raise SystemExit("Documento já cadastrado.")
+
+          documentos.append(novo)
+
+          with open(caminho, "w", encoding="utf-8") as f:
+              json.dump(
+                  documentos,
+                  f,
+                  ensure_ascii=False,
+                  indent=2
+              )
+              f.write("\n")
+
+          print("Documento cadastrado com sucesso!")
+          PY
+
+      - name: Salvar alterações no GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add documentos.json
+          git commit -m "Cadastro de novo material"
+          git push
