@@ -47,6 +47,12 @@
     "descricao": "Teste de abertura do arquivo.",
     "disciplina": "Teoria do Direito",
     "arquivo": "documentos/teoria-do-direito/introducao-teoria-do-direito.pdf"
+  },
+  {
+    "titulo": "Resumo sobre Introdução à Teoria do Direito",
+    "categoria": "Exercício",
+    "descricao": "Uma síntese dos principais conceitos introdutórios da Teoria do Direito.",
+    "disciplina": "Teoria do Direito",
+    "arquivo": "documentos/teoria-do-direito/introducao-teoria-do-direito.pdf"
   }
 ]
-
