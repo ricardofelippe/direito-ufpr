@@ -40,5 +40,12 @@
     "descricao": "Resumo de teste para verificar o cadastro automático.",
     "disciplina": "Teoria do Direito",
     "arquivo": ""
+  },
+  {
+    "titulo": "Teste de associação de PDF",
+    "categoria": "Resumo",
+    "descricao": "",
+    "disciplina": "Teste de associação de PDF",
+    "arquivo": "documentos/teoria-do-direito/introducao-teoria-do-direito.pdf"
   }
 ]
