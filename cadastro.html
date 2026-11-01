@@ -23,22 +23,14 @@
 
       <p>
         <label for="disciplina">Disciplina</label><br>
-        <input
-          type="text"
-          id="disciplina"
-          placeholder="Ex.: Teoria do Direito"
-          required
-        >
+        <input type="text" id="disciplina"
+          placeholder="Ex.: Teoria do Direito" required>
       </p>
 
       <p>
         <label for="titulo">Título do material</label><br>
-        <input
-          type="text"
-          id="titulo"
-          placeholder="Ex.: Introdução à Teoria do Direito"
-          required
-        >
+        <input type="text" id="titulo"
+          placeholder="Ex.: Introdução à Teoria do Direito" required>
       </p>
 
       <p>
@@ -54,20 +46,23 @@
 
       <p>
         <label for="descricao">Descrição</label><br>
-        <textarea
-          id="descricao"
+        <textarea id="descricao"
           placeholder="Descreva brevemente o material..."
-          rows="4"
-        ></textarea>
+          rows="4"></textarea>
       </p>
 
       <p>
-        <label for="arquivo">Caminho do PDF</label><br>
-        <input
-          type="text"
-          id="arquivo"
-          placeholder="documentos/teoria-do-direito/arquivo.pdf"
-        >
+        <label for="arquivo-existente">Selecionar PDF existente</label><br>
+        <select id="arquivo-existente">
+          <option value="">Carregando PDFs cadastrados...</option>
+        </select>
+        <small id="status-pdf"></small>
+      </p>
+
+      <p>
+        <label for="arquivo">Ou informe manualmente o caminho do PDF</label><br>
+        <input type="text" id="arquivo"
+          placeholder="documentos/teoria-do-direito/arquivo.pdf">
       </p>
 
       <button type="submit">Gerar cadastro JSON</button>
@@ -81,16 +76,10 @@
         ao arquivo documentos.json.
       </p>
 
-      <textarea
-        id="json-gerado"
-        rows="12"
-        readonly
-      ></textarea>
+      <textarea id="json-gerado" rows="12" readonly></textarea>
 
       <p>
-        <button type="button" id="copiar">
-          Copiar JSON
-        </button>
+        <button type="button" id="copiar">Copiar JSON</button>
       </p>
 
       <p id="mensagem" role="status"></p>
@@ -102,6 +91,60 @@
     const resultado = document.getElementById("resultado");
     const jsonGerado = document.getElementById("json-gerado");
     const mensagem = document.getElementById("mensagem");
+    const seletorPDF = document.getElementById("arquivo-existente");
+    const statusPDF = document.getElementById("status-pdf");
+    const campoArquivo = document.getElementById("arquivo");
+
+    // Carrega os PDFs já cadastrados no documentos.json
+    async function carregarPDFs() {
+      try {
+        const resposta = await fetch("./documentos.json");
+
+        if (!resposta.ok) {
+          throw new Error("Não foi possível acessar documentos.json");
+        }
+
+        const documentos = await resposta.json();
+
+        const arquivos = [
+          ...new Set(
+            documentos
+              .map(doc => doc.arquivo)
+              .filter(arquivo =>
+                typeof arquivo === "string" &&
+                arquivo.toLowerCase().endsWith(".pdf")
+              )
+          )
+        ];
+
+        seletorPDF.innerHTML =
+          '<option value="">Selecione um PDF (opcional)</option>';
+
+        arquivos.forEach(arquivo => {
+          const opcao = document.createElement("option");
+          opcao.value = arquivo;
+          opcao.textContent = arquivo;
+          seletorPDF.appendChild(opcao);
+        });
+
+        statusPDF.textContent =
+          arquivos.length + " PDF(s) encontrado(s).";
+
+      } catch (erro) {
+        seletorPDF.innerHTML =
+          '<option value="">Lista de PDFs indisponível</option>';
+
+        statusPDF.textContent =
+          "Verifique se documentos.json está acessível.";
+      }
+    }
+
+    // Ao selecionar um PDF, preenche o campo manual
+    seletorPDF.addEventListener("change", function() {
+      if (this.value) {
+        campoArquivo.value = this.value;
+      }
+    });
 
     formulario.addEventListener("submit", function(event) {
       event.preventDefault();
@@ -111,7 +154,7 @@
         categoria: document.getElementById("categoria").value,
         descricao: document.getElementById("descricao").value.trim(),
         disciplina: document.getElementById("disciplina").value.trim(),
-        arquivo: document.getElementById("arquivo").value.trim()
+        arquivo: campoArquivo.value.trim()
       };
 
       jsonGerado.value = JSON.stringify(documento, null, 2);
@@ -134,6 +177,9 @@
           "Selecione e copie o conteúdo manualmente.";
       }
     });
+
+    carregarPDFs();
   </script>
 </body>
 </html>
+
