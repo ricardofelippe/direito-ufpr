@@ -146,3 +146,18 @@ h2 {
 .documento a:hover {
   background-color: #405d7d;
 }
+
+
+.botao-github {
+  display: inline-block;
+  padding: 12px 18px;
+  background: #24292f;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-top: 12px;
+}
+
+.botao-github:hover {
+  background: #40464d;
+}
