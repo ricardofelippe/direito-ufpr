@@ -12,7 +12,10 @@ on:
       disciplina:
         description: "Nome da disciplina"
         required: true
-        type: string
+        type: choice
+        options:
+          - Teoria do Direito
+          - Filosofia do Direito
 
       categoria:
         description: "Categoria"
@@ -45,7 +48,7 @@ jobs:
       - name: Baixar repositório
         uses: actions/checkout@v4
 
-      - name: Cadastrar documento
+      - name: Validar e cadastrar documento
         env:
           TITULO: ${{ inputs.titulo }}
           DISCIPLINA: ${{ inputs.disciplina }}
@@ -56,32 +59,81 @@ jobs:
           python - <<'PY'
           import json
           import os
+          from pathlib import Path
 
-          caminho = "documentos.json"
+          disciplinas = [
+              "Teoria do Direito",
+              "Filosofia do Direito"
+          ]
 
-          with open(caminho, "r", encoding="utf-8") as f:
+          categorias = [
+              "Texto de estudo",
+              "Resumo",
+              "Exercício",
+              "Mapa conceitual"
+          ]
+
+          titulo = os.environ["TITULO"].strip()
+          disciplina = os.environ["DISCIPLINA"].strip()
+          categoria = os.environ["CATEGORIA"].strip()
+          descricao = os.environ["DESCRICAO"].strip()
+          arquivo = os.environ["ARQUIVO"].strip()
+
+          if not titulo:
+              raise SystemExit("Erro: título obrigatório.")
+
+          if disciplina not in disciplinas:
+              raise SystemExit("Erro: disciplina não permitida.")
+
+          if categoria not in categorias:
+              raise SystemExit("Erro: categoria inválida.")
+
+          if arquivo:
+              caminho = Path(arquivo)
+
+              if not arquivo.startswith("documentos/"):
+                  raise SystemExit("Erro: PDF deve estar na pasta documentos.")
+
+              if caminho.suffix.lower() != ".pdf":
+                  raise SystemExit("Erro: arquivo precisa ser PDF.")
+
+              raiz = Path("documentos").resolve()
+              arquivo_real = caminho.resolve()
+
+              if not arquivo_real.is_relative_to(raiz):
+                  raise SystemExit("Erro: caminho de arquivo inválido.")
+
+              if not arquivo_real.is_file():
+                  raise SystemExit("Erro: PDF não encontrado no repositório.")
+
+          caminho_json = "documentos.json"
+
+          with open(caminho_json, "r", encoding="utf-8") as f:
               documentos = json.load(f)
 
-          novo = {
-              "titulo": os.environ["TITULO"].strip(),
-              "categoria": os.environ["CATEGORIA"],
-              "descricao": os.environ["DESCRICAO"].strip(),
-              "disciplina": os.environ["DISCIPLINA"].strip(),
-              "arquivo": os.environ["ARQUIVO"].strip()
-          }
+          if not isinstance(documentos, list):
+              raise SystemExit("Erro: documentos.json não contém uma lista.")
 
           duplicado = any(
-              d.get("titulo") == novo["titulo"]
-              and d.get("disciplina") == novo["disciplina"]
+              d.get("titulo", "").strip().casefold() == titulo.casefold()
+              and d.get("disciplina", "").strip().casefold() == disciplina.casefold()
               for d in documentos
           )
 
           if duplicado:
-              raise SystemExit("Documento já cadastrado.")
+              raise SystemExit("Erro: material já cadastrado.")
+
+          novo = {
+              "titulo": titulo,
+              "categoria": categoria,
+              "descricao": descricao,
+              "disciplina": disciplina,
+              "arquivo": arquivo
+          }
 
           documentos.append(novo)
 
-          with open(caminho, "w", encoding="utf-8") as f:
+          with open(caminho_json, "w", encoding="utf-8") as f:
               json.dump(
                   documentos,
                   f,
@@ -90,7 +142,7 @@ jobs:
               )
               f.write("\n")
 
-          print("Documento cadastrado com sucesso!")
+          print("Material validado e cadastrado com sucesso!")
           PY
 
       - name: Salvar alterações no GitHub
@@ -100,3 +152,4 @@ jobs:
           git add documentos.json
           git commit -m "Cadastro de novo material"
           git push
+
