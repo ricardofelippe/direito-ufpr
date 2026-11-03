@@ -11,25 +11,19 @@ body:
     validations:
       required: true
 
-  - type: dropdown
+  - type: input
     id: disciplina
     attributes:
       label: Disciplina
-      options:
-        - Teoria do Direito
-        - Filosofia do Direito
+      placeholder: Teoria do Direito
     validations:
       required: true
 
-  - type: dropdown
+  - type: input
     id: categoria
     attributes:
       label: Categoria
-      options:
-        - Texto de estudo
-        - Resumo
-        - Exercício
-        - Mapa conceitual
+      placeholder: Texto de estudo
     validations:
       required: true
 
@@ -49,3 +43,4 @@ body:
       description: Informe o caminho do PDF já enviado ao repositório.
     validations:
       required: false
+
