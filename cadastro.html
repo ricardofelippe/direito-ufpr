@@ -23,8 +23,11 @@
 
       <p>
         <label for="disciplina">Disciplina</label><br>
-        <input type="text" id="disciplina"
-          placeholder="Ex.: Teoria do Direito" required>
+        <select id="disciplina" required>
+          <option value="">Selecione uma disciplina</option>
+          <option value="Teoria do Direito">Teoria do Direito</option>
+          <option value="Filosofia do Direito">Filosofia do Direito</option>
+        </select>
       </p>
 
       <p>
@@ -65,30 +68,25 @@
           placeholder="documentos/teoria-do-direito/arquivo.pdf">
       </p>
 
-      <button type="submit">Gerar cadastro JSON</button>
-      <a
-      href="https://github.com/ricardofelippe/direito-ufpr/actions/workflows/cadastrar-material.yml"
-      target="_blank"
-      class="botao-github"
-      >
-      Cadastrar material no GitHub
-       </a>
+      <p>
+        <button type="submit">Revisar e enviar no GitHub</button>
+      </p>
+
+      <p>
+        <button type="button" id="gerar-json">
+          Gerar cadastro JSON
+        </button>
+      </p>
+
     </form>
 
     <section id="resultado" hidden>
       <h2>Cadastro gerado</h2>
-
-      <p>
-        Copie o conteúdo abaixo e acrescente o registro
-        ao arquivo documentos.json.
-      </p>
-
+      <p>Prévia do registro que será cadastrado:</p>
       <textarea id="json-gerado" rows="12" readonly></textarea>
-
       <p>
         <button type="button" id="copiar">Copiar JSON</button>
       </p>
-
       <p id="mensagem" role="status"></p>
     </section>
   </main>
@@ -102,7 +100,7 @@
     const statusPDF = document.getElementById("status-pdf");
     const campoArquivo = document.getElementById("arquivo");
 
-    // Carrega os PDFs já cadastrados no documentos.json
+    // Carrega os PDFs já cadastrados no catálogo
     async function carregarPDFs() {
       try {
         const resposta = await fetch("./documentos.json");
@@ -146,44 +144,107 @@
       }
     }
 
-    // Ao selecionar um PDF, preenche o campo manual
+    // Ao selecionar um PDF, preenche o caminho manual
     seletorPDF.addEventListener("change", function() {
       if (this.value) {
         campoArquivo.value = this.value;
       }
     });
 
-    formulario.addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      const documento = {
+    // Organiza os dados do material
+    function obterDocumento() {
+      return {
         titulo: document.getElementById("titulo").value.trim(),
         categoria: document.getElementById("categoria").value,
         descricao: document.getElementById("descricao").value.trim(),
-        disciplina: document.getElementById("disciplina").value.trim(),
+        disciplina: document.getElementById("disciplina").value,
         arquivo: campoArquivo.value.trim()
       };
+    }
 
-      jsonGerado.value = JSON.stringify(documento, null, 2);
+    // Valida o caminho do PDF
+    function validarArquivo(arquivo) {
+      if (!arquivo) return true;
 
-      resultado.hidden = false;
-      mensagem.textContent = "";
-
-      resultado.scrollIntoView({
-        behavior: "smooth"
-      });
-    });
-
-    document.getElementById("copiar").addEventListener("click", async function() {
-      try {
-        await navigator.clipboard.writeText(jsonGerado.value);
-        mensagem.textContent = "JSON copiado com sucesso!";
-      } catch (erro) {
-        jsonGerado.select();
-        mensagem.textContent =
-          "Selecione e copie o conteúdo manualmente.";
+      if (
+        !arquivo.startsWith("documentos/") ||
+        !arquivo.toLowerCase().endsWith(".pdf")
+      ) {
+        alert(
+          "Informe um caminho válido, iniciado por documentos/ e terminado em .pdf."
+        );
+        return false;
       }
+
+      return true;
+    }
+
+    // Gera uma prévia do JSON
+    document.getElementById("gerar-json")
+      .addEventListener("click", function() {
+
+        if (!formulario.reportValidity()) return;
+
+        const documento = obterDocumento();
+
+        if (!validarArquivo(documento.arquivo)) return;
+
+        jsonGerado.value = JSON.stringify(documento, null, 2);
+        resultado.hidden = false;
+        mensagem.textContent = "";
+
+        resultado.scrollIntoView({
+          behavior: "smooth"
+        });
+      });
+
+    // Abre o formulário do GitHub com os campos preenchidos
+    formulario.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      if (!formulario.reportValidity()) return;
+
+      const documento = obterDocumento();
+
+      if (!validarArquivo(documento.arquivo)) return;
+
+      const parametros = new URLSearchParams();
+
+      parametros.set(
+        "template",
+        "cadastrar-material.yml"
+      );
+
+      parametros.set(
+        "title",
+        "[Cadastro de material] " + documento.titulo
+      );
+
+      parametros.set("titulo", documento.titulo);
+      parametros.set("disciplina", documento.disciplina);
+      parametros.set("categoria", documento.categoria);
+      parametros.set("descricao", documento.descricao);
+      parametros.set("arquivo", documento.arquivo);
+
+      const endereco =
+        "https://github.com/ricardofelippe/direito-ufpr/issues/new?"
+        + parametros.toString();
+
+      window.location.href = endereco;
     });
+
+    // Copia o JSON
+    document.getElementById("copiar")
+      .addEventListener("click", async function() {
+        try {
+          await navigator.clipboard.writeText(jsonGerado.value);
+          mensagem.textContent = "JSON copiado com sucesso!";
+        } catch (erro) {
+          jsonGerado.select();
+          mensagem.textContent =
+            "Selecione e copie o conteúdo manualmente.";
+        }
+      });
 
     carregarPDFs();
   </script>
