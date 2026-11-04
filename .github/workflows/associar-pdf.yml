@@ -1,0 +1,115 @@
+
+name: Associar PDF a material existente
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  associar:
+    if: contains(github.event.issue.title, '[Associar PDF]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Associar PDF ao material
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path, PurePosixPath
+
+          def campo(nome):
+              corpo = os.environ["ISSUE_BODY"]
+              marcador = f"### {nome}"
+
+              if marcador not in corpo:
+                  return ""
+
+              trecho = corpo.split(marcador, 1)[1]
+              trecho = trecho.split("\n### ", 1)[0]
+              valor = trecho.strip()
+
+              if valor in ("", "_No response_", "Não informado"):
+                  return ""
+
+              return valor
+
+          titulo = campo("Título do material")
+          disciplina = campo("Disciplina")
+          arquivo = campo("Caminho do PDF")
+
+          if not titulo or not disciplina or not arquivo:
+              raise SystemExit("Erro: preencha todos os campos.")
+
+          caminho = PurePosixPath(arquivo)
+
+          if (
+              caminho.suffix.lower() != ".pdf"
+              or not caminho.parts
+              or caminho.parts[0] != "documentos"
+              or ".." in caminho.parts
+              or caminho.is_absolute()
+          ):
+              raise SystemExit("Erro: caminho de PDF inválido.")
+
+          arquivo_local = Path(*caminho.parts)
+
+          if not arquivo_local.is_file():
+              raise SystemExit(
+                  f"Erro: PDF não encontrado: {arquivo}"
+              )
+
+          with open("documentos.json", "r", encoding="utf-8") as f:
+              documentos = json.load(f)
+
+          encontrados = [
+              doc for doc in documentos
+              if doc.get("titulo", "").strip() == titulo
+              and doc.get("disciplina", "").strip() == disciplina
+          ]
+
+          if len(encontrados) == 0:
+              raise SystemExit("Erro: material não encontrado.")
+
+          if len(encontrados) > 1:
+              raise SystemExit("Erro: mais de um material encontrado.")
+
+          encontrados[0]["arquivo"] = arquivo
+
+          with open("documentos.json", "w", encoding="utf-8") as f:
+              json.dump(documentos, f, ensure_ascii=False, indent=2)
+              f.write("\n")
+
+          print("PDF associado com sucesso.")
+          print(f"Material: {titulo}")
+          print(f"Arquivo: {arquivo}")
+          PY
+
+      - name: Salvar alteração no GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add documentos.json
+          git diff --cached --quiet || git commit -m "Associar PDF a material existente"
+          git push
+
+      - name: Confirmar e fechar solicitação
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$GH_REPO" \
+            --body "PDF associado ao material com sucesso. A biblioteca será atualizada após a publicação do GitHub Pages."
+
+          gh issue close "$ISSUE_NUMBER" --repo "$GH_REPO"
