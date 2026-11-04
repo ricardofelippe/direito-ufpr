@@ -130,6 +130,11 @@
               link.target = "_blank";
               link.rel = "noopener noreferrer";
               artigo.appendChild(link);
+            } else {
+              const aviso = document.createElement("p");
+              aviso.textContent = "PDF ainda não anexado.";
+              aviso.className = "sem-pdf";
+              artigo.appendChild(aviso);
             }
 
             lista.appendChild(artigo);
