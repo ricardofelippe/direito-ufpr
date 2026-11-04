@@ -1,0 +1,29 @@
+
+name: Associar PDF a material existente
+description: Anexar ou substituir o PDF de um material já cadastrado
+title: "[Associar PDF] "
+body:
+  - type: input
+    id: titulo
+    attributes:
+      label: Título do material
+      placeholder: Nome exato do material cadastrado
+    validations:
+      required: true
+
+  - type: input
+    id: disciplina
+    attributes:
+      label: Disciplina
+      placeholder: Teoria do Direito
+    validations:
+      required: true
+
+  - type: input
+    id: arquivo
+    attributes:
+      label: Caminho do PDF
+      placeholder: documentos/teoria-do-direito/material.pdf
+      description: Caminho do PDF já enviado ao repositório.
+    validations:
+      required: true
