@@ -2,12 +2,13 @@
 name: Enviar material com PDF
 description: Cadastrar um material enviando o PDF diretamente pelo formulário
 title: "[Novo material] "
+
 body:
   - type: input
     id: titulo
     attributes:
       label: Título do material
-      placeholder: Exemplo: Introdução à Teoria do Direito
+      placeholder: "Exemplo: Introdução à Teoria do Direito"
     validations:
       required: true
 
@@ -37,7 +38,7 @@ body:
     id: descricao
     attributes:
       label: Descrição
-      placeholder: Escreva uma breve descrição do material.
+      placeholder: "Escreva uma breve descrição do material."
     validations:
       required: false
 
@@ -45,7 +46,8 @@ body:
     id: arquivo
     attributes:
       label: Arquivo PDF
-      description: Selecione ou arraste o PDF do seu computador. Limite de 25 MB.
+      description: "Selecione ou arraste o PDF do seu computador. Limite de 25 MB."
     validations:
       required: true
       accept: ".pdf"
+
