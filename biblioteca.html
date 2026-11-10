@@ -78,6 +78,26 @@
           filtroCategoria.appendChild(opcao);
         });
 
+        // Cria link para associar ou substituir PDF
+        function criarLinkIssue(texto, titulo) {
+          const link = document.createElement("a");
+
+          const parametros = new URLSearchParams({
+            template: "associar-pdf.yml",
+            title: "[Associar PDF] " + titulo
+          });
+
+          link.href =
+            "https://github.com/ricardofelippe/direito-ufpr/issues/new?" +
+            parametros.toString();
+
+          link.textContent = texto;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+
+          return link;
+        }
+
         function exibirDocumentos() {
           const termo = busca.value.trim().toLocaleLowerCase("pt-BR");
           const disciplina = filtroDisciplina.value;
@@ -124,17 +144,36 @@
             );
 
             if (doc.arquivo) {
+              // Material já possui PDF
               const link = document.createElement("a");
               link.href = doc.arquivo;
               link.textContent = "Abrir PDF";
               link.target = "_blank";
               link.rel = "noopener noreferrer";
+
               artigo.appendChild(link);
+
+              const substituir = criarLinkIssue(
+                "Substituir PDF",
+                doc.titulo
+              );
+
+              artigo.appendChild(substituir);
+
             } else {
+              // Material ainda não possui PDF
               const aviso = document.createElement("p");
               aviso.textContent = "PDF ainda não anexado.";
               aviso.className = "sem-pdf";
+
               artigo.appendChild(aviso);
+
+              const associar = criarLinkIssue(
+                "Associar PDF",
+                doc.titulo
+              );
+
+              artigo.appendChild(associar);
             }
 
             lista.appendChild(artigo);
@@ -162,3 +201,4 @@
   </script>
 </body>
 </html>
+
