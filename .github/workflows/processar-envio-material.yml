@@ -1,0 +1,211 @@
+
+name: Processar envio de material com PDF
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  processar:
+    if: startsWith(github.event.issue.title, '[Novo material]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Processar material e PDF
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const { execFileSync } = require('child_process');
+
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+
+            function campo(nome) {
+              const escapado = nome.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const regex = new RegExp(
+                `### ${escapado}\\s*\\r?\\n([\\s\\S]*?)(?=\\r?\\n### |$)`
+              );
+              const resultado = body.match(regex);
+              return resultado ? resultado[1].trim() : '';
+            }
+
+            function slug(texto) {
+              return texto
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '');
+            }
+
+            try {
+              const titulo = campo('Título do material');
+              const disciplina = campo('Disciplina');
+              const categoria = campo('Categoria');
+              const descricao = campo('Descrição');
+              const campoArquivo = campo('Arquivo PDF');
+
+              if (!titulo || !disciplina || !categoria) {
+                throw new Error('Preencha título, disciplina e categoria.');
+              }
+
+              const disciplinasPermitidas = [
+                'Teoria do Direito',
+                'Filosofia do Direito'
+              ];
+
+              const categoriasPermitidas = [
+                'Texto de estudo',
+                'Resumo',
+                'Exercício',
+                'Mapa conceitual'
+              ];
+
+              if (!disciplinasPermitidas.includes(disciplina)) {
+                throw new Error('Disciplina inválida.');
+              }
+
+              if (!categoriasPermitidas.includes(categoria)) {
+                throw new Error('Categoria inválida.');
+              }
+
+              const links = [
+                ...campoArquivo.matchAll(
+                  /\]\((https:\/\/github\.com\/user-attachments\/files\/[^)\s]+)\)/g
+                )
+              ];
+
+              if (links.length !== 1) {
+                throw new Error(
+                  'Não foi encontrado exatamente um PDF anexado no formulário.'
+                );
+              }
+
+              const url = new URL(links[0][1]);
+
+              if (
+                url.hostname !== 'github.com' ||
+                !url.pathname.startsWith('/user-attachments/files/')
+              ) {
+                throw new Error('Endereço do anexo não permitido.');
+              }
+
+              if (!url.pathname.toLowerCase().endsWith('.pdf')) {
+                throw new Error('O arquivo anexado precisa ser PDF.');
+              }
+
+              const documentos = JSON.parse(
+                fs.readFileSync('documentos.json', 'utf8')
+              );
+
+              const duplicado = documentos.some(doc =>
+                doc.titulo === titulo &&
+                doc.disciplina === disciplina
+              );
+
+              if (duplicado) {
+                throw new Error('Esse material já está cadastrado.');
+              }
+
+              const resposta = await fetch(url.toString(), {
+                redirect: 'follow'
+              });
+
+              if (!resposta.ok) {
+                throw new Error('Não foi possível baixar o PDF anexado.');
+              }
+
+              const buffer = Buffer.from(
+                await resposta.arrayBuffer()
+              );
+
+              if (buffer.length > 25 * 1024 * 1024) {
+                throw new Error('O PDF ultrapassa o limite de 25 MB.');
+              }
+
+              if (buffer.subarray(0, 5).toString() !== '%PDF-') {
+                throw new Error('O arquivo recebido não é um PDF válido.');
+              }
+
+              const pasta = `documentos/${slug(disciplina)}`;
+              const nomeArquivo = `${slug(titulo)}.pdf`;
+              const caminho = `${pasta}/${nomeArquivo}`;
+
+              fs.mkdirSync(pasta, { recursive: true });
+
+              if (fs.existsSync(caminho)) {
+                throw new Error('Já existe um arquivo com esse nome.');
+              }
+
+              fs.writeFileSync(caminho, buffer);
+
+              documentos.push({
+                titulo,
+                disciplina,
+                categoria,
+                descricao,
+                arquivo: caminho
+              });
+
+              fs.writeFileSync(
+                'documentos.json',
+                JSON.stringify(documentos, null, 2) + '\n'
+              );
+
+              execFileSync('git', [
+                'config', 'user.name', 'github-actions[bot]'
+              ]);
+
+              execFileSync('git', [
+                'config', 'user.email',
+                '41898282+github-actions[bot]@users.noreply.github.com'
+              ]);
+
+              execFileSync('git', ['add', 'documentos.json', caminho]);
+
+              execFileSync('git', [
+                'commit',
+                '-m',
+                `Cadastrar material: ${titulo}`
+              ]);
+
+              execFileSync('git', ['push']);
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body:
+                  'Material cadastrado com sucesso! O PDF foi salvo em `' +
+                  caminho +
+                  '` e a biblioteca será atualizada após a publicação do GitHub Pages.'
+              });
+
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+
+            } catch (erro) {
+              core.setFailed(erro.message);
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: 'Não foi possível cadastrar o material: ' +
+                  erro.message +
+                  '\n\nA Issue permanece aberta para correção.'
+              });
+            }
