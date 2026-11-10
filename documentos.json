@@ -82,5 +82,12 @@
     "descricao": "Teste de preenchimento automático entre o site e o GitHub.",
     "disciplina": "Filosofia do Direito",
     "arquivo": ""
+  },
+  {
+    "titulo": "Filosofia",
+    "disciplina": "Filosofia do Direito",
+    "categoria": "Mapa conceitual",
+    "descricao": "_No response_",
+    "arquivo": "documentos/filosofia-do-direito/filosofia.pdf"
   }
 ]
