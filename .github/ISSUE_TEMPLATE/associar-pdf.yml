@@ -1,13 +1,13 @@
 
-name: Associar PDF a material existente
-description: Anexar ou substituir o PDF de um material já cadastrado
+name: Associar PDFs a material existente
+description: Adicionar um ou vários PDFs a um material já cadastrado
 title: "[Associar PDF] "
 body:
   - type: input
     id: titulo
     attributes:
       label: Título do material
-      placeholder: Nome exato do material cadastrado
+      placeholder: "Nome exato do material cadastrado"
     validations:
       required: true
 
@@ -15,15 +15,15 @@ body:
     id: disciplina
     attributes:
       label: Disciplina
-      placeholder: Teoria do Direito
+      placeholder: "Teoria do Direito"
     validations:
       required: true
 
-  - type: input
-    id: arquivo
+  - type: upload
+    id: arquivos
     attributes:
-      label: Caminho do PDF
-      placeholder: documentos/teoria-do-direito/material.pdf
-      description: Caminho do PDF já enviado ao repositório.
+      label: Arquivos PDF
+      description: "Selecione ou arraste um ou vários PDFs. Limite de 25 MB por arquivo."
     validations:
       required: true
+      accept: ".pdf"
