@@ -259,29 +259,27 @@ jobs:
                   );
                 }
 
-                const utilizadoPorOutroMaterial = documentos.some(outro =>
-                  outro !== doc &&
-                  [
-                    ...(Array.isArray(outro.arquivos) ? outro.arquivos : []),
-                    outro.arquivo
-                  ].includes(arquivoAlvo)
-                );
-
-                if (utilizadoPorOutroMaterial) {
-                  throw new Error(
-                    'Esse arquivo também está vinculado a outro material. Não será removido.'
-                  );
-                }
-
-                if (fs.existsSync(arquivoAlvo)) {
-                  fs.unlinkSync(arquivoAlvo);
-                }
-
-                const indice = arquivosAtuais.indexOf(arquivoAlvo);
-                arquivosAtuais.splice(indice, 1);
-
-                caminhosAlterados.push(arquivoAlvo);
+                
+              const utilizadoPorOutroMaterial = documentos.some(outro =>
+                outro !== doc &&
+                [
+                  ...(Array.isArray(outro.arquivos) ? outro.arquivos : []),
+                  outro.arquivo
+                ].includes(arquivoAlvo)
+              );
+              
+              // Remove a associação do material selecionado
+              const indice = arquivosAtuais.indexOf(arquivoAlvo);
+              arquivosAtuais.splice(indice, 1);
+              
+              // Só exclui o arquivo físico se nenhum outro material o utilizar
+              if (!utilizadoPorOutroMaterial && fs.existsSync(arquivoAlvo)) {
+                fs.unlinkSync(arquivoAlvo);
               }
+              
+              caminhosAlterados.push(arquivoAlvo);
+              
+                            }
 
               // Atualiza a estrutura do material
               if (arquivosAtuais.length > 0) {
