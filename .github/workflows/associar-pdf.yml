@@ -1,5 +1,5 @@
 
-name: Associar PDF a material existente
+name: Associar múltiplos PDFs a material existente
 
 on:
   issues:
@@ -11,105 +11,240 @@ permissions:
 
 jobs:
   associar:
-    if: contains(github.event.issue.title, '[Associar PDF]')
+    if: startsWith(github.event.issue.title, '[Associar PDF]')
     runs-on: ubuntu-latest
 
     steps:
       - name: Baixar repositório
         uses: actions/checkout@v4
 
-      - name: Associar PDF ao material
-        env:
-          ISSUE_BODY: ${{ github.event.issue.body }}
-        run: |
-          python - <<'PY'
-          import json
-          import os
-          from pathlib import Path, PurePosixPath
+      - name: Associar PDFs ao material
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const { execFileSync } = require('child_process');
 
-          def campo(nome):
-              corpo = os.environ["ISSUE_BODY"]
-              marcador = f"### {nome}"
+            const issue = context.payload.issue;
+            const body = issue.body || '';
 
-              if marcador not in corpo:
-                  return ""
+            function campo(nome) {
+              const escapado = nome.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const regex = new RegExp(
+                `### ${escapado}\\s*\\r?\\n([\\s\\S]*?)(?=\\r?\\n### |$)`
+              );
+              const resultado = body.match(regex);
+              return resultado ? resultado[1].trim() : '';
+            }
 
-              trecho = corpo.split(marcador, 1)[1]
-              trecho = trecho.split("\n### ", 1)[0]
-              valor = trecho.strip()
+            function slug(texto) {
+              return texto
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '');
+            }
 
-              if valor in ("", "_No response_", "Não informado"):
-                  return ""
+            try {
+              const titulo = campo('Título do material');
+              const disciplina = campo('Disciplina');
+              const campoArquivos = campo('Arquivos PDF');
 
-              return valor
+              if (!titulo || !disciplina) {
+                throw new Error(
+                  'Informe o título e a disciplina do material.'
+                );
+              }
 
-          titulo = campo("Título do material")
-          disciplina = campo("Disciplina")
-          arquivo = campo("Caminho do PDF")
+              const disciplinasPermitidas = [
+                'Teoria do Direito',
+                'Filosofia do Direito'
+              ];
 
-          if not titulo or not disciplina or not arquivo:
-              raise SystemExit("Erro: preencha todos os campos.")
+              if (!disciplinasPermitidas.includes(disciplina)) {
+                throw new Error('Disciplina inválida.');
+              }
 
-          caminho = PurePosixPath(arquivo)
+              // Localiza todos os anexos PDF
+              const anexos = [
+                ...campoArquivos.matchAll(
+                  /\[([^\]]+\.pdf)\]\((https:\/\/github\.com\/user-attachments\/files\/[^)\s]+)\)/gi
+                )
+              ];
 
-          if (
-              caminho.suffix.lower() != ".pdf"
-              or not caminho.parts
-              or caminho.parts[0] != "documentos"
-              or ".." in caminho.parts
-              or caminho.is_absolute()
-          ):
-              raise SystemExit("Erro: caminho de PDF inválido.")
+              if (anexos.length === 0) {
+                throw new Error('Nenhum PDF foi anexado.');
+              }
 
-          arquivo_local = Path(*caminho.parts)
+              const documentos = JSON.parse(
+                fs.readFileSync('documentos.json', 'utf8')
+              );
 
-          if not arquivo_local.is_file():
-              raise SystemExit(
-                  f"Erro: PDF não encontrado: {arquivo}"
-              )
+              const encontrados = documentos.filter(doc =>
+                doc.titulo === titulo &&
+                doc.disciplina === disciplina
+              );
 
-          with open("documentos.json", "r", encoding="utf-8") as f:
-              documentos = json.load(f)
+              if (encontrados.length !== 1) {
+                throw new Error(
+                  encontrados.length === 0
+                    ? 'Material não encontrado.'
+                    : 'Existem materiais duplicados com esse título e disciplina.'
+                );
+              }
 
-          encontrados = [
-              doc for doc in documentos
-              if doc.get("titulo", "").strip() == titulo
-              and doc.get("disciplina", "").strip() == disciplina
-          ]
+              const doc = encontrados[0];
 
-          if len(encontrados) == 0:
-              raise SystemExit("Erro: material não encontrado.")
+              // Mantém compatibilidade com os registros antigos
+              const arquivosExistentes = [
+                ...new Set([
+                  ...(Array.isArray(doc.arquivos) ? doc.arquivos : []),
+                  doc.arquivo
+                ].filter(Boolean))
+              ];
 
-          if len(encontrados) > 1:
-              raise SystemExit("Erro: mais de um material encontrado.")
+              const pasta = `documentos/${slug(disciplina)}`;
 
-          encontrados[0]["arquivo"] = arquivo
+              fs.mkdirSync(pasta, { recursive: true });
 
-          with open("documentos.json", "w", encoding="utf-8") as f:
-              json.dump(documentos, f, ensure_ascii=False, indent=2)
-              f.write("\n")
+              const novosArquivos = [];
 
-          print("PDF associado com sucesso.")
-          print(f"Material: {titulo}")
-          print(f"Arquivo: {arquivo}")
-          PY
+              for (const anexo of anexos) {
+                const nomeOriginal = anexo[1].trim();
+                const endereco = anexo[2];
 
-      - name: Salvar alteração no GitHub
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add documentos.json
-          git diff --cached --quiet || git commit -m "Associar PDF a material existente"
-          git push
+                const url = new URL(endereco);
 
-      - name: Confirmar e fechar solicitação
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-        run: |
-          gh issue comment "$ISSUE_NUMBER" \
-            --repo "$GH_REPO" \
-            --body "PDF associado ao material com sucesso. A biblioteca será atualizada após a publicação do GitHub Pages."
+                if (
+                  url.hostname !== 'github.com' ||
+                  !url.pathname.startsWith('/user-attachments/files/')
+                ) {
+                  throw new Error('Endereço de anexo não permitido.');
+                }
 
-          gh issue close "$ISSUE_NUMBER" --repo "$GH_REPO"
+                if (path.extname(nomeOriginal).toLowerCase() !== '.pdf') {
+                  throw new Error(
+                    `O arquivo ${nomeOriginal} não é PDF.`
+                  );
+                }
+
+                const resposta = await fetch(url.toString(), {
+                  redirect: 'follow'
+                });
+
+                if (!resposta.ok) {
+                  throw new Error(
+                    `Não foi possível baixar ${nomeOriginal}.`
+                  );
+                }
+
+                const buffer = Buffer.from(
+                  await resposta.arrayBuffer()
+                );
+
+                if (buffer.length > 25 * 1024 * 1024) {
+                  throw new Error(
+                    `${nomeOriginal} ultrapassa 25 MB.`
+                  );
+                }
+
+                if (buffer.subarray(0, 5).toString() !== '%PDF-') {
+                  throw new Error(
+                    `${nomeOriginal} não é um PDF válido.`
+                  );
+                }
+
+                const base = slug(
+                  path.basename(
+                    nomeOriginal,
+                    path.extname(nomeOriginal)
+                  )
+                ) || 'arquivo';
+
+                let nomeFinal = `${base}.pdf`;
+                let contador = 2;
+
+                while (
+                  fs.existsSync(path.join(pasta, nomeFinal)) ||
+                  arquivosExistentes.includes(`${pasta}/${nomeFinal}`) ||
+                  novosArquivos.includes(`${pasta}/${nomeFinal}`)
+                ) {
+                  nomeFinal = `${base}-${contador}.pdf`;
+                  contador++;
+                }
+
+                const caminho = `${pasta}/${nomeFinal}`;
+
+                fs.writeFileSync(caminho, buffer);
+                novosArquivos.push(caminho);
+              }
+
+              // Acrescenta os novos arquivos sem apagar os anteriores
+              doc.arquivos = [
+                ...new Set([
+                  ...arquivosExistentes,
+                  ...novosArquivos
+                ])
+              ];
+
+              // Mantém o primeiro arquivo no campo antigo
+              doc.arquivo = doc.arquivos[0];
+
+              fs.writeFileSync(
+                'documentos.json',
+                JSON.stringify(documentos, null, 2) + '\n'
+              );
+
+              execFileSync('git', [
+                'config', 'user.name', 'github-actions[bot]'
+              ]);
+
+              execFileSync('git', [
+                'config', 'user.email',
+                '41898282+github-actions[bot]@users.noreply.github.com'
+              ]);
+
+              execFileSync('git', [
+                'add', 'documentos.json', pasta
+              ]);
+
+              execFileSync('git', [
+                'commit',
+                '-m',
+                `Adicionar PDFs ao material: ${titulo}`
+              ]);
+
+              execFileSync('git', ['push']);
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body:
+                  `${novosArquivos.length} PDF(s) associado(s) com sucesso!\n\n` +
+                  novosArquivos.map(c => `- \`${c}\``).join('\n') +
+                  `\n\nO material agora possui ${doc.arquivos.length} PDF(s).`
+              });
+
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+
+            } catch (erro) {
+              core.setFailed(erro.message);
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body:
+                  'Não foi possível associar os PDFs: ' +
+                  erro.message +
+                  '\n\nA Issue permanece aberta para correção.'
+              });
+            }
