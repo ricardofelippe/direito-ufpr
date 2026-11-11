@@ -48,8 +48,7 @@
     "titulo": "Teste de associação de PDF",
     "categoria": "Resumo",
     "descricao": "Teste de abertura do arquivo.",
-    "disciplina": "Teoria do Direito",
-    "arquivo": "documentos/teoria-do-direito/introducao-teoria-do-direito.pdf"
+    "disciplina": "Teoria do Direito"
   },
   {
     "titulo": "Resumo sobre Introdução à Teoria do Direito",
