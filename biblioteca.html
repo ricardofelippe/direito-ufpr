@@ -55,7 +55,7 @@
 
         const documentos = await resposta.json();
 
-        // Identifica disciplinas e categorias cadastradas
+        // Identifica disciplinas e categorias
         const disciplinas = [...new Set(
           documentos.map(doc => doc.disciplina).filter(Boolean)
         )].sort();
@@ -79,7 +79,7 @@
         });
 
         // Cria link para associação de PDF
-        function criarLinkIssue(texto, doc) {
+        function criarLinkAssociacao(texto, doc) {
           const link = document.createElement("a");
 
           const parametros = new URLSearchParams({
@@ -88,6 +88,33 @@
             titulo: doc.titulo,
             disciplina: doc.disciplina
           });
+
+          link.href =
+            "https://github.com/ricardofelippe/direito-ufpr/issues/new?" +
+            parametros.toString();
+
+          link.textContent = texto;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+
+          return link;
+        }
+
+        // Cria link para adicionar, substituir ou remover PDFs
+        function criarLinkGerenciamento(texto, doc, operacao, arquivo) {
+          const parametros = new URLSearchParams({
+            template: "gerenciar-pdfs.yml",
+            title: "[Gerenciar PDFs] " + doc.titulo,
+            titulo: doc.titulo,
+            disciplina: doc.disciplina,
+            operacao: operacao
+          });
+
+          if (arquivo) {
+            parametros.set("arquivo_alvo", arquivo);
+          }
+
+          const link = document.createElement("a");
 
           link.href =
             "https://github.com/ricardofelippe/direito-ufpr/issues/new?" +
@@ -154,33 +181,51 @@
             ];
 
             if (arquivos.length > 0) {
-              const subtituloArquivos = document.createElement("h4");
-              subtituloArquivos.textContent =
+              const subtitulo = document.createElement("h4");
+              subtitulo.textContent =
                 arquivos.length === 1
                   ? "Arquivo PDF:"
                   : "Arquivos PDF (" + arquivos.length + "):";
 
-              artigo.appendChild(subtituloArquivos);
+              artigo.appendChild(subtitulo);
 
               const listaArquivos = document.createElement("ul");
               listaArquivos.className = "lista-pdfs";
 
               arquivos.forEach((caminho, indice) => {
                 const item = document.createElement("li");
-                const link = document.createElement("a");
 
-                link.href = caminho;
-
-                const nomeArquivo = caminho.split("/").pop();
-
-                link.textContent =
-                  decodeURIComponent(nomeArquivo) ||
+                const linkAbrir = document.createElement("a");
+                linkAbrir.href = caminho;
+                linkAbrir.textContent =
+                  decodeURIComponent(caminho.split("/").pop()) ||
                   "PDF " + (indice + 1);
 
-                link.target = "_blank";
-                link.rel = "noopener noreferrer";
+                linkAbrir.target = "_blank";
+                linkAbrir.rel = "noopener noreferrer";
 
-                item.appendChild(link);
+                item.appendChild(linkAbrir);
+
+                const acoes = document.createElement("p");
+                acoes.className = "acoes-pdf";
+
+                const substituir = criarLinkGerenciamento(
+                  "Substituir",
+                  doc,
+                  "Substituir PDF",
+                  caminho
+                );
+
+                const remover = criarLinkGerenciamento(
+                  "Remover",
+                  doc,
+                  "Remover PDF",
+                  caminho
+                );
+
+                acoes.append(substituir, " | ", remover);
+                item.appendChild(acoes);
+
                 listaArquivos.appendChild(item);
               });
 
@@ -190,13 +235,26 @@
               const aviso = document.createElement("p");
               aviso.textContent = "PDF ainda não anexado.";
               aviso.className = "sem-pdf";
-
               artigo.appendChild(aviso);
 
               artigo.appendChild(
-                criarLinkIssue("Associar PDF", doc)
+                criarLinkAssociacao("Associar PDF", doc)
               );
             }
+
+            // Opção de acrescentar arquivos ao material
+            const areaAdicionar = document.createElement("p");
+
+            areaAdicionar.appendChild(
+              criarLinkGerenciamento(
+                "Adicionar PDFs",
+                doc,
+                "Adicionar PDFs",
+                ""
+              )
+            );
+
+            artigo.appendChild(areaAdicionar);
 
             lista.appendChild(artigo);
           });
