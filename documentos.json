@@ -13,7 +13,11 @@
     "titulo": "Resumo - Introdução à Teoria do Direito",
     "categoria": "Resumo",
     "descricao": "Modelo de resumo para organizar os principais conceitos da disciplina.",
-    "disciplina": "Teoria do Direito"
+    "disciplina": "Teoria do Direito",
+    "arquivos": [
+      "documentos/teoria-do-direito/manual-de-introducao-ao-estudo-do-direito-1.pdf"
+    ],
+    "arquivo": "documentos/teoria-do-direito/manual-de-introducao-ao-estudo-do-direito-1.pdf"
   },
   {
     "titulo": "Exercícios de Teoria do Direito",
