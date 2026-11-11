@@ -32,6 +32,7 @@
     <select id="filtro-categoria">
       <option value="">Todas as categorias</option>
     </select>
+    <div id="resumo-biblioteca" class="resumo-biblioteca"></div>    
 
     <p id="estado" role="status">Carregando documentos...</p>
 
@@ -54,6 +55,66 @@
         }
 
         const documentos = await resposta.json();
+        // Calcula os indicadores da biblioteca
+          function atualizarResumo() {
+            const totalMateriais = documentos.length;
+          
+            const totalPDFs = documentos.reduce((total, doc) => {
+              const arquivos = [
+                ...(Array.isArray(doc.arquivos) ? doc.arquivos : []),
+                doc.arquivo
+              ].filter(Boolean);
+          
+              return total + new Set(arquivos).size;
+            }, 0);
+          
+            const totalDisciplinas = new Set(
+              documentos.map(doc => doc.disciplina).filter(Boolean)
+            ).size;
+          
+            const resumo = document.getElementById("resumo-biblioteca");
+            resumo.replaceChildren();
+          
+            const indicadores = [
+              {
+                numero: totalMateriais,
+                descricao: "Materiais cadastrados",
+                icone: "📚"
+              },
+              {
+                numero: totalPDFs,
+                descricao: "Arquivos PDF",
+                icone: "📄"
+              },
+              {
+                numero: totalDisciplinas,
+                descricao: "Disciplinas",
+                icone: "🎓"
+              }
+            ];
+          
+            indicadores.forEach(indicador => {
+              const cartao = document.createElement("div");
+              cartao.className = "indicador-biblioteca";
+          
+              const icone = document.createElement("span");
+              icone.className = "indicador-icone";
+              icone.textContent = indicador.icone;
+          
+              const numero = document.createElement("strong");
+              numero.className = "indicador-numero";
+              numero.textContent = indicador.numero;
+          
+              const descricao = document.createElement("span");
+              descricao.className = "indicador-descricao";
+              descricao.textContent = indicador.descricao;
+          
+              cartao.append(icone, numero, descricao);
+              resumo.appendChild(cartao);
+            });
+          }
+          
+          atualizarResumo();
 
         // Identifica disciplinas e categorias
         const disciplinas = [...new Set(
