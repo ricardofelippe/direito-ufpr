@@ -304,8 +304,9 @@
             }
 
             // Opção de acrescentar arquivos ao material
+            if (arquivos.length > 0) {
             const areaAdicionar = document.createElement("p");
-
+          
             areaAdicionar.appendChild(
               criarLinkGerenciamento(
                 "Adicionar PDFs",
@@ -314,8 +315,9 @@
                 ""
               )
             );
-
+          
             artigo.appendChild(areaAdicionar);
+          }
 
             lista.appendChild(artigo);
           });
