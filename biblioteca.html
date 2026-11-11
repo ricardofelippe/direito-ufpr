@@ -78,7 +78,7 @@
           filtroCategoria.appendChild(opcao);
         });
 
-        // Cria link com dados do material para o formulário GitHub
+        // Cria link para associação de PDF
         function criarLinkIssue(texto, doc) {
           const link = document.createElement("a");
 
@@ -145,22 +145,48 @@
               descricao
             );
 
-            if (doc.arquivo) {
-              // Material já possui PDF
-              const link = document.createElement("a");
-              link.href = doc.arquivo;
-              link.textContent = "Abrir PDF";
-              link.target = "_blank";
-              link.rel = "noopener noreferrer";
+            // Compatibilidade com materiais antigos e novos
+            const arquivos = [
+              ...new Set([
+                ...(Array.isArray(doc.arquivos) ? doc.arquivos : []),
+                doc.arquivo
+              ].filter(Boolean))
+            ];
 
-              artigo.appendChild(link);
+            if (arquivos.length > 0) {
+              const subtituloArquivos = document.createElement("h4");
+              subtituloArquivos.textContent =
+                arquivos.length === 1
+                  ? "Arquivo PDF:"
+                  : "Arquivos PDF (" + arquivos.length + "):";
 
-              artigo.appendChild(
-                criarLinkIssue("Substituir PDF", doc)
-              );
+              artigo.appendChild(subtituloArquivos);
+
+              const listaArquivos = document.createElement("ul");
+              listaArquivos.className = "lista-pdfs";
+
+              arquivos.forEach((caminho, indice) => {
+                const item = document.createElement("li");
+                const link = document.createElement("a");
+
+                link.href = caminho;
+
+                const nomeArquivo = caminho.split("/").pop();
+
+                link.textContent =
+                  decodeURIComponent(nomeArquivo) ||
+                  "PDF " + (indice + 1);
+
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+
+                item.appendChild(link);
+                listaArquivos.appendChild(item);
+              });
+
+              artigo.appendChild(listaArquivos);
 
             } else {
-              // Material ainda não possui PDF
               const aviso = document.createElement("p");
               aviso.textContent = "PDF ainda não anexado.";
               aviso.className = "sem-pdf";
@@ -197,4 +223,3 @@
   </script>
 </body>
 </html>
-
