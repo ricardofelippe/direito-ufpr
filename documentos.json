@@ -4,7 +4,13 @@
     "categoria": "Texto de estudo",
     "descricao": "Material introdutório da disciplina.",
     "disciplina": "Teoria do Direito",
-    "arquivo": "documentos/teoria-do-direito/introducao-teoria-do-direito.pdf"
+    "arquivo": "documentos/teoria-do-direito/introducao-teoria-do-direito.pdf",
+    "arquivos": [
+      "documentos/teoria-do-direito/introducao-teoria-do-direito.pdf",
+      "documentos/teoria-do-direito/manual-de-introducao-ao-estudo-do-direito.pdf",
+      "documentos/teoria-do-direito/fontes-do-direito-5994a67e78911.pdf",
+      "documentos/teoria-do-direito/nocoes-basicas-de-direitos-humanos.pdf"
+    ]
   },
   {
     "titulo": "Resumo - Introdução à Teoria do Direito",
