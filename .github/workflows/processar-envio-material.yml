@@ -18,7 +18,7 @@ jobs:
       - name: Baixar repositório
         uses: actions/checkout@v4
 
-      - name: Processar material e PDF
+      - name: Processar material e múltiplos PDFs
         uses: actions/github-script@v7
         with:
           script: |
@@ -55,7 +55,9 @@ jobs:
               const campoArquivo = campo('Arquivo PDF');
 
               if (!titulo || !disciplina || !categoria) {
-                throw new Error('Preencha título, disciplina e categoria.');
+                throw new Error(
+                  'Preencha título, disciplina e categoria.'
+                );
               }
 
               const disciplinasPermitidas = [
@@ -78,29 +80,17 @@ jobs:
                 throw new Error('Categoria inválida.');
               }
 
-              const links = [
+              // Localiza todos os PDFs anexados ao campo de upload
+              const anexos = [
                 ...campoArquivo.matchAll(
-                  /\]\((https:\/\/github\.com\/user-attachments\/files\/[^)\s]+)\)/g
+                  /\[([^\]]+\.pdf)\]\((https:\/\/github\.com\/user-attachments\/files\/[^)\s]+)\)/gi
                 )
               ];
 
-              if (links.length !== 1) {
+              if (anexos.length === 0) {
                 throw new Error(
-                  'Não foi encontrado exatamente um PDF anexado no formulário.'
+                  'Nenhum PDF foi encontrado no campo Arquivo PDF.'
                 );
-              }
-
-              const url = new URL(links[0][1]);
-
-              if (
-                url.hostname !== 'github.com' ||
-                !url.pathname.startsWith('/user-attachments/files/')
-              ) {
-                throw new Error('Endereço do anexo não permitido.');
-              }
-
-              if (!url.pathname.toLowerCase().endsWith('.pdf')) {
-                throw new Error('O arquivo anexado precisa ser PDF.');
               }
 
               const documentos = JSON.parse(
@@ -116,44 +106,88 @@ jobs:
                 throw new Error('Esse material já está cadastrado.');
               }
 
-              const resposta = await fetch(url.toString(), {
-                redirect: 'follow'
-              });
-
-              if (!resposta.ok) {
-                throw new Error('Não foi possível baixar o PDF anexado.');
-              }
-
-              const buffer = Buffer.from(
-                await resposta.arrayBuffer()
-              );
-
-              if (buffer.length > 25 * 1024 * 1024) {
-                throw new Error('O PDF ultrapassa o limite de 25 MB.');
-              }
-
-              if (buffer.subarray(0, 5).toString() !== '%PDF-') {
-                throw new Error('O arquivo recebido não é um PDF válido.');
-              }
-
               const pasta = `documentos/${slug(disciplina)}`;
-              const nomeArquivo = `${slug(titulo)}.pdf`;
-              const caminho = `${pasta}/${nomeArquivo}`;
 
               fs.mkdirSync(pasta, { recursive: true });
 
-              if (fs.existsSync(caminho)) {
-                throw new Error('Já existe um arquivo com esse nome.');
+              const caminhos = [];
+
+              // Baixa e salva cada PDF
+              for (const anexo of anexos) {
+                const nomeOriginal = anexo[1].trim();
+                const endereco = anexo[2];
+
+                const url = new URL(endereco);
+
+                if (
+                  url.hostname !== 'github.com' ||
+                  !url.pathname.startsWith('/user-attachments/files/')
+                ) {
+                  throw new Error('Endereço de anexo não permitido.');
+                }
+
+                if (path.extname(nomeOriginal).toLowerCase() !== '.pdf') {
+                  throw new Error(
+                    `O arquivo ${nomeOriginal} não é um PDF.`
+                  );
+                }
+
+                const resposta = await fetch(url.toString(), {
+                  redirect: 'follow'
+                });
+
+                if (!resposta.ok) {
+                  throw new Error(
+                    `Não foi possível baixar ${nomeOriginal}.`
+                  );
+                }
+
+                const buffer = Buffer.from(
+                  await resposta.arrayBuffer()
+                );
+
+                if (buffer.length > 25 * 1024 * 1024) {
+                  throw new Error(
+                    `${nomeOriginal} ultrapassa 25 MB.`
+                  );
+                }
+
+                if (buffer.subarray(0, 5).toString() !== '%PDF-') {
+                  throw new Error(
+                    `${nomeOriginal} não é um PDF válido.`
+                  );
+                }
+
+                // Gera nome seguro e evita sobrescrever arquivos
+                const base = slug(
+                  path.basename(nomeOriginal, path.extname(nomeOriginal))
+                ) || 'arquivo';
+
+                let nomeFinal = `${base}.pdf`;
+                let contador = 2;
+
+                while (
+                  fs.existsSync(path.join(pasta, nomeFinal)) ||
+                  caminhos.includes(`${pasta}/${nomeFinal}`)
+                ) {
+                  nomeFinal = `${base}-${contador}.pdf`;
+                  contador++;
+                }
+
+                const caminho = `${pasta}/${nomeFinal}`;
+
+                fs.writeFileSync(caminho, buffer);
+                caminhos.push(caminho);
               }
 
-              fs.writeFileSync(caminho, buffer);
-
+              // Registra o material com todos os PDFs
               documentos.push({
                 titulo,
                 disciplina,
                 categoria,
                 descricao,
-                arquivo: caminho
+                arquivo: caminhos[0],
+                arquivos: caminhos
               });
 
               fs.writeFileSync(
@@ -170,7 +204,7 @@ jobs:
                 '41898282+github-actions[bot]@users.noreply.github.com'
               ]);
 
-              execFileSync('git', ['add', 'documentos.json', caminho]);
+              execFileSync('git', ['add', 'documentos.json', pasta]);
 
               execFileSync('git', [
                 'commit',
@@ -185,9 +219,10 @@ jobs:
                 repo: context.repo.repo,
                 issue_number: issue.number,
                 body:
-                  'Material cadastrado com sucesso! O PDF foi salvo em `' +
-                  caminho +
-                  '` e a biblioteca será atualizada após a publicação do GitHub Pages.'
+                  `Material cadastrado com sucesso!\n\n` +
+                  `${caminhos.length} PDF(s) foram salvos:\n` +
+                  caminhos.map(c => `- \`${c}\``).join('\n') +
+                  '\n\nA biblioteca será atualizada após a publicação do GitHub Pages.'
               });
 
               await github.rest.issues.update({
@@ -204,7 +239,8 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
-                body: 'Não foi possível cadastrar o material: ' +
+                body:
+                  'Não foi possível cadastrar o material: ' +
                   erro.message +
                   '\n\nA Issue permanece aberta para correção.'
               });
