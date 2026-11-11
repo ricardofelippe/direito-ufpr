@@ -314,3 +314,186 @@ h2 {
     padding: 18px;
   }
 }
+
+
+
+/* =========================================
+   BIBLIOTECA DE DIREITO - AJUSTE VISUAL 2.0
+   ========================================= */
+
+/* Grade dos materiais */
+.lista-documentos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 20px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+/* Cartões */
+.lista-documentos .documento {
+  align-self: start;
+  height: fit-content;
+  min-width: 0;
+  padding: 22px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.lista-documentos .documento:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(15, 23, 42, 0.08);
+}
+
+/* Título */
+.documento h3 {
+  color: #183153;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 16px;
+}
+
+/* Informações do material */
+.documento > p {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 9px 0;
+}
+
+/* Seção de PDFs */
+.documento h4 {
+  color: #183153;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 20px 0 10px;
+}
+
+/* Lista de arquivos */
+.lista-pdfs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-pdfs li {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  padding: 12px;
+  margin-bottom: 9px;
+}
+
+/* Nome do PDF: fundo claro e texto legível */
+.lista-pdfs li > a {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 11px !important;
+  background: #ffffff !important;
+  color: #183153 !important;
+  border: 1px solid #dbe4ef !important;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: background 0.2s ease;
+}
+
+.lista-pdfs li > a:hover {
+  background: #eff6ff !important;
+  color: #1d4ed8 !important;
+}
+
+/* Ações de cada PDF */
+.acoes-pdf {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 10px 0 0 !important;
+}
+
+/* Substituir e remover */
+.acoes-pdf a {
+  display: inline-block;
+  background: transparent !important;
+  border: none !important;
+  padding: 2px 0 !important;
+  color: #2563eb !important;
+  font-size: 12px !important;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.acoes-pdf a:hover {
+  text-decoration: underline;
+}
+
+/* Remover em vermelho */
+.acoes-pdf a:last-child {
+  color: #dc2626 !important;
+}
+
+/* Botão Associar PDF */
+.documento > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9 !important;
+  color: #183153 !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 7px;
+  padding: 9px 14px !important;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.documento > a:hover {
+  background: #e2e8f0 !important;
+}
+
+/* Botão Adicionar PDFs */
+.documento > p:last-child a {
+  display: inline-flex;
+  align-items: center;
+  background: #eff6ff !important;
+  color: #1d4ed8 !important;
+  border: 1px solid #bfdbfe !important;
+  border-radius: 7px;
+  padding: 9px 14px !important;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.documento > p:last-child a:hover {
+  background: #dbeafe !important;
+}
+
+/* Aviso de ausência de PDF */
+.documento .sem-pdf {
+  color: #94a3b8;
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* Responsividade */
+@media (max-width: 650px) {
+  .lista-documentos {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .lista-documentos .documento {
+    padding: 18px;
+  }
+}
+
