@@ -497,3 +497,67 @@ h2 {
   }
 }
 
+/* =========================================
+   BIBLIOTECA - BARRA DE PESQUISA E FILTROS
+   ========================================= */
+
+#busca,
+#filtro-disciplina,
+#filtro-categoria {
+  box-sizing: border-box;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #183153;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Pesquisa */
+#busca {
+  width: 380px;
+  max-width: 100%;
+}
+
+/* Filtro de disciplina */
+#filtro-disciplina {
+  width: 230px;
+  max-width: 100%;
+}
+
+/* Filtro de categoria */
+#filtro-categoria {
+  width: 250px;
+  max-width: 100%;
+}
+
+/* Destaque ao selecionar */
+#busca:focus,
+#filtro-disciplina:focus,
+#filtro-categoria:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+/* Espaçamento dos controles */
+#busca,
+#filtro-disciplina,
+#filtro-categoria {
+  margin: 8px 8px 12px 0;
+}
+
+/* Ajuste para celulares */
+@media (max-width: 650px) {
+  #busca,
+  #filtro-disciplina,
+  #filtro-categoria {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+  }
+}
+
