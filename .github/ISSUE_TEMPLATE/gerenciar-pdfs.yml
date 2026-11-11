@@ -1,0 +1,51 @@
+
+name: Gerenciar PDFs de um material
+description: Adicionar, substituir ou remover PDFs de um material existente
+title: "[Gerenciar PDFs] "
+
+body:
+  - type: dropdown
+    id: operacao
+    attributes:
+      label: Operação desejada
+      description: Escolha o que deseja fazer com os PDFs.
+      options:
+        - Adicionar PDFs
+        - Substituir PDF
+        - Remover PDF
+    validations:
+      required: true
+
+  - type: input
+    id: titulo
+    attributes:
+      label: Título do material
+      placeholder: "Nome exato do material cadastrado"
+    validations:
+      required: true
+
+  - type: input
+    id: disciplina
+    attributes:
+      label: Disciplina
+      placeholder: "Teoria do Direito"
+    validations:
+      required: true
+
+  - type: input
+    id: arquivo_alvo
+    attributes:
+      label: Caminho do PDF existente
+      description: "Obrigatório para substituir ou remover. Deixe vazio para adicionar."
+      placeholder: "documentos/teoria-do-direito/arquivo.pdf"
+    validations:
+      required: false
+
+  - type: upload
+    id: arquivos
+    attributes:
+      label: Novos arquivos PDF
+      description: "Anexe os PDFs para adicionar ou o novo PDF para substituir. Não anexe nada para remover."
+    validations:
+      required: false
+      accept: ".pdf"
