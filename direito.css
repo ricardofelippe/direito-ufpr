@@ -561,3 +561,54 @@ h2 {
   }
 }
 
+
+/* =========================================
+   INDICADORES DA BIBLIOTECA
+   ========================================= */
+
+.resumo-biblioteca {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 20px 0 26px;
+}
+
+.indicador-biblioteca {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 17px 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 11px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.indicador-icone {
+  font-size: 25px;
+}
+
+.indicador-numero {
+  color: #183153;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.indicador-descricao {
+  color: #64748b;
+  font-size: 13px;
+}
+
+/* Responsividade */
+@media (max-width: 650px) {
+  .resumo-biblioteca {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .indicador-biblioteca {
+    padding: 13px 16px;
+  }
+}
+
+
