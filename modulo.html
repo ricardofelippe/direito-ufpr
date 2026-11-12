@@ -694,6 +694,27 @@
     const acertos = questoes.filter((q, i) =>
       respostas[i] === q.correta
     ).length;
+        // Registrar tentativa da avaliação
+    const historico = JSON.parse(
+      localStorage.getItem("desempenho_" + modulo.id) || "[]"
+    );
+    
+    const tentativa = {
+      etapa: etapa.id,
+      titulo: etapa.titulo,
+      data: new Date().toISOString(),
+      acertos: acertos,
+      total: questoes.length,
+      percentual: Math.round((acertos / questoes.length) * 100),
+      respostas: { ...respostas }
+    };
+    
+    historico.push(tentativa);
+    
+    localStorage.setItem(
+      "desempenho_" + modulo.id,
+      JSON.stringify(historico)
+    );
 
     const resultado = document.getElementById("resultado");
     resultado.classList.add("visivel");
