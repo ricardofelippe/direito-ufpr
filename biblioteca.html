@@ -404,10 +404,54 @@
             ? filtrados.length + " documento(s) encontrado(s)."
             : "Nenhum documento encontrado.";
         }
+        
+      // Atualiza o destaque do menu lateral
+      function atualizarMenuAtivo(disciplinaSelecionada = "") {
+        document.querySelectorAll(".menu-lateral nav a").forEach(link => {
+          link.classList.remove("ativo");
+        });
+      
+        if (disciplinaSelecionada) {
+          const linkSelecionado = document.querySelector(
+            '#lista-menu-disciplinas a[data-disciplina="' +
+            CSS.escape(disciplinaSelecionada) +
+            '"]'
+          );
+      
+          if (linkSelecionado) {
+            linkSelecionado.classList.add("ativo");
+          }
+        }
+      }
+      
+      // Limpa todos os filtros
+      function limparFiltros() {
+        busca.value = "";
+        filtroDisciplina.value = "";
+        filtroCategoria.value = "";
+      
+        atualizarMenuAtivo();
+        exibirDocumentos();
+      }
+      
+      // Eventos do menu
+      document.getElementById("menu-visao-geral")
+        .addEventListener("click", limparFiltros);
+      
+      document.getElementById("menu-todos-materiais")
+        .addEventListener("click", limparFiltros);
 
-        busca.addEventListener("input", exibirDocumentos);
-        filtroDisciplina.addEventListener("change", exibirDocumentos);
-        filtroCategoria.addEventListener("change", exibirDocumentos);
+
+    busca.addEventListener("input", exibirDocumentos);
+    
+    filtroDisciplina.addEventListener("change", () => {
+      atualizarMenuAtivo(filtroDisciplina.value);
+      exibirDocumentos();
+    });
+    
+    filtroCategoria.addEventListener("change", exibirDocumentos);
+
+        
 
         exibirDocumentos();
 
