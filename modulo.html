@@ -416,6 +416,120 @@
       color: var(--suave);
       font-size: 12px;
     }
+    
+    /* Histórico de desempenho */
+    
+    .desempenho {
+      margin-top: 30px;
+      padding: 25px;
+      background: var(--painel);
+      border: 1px solid var(--borda);
+      border-radius: 16px;
+    }
+    
+    .desempenho h2 {
+      font-family: Georgia, serif;
+      font-size: 24px;
+      margin: 0 0 8px;
+    }
+    
+    .desempenho-intro {
+      color: var(--suave);
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+    
+    .resumo-desempenho {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+    
+    .resumo-item {
+      background: var(--cartao);
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      padding: 17px;
+    }
+    
+    .resumo-item strong {
+      display: block;
+      color: var(--ciano);
+      font-family: Georgia, serif;
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+    
+    .resumo-item span {
+      color: var(--suave);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+    
+    .tentativa {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 0;
+      border-top: 1px solid var(--borda);
+    }
+    
+    .tentativa-titulo {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .tentativa-data {
+      color: var(--suave);
+      font-size: 12px;
+    }
+    
+    .tentativa-percentual {
+      color: var(--ciano);
+      font-weight: bold;
+      font-size: 19px;
+    }
+    
+    .botao-revisar {
+      background: transparent;
+      border: 1px solid var(--borda);
+      color: var(--ciano);
+      padding: 9px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    
+    .botao-revisar:hover {
+      border-color: var(--ciano);
+    }
+    
+    .sem-historico {
+      color: var(--suave);
+      padding: 15px 0;
+      font-size: 14px;
+    }
+    
+    @media (max-width: 600px) {
+      .resumo-desempenho {
+        grid-template-columns: 1fr;
+      }
+    
+      .tentativa {
+        grid-template-columns: 1fr auto;
+      }
+    
+      .tentativa-percentual {
+        grid-column: 2;
+        grid-row: 1;
+      }
+    
+      .botao-revisar {
+        grid-column: 1 / -1;
+      }
+    }
+
 
     @media (max-width: 800px) {
       .layout { grid-template-columns: 1fr; }
@@ -555,10 +669,21 @@
 
         <section class="conteudo" id="area-conteudo"></section>
       </div>
+            <section class="desempenho" id="desempenho">
+        <h2>Meu desempenho</h2>
+        <p class="desempenho-intro">
+          Acompanhe seus resultados nas avaliações deste módulo.
+        </p>
+
+        <div class="resumo-desempenho" id="resumo-desempenho"></div>
+
+        <div id="historico-avaliacoes"></div>
+      </section>
     `;
 
     document.getElementById("abrir-flashcards")
       .addEventListener("click", abrirFlashcards);
+    renderizarDesempenho();
   }
 
   function atualizarMenu() {
@@ -611,6 +736,135 @@
     document.getElementById("contador-etapa").textContent =
       concluidas + " de " + total + " concluídas";
   }
+  
+  function renderizarDesempenho() {
+  
+    const historico = JSON.parse(
+      localStorage.getItem("desempenho_" + modulo.id) || "[]"
+    );
+  
+    const resumo = document.getElementById("resumo-desempenho");
+    const lista = document.getElementById("historico-avaliacoes");
+  
+    if (!historico.length) {
+      resumo.innerHTML = `
+        <div class="resumo-item">
+          <strong>0</strong>
+          <span>TENTATIVAS</span>
+        </div>
+        <div class="resumo-item">
+          <strong>—</strong>
+          <span>MÉDIA</span>
+        </div>
+        <div class="resumo-item">
+          <strong>—</strong>
+          <span>MELHOR RESULTADO</span>
+        </div>
+      `;
+  
+      lista.innerHTML = `
+        <div class="sem-historico">
+          Você ainda não realizou avaliações neste módulo.
+        </div>
+      `;
+  
+      return;
+    }
+  
+    const totalTentativas = historico.length;
+  
+    const media = Math.round(
+      historico.reduce((soma, item) =>
+        soma + item.percentual, 0
+      ) / totalTentativas
+    );
+  
+    const melhor = Math.max(
+      ...historico.map(item => item.percentual)
+    );
+  
+    resumo.innerHTML = `
+      <div class="resumo-item">
+        <strong>${totalTentativas}</strong>
+        <span>TENTATIVAS</span>
+      </div>
+  
+      <div class="resumo-item">
+        <strong>${media}%</strong>
+        <span>MÉDIA DE APROVEITAMENTO</span>
+      </div>
+  
+      <div class="resumo-item">
+        <strong>${melhor}%</strong>
+        <span>MELHOR RESULTADO</span>
+      </div>
+    `;
+  
+    lista.replaceChildren();
+  
+    historico.slice().reverse().forEach((item, indice) => {
+  
+      const linha = document.createElement("div");
+      linha.className = "tentativa";
+  
+      const informacoes = document.createElement("div");
+  
+      const titulo = document.createElement("div");
+      titulo.className = "tentativa-titulo";
+      titulo.textContent = item.titulo;
+  
+      const data = document.createElement("div");
+      data.className = "tentativa-data";
+  
+      const dataFormatada = new Date(item.data);
+  
+      data.textContent =
+        dataFormatada.toLocaleDateString("pt-BR") +
+        " às " +
+        dataFormatada.toLocaleTimeString("pt-BR", {
+          hour: "2-digit",
+          minute: "2-digit"
+        }) +
+        " · " + item.acertos + " de " + item.total + " acertos";
+  
+      informacoes.append(titulo, data);
+  
+      const percentual = document.createElement("div");
+      percentual.className = "tentativa-percentual";
+      percentual.textContent = item.percentual + "%";
+  
+      const botao = document.createElement("button");
+      botao.className = "botao-revisar";
+      botao.textContent = "Refazer avaliação";
+  
+      botao.addEventListener("click", () => {
+  
+        const indice = modulo.etapas.findIndex(
+          etapa => etapa.id === item.etapa
+        );
+  
+        if (indice !== -1) {
+          indiceAtual = indice;
+          respostas = {};
+          avaliacaoCorrigida = false;
+          modoFlashcards = false;
+          renderizarEtapa();
+  
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+        }
+  
+      });
+  
+      linha.append(informacoes, percentual, botao);
+      lista.appendChild(linha);
+  
+    });
+  
+  }
+
 
   function renderizarConteudo(bloco) {
     const tipos = {
@@ -715,6 +969,7 @@
       "desempenho_" + modulo.id,
       JSON.stringify(historico)
     );
+    renderizarDesempenho();
 
     const resultado = document.getElementById("resultado");
       resultado.classList.add("visivel");
