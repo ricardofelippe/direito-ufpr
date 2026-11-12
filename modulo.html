@@ -717,10 +717,14 @@
     );
 
     const resultado = document.getElementById("resultado");
-    resultado.classList.add("visivel");
-    resultado.textContent =
-      "Resultado: " + acertos + " de " + questoes.length +
-      " questões corretas.";
+      resultado.classList.add("visivel");
+      const percentual = Math.round(
+    (acertos / questoes.length) * 100
+  );
+  
+  resultado.textContent =
+    "Resultado: " + acertos + " de " + questoes.length +
+    " questões corretas (" + percentual + "% de aproveitamento).";
 
     const area = document.getElementById("area-conteudo");
     area.querySelectorAll(".alternativa").forEach(label => {
