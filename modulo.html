@@ -616,6 +616,74 @@
       .acoes { flex-direction: column; }
       .acoes button { width: 100%; }
     }
+    
+/* Comparação entre pré-teste e avaliação final */
+
+.comparacao-aprendizagem {
+  margin: 25px 0;
+  padding: 22px;
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+}
+
+.comparacao-aprendizagem h3 {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  margin: 0 0 8px;
+}
+
+.comparacao-descricao {
+  color: var(--suave);
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.comparacao-resultados {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.comparacao-item {
+  padding: 18px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: var(--painel);
+}
+
+.comparacao-item strong {
+  display: block;
+  color: var(--ciano);
+  font-family: Georgia, serif;
+  font-size: 27px;
+  margin-bottom: 6px;
+}
+
+.comparacao-item span {
+  color: var(--suave);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.diagnostico-aprendizagem {
+  margin-top: 17px;
+  padding: 15px;
+  border-radius: 9px;
+  background: var(--painel);
+  line-height: 1.6;
+}
+
+.diagnostico-aprendizagem strong {
+  color: var(--ciano);
+}
+
+@media (max-width: 600px) {
+  .comparacao-resultados {
+    grid-template-columns: 1fr;
+  }
+}
+
   </style>
 </head>
 
@@ -746,6 +814,8 @@
         </p>
 
             <div class="resumo-desempenho" id="resumo-desempenho"></div>
+            <div class="comparacao-aprendizagem" id="comparacao-aprendizagem">
+            </div>
     
     <div class="grafico-evolucao">
       <h3>Evolução do aproveitamento</h3>
@@ -854,6 +924,103 @@
   
     area.replaceChildren(grafico);
   }
+  
+function renderizarComparacao(historico) {
+
+  const area = document.getElementById(
+    "comparacao-aprendizagem"
+  );
+
+  const preTestes = historico.filter(
+    item => item.etapa === "pre-teste"
+  );
+
+  const avaliacoesFinais = historico.filter(
+    item => item.etapa === "avaliacao-final"
+  );
+
+  // Pega a tentativa mais recente de cada avaliação
+  const preTeste = preTestes.length
+    ? preTestes[preTestes.length - 1]
+    : null;
+
+  const avaliacaoFinal = avaliacoesFinais.length
+    ? avaliacoesFinais[avaliacoesFinais.length - 1]
+    : null;
+
+  if (!preTeste || !avaliacaoFinal) {
+
+    const faltantes = [];
+
+    if (!preTeste) faltantes.push("pré-teste");
+    if (!avaliacaoFinal) faltantes.push("avaliação final");
+
+    area.innerHTML = `
+      <h3>Evolução da aprendizagem</h3>
+
+      <p class="comparacao-descricao">
+        Compare seu conhecimento inicial com o resultado
+        da avaliação final.
+      </p>
+
+      <div class="diagnostico-aprendizagem">
+        Para visualizar sua evolução, conclua:
+        <strong>${faltantes.join(" e ")}</strong>.
+      </div>
+    `;
+
+    return;
+  }
+
+  const diferenca =
+    avaliacaoFinal.percentual - preTeste.percentual;
+
+  let diagnostico = "";
+
+  if (diferenca > 0) {
+    diagnostico =
+      `Seu aproveitamento aumentou ${diferenca} pontos percentuais. Continue avançando!`;
+  } else if (diferenca < 0) {
+    diagnostico =
+      `Seu aproveitamento diminuiu ${Math.abs(diferenca)} pontos percentuais. Vale revisar os conceitos estudados.`;
+  } else {
+    diagnostico =
+      "Seu aproveitamento permaneceu igual nas duas avaliações.";
+  }
+
+  area.innerHTML = `
+    <h3>Evolução da aprendizagem</h3>
+
+    <p class="comparacao-descricao">
+      Comparação entre a tentativa mais recente do pré-teste
+      e da avaliação final.
+    </p>
+
+    <div class="comparacao-resultados">
+
+      <div class="comparacao-item">
+        <strong>${preTeste.percentual}%</strong>
+        <span>PRÉ-TESTE</span>
+      </div>
+
+      <div class="comparacao-item">
+        <strong>${avaliacaoFinal.percentual}%</strong>
+        <span>AVALIAÇÃO FINAL</span>
+      </div>
+
+      <div class="comparacao-item">
+        <strong>${diferenca > 0 ? "+" : ""}${diferenca} p.p.</strong>
+        <span>VARIAÇÃO</span>
+      </div>
+
+    </div>
+
+    <div class="diagnostico-aprendizagem">
+      <strong>Resultado da comparação:</strong><br>
+      ${diagnostico}
+    </div>
+  `;
+}
 
   
   function renderizarDesempenho() {
@@ -865,6 +1032,7 @@
     const resumo = document.getElementById("resumo-desempenho");
     const lista = document.getElementById("historico-avaliacoes");
     renderizarGrafico(historico);
+    renderizarComparacao(historico);
   
     if (!historico.length) {
       resumo.innerHTML = `
