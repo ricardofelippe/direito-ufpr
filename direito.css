@@ -1,327 +1,217 @@
 
+/* =========================================
+   BIBLIOTECA DE DIREITO
+   Tema: Grafite e azul
+   ========================================= */
+
+:root {
+  --fundo: #171b24;
+  --fundo-secundario: #1e2430;
+  --superficie: #252d3b;
+  --superficie-hover: #2c3748;
+  --borda: #354154;
+
+  --azul: #5798f2;
+  --azul-claro: #8bbaff;
+  --azul-fundo: #203a5d;
+
+  --texto: #e8edf5;
+  --texto-secundario: #a7b2c3;
+  --texto-suave: #7f8ca1;
+
+  --vermelho: #f07878;
+}
+
+/* Estrutura geral */
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f4f5f8;
-  color: #292929;
+  background: var(--fundo);
+  color: var(--texto);
+  line-height: 1.6;
 }
 
 header {
-  background: #501411;
-  color: white;
+  background: #111722;
+  color: var(--texto);
   text-align: center;
-  padding: 24px 16px;
+  padding: 28px 16px;
+  border-bottom: 1px solid var(--borda);
 }
 
 header h1 {
   margin: 0;
+  color: #ffffff;
+  font-size: 28px;
+}
+
+header p {
+  color: var(--texto-secundario);
+  margin-bottom: 0;
 }
 
 main {
-  max-width: 1100px;
-  margin: 30px auto;
-  padding: 0 16px;
+  max-width: 1200px;
+  margin: 32px auto;
+  padding: 0 22px;
 }
 
 h2 {
-  color: #501411;
+  color: var(--azul-claro);
+  font-size: 23px;
 }
+
+h3,
+h4 {
+  color: var(--texto);
+}
+
+/* Links gerais */
+
+a {
+  color: var(--azul-claro);
+}
+
+a:hover {
+  color: #b5d3ff;
+}
+
+/* Disciplinas */
 
 .disciplinas {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+  gap: 14px;
 }
 
 .disciplina {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 70px;
-  padding: 12px;
-  box-sizing: border-box;
-  background: #ffb5d9;
+  min-height: 80px;
+  padding: 14px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-bottom: 3px solid var(--azul);
   border-radius: 10px;
-  color: #381019;
+  color: var(--texto);
   text-align: center;
   text-decoration: none;
-  border-bottom: 4px solid #d95d9b;
+  transition: 0.2s ease;
 }
 
 .disciplina:hover {
-  background: #ffd5e8;
-  transform: translateY(-2px);
+  background: var(--superficie-hover);
+  color: #ffffff;
+  transform: translateY(-3px);
 }
 
-@media (max-width: 650px) {
-  .disciplinas {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+/* Pesquisa e filtros */
+
+#busca,
+#busca-documentos,
+#filtro-disciplina,
+#filtro-categoria {
+  height: 46px;
+  padding: 0 14px;
+  margin: 8px 8px 12px 0;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie);
+  color: var(--texto);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s ease;
 }
 
+#busca {
+  width: 380px;
+  max-width: 100%;
+}
 
 #busca-documentos {
   width: 100%;
   max-width: 500px;
-  padding: 12px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
 }
 
-.documento {
-  background: white;
-  border: 1px solid #ddd;
-  border-left: 5px solid #501411;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 14px;
+#filtro-disciplina {
+  width: 230px;
+  max-width: 100%;
 }
 
-.documento a {
-  color: #501411;
-  font-weight: bold;
-}
-
-.documento[hidden] {
-  display: none;
-}
-
-
-
-/* Campo de busca e filtro */
-#busca-documentos,
 #filtro-categoria {
-  width: 100%;
-  max-width: 500px;
-  padding: 12px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  background-color: white;
+  width: 250px;
+  max-width: 100%;
 }
 
-/* Lista de documentos */
-.lista-documentos {
+#busca:focus,
+#busca-documentos:focus,
+#filtro-disciplina:focus,
+#filtro-categoria:focus {
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(87, 152, 242, 0.15);
+}
+
+input::placeholder {
+  color: var(--texto-suave);
+}
+
+select option {
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+/* Indicadores da biblioteca */
+
+.resumo-biblioteca {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 20px 0 28px;
 }
 
-/* Cartão de cada documento */
-.documento {
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-}
-
-/* Título do documento */
-.documento h3 {
-  margin-top: 0;
-  color: #263b55;
-}
-
-/* Categoria e descrição */
-.documento p {
-  color: #555;
-  line-height: 1.5;
-}
-
-/* Link para abrir PDF */
-.documento a {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 9px 14px;
-  background-color: #263b55;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-}
-
-.documento a:hover {
-  background-color: #405d7d;
-}
-
-
-.botao-github {
-  display: inline-block;
-  padding: 12px 18px;
-  background: #24292f;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  margin-top: 12px;
-}
-
-.botao-github:hover {
-  background: #40464d;
-}
-
-
-
-/* =====================================
-   NOVO VISUAL DA BIBLIOTECA
-   ===================================== */
-
-/* Grade de documentos */
-.lista-documentos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 22px;
-  align-items: stretch;
-  margin-top: 25px;
-}
-
-/* Cartões */
-.documento {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 22px;
-  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  min-width: 0;
-}
-
-.documento:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.09);
-}
-
-/* Título do material */
-.documento h3 {
-  color: #183153;
-  font-size: 19px;
-  line-height: 1.35;
-  margin-top: 0;
-  margin-bottom: 18px;
-}
-
-/* Informações */
-.documento p {
-  color: #475569;
-  line-height: 1.55;
-  font-size: 14px;
-}
-
-/* Título da seção de arquivos */
-.documento h4 {
-  color: #183153;
-  font-size: 14px;
-  margin-top: 22px;
-  margin-bottom: 12px;
-}
-
-/* Lista de PDFs */
-.lista-pdfs {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.lista-pdfs li {
-  border: 1px solid #e8edf3;
-  border-radius: 9px;
-  padding: 12px;
-  margin-bottom: 10px;
-  background: #f8fafc;
-}
-
-/* Nome do PDF */
-.lista-pdfs li > a {
-  display: block;
-  color: #183153;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
-  text-decoration: none;
-}
-
-.lista-pdfs li > a:hover {
-  color: #2563eb;
-  text-decoration: underline;
-}
-
-/* Ações de cada PDF */
-.acoes-pdf {
+.indicador-biblioteca {
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin: 9px 0 0 !important;
-  font-size: 12px !important;
-}
-
-.acoes-pdf a {
-  background: transparent !important;
-  color: #475569 !important;
-  border: none !important;
-  padding: 0 !important;
-  font-size: 12px !important;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.acoes-pdf a:hover {
-  color: #2563eb !important;
-  text-decoration: underline;
-}
-
-/* Remover em vermelho */
-.acoes-pdf a:last-child {
-  color: #dc2626 !important;
-}
-
-/* Adicionar PDFs */
-.documento > p:last-child a {
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  background: #eaf2ff;
-  color: #1d4ed8;
-  border: 1px solid #cbdcfb;
-  border-radius: 8px;
-  padding: 10px 15px;
+  gap: 13px;
+  padding: 20px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+.indicador-icone {
+  font-size: 26px;
+}
+
+.indicador-numero {
+  color: var(--azul-claro);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.indicador-descricao {
+  color: var(--texto-secundario);
   font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
 }
 
-.documento > p:last-child a:hover {
-  background: #dbeafe;
+/* Estado da biblioteca */
+
+#estado {
+  color: var(--texto-secundario);
+  font-size: 14px;
+  margin: 16px 0;
 }
 
-/* Aviso de ausência de PDF */
-.documento .sem-pdf {
-  color: #94a3b8;
-  font-size: 13px;
-  font-style: italic;
-}
+/* Grade de materiais */
 
-/* Responsividade */
-@media (max-width: 600px) {
-  .lista-documentos {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .documento {
-    padding: 18px;
-  }
-}
-
-
-
-/* =========================================
-   BIBLIOTECA DE DIREITO - AJUSTE VISUAL 2.0
-   ========================================= */
-
-/* Grade dos materiais */
 .lista-documentos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
@@ -330,50 +220,48 @@ h2 {
   margin-top: 24px;
 }
 
-/* Cartões */
-.lista-documentos .documento {
-  align-self: start;
-  height: fit-content;
+/* Cartões dos materiais */
+
+.documento {
   min-width: 0;
+  height: fit-content;
   padding: 22px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 13px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.14);
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-.lista-documentos .documento:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 7px 18px rgba(15, 23, 42, 0.08);
+.documento:hover {
+  transform: translateY(-3px);
+  border-color: #526d91;
 }
 
-/* Título */
 .documento h3 {
-  color: #183153;
+  color: var(--azul-claro);
   font-size: 19px;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.4;
   margin: 0 0 16px;
 }
 
-/* Informações do material */
-.documento > p {
-  color: #475569;
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 9px 0;
-}
-
-/* Seção de PDFs */
 .documento h4 {
-  color: #183153;
+  color: var(--texto);
   font-size: 14px;
   font-weight: 700;
   margin: 20px 0 10px;
 }
 
-/* Lista de arquivos */
+.documento > p {
+  color: var(--texto-secundario);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 9px 0;
+}
+
+/* Lista de PDFs */
+
 .lista-pdfs {
   list-style: none;
   padding: 0;
@@ -381,37 +269,39 @@ h2 {
 }
 
 .lista-pdfs li {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 9px;
   padding: 12px;
-  margin-bottom: 9px;
+  margin-bottom: 10px;
+  background: var(--fundo-secundario);
+  border: 1px solid var(--borda);
+  border-radius: 9px;
 }
 
-/* Nome do PDF: fundo claro e texto legível */
+/* Link para abrir PDF */
+
 .lista-pdfs li > a {
   display: block;
   width: 100%;
-  box-sizing: border-box;
-  padding: 9px 11px !important;
-  background: #ffffff !important;
-  color: #183153 !important;
-  border: 1px solid #dbe4ef !important;
-  border-radius: 6px;
+  padding: 9px 11px;
+  background: #202b3b;
+  border: 1px solid #3c506c;
+  border-radius: 7px;
+  color: var(--azul-claro);
   font-size: 13px;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.5;
   text-decoration: none;
   overflow-wrap: anywhere;
-  transition: background 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .lista-pdfs li > a:hover {
-  background: #eff6ff !important;
-  color: #1d4ed8 !important;
+  background: var(--azul-fundo);
+  color: #ffffff;
+  border-color: var(--azul);
 }
 
-/* Ações de cada PDF */
+/* Ações: substituir e remover */
+
 .acoes-pdf {
   display: flex;
   align-items: center;
@@ -420,195 +310,138 @@ h2 {
   margin: 10px 0 0 !important;
 }
 
-/* Substituir e remover */
 .acoes-pdf a {
   display: inline-block;
+  padding: 2px 0 !important;
   background: transparent !important;
   border: none !important;
-  padding: 2px 0 !important;
-  color: #2563eb !important;
+  color: var(--azul-claro) !important;
   font-size: 12px !important;
   font-weight: 600;
   text-decoration: none;
 }
 
 .acoes-pdf a:hover {
+  color: #ffffff !important;
   text-decoration: underline;
 }
 
-/* Remover em vermelho */
 .acoes-pdf a:last-child {
-  color: #dc2626 !important;
+  color: var(--vermelho) !important;
 }
 
 /* Botão Associar PDF */
+
 .documento > a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #f1f5f9 !important;
-  color: #183153 !important;
-  border: 1px solid #cbd5e1 !important;
-  border-radius: 7px;
-  padding: 9px 14px !important;
+  padding: 10px 15px !important;
+  background: var(--azul-fundo) !important;
+  border: 1px solid #426b9e !important;
+  border-radius: 8px;
+  color: var(--azul-claro) !important;
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
+  transition: 0.2s ease;
 }
 
 .documento > a:hover {
-  background: #e2e8f0 !important;
+  background: #294c76 !important;
+  color: #ffffff !important;
 }
 
 /* Botão Adicionar PDFs */
+
 .documento > p:last-child a {
   display: inline-flex;
   align-items: center;
-  background: #eff6ff !important;
-  color: #1d4ed8 !important;
-  border: 1px solid #bfdbfe !important;
-  border-radius: 7px;
-  padding: 9px 14px !important;
+  justify-content: center;
+  padding: 10px 15px !important;
+  background: var(--azul-fundo) !important;
+  border: 1px solid #426b9e !important;
+  border-radius: 8px;
+  color: var(--azul-claro) !important;
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
+  transition: 0.2s ease;
 }
 
 .documento > p:last-child a:hover {
-  background: #dbeafe !important;
+  background: #294c76 !important;
+  color: #ffffff !important;
 }
 
 /* Aviso de ausência de PDF */
+
 .documento .sem-pdf {
-  color: #94a3b8;
+  color: var(--texto-suave);
   font-size: 13px;
   font-style: italic;
 }
 
+/* Botão GitHub */
+
+.botao-github {
+  display: inline-block;
+  padding: 12px 18px;
+  margin-top: 12px;
+  background: #263447;
+  border: 1px solid var(--borda);
+  border-radius: 7px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.botao-github:hover {
+  background: #35465e;
+}
+
 /* Responsividade */
+
+@media (max-width: 800px) {
+  .disciplinas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .resumo-biblioteca {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
 @media (max-width: 650px) {
+  main {
+    margin: 22px auto;
+    padding: 0 15px;
+  }
+
+  header h1 {
+    font-size: 23px;
+  }
+
   .lista-documentos {
     grid-template-columns: 1fr;
     gap: 14px;
   }
 
-  .lista-documentos .documento {
+  .documento {
     padding: 18px;
   }
-}
 
-/* =========================================
-   BIBLIOTECA - BARRA DE PESQUISA E FILTROS
-   ========================================= */
-
-#busca,
-#filtro-disciplina,
-#filtro-categoria {
-  box-sizing: border-box;
-  height: 44px;
-  padding: 0 14px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  background: #ffffff;
-  color: #183153;
-  font-family: inherit;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-/* Pesquisa */
-#busca {
-  width: 380px;
-  max-width: 100%;
-}
-
-/* Filtro de disciplina */
-#filtro-disciplina {
-  width: 230px;
-  max-width: 100%;
-}
-
-/* Filtro de categoria */
-#filtro-categoria {
-  width: 250px;
-  max-width: 100%;
-}
-
-/* Destaque ao selecionar */
-#busca:focus,
-#filtro-disciplina:focus,
-#filtro-categoria:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
-}
-
-/* Espaçamento dos controles */
-#busca,
-#filtro-disciplina,
-#filtro-categoria {
-  margin: 8px 8px 12px 0;
-}
-
-/* Ajuste para celulares */
-@media (max-width: 650px) {
   #busca,
+  #busca-documentos,
   #filtro-disciplina,
   #filtro-categoria {
     display: block;
     width: 100%;
+    max-width: 100%;
     margin: 8px 0;
-  }
-}
-
-
-/* =========================================
-   INDICADORES DA BIBLIOTECA
-   ========================================= */
-
-.resumo-biblioteca {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin: 20px 0 26px;
-}
-
-.indicador-biblioteca {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 17px 20px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 11px;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
-}
-
-.indicador-icone {
-  font-size: 25px;
-}
-
-.indicador-numero {
-  color: #183153;
-  font-size: 25px;
-  font-weight: 700;
-}
-
-.indicador-descricao {
-  color: #64748b;
-  font-size: 13px;
-}
-
-/* Responsividade */
-@media (max-width: 650px) {
-  .resumo-biblioteca {
-    grid-template-columns: 1fr;
-    gap: 10px;
   }
 
   .indicador-biblioteca {
-    padding: 13px 16px;
+    padding: 14px 16px;
   }
 }
-
-
