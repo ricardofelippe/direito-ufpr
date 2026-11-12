@@ -1,0 +1,951 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Módulo de Estudo | Biblioteca de Direito</title>
+
+  <style>
+    :root {
+      --fundo: #05080e;
+      --painel: #0a101a;
+      --cartao: #0d1520;
+      --borda: #12313d;
+      --texto: #e2e8f0;
+      --suave: #91a5b9;
+      --ciano: #00d9e8;
+      --ciano-fundo: #06242b;
+      --verde: #36d399;
+      --vermelho: #fb7185;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--fundo);
+      color: var(--texto);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    header {
+      background: #03060c;
+      border-bottom: 1px solid var(--borda);
+      padding: 18px 5%;
+    }
+
+    .topo {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .marca {
+      font-family: Georgia, serif;
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .marca span { color: var(--ciano); }
+
+    a {
+      color: var(--ciano);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .voltar {
+      color: var(--suave);
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 35px 5% 60px;
+    }
+
+    .retorno {
+      color: var(--suave);
+      font-size: 14px;
+      display: inline-block;
+      margin-bottom: 28px;
+    }
+
+    .sobretitulo {
+      color: var(--ciano);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(27px, 4vw, 38px);
+      margin: 0 0 10px;
+    }
+
+    .disciplina {
+      color: var(--suave);
+      margin-bottom: 28px;
+    }
+
+    .cabecalho-etapa {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 10px;
+      color: var(--suave);
+      font-size: 13px;
+    }
+
+    .barra-progresso {
+      height: 7px;
+      background: #18222e;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .barra-progresso div {
+      height: 100%;
+      width: 0;
+      background: var(--ciano);
+      transition: width .25s;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 245px minmax(0, 1fr);
+      gap: 25px;
+      align-items: start;
+    }
+
+    aside {
+      background: var(--painel);
+      border: 1px solid var(--borda);
+      border-radius: 14px;
+      padding: 17px;
+      position: sticky;
+      top: 15px;
+    }
+
+    aside h2 {
+      font-size: 13px;
+      color: var(--suave);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 3px 0 15px;
+    }
+
+    .lista-etapas {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .item-etapa {
+      width: 100%;
+      text-align: left;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 11px;
+      background: transparent;
+      color: var(--suave);
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .item-etapa:hover {
+      border-color: var(--borda);
+      color: var(--texto);
+    }
+
+    .item-etapa.ativo {
+      background: var(--ciano-fundo);
+      border-color: var(--ciano);
+      color: var(--ciano);
+    }
+
+    .item-etapa.concluido::after {
+      content: " ✓";
+      color: var(--verde);
+      font-weight: bold;
+    }
+
+    .item-flashcards {
+      border-top: 1px solid var(--borda);
+      margin-top: 13px;
+      padding-top: 13px;
+    }
+
+    .item-flashcards button {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--borda);
+      color: var(--ciano);
+      border-radius: 8px;
+      padding: 11px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .conteudo {
+      background: var(--painel);
+      border: 1px solid var(--borda);
+      border-radius: 16px;
+      padding: clamp(20px, 4vw, 35px);
+      min-height: 450px;
+    }
+
+    .tipo-etapa {
+      color: var(--ciano);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .conteudo h2 {
+      font-family: Georgia, serif;
+      font-size: 27px;
+      margin: 0 0 12px;
+    }
+
+    .descricao-etapa {
+      color: var(--suave);
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .bloco {
+      background: var(--cartao);
+      border: 1px solid var(--borda);
+      border-radius: 11px;
+      padding: 20px;
+      margin: 15px 0;
+    }
+
+    .bloco h3 {
+      font-size: 17px;
+      margin: 0 0 12px;
+      color: var(--ciano);
+    }
+
+    .bloco p {
+      color: #c1cedc;
+      line-height: 1.8;
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    .bloco.destaque {
+      border-left: 3px solid var(--ciano);
+      background: var(--ciano-fundo);
+    }
+
+    .bloco.exemplo {
+      border-left: 3px solid var(--verde);
+    }
+
+    .questao {
+      border: 1px solid var(--borda);
+      background: var(--cartao);
+      border-radius: 11px;
+      padding: 20px;
+      margin: 18px 0;
+    }
+
+    .numero-questao {
+      color: var(--ciano);
+      font-size: 11px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .pergunta {
+      font-weight: bold;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .alternativa {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 11px;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      margin: 8px 0;
+      cursor: pointer;
+      color: #c1cedc;
+      line-height: 1.5;
+    }
+
+    .alternativa:hover {
+      border-color: var(--ciano);
+    }
+
+    .alternativa input {
+      accent-color: var(--ciano);
+      margin-top: 3px;
+    }
+
+    .alternativa.correta {
+      border-color: var(--verde);
+      color: var(--verde);
+    }
+
+    .alternativa.incorreta {
+      border-color: var(--vermelho);
+      color: var(--vermelho);
+    }
+
+    .explicacao {
+      display: none;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 8px;
+      background: #111c28;
+      color: var(--suave);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .explicacao.visivel { display: block; }
+
+    .resultado {
+      display: none;
+      border: 1px solid var(--borda);
+      background: var(--ciano-fundo);
+      border-radius: 10px;
+      padding: 18px;
+      margin: 20px 0;
+      line-height: 1.6;
+    }
+
+    .resultado.visivel { display: block; }
+
+    .acoes {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+      border-top: 1px solid var(--borda);
+      padding-top: 22px;
+    }
+
+    .botao {
+      border: 1px solid var(--borda);
+      border-radius: 9px;
+      padding: 12px 20px;
+      background: transparent;
+      color: var(--texto);
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .botao:hover { border-color: var(--ciano); }
+
+    .botao.principal {
+      background: var(--ciano);
+      border-color: var(--ciano);
+      color: #001014;
+    }
+
+    .botao:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+    }
+
+    .flashcard {
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 30px;
+      background: var(--cartao);
+      border: 1px solid var(--borda);
+      border-radius: 14px;
+      margin: 25px 0;
+      cursor: pointer;
+    }
+
+    .flashcard small {
+      color: var(--ciano);
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .flashcard p {
+      font-family: Georgia, serif;
+      font-size: 22px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .aviso {
+      color: var(--suave);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .erro {
+      border: 1px solid var(--vermelho);
+      color: var(--vermelho);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    footer {
+      border-top: 1px solid var(--borda);
+      text-align: center;
+      padding: 25px;
+      color: var(--suave);
+      font-size: 12px;
+    }
+
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; }
+      aside { position: static; }
+      .lista-etapas {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .topo { align-items: flex-start; flex-direction: column; }
+      .lista-etapas { grid-template-columns: 1fr; }
+      .acoes { flex-direction: column; }
+      .acoes button { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="topo">
+    <div class="marca"><span>§</span> Biblioteca de Direito</div>
+    <a class="voltar" href="microconteudos.html">← Catálogo de módulos</a>
+  </div>
+</header>
+
+<main id="aplicacao">
+  <p>Carregando módulo...</p>
+</main>
+
+<footer>
+  Biblioteca de Direito · Ambiente de aprendizagem
+</footer>
+
+<script>
+  const parametros = new URLSearchParams(window.location.search);
+  const moduloId = parametros.get("id");
+
+  let modulo = null;
+  let indiceAtual = 0;
+  let modoFlashcards = false;
+  let indiceFlashcard = 0;
+  let mostrarResposta = false;
+  let respostas = {};
+  let avaliacaoCorrigida = false;
+
+  const aplicacao = document.getElementById("aplicacao");
+
+  function chaveProgresso() {
+    return "progresso_" + modulo.id;
+  }
+
+  function obterProgresso() {
+    try {
+      return JSON.parse(localStorage.getItem(chaveProgresso())) || {};
+    } catch {
+      return {};
+    }
+  }
+
+  function salvarProgresso(progresso) {
+    localStorage.setItem(chaveProgresso(), JSON.stringify(progresso));
+  }
+
+  function escapar(texto) {
+    return String(texto ?? "").replace(/[&<>"']/g, caractere => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    })[caractere]);
+  }
+
+  async function iniciar() {
+    try {
+      if (!moduloId) {
+        throw new Error("O endereço não informa qual módulo deve ser aberto.");
+      }
+
+      const resposta = await fetch("./microconteudos.json");
+
+      if (!resposta.ok) {
+        throw new Error("Não foi possível carregar microconteudos.json.");
+      }
+
+      const dados = await resposta.json();
+
+      modulo = (dados.modulos || []).find(item => item.id === moduloId);
+
+      if (!modulo) {
+        throw new Error("Módulo não encontrado no arquivo JSON.");
+      }
+
+      renderizarEstrutura();
+      renderizarEtapa();
+
+    } catch (erro) {
+      aplicacao.innerHTML = `
+        <div class="erro">
+          <h2>Não foi possível abrir o módulo</h2>
+          <p>${escapar(erro.message)}</p>
+          <a href="microconteudos.html">Voltar ao catálogo</a>
+        </div>
+      `;
+    }
+  }
+
+  function renderizarEstrutura() {
+    aplicacao.innerHTML = `
+      <a class="retorno" href="microconteudos.html">← Voltar aos microconteúdos</a>
+
+      <div class="sobretitulo">${escapar(modulo.disciplina)}</div>
+      <h1>${escapar(modulo.titulo)}</h1>
+      <div class="disciplina">${escapar(modulo.descricao || "")}</div>
+
+      <div class="cabecalho-etapa">
+        <span id="nome-etapa">Etapa</span>
+        <span id="contador-etapa">Passo 1</span>
+      </div>
+
+      <div class="barra-progresso">
+        <div id="preenchimento-progresso"></div>
+      </div>
+
+      <div class="layout">
+        <aside>
+          <h2>Etapas do módulo</h2>
+          <nav class="lista-etapas" id="lista-etapas"></nav>
+
+          <div class="item-flashcards">
+            <button id="abrir-flashcards">✧ Revisar flashcards</button>
+          </div>
+        </aside>
+
+        <section class="conteudo" id="area-conteudo"></section>
+      </div>
+    `;
+
+    document.getElementById("abrir-flashcards")
+      .addEventListener("click", abrirFlashcards);
+  }
+
+  function atualizarMenu() {
+    const lista = document.getElementById("lista-etapas");
+    const progresso = obterProgresso();
+
+    lista.replaceChildren();
+
+    modulo.etapas.forEach((etapa, indice) => {
+      const botao = document.createElement("button");
+
+      botao.className = "item-etapa";
+      if (indice === indiceAtual && !modoFlashcards) {
+        botao.classList.add("ativo");
+      }
+      if (progresso[etapa.id] === true) {
+        botao.classList.add("concluido");
+      }
+
+      botao.textContent =
+        String(indice + 1).padStart(2, "0") + " · " + etapa.titulo;
+
+      botao.addEventListener("click", () => {
+        indiceAtual = indice;
+        modoFlashcards = false;
+        respostas = {};
+        avaliacaoCorrigida = false;
+        renderizarEtapa();
+      });
+
+      lista.appendChild(botao);
+    });
+  }
+
+  function atualizarProgressoVisual() {
+    const progresso = obterProgresso();
+    const total = modulo.etapas.length;
+
+    const concluidas = modulo.etapas.filter(etapa =>
+      progresso[etapa.id] === true
+    ).length;
+
+    const percentual = total
+      ? Math.round(concluidas / total * 100)
+      : 0;
+
+    document.getElementById("preenchimento-progresso")
+      .style.width = percentual + "%";
+
+    document.getElementById("contador-etapa").textContent =
+      concluidas + " de " + total + " concluídas";
+  }
+
+  function renderizarConteudo(bloco) {
+    const tipos = {
+      texto: "CONTEÚDO",
+      conceito: "CONCEITO",
+      destaque: "PONTO IMPORTANTE",
+      exemplo: "EXEMPLO"
+    };
+
+    const classe = bloco.tipo === "destaque"
+      ? "destaque"
+      : bloco.tipo === "exemplo"
+        ? "exemplo"
+        : "";
+
+    return `
+      <article class="bloco ${classe}">
+        <h3>${escapar(bloco.titulo || tipos[bloco.tipo] || "Conteúdo")}</h3>
+        <p>${escapar(bloco.texto)}</p>
+      </article>
+    `;
+  }
+
+  function renderizarQuestoes(questoes) {
+    return questoes.map((questao, indice) => {
+      const alternativas = questao.alternativas.map((alternativa, i) => {
+        const selecionada = respostas[indice] === i;
+        const corrigida = avaliacaoCorrigida;
+
+        let classe = "";
+        if (corrigida && i === questao.correta) {
+          classe = "correta";
+        } else if (corrigida && selecionada && i !== questao.correta) {
+          classe = "incorreta";
+        }
+
+        return `
+          <label class="alternativa ${classe}">
+            <input
+              type="radio"
+              name="questao-${indice}"
+              value="${i}"
+              ${selecionada ? "checked" : ""}
+              ${corrigida ? "disabled" : ""}
+              onchange="selecionarResposta(${indice}, ${i})"
+            >
+            <span>${String.fromCharCode(65 + i)}) ${escapar(alternativa)}</span>
+          </label>
+        `;
+      }).join("");
+
+      return `
+        <article class="questao">
+          <div class="numero-questao">QUESTÃO ${indice + 1}</div>
+          <div class="pergunta">${escapar(questao.pergunta)}</div>
+          ${alternativas}
+          <div class="explicacao ${avaliacaoCorrigida ? "visivel" : ""}">
+            <strong>Explicação:</strong> ${escapar(questao.explicacao || "Sem explicação cadastrada.")}
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  function selecionarResposta(indice, alternativa) {
+    if (avaliacaoCorrigida) return;
+    respostas[indice] = alternativa;
+  }
+
+  function corrigirAvaliacao() {
+    const etapa = modulo.etapas[indiceAtual];
+    const questoes = etapa.questoes || [];
+
+    if (questoes.some((q, i) => respostas[i] === undefined)) {
+      alert("Responda a todas as questões antes de corrigir.");
+      return;
+    }
+
+    avaliacaoCorrigida = true;
+
+    const acertos = questoes.filter((q, i) =>
+      respostas[i] === q.correta
+    ).length;
+
+    const resultado = document.getElementById("resultado");
+    resultado.classList.add("visivel");
+    resultado.textContent =
+      "Resultado: " + acertos + " de " + questoes.length +
+      " questões corretas.";
+
+    const area = document.getElementById("area-conteudo");
+    area.querySelectorAll(".alternativa").forEach(label => {
+      const input = label.querySelector("input");
+      input.disabled = true;
+      const indiceQuestao = Number(input.name.replace("questao-", ""));
+      const questao = questoes[indiceQuestao];
+      const valor = Number(input.value);
+
+      if (valor === questao.correta) {
+        label.classList.add("correta");
+      } else if (input.checked) {
+        label.classList.add("incorreta");
+      }
+    });
+
+    area.querySelectorAll(".explicacao")
+      .forEach(item => item.classList.add("visivel"));
+
+    document.getElementById("botao-corrigir").disabled = true;
+    document.getElementById("botao-concluir").disabled = false;
+  }
+
+  function concluirEtapa() {
+    const etapa = modulo.etapas[indiceAtual];
+
+    if ((etapa.questoes || []).length && !avaliacaoCorrigida) {
+      alert("Corrija as questões antes de concluir esta etapa.");
+      return;
+    }
+
+    const progresso = obterProgresso();
+    progresso[etapa.id] = true;
+    salvarProgresso(progresso);
+
+    atualizarMenu();
+    atualizarProgressoVisual();
+
+    if (indiceAtual < modulo.etapas.length - 1) {
+      indiceAtual++;
+      respostas = {};
+      avaliacaoCorrigida = false;
+      modoFlashcards = false;
+      renderizarEtapa();
+    } else {
+      renderizarConclusao();
+    }
+  }
+
+  function renderizarEtapa() {
+    modoFlashcards = false;
+    atualizarMenu();
+    atualizarProgressoVisual();
+
+    const etapa = modulo.etapas[indiceAtual];
+    const area = document.getElementById("area-conteudo");
+    const progresso = obterProgresso();
+
+    const concluida = progresso[etapa.id] === true;
+    const questoes = etapa.questoes || [];
+
+    document.getElementById("nome-etapa").textContent = etapa.titulo;
+
+    const blocos = (etapa.conteudo || [])
+      .map(renderizarConteudo)
+      .join("");
+
+    const avaliacao = questoes.length
+      ? `
+        <h2 style="margin-top:30px">Questões</h2>
+        <p class="aviso">Selecione uma alternativa em cada questão e depois solicite a correção.</p>
+        ${renderizarQuestoes(questoes)}
+        <div class="resultado" id="resultado"></div>
+        <button class="botao principal" id="botao-corrigir"
+          onclick="corrigirAvaliacao()"
+          ${avaliacaoCorrigida ? "disabled" : ""}>
+          Corrigir respostas
+        </button>
+      `
+      : "";
+
+    area.innerHTML = `
+      <div class="tipo-etapa">
+        ${etapa.tipo === "teste" ? "AVALIAÇÃO" : "MICROCONTEÚDO"}
+      </div>
+
+      <h2>${escapar(etapa.titulo)}</h2>
+
+      <p class="descricao-etapa">
+        ${escapar(etapa.descricao || "")}
+      </p>
+
+      ${blocos}
+      ${avaliacao}
+
+      <div class="acoes">
+        <button class="botao" onclick="etapaAnterior()"
+          ${indiceAtual === 0 ? "disabled" : ""}>
+          ← Anterior
+        </button>
+
+        <button class="botao principal" id="botao-concluir"
+          onclick="concluirEtapa()"
+          ${questoes.length && !avaliacaoCorrigida ? "disabled" : ""}>
+          ${concluida ? "Concluída ✓" : "Concluir etapa e avançar →"}
+        </button>
+      </div>
+
+      ${concluida ? '<p class="aviso">Esta etapa já foi concluída. Você pode revisá-la novamente.</p>' : ""}
+    `;
+
+    if (avaliacaoCorrigida) {
+      const acertos = questoes.filter((q, i) =>
+        respostas[i] === q.correta
+      ).length;
+
+      const resultado = document.getElementById("resultado");
+      resultado.classList.add("visivel");
+      resultado.textContent =
+        "Resultado: " + acertos + " de " + questoes.length +
+        " questões corretas.";
+    }
+  }
+
+  function etapaAnterior() {
+    if (indiceAtual > 0) {
+      indiceAtual--;
+      respostas = {};
+      avaliacaoCorrigida = false;
+      renderizarEtapa();
+    }
+  }
+
+  function abrirFlashcards() {
+    modoFlashcards = true;
+    indiceFlashcard = 0;
+    mostrarResposta = false;
+    atualizarMenu();
+    renderizarFlashcard();
+  }
+
+  function renderizarFlashcard() {
+    const cartoes = modulo.flashcards || [];
+    const area = document.getElementById("area-conteudo");
+
+    if (!cartoes.length) {
+      area.innerHTML = "<h2>Não há flashcards cadastrados neste módulo.</h2>";
+      return;
+    }
+
+    const cartao = cartoes[indiceFlashcard];
+
+    area.innerHTML = `
+      <div class="tipo-etapa">REVISÃO ATIVA</div>
+      <h2>Flashcards</h2>
+      <p class="descricao-etapa">
+        Tente responder mentalmente antes de revelar a resposta.
+      </p>
+
+      <div class="flashcard" id="cartao">
+        <small>${mostrarResposta ? "RESPOSTA" : "PERGUNTA"}</small>
+        <p>${escapar(mostrarResposta ? cartao.resposta : cartao.pergunta)}</p>
+      </div>
+
+      <p class="aviso" style="text-align:center">
+        Cartão ${indiceFlashcard + 1} de ${cartoes.length} · Clique no cartão para virar.
+      </p>
+
+      <div class="acoes">
+        <button class="botao" onclick="flashcardAnterior()"
+          ${indiceFlashcard === 0 ? "disabled" : ""}>
+          ← Anterior
+        </button>
+
+        <button class="botao principal" onclick="virarFlashcard()">
+          ${mostrarResposta ? "Ver pergunta" : "Revelar resposta"}
+        </button>
+
+        <button class="botao" onclick="proximoFlashcard()"
+          ${indiceFlashcard === cartoes.length - 1 ? "disabled" : ""}>
+          Próximo →
+        </button>
+      </div>
+    `;
+
+    document.getElementById("cartao")
+      .addEventListener("click", virarFlashcard);
+  }
+
+  function virarFlashcard() {
+    mostrarResposta = !mostrarResposta;
+    renderizarFlashcard();
+  }
+
+  function flashcardAnterior() {
+    if (indiceFlashcard > 0) {
+      indiceFlashcard--;
+      mostrarResposta = false;
+      renderizarFlashcard();
+    }
+  }
+
+  function proximoFlashcard() {
+    if (indiceFlashcard < modulo.flashcards.length - 1) {
+      indiceFlashcard++;
+      mostrarResposta = false;
+      renderizarFlashcard();
+    }
+  }
+
+  function renderizarConclusao() {
+    const progresso = obterProgresso();
+    const total = modulo.etapas.length;
+    const concluidas = modulo.etapas.filter(etapa =>
+      progresso[etapa.id] === true
+    ).length;
+
+    document.getElementById("nome-etapa").textContent = "Módulo";
+    document.getElementById("preenchimento-progresso").style.width =
+      (total ? concluidas / total * 100 : 0) + "%";
+
+    atualizarMenu();
+
+    document.getElementById("area-conteudo").innerHTML = `
+      <div class="tipo-etapa">MÓDULO FINALIZADO</div>
+      <h2>Parabéns!</h2>
+      <p class="descricao-etapa">
+        Você concluiu todas as etapas de ${escapar(modulo.titulo)}.
+      </p>
+      <div class="bloco destaque">
+        <h3>Progresso concluído</h3>
+        <p>${concluidas} de ${total} etapas concluídas.</p>
+      </div>
+      <div class="acoes">
+        <a class="botao principal" href="microconteudos.html">
+          Voltar ao catálogo →
+        </a>
+        <button class="botao" onclick="abrirFlashcards()">
+          Revisar flashcards
+        </button>
+      </div>
+    `;
+  }
+
+  iniciar();
+</script>
+
+</body>
+</html>
