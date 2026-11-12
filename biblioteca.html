@@ -183,6 +183,26 @@
           opcao.textContent = nome;
           filtroCategoria.appendChild(opcao);
         });
+        
+      // Cria o menu lateral de disciplinas
+      const menuDisciplinas = document.getElementById(
+        "lista-menu-disciplinas"
+      );
+      
+      disciplinas.forEach(nome => {
+        const link = document.createElement("a");
+      
+        link.href = "#lista-documentos";
+        link.textContent = nome;
+      
+        link.addEventListener("click", () => {
+          filtroDisciplina.value = nome;
+          exibirDocumentos();
+        });
+      
+        menuDisciplinas.appendChild(link);
+      });
+
 
         // Cria link para associação de PDF
         function criarLinkAssociacao(texto, doc) {
