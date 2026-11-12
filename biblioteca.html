@@ -15,28 +15,70 @@
   </header>
 
   <main>
-    <p><a href="direito.html">← Voltar ao currículo</a></p>
+    
+    <div class="layout-biblioteca">
+    
+      <!-- MENU LATERAL -->
+      <aside class="menu-lateral">
+    
+        <div class="menu-identidade">
+          <h2>Direito UFPR</h2>
+          <p>Biblioteca de estudos</p>
+        </div>
+    
+        <nav>
+          <a href="#inicio" class="ativo">⌂ Visão geral</a>
+    
+          <a href="#filtro-disciplina">▤ Disciplinas</a>
+    
+          <a href="#lista-documentos">▣ Todos os materiais</a>
+    
+          <a href="direito.html">← Voltar ao currículo</a>
+        </nav>
+    
+      </aside>
+    
+      <!-- CONTEÚDO PRINCIPAL -->
+      <section class="conteudo-biblioteca">
+    
+        <main id="inicio">
+    
+          <h2>Todos os documentos</h2>
+    
+          <input
+            type="search"
+            id="busca"
+            placeholder="Buscar por título ou descrição..."
+          >
+    
+          <select id="filtro-disciplina">
+            <option value="">Todas as disciplinas</option>
+          </select>
+    
+          <select id="filtro-categoria">
+            <option value="">Todas as categorias</option>
+          </select>
+    
+          <div
+            id="resumo-biblioteca"
+            class="resumo-biblioteca">
+          </div>
+    
+          <p id="estado" role="status">
+            Carregando documentos...
+          </p>
+    
+          <section
+            id="lista-documentos"
+            class="lista-documentos">
+          </section>
+    
+        </main>
+    
+      </section>
+    
+    </div>
 
-    <h2>Todos os documentos</h2>
-
-    <input
-      type="search"
-      id="busca"
-      placeholder="Buscar por título ou descrição..."
-    >
-
-    <select id="filtro-disciplina">
-      <option value="">Todas as disciplinas</option>
-    </select>
-
-    <select id="filtro-categoria">
-      <option value="">Todas as categorias</option>
-    </select>
-    <div id="resumo-biblioteca" class="resumo-biblioteca"></div>    
-
-    <p id="estado" role="status">Carregando documentos...</p>
-
-    <section id="lista-documentos" class="lista-documentos"></section>
   </main>
 
   <script>
