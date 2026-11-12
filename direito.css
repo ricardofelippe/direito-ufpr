@@ -445,3 +445,101 @@ select option {
     padding: 14px 16px;
   }
 }
+
+
+/* =========================================
+   LAYOUT COM MENU LATERAL
+   ========================================= */
+
+.layout-biblioteca {
+  display: grid;
+  grid-template-columns: 245px minmax(0, 1fr);
+  min-height: calc(100vh - 100px);
+}
+
+.menu-lateral {
+  background: #111722;
+  border-right: 1px solid var(--borda);
+  padding: 28px 18px;
+}
+
+.menu-identidade {
+  padding: 0 12px 24px;
+  border-bottom: 1px solid var(--borda);
+  margin-bottom: 22px;
+}
+
+.menu-identidade h2 {
+  color: #ffffff;
+  font-size: 19px;
+  margin: 0 0 5px;
+}
+
+.menu-identidade p {
+  color: var(--texto-suave);
+  font-size: 12px;
+  margin: 0;
+}
+
+.menu-lateral nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-lateral nav a {
+  display: block;
+  padding: 11px 13px;
+  border-radius: 8px;
+  color: var(--texto-secundario);
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.menu-lateral nav a:hover,
+.menu-lateral nav a.ativo {
+  background: var(--azul-fundo);
+  color: var(--azul-claro);
+}
+
+.conteudo-biblioteca {
+  min-width: 0;
+  padding: 30px;
+}
+
+.conteudo-biblioteca main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+@media (max-width: 800px) {
+  .layout-biblioteca {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-lateral {
+    padding: 14px 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--borda);
+  }
+
+  .menu-identidade {
+    padding-bottom: 12px;
+    margin-bottom: 10px;
+  }
+
+  .menu-lateral nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .menu-lateral nav a {
+    padding: 9px 11px;
+  }
+
+  .conteudo-biblioteca {
+    padding: 20px 16px;
+  }
+}
