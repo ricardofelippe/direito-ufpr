@@ -511,6 +511,76 @@
       font-size: 14px;
     }
     
+  /* Gráfico de evolução */
+  
+  .grafico-evolucao {
+    margin: 25px 0;
+    padding: 20px;
+    background: var(--cartao);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+  }
+  
+  .grafico-evolucao h3 {
+    margin: 0 0 8px;
+    font-family: Georgia, serif;
+    font-size: 19px;
+  }
+  
+  .grafico-evolucao p {
+    color: var(--suave);
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  
+  .grafico-barras {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    height: 190px;
+    padding: 15px 5px 0;
+    border-bottom: 1px solid var(--borda);
+    overflow-x: auto;
+  }
+  
+  .coluna-grafico {
+    min-width: 55px;
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 7px;
+  }
+  
+  .valor-grafico {
+    color: var(--ciano);
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .barra-grafico {
+    width: 30px;
+    min-height: 3px;
+    background: var(--ciano);
+    border-radius: 5px 5px 0 0;
+    transition: height .3s;
+  }
+  
+  .indice-grafico {
+    color: var(--suave);
+    font-size: 11px;
+    padding: 9px 0;
+  }
+  
+  .grafico-vazio {
+    color: var(--suave);
+    font-size: 13px;
+    padding: 25px 0;
+  }
+
+    
     @media (max-width: 600px) {
       .resumo-desempenho {
         grid-template-columns: 1fr;
@@ -675,9 +745,15 @@
           Acompanhe seus resultados nas avaliações deste módulo.
         </p>
 
-        <div class="resumo-desempenho" id="resumo-desempenho"></div>
-
-        <div id="historico-avaliacoes"></div>
+            <div class="resumo-desempenho" id="resumo-desempenho"></div>
+    
+    <div class="grafico-evolucao">
+      <h3>Evolução do aproveitamento</h3>
+      <p>Percentual de acertos em cada tentativa de avaliação.</p>
+      <div id="grafico-evolucao"></div>
+    </div>
+    
+    <div id="historico-avaliacoes"></div>
       </section>
     `;
 
@@ -737,6 +813,49 @@
       concluidas + " de " + total + " concluídas";
   }
   
+  function renderizarGrafico(historico) {
+  
+    const area = document.getElementById("grafico-evolucao");
+  
+    if (!historico.length) {
+      area.innerHTML = `
+        <div class="grafico-vazio">
+          Realize uma avaliação para visualizar sua evolução.
+        </div>
+      `;
+      return;
+    }
+  
+    const grafico = document.createElement("div");
+    grafico.className = "grafico-barras";
+  
+    historico.forEach((item, indice) => {
+  
+      const coluna = document.createElement("div");
+      coluna.className = "coluna-grafico";
+  
+      const valor = document.createElement("span");
+      valor.className = "valor-grafico";
+      valor.textContent = item.percentual + "%";
+  
+      const barra = document.createElement("div");
+      barra.className = "barra-grafico";
+      barra.style.height = Math.max(item.percentual, 2) + "%";
+      barra.title = item.titulo + ": " + item.percentual + "%";
+  
+      const numero = document.createElement("span");
+      numero.className = "indice-grafico";
+      numero.textContent = "Tentativa " + (indice + 1);
+  
+      coluna.append(valor, barra, numero);
+      grafico.appendChild(coluna);
+  
+    });
+  
+    area.replaceChildren(grafico);
+  }
+
+  
   function renderizarDesempenho() {
   
     const historico = JSON.parse(
@@ -745,6 +864,7 @@
   
     const resumo = document.getElementById("resumo-desempenho");
     const lista = document.getElementById("historico-avaliacoes");
+    renderizarGrafico(historico);
   
     if (!historico.length) {
       resumo.innerHTML = `
