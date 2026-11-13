@@ -585,48 +585,65 @@ select option {
    Tema claro, com identidade acadêmica
    ========================================= */
 
+
+/* =========================================
+   IDENTIDADE VISUAL — BIBLIOTECA DE DIREITO
+   Tema escuro acadêmico
+   ========================================= */
+
 body.pagina-biblioteca {
-  --fundo: #f3f5f8;
-  --fundo-secundario: #ffffff;
-  --superficie: #ffffff;
-  --superficie-hover: #f0f4f9;
-  --borda: #dce3ec;
+  --fundo: #070b12;
+  --fundo-secundario: #0c1420;
+  --superficie: #101b29;
+  --superficie-hover: #172638;
+  --borda: #1b3041;
 
-  --azul: #315b86;
-  --azul-claro: #315b86;
-  --azul-fundo: #e8eff7;
+  --azul: #19c7ce;
+  --azul-claro: #36d9dc;
+  --azul-fundo: #10343d;
 
-  --texto: #243449;
-  --texto-secundario: #64748b;
-  --texto-suave: #8290a3;
+  --texto: #e6edf5;
+  --texto-secundario: #a5b8ca;
+  --texto-suave: #71869b;
+
+  --vermelho: #f07878;
 
   background: var(--fundo);
   color: var(--texto);
+  font-family: Arial, sans-serif;
 }
 
+/* Cabeçalho */
+
 body.pagina-biblioteca > header {
-  background: #ffffff;
+  background: #080d15;
   color: var(--texto);
   text-align: left;
-  padding: 28px 35px;
+  padding: 25px 36px;
   border-bottom: 1px solid var(--borda);
 }
 
 body.pagina-biblioteca > header h1 {
-  color: #203b59;
+  color: #f0f4f8;
   font-size: 30px;
+  letter-spacing: -0.5px;
 }
 
 body.pagina-biblioteca > header p {
   color: var(--texto-secundario);
 }
 
+/* Estrutura principal */
+
 body.pagina-biblioteca .layout-biblioteca {
   grid-template-columns: 250px minmax(0, 1fr);
+  background: var(--fundo);
 }
 
+/* Menu lateral */
+
 body.pagina-biblioteca .menu-lateral {
-  background: #ffffff;
+  background: #080e17;
   border-right: 1px solid var(--borda);
 }
 
@@ -635,7 +652,7 @@ body.pagina-biblioteca .menu-identidade {
 }
 
 body.pagina-biblioteca .menu-identidade h2 {
-  color: #203b59;
+  color: #f0f4f8;
 }
 
 body.pagina-biblioteca .menu-identidade p,
@@ -646,39 +663,54 @@ body.pagina-biblioteca .menu-secao {
 body.pagina-biblioteca .menu-lateral nav a,
 body.pagina-biblioteca .menu-disciplinas a {
   color: var(--texto-secundario);
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 body.pagina-biblioteca .menu-lateral nav a:hover,
 body.pagina-biblioteca .menu-lateral nav a.ativo,
 body.pagina-biblioteca .menu-disciplinas a:hover,
 body.pagina-biblioteca .menu-disciplinas a.ativo {
-  background: var(--azul-fundo);
-  color: var(--azul);
+  background: #10343d;
+  color: var(--azul-claro);
 }
+
+/* Área de conteúdo */
 
 body.pagina-biblioteca .conteudo-biblioteca {
   padding: 38px;
+  background: var(--fundo);
 }
 
 body.pagina-biblioteca .conteudo-biblioteca h2 {
-  color: #203b59;
+  color: #eaf1f8;
   font-size: 27px;
+  letter-spacing: -0.4px;
 }
+
+body.pagina-biblioteca h3,
+body.pagina-biblioteca h4 {
+  color: var(--texto);
+}
+
+/* Cartões e indicadores */
 
 body.pagina-biblioteca .documento,
 body.pagina-biblioteca .indicador-biblioteca {
-  background: #ffffff;
-  border: 1px solid var(--borda);
-  box-shadow: 0 3px 12px rgba(30, 50, 75, 0.05);
+  background: linear-gradient(145deg, #111d2b, #0d1723);
+  border: 1px solid #203449;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.18);
+  border-radius: 12px;
 }
 
 body.pagina-biblioteca .documento:hover {
-  border-color: #a9bfd8;
+  background: #142235;
+  border-color: #28727b;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 body.pagina-biblioteca .documento h3,
 body.pagina-biblioteca .indicador-numero {
-  color: #315b86;
+  color: var(--azul-claro);
 }
 
 body.pagina-biblioteca .documento > p,
@@ -686,25 +718,84 @@ body.pagina-biblioteca .indicador-descricao {
   color: var(--texto-secundario);
 }
 
+/* Pesquisa e filtros */
+
 body.pagina-biblioteca #busca,
+body.pagina-biblioteca #busca-documentos,
 body.pagina-biblioteca #filtro-disciplina,
 body.pagina-biblioteca #filtro-categoria {
-  background: #ffffff;
+  background: #101b29;
   color: var(--texto);
-  border-color: var(--borda);
+  border: 1px solid #263b50;
+  border-radius: 8px;
 }
+
+body.pagina-biblioteca #busca:focus,
+body.pagina-biblioteca #busca-documentos:focus,
+body.pagina-biblioteca #filtro-disciplina:focus,
+body.pagina-biblioteca #filtro-categoria:focus {
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(25, 199, 206, 0.12);
+}
+
+/* Arquivos PDF */
 
 body.pagina-biblioteca .lista-pdfs li {
-  background: #f5f7fa;
-  border-color: var(--borda);
+  background: #0a1420;
+  border-color: #263b50;
 }
 
+body.pagina-biblioteca .lista-pdfs li > a {
+  background: #142538;
+  border-color: #285064;
+  color: var(--azul-claro);
+}
+
+body.pagina-biblioteca .lista-pdfs li > a:hover {
+  background: #17404a;
+  border-color: var(--azul);
+  color: #ffffff;
+}
+
+/* Botões */
+
+body.pagina-biblioteca .documento > a,
+body.pagina-biblioteca .documento > p:last-child a {
+  background: #10343d !important;
+  border-color: #28616a !important;
+  color: var(--azul-claro) !important;
+}
+
+body.pagina-biblioteca .documento > a:hover,
+body.pagina-biblioteca .documento > p:last-child a:hover {
+  background: #17505a !important;
+  color: #ffffff !important;
+}
+
+/* Estado da biblioteca */
+
+body.pagina-biblioteca #estado {
+  color: var(--texto-secundario);
+}
+
+/* Responsividade */
+
 @media (max-width: 800px) {
+  body.pagina-biblioteca .layout-biblioteca {
+    grid-template-columns: 1fr;
+  }
+
   body.pagina-biblioteca .conteudo-biblioteca {
     padding: 22px 16px;
   }
 
   body.pagina-biblioteca > header {
     padding: 22px 18px;
+  }
+}
+
+@media (max-width: 650px) {
+  body.pagina-biblioteca .documento {
+    padding: 18px;
   }
 }
