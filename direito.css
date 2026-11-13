@@ -799,3 +799,68 @@ body.pagina-biblioteca #estado {
     padding: 18px;
   }
 }
+
+/* =========================================
+   AJUSTE DE LAYOUT — CARTÕES DA BIBLIOTECA
+   ========================================= */
+
+/* Impede que o conteúdo ultrapasse a tela */
+
+body.pagina-biblioteca {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body.pagina-biblioteca .layout-biblioteca,
+body.pagina-biblioteca .conteudo-biblioteca,
+body.pagina-biblioteca .conteudo-biblioteca main {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Indicadores: três colunas */
+
+body.pagina-biblioteca .resumo-biblioteca {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+/* Cartões: três colunas em telas grandes */
+
+body.pagina-biblioteca .lista-documentos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
+}
+
+body.pagina-biblioteca .documento {
+  width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Telas médias */
+
+@media (max-width: 1100px) {
+  body.pagina-biblioteca .lista-documentos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body.pagina-biblioteca .resumo-biblioteca {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Celulares */
+
+@media (max-width: 650px) {
+  body.pagina-biblioteca .lista-documentos,
+  body.pagina-biblioteca .resumo-biblioteca {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
