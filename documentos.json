@@ -1,19 +1,23 @@
-
-
 [
   {
     "titulo": "Introdução à Teoria do Direito",
     "categoria": "Texto de estudo",
     "descricao": "Material introdutório da disciplina.",
     "disciplina": "Teoria do Direito",
-    "arquivo": "documentos/teoria-do-direito/introducao-teoria-do-direito.pdf"
+    "arquivo": "documentos/teoria-do-direito/manual-de-introducao-ao-estudo-do-direito.pdf",
+    "arquivos": [
+      "documentos/teoria-do-direito/manual-de-introducao-ao-estudo-do-direito.pdf"
+    ]
   },
   {
     "titulo": "Resumo - Introdução à Teoria do Direito",
     "categoria": "Resumo",
     "descricao": "Modelo de resumo para organizar os principais conceitos da disciplina.",
     "disciplina": "Teoria do Direito",
-    "arquivo": ""
+    "arquivos": [
+      "documentos/teoria-do-direito/manual-de-introducao-ao-estudo-do-direito-1.pdf"
+    ],
+    "arquivo": "documentos/teoria-do-direito/manual-de-introducao-ao-estudo-do-direito-1.pdf"
   },
   {
     "titulo": "Exercícios de Teoria do Direito",
@@ -27,7 +31,10 @@
     "categoria": "Mapa conceitual",
     "descricao": "Modelo para organizar visualmente os conceitos fundamentais.",
     "disciplina": "Teoria do Direito",
-    "arquivo": ""
+    "arquivo": "documentos/teoria-do-direito/consultarsituacaofornecedor-28008410000106-2026-11-12.pdf",
+    "arquivos": [
+      "documentos/teoria-do-direito/consultarsituacaofornecedor-28008410000106-2026-11-12.pdf"
+    ]
   },
   {
     "titulo": "Introdução à Filosofia",
@@ -35,5 +42,60 @@
     "descricao": "Exemplo de cadastro de material de outra disciplina.",
     "disciplina": "Filosofia do Direito",
     "arquivo": ""
+  },
+  {
+    "titulo": "Introdução aos conceitos jurídicos",
+    "categoria": "Resumo",
+    "descricao": "Resumo de teste para verificar o cadastro automático.",
+    "disciplina": "Teoria do Direito",
+    "arquivo": ""
+  },
+  {
+    "titulo": "Teste de associação de PDF",
+    "categoria": "Resumo",
+    "descricao": "Teste de abertura do arquivo.",
+    "disciplina": "Teoria do Direito"
+  },
+  {
+    "titulo": "Resumo sobre Introdução à Teoria do Direito",
+    "categoria": "Exercício",
+    "descricao": "Uma síntese dos principais conceitos introdutórios da Teoria do Direito.",
+    "disciplina": "Teoria do Direito",
+    "arquivo": "documentos/teoria-do-direito/introducao-teoria-do-direito.pdf"
+  },
+  {
+    "titulo": "Teoria do Direito",
+    "categoria": "Mapa conceitual",
+    "descricao": "Trabalho 1 de Teoria do Direito",
+    "disciplina": "Trabalho 1 - Google Docs",
+    "arquivo": "documentos/teoria-do-direito/Trabalho 1 - Google Docs.pdf"
+  },
+  {
+    "titulo": "Teste",
+    "categoria": "Exercício",
+    "descricao": "",
+    "disciplina": "Teoria do Direito",
+    "arquivo": "documentos/teoria-do-direito/introducao-teoria-do-direito.pdf"
+  },
+  {
+    "titulo": "Trabalho 1 - Google Docs",
+    "categoria": "Mapa conceitual",
+    "descricao": "Trabalho 1 de Teoria do Direito.",
+    "disciplina": "Teoria do Direito",
+    "arquivo": "documentos/teoria-do-direito/Trabalho 1 - Google Docs.pdf"
+  },
+  {
+    "titulo": "TESTE DE INTEGRAÇÃO DO FORMULÁRIO",
+    "categoria": "Resumo",
+    "descricao": "Teste de preenchimento automático entre o site e o GitHub.",
+    "disciplina": "Filosofia do Direito",
+    "arquivo": ""
+  },
+  {
+    "titulo": "Filosofia",
+    "disciplina": "Filosofia do Direito",
+    "categoria": "Mapa conceitual",
+    "descricao": "_No response_",
+    "arquivo": "documentos/filosofia-do-direito/filosofia.pdf"
   }
 ]

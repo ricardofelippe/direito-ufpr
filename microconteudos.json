@@ -1,0 +1,285 @@
+
+{
+  "modulos": [
+    {
+      "id": "introducao-teoria-direito-01",
+      "titulo": "Conceitos de Direito e disciplinas afins",
+      "disciplina": "Teoria do Direito",
+      "descricao": "Compreenda o conceito de Direito, sua finalidade social e as principais distinções fundamentais.",
+      "icone": "scale",
+      "status": "nao_iniciado",
+      "material_base": [
+        {
+          "titulo": "Introdução à Teoria do Direito",
+          "arquivo": "documentos/teoria-do-direito/manual-de-introducao-ao-estudo-do-direito.pdf"
+        }
+      ],
+      "etapas": [
+        {
+          "id": "pre-teste",
+          "titulo": "Pré-teste",
+          "tipo": "teste",
+          "descricao": "Avalie seus conhecimentos iniciais.",
+          "conteudo": [
+            {
+              "tipo": "texto",
+              "titulo": "Orientação",
+              "texto": "Responda às questões sem consultar o material. O objetivo é identificar seus conhecimentos prévios."
+            }
+          ],
+          "questoes": [
+            {
+              "pergunta": "Segundo o manual, o Direito pode ser compreendido sob quais perspectivas?",
+              "alternativas": [
+                "Como arte e ciência",
+                "Somente como conjunto de leis",
+                "Apenas como decisão dos tribunais",
+                "Como costume e religião"
+              ],
+              "correta": 0,
+              "explicacao": "O manual apresenta o Direito como arte ou técnica e também como ciência."
+            },
+            {
+              "pergunta": "Qual é a finalidade básica do Direito apontada no material?",
+              "alternativas": [
+                "Eliminar todos os conflitos humanos",
+                "Garantir a coexistência pacífica",
+                "Substituir as relações sociais",
+                "Criar uma ordem ideal e imutável"
+              ],
+              "correta": 1,
+              "explicacao": "O texto destaca a coexistência pacífica como finalidade básica do Direito."
+            },
+            {
+              "pergunta": "O Direito institucionalizado pelo Estado, em determinado tempo e lugar, é denominado:",
+              "alternativas": [
+                "Direito natural",
+                "Direito subjetivo",
+                "Direito positivo",
+                "Direito consuetudinário"
+              ],
+              "correta": 2,
+              "explicacao": "Essa é a definição de Direito positivo apresentada pelo manual."
+            },
+            {
+              "pergunta": "O conjunto de regras destinadas a reger um grupo social corresponde ao:",
+              "alternativas": [
+                "Direito subjetivo",
+                "Direito objetivo",
+                "Direito natural",
+                "Direito individual"
+              ],
+              "correta": 1,
+              "explicacao": "O manual identifica o Direito objetivo como norma agendi."
+            }
+          ]
+        },
+        {
+          "id": "conceito-direito",
+          "titulo": "O que é Direito?",
+          "tipo": "conteudo",
+          "descricao": "Direito como arte, técnica e ciência.",
+          "conteudo": [
+            {
+              "tipo": "texto",
+              "titulo": "A palavra Direito",
+              "texto": "A palavra Direito está intuitivamente associada às ideias de certo, correto, justo e equânime. O manual apresenta a expressão latina Ars boni et aequi, a arte do bom e do equitativo."
+            },
+            {
+              "tipo": "conceito",
+              "titulo": "Direito como arte ou técnica",
+              "texto": "Procura melhorar as condições sociais ao sugerir e estabelecer regras justas e equitativas de conduta. Para isso, utiliza conhecimentos de outras áreas, como Filosofia, História, Sociologia e Política."
+            },
+            {
+              "tipo": "conceito",
+              "titulo": "Direito como ciência",
+              "texto": "Envolve o estudo e a compreensão das normas e dos princípios relacionados aos fenômenos sociais, como negócios jurídicos, propriedade e casamento."
+            },
+            {
+              "tipo": "destaque",
+              "titulo": "Ideia central",
+              "texto": "O Direito pode ser compreendido simultaneamente como técnica de organização social e como campo de conhecimento."
+            }
+          ],
+          "questoes": []
+        },
+        {
+          "id": "finalidade-direito",
+          "titulo": "Finalidade do Direito",
+          "tipo": "conteudo",
+          "descricao": "A função do Direito na vida social.",
+          "conteudo": [
+            {
+              "tipo": "texto",
+              "titulo": "O Direito e a sociedade",
+              "texto": "O manual apresenta o Direito como instrumento voltado à vida social, favorecendo o relacionamento entre pessoas e grupos sociais."
+            },
+            {
+              "tipo": "destaque",
+              "titulo": "Finalidade básica",
+              "texto": "Coexistência pacífica."
+            },
+            {
+              "tipo": "conceito",
+              "titulo": "Referências do manual",
+              "texto": "Paulo Nader relaciona o Direito à vida social. Thomas Hobbes é citado ao tratar da ordem real de convivência."
+            }
+          ],
+          "questoes": []
+        },
+        {
+          "id": "direito-natural-positivo",
+          "titulo": "Direito natural e Direito positivo",
+          "tipo": "conteudo",
+          "descricao": "Duas concepções sobre o fundamento do Direito.",
+          "conteudo": [
+            {
+              "tipo": "conceito",
+              "titulo": "Direito natural",
+              "texto": "Segundo o manual, está associado a princípios não escritos, não criados pelo Estado, revelados pela experiência e pela razão. O texto menciona como exemplos o direito à vida e à liberdade."
+            },
+            {
+              "tipo": "conceito",
+              "titulo": "Direito positivo",
+              "texto": "É o Direito institucionalizado pelo Estado, constituindo uma ordem jurídica obrigatória em determinado tempo e lugar."
+            },
+            {
+              "tipo": "destaque",
+              "titulo": "Distinção fundamental",
+              "texto": "Direito natural: princípios associados à natureza humana. Direito positivo: Direito institucionalizado pelo Estado."
+            }
+          ],
+          "questoes": []
+        },
+        {
+          "id": "direito-objetivo-subjetivo",
+          "titulo": "Direito objetivo e subjetivo",
+          "tipo": "conteudo",
+          "descricao": "Norma agendi e facultas agendi.",
+          "conteudo": [
+            {
+              "tipo": "conceito",
+              "titulo": "Direito objetivo — norma agendi",
+              "texto": "É o conjunto de regras destinadas a reger um grupo social, cujo respeito é garantido pelo Estado."
+            },
+            {
+              "tipo": "conceito",
+              "titulo": "Direito subjetivo — facultas agendi",
+              "texto": "É a prerrogativa ou faculdade que permite às pessoas fazer valer seus direitos, judicial ou extrajudicialmente."
+            },
+            {
+              "tipo": "exemplo",
+              "titulo": "Exemplo de Direito subjetivo",
+              "texto": "A possibilidade de uma pessoa exigir indenização por danos morais."
+            }
+          ],
+          "questoes": []
+        },
+        {
+          "id": "avaliacao-final",
+          "titulo": "Avaliação final",
+          "tipo": "teste",
+          "descricao": "Verifique o domínio dos conceitos estudados.",
+          "conteudo": [
+            {
+              "tipo": "texto",
+              "titulo": "Orientação",
+              "texto": "Responda às questões para concluir esta unidade."
+            }
+          ],
+          "questoes": [
+            {
+              "pergunta": "O Direito como arte ou técnica busca:",
+              "alternativas": [
+                "Classificar exclusivamente as leis estatais",
+                "Melhorar as condições sociais por meio de regras justas e equitativas",
+                "Substituir a Filosofia e a Sociologia",
+                "Estudar somente decisões judiciais"
+              ],
+              "correta": 1,
+              "explicacao": "Essa é a finalidade atribuída pelo manual ao Direito como arte ou técnica."
+            },
+            {
+              "pergunta": "Qual alternativa apresenta uma disciplina relacionada ao estudo do Direito no manual?",
+              "alternativas": [
+                "Filosofia",
+                "Astronomia",
+                "Geologia",
+                "Botânica"
+              ],
+              "correta": 0,
+              "explicacao": "O manual menciona Filosofia, História, Sociologia e Política."
+            },
+            {
+              "pergunta": "A coexistência pacífica é apresentada como:",
+              "alternativas": [
+                "Uma fonte formal do Direito",
+                "A finalidade básica do Direito",
+                "Uma espécie de Direito subjetivo",
+                "Uma característica exclusiva do Direito positivo"
+              ],
+              "correta": 1,
+              "explicacao": "O material identifica expressamente a coexistência pacífica como finalidade básica."
+            },
+            {
+              "pergunta": "Uma norma institucionalizada pelo Estado corresponde ao:",
+              "alternativas": [
+                "Direito natural",
+                "Direito positivo",
+                "Direito subjetivo",
+                "Direito como arte"
+              ],
+              "correta": 1,
+              "explicacao": "O Direito positivo é institucionalizado pelo Estado."
+            },
+            {
+              "pergunta": "A faculdade de exigir uma indenização por danos morais é exemplo de:",
+              "alternativas": [
+                "Direito objetivo",
+                "Direito natural",
+                "Direito subjetivo",
+                "Direito como ciência"
+              ],
+              "correta": 2,
+              "explicacao": "O exemplo corresponde à faculdade de agir, ou facultas agendi."
+            }
+          ]
+        }
+      ],
+      "flashcards": [
+        {
+          "pergunta": "Como o Direito é compreendido como arte ou técnica?",
+          "resposta": "Como instrumento de melhoria das condições sociais por meio de regras justas e equitativas."
+        },
+        {
+          "pergunta": "Como o Direito é compreendido como ciência?",
+          "resposta": "Como campo de estudo e compreensão das normas e dos princípios relacionados aos fenômenos sociais."
+        },
+        {
+          "pergunta": "Qual é a finalidade básica do Direito segundo o manual?",
+          "resposta": "A coexistência pacífica."
+        },
+        {
+          "pergunta": "O que é Direito natural?",
+          "resposta": "Concepção associada a princípios não escritos e não criados pelo Estado, revelados pela experiência e pela razão."
+        },
+        {
+          "pergunta": "O que é Direito positivo?",
+          "resposta": "O Direito institucionalizado pelo Estado, obrigatório em determinado tempo e lugar."
+        },
+        {
+          "pergunta": "O que significa norma agendi?",
+          "resposta": "Expressão associada ao Direito objetivo: conjunto de regras que organiza a vida social."
+        },
+        {
+          "pergunta": "O que significa facultas agendi?",
+          "resposta": "Expressão associada ao Direito subjetivo: faculdade ou possibilidade de agir garantida pela ordem jurídica."
+        },
+        {
+          "pergunta": "Qual é a diferença entre Direito objetivo e subjetivo?",
+          "resposta": "O objetivo corresponde ao conjunto de normas; o subjetivo, às faculdades ou prerrogativas asseguradas às pessoas."
+        }
+      ]
+    }
+  ]
+}

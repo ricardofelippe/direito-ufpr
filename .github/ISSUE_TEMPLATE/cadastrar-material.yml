@@ -1,0 +1,46 @@
+
+name: Cadastrar material
+description: Enviar um novo material para a Biblioteca de Direito
+title: "[Cadastro de material] "
+body:
+  - type: input
+    id: titulo
+    attributes:
+      label: Título do material
+      placeholder: Ex. Introdução à Teoria do Direito
+    validations:
+      required: true
+
+  - type: input
+    id: disciplina
+    attributes:
+      label: Disciplina
+      placeholder: Teoria do Direito
+    validations:
+      required: true
+
+  - type: input
+    id: categoria
+    attributes:
+      label: Categoria
+      placeholder: Texto de estudo
+    validations:
+      required: true
+
+  - type: textarea
+    id: descricao
+    attributes:
+      label: Descrição
+      placeholder: Explique brevemente o conteúdo do material.
+    validations:
+      required: false
+
+  - type: input
+    id: arquivo
+    attributes:
+      label: Caminho do PDF
+      placeholder: documentos/teoria-do-direito/material.pdf
+      description: Informe o caminho do PDF já enviado ao repositório.
+    validations:
+      required: false
+

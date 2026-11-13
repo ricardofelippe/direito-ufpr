@@ -23,22 +23,17 @@
 
       <p>
         <label for="disciplina">Disciplina</label><br>
-        <input
-          type="text"
-          id="disciplina"
-          placeholder="Ex.: Teoria do Direito"
-          required
-        >
+        <select id="disciplina" required>
+          <option value="">Selecione uma disciplina</option>
+          <option value="Teoria do Direito">Teoria do Direito</option>
+          <option value="Filosofia do Direito">Filosofia do Direito</option>
+        </select>
       </p>
 
       <p>
         <label for="titulo">Título do material</label><br>
-        <input
-          type="text"
-          id="titulo"
-          placeholder="Ex.: Introdução à Teoria do Direito"
-          required
-        >
+        <input type="text" id="titulo"
+          placeholder="Ex.: Introdução à Teoria do Direito" required>
       </p>
 
       <p>
@@ -54,45 +49,44 @@
 
       <p>
         <label for="descricao">Descrição</label><br>
-        <textarea
-          id="descricao"
+        <textarea id="descricao"
           placeholder="Descreva brevemente o material..."
-          rows="4"
-        ></textarea>
+          rows="4"></textarea>
       </p>
 
       <p>
-        <label for="arquivo">Caminho do PDF</label><br>
-        <input
-          type="text"
-          id="arquivo"
-          placeholder="documentos/teoria-do-direito/arquivo.pdf"
-        >
+        <label for="arquivo-existente">Selecionar PDF existente</label><br>
+        <select id="arquivo-existente">
+          <option value="">Carregando PDFs cadastrados...</option>
+        </select>
+        <small id="status-pdf"></small>
       </p>
 
-      <button type="submit">Gerar cadastro JSON</button>
+      <p>
+        <label for="arquivo">Ou informe manualmente o caminho do PDF</label><br>
+        <input type="text" id="arquivo"
+          placeholder="documentos/teoria-do-direito/arquivo.pdf">
+      </p>
+
+      <p>
+        <button type="submit">Revisar e enviar no GitHub</button>
+      </p>
+
+      <p>
+        <button type="button" id="gerar-json">
+          Gerar cadastro JSON
+        </button>
+      </p>
+
     </form>
 
     <section id="resultado" hidden>
       <h2>Cadastro gerado</h2>
-
+      <p>Prévia do registro que será cadastrado:</p>
+      <textarea id="json-gerado" rows="12" readonly></textarea>
       <p>
-        Copie o conteúdo abaixo e acrescente o registro
-        ao arquivo documentos.json.
+        <button type="button" id="copiar">Copiar JSON</button>
       </p>
-
-      <textarea
-        id="json-gerado"
-        rows="12"
-        readonly
-      ></textarea>
-
-      <p>
-        <button type="button" id="copiar">
-          Copiar JSON
-        </button>
-      </p>
-
       <p id="mensagem" role="status"></p>
     </section>
   </main>
@@ -102,38 +96,158 @@
     const resultado = document.getElementById("resultado");
     const jsonGerado = document.getElementById("json-gerado");
     const mensagem = document.getElementById("mensagem");
+    const seletorPDF = document.getElementById("arquivo-existente");
+    const statusPDF = document.getElementById("status-pdf");
+    const campoArquivo = document.getElementById("arquivo");
 
-    formulario.addEventListener("submit", function(event) {
-      event.preventDefault();
+    // Carrega os PDFs já cadastrados no catálogo
+    async function carregarPDFs() {
+      try {
+        const resposta = await fetch("./documentos.json");
 
-      const documento = {
+        if (!resposta.ok) {
+          throw new Error("Não foi possível acessar documentos.json");
+        }
+
+        const documentos = await resposta.json();
+
+        const arquivos = [
+          ...new Set(
+            documentos
+              .map(doc => doc.arquivo)
+              .filter(arquivo =>
+                typeof arquivo === "string" &&
+                arquivo.toLowerCase().endsWith(".pdf")
+              )
+          )
+        ];
+
+        seletorPDF.innerHTML =
+          '<option value="">Selecione um PDF (opcional)</option>';
+
+        arquivos.forEach(arquivo => {
+          const opcao = document.createElement("option");
+          opcao.value = arquivo;
+          opcao.textContent = arquivo;
+          seletorPDF.appendChild(opcao);
+        });
+
+        statusPDF.textContent =
+          arquivos.length + " PDF(s) encontrado(s).";
+
+      } catch (erro) {
+        seletorPDF.innerHTML =
+          '<option value="">Lista de PDFs indisponível</option>';
+
+        statusPDF.textContent =
+          "Verifique se documentos.json está acessível.";
+      }
+    }
+
+    // Ao selecionar um PDF, preenche o caminho manual
+    seletorPDF.addEventListener("change", function() {
+      if (this.value) {
+        campoArquivo.value = this.value;
+      }
+    });
+
+    // Organiza os dados do material
+    function obterDocumento() {
+      return {
         titulo: document.getElementById("titulo").value.trim(),
         categoria: document.getElementById("categoria").value,
         descricao: document.getElementById("descricao").value.trim(),
-        disciplina: document.getElementById("disciplina").value.trim(),
-        arquivo: document.getElementById("arquivo").value.trim()
+        disciplina: document.getElementById("disciplina").value,
+        arquivo: campoArquivo.value.trim()
       };
+    }
 
-      jsonGerado.value = JSON.stringify(documento, null, 2);
+    // Valida o caminho do PDF
+    function validarArquivo(arquivo) {
+      if (!arquivo) return true;
 
-      resultado.hidden = false;
-      mensagem.textContent = "";
-
-      resultado.scrollIntoView({
-        behavior: "smooth"
-      });
-    });
-
-    document.getElementById("copiar").addEventListener("click", async function() {
-      try {
-        await navigator.clipboard.writeText(jsonGerado.value);
-        mensagem.textContent = "JSON copiado com sucesso!";
-      } catch (erro) {
-        jsonGerado.select();
-        mensagem.textContent =
-          "Selecione e copie o conteúdo manualmente.";
+      if (
+        !arquivo.startsWith("documentos/") ||
+        !arquivo.toLowerCase().endsWith(".pdf")
+      ) {
+        alert(
+          "Informe um caminho válido, iniciado por documentos/ e terminado em .pdf."
+        );
+        return false;
       }
+
+      return true;
+    }
+
+    // Gera uma prévia do JSON
+    document.getElementById("gerar-json")
+      .addEventListener("click", function() {
+
+        if (!formulario.reportValidity()) return;
+
+        const documento = obterDocumento();
+
+        if (!validarArquivo(documento.arquivo)) return;
+
+        jsonGerado.value = JSON.stringify(documento, null, 2);
+        resultado.hidden = false;
+        mensagem.textContent = "";
+
+        resultado.scrollIntoView({
+          behavior: "smooth"
+        });
+      });
+
+    // Abre o formulário do GitHub com os campos preenchidos
+    formulario.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      if (!formulario.reportValidity()) return;
+
+      const documento = obterDocumento();
+
+      if (!validarArquivo(documento.arquivo)) return;
+
+      const parametros = new URLSearchParams();
+
+      parametros.set(
+        "template",
+        "cadastrar-material.yml"
+      );
+
+      parametros.set(
+        "title",
+        "[Cadastro de material] " + documento.titulo
+      );
+
+      parametros.set("titulo", documento.titulo);
+      parametros.set("disciplina", documento.disciplina);
+      parametros.set("categoria", documento.categoria);
+      parametros.set("descricao", documento.descricao);
+      parametros.set("arquivo", documento.arquivo);
+
+      const endereco =
+        "https://github.com/ricardofelippe/direito-ufpr/issues/new?"
+        + parametros.toString();
+
+      window.location.href = endereco;
     });
+
+    // Copia o JSON
+    document.getElementById("copiar")
+      .addEventListener("click", async function() {
+        try {
+          await navigator.clipboard.writeText(jsonGerado.value);
+          mensagem.textContent = "JSON copiado com sucesso!";
+        } catch (erro) {
+          jsonGerado.select();
+          mensagem.textContent =
+            "Selecione e copie o conteúdo manualmente.";
+        }
+      });
+
+    carregarPDFs();
   </script>
 </body>
 </html>
+

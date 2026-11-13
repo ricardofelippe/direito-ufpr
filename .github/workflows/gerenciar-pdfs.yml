@@ -1,0 +1,464 @@
+
+name: Gerenciar PDFs dos materiais
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  gerenciar:
+    if: startsWith(github.event.issue.title, '[Gerenciar PDFs]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Gerenciar arquivos PDF
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const { execFileSync } = require('child_process');
+
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+
+            // Extrai os campos do formulário
+            function campo(nome) {
+              const escapado = nome.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+              const regex = new RegExp(
+                `### ${escapado}\\s*\\r?\\n([\\s\\S]*?)(?=\\r?\\n### |$)`
+              );
+
+              const resultado = body.match(regex);
+              return resultado ? resultado[1].trim() : '';
+            }
+
+            // Gera nomes de arquivos seguros
+            function slug(texto) {
+              return texto
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '');
+            }
+
+            // Identifica os PDFs anexados à Issue
+            function obterAnexos(texto) {
+              return [
+                ...texto.matchAll(
+                  /\[([^\]]+\.pdf)\]\((https:\/\/github\.com\/user-attachments\/files\/[^)\s]+)\)/gi
+                )
+              ].map(item => ({
+                nome: item[1].trim(),
+                url: item[2]
+              }));
+            }
+
+            // Baixa e valida um PDF
+            async function baixarPDF(anexo) {
+              const url = new URL(anexo.url);
+
+              if (
+                url.hostname !== 'github.com' ||
+                !url.pathname.startsWith('/user-attachments/files/')
+              ) {
+                throw new Error('Endereço de anexo não permitido.');
+              }
+
+              if (
+                path.extname(anexo.nome).toLowerCase() !== '.pdf'
+              ) {
+                throw new Error(`${anexo.nome} não é um PDF.`);
+              }
+
+              const resposta = await fetch(url.toString(), {
+                redirect: 'follow'
+              });
+
+              if (!resposta.ok) {
+                throw new Error(
+                  `Não foi possível baixar ${anexo.nome}.`
+                );
+              }
+
+              const buffer = Buffer.from(
+                await resposta.arrayBuffer()
+              );
+
+              if (buffer.length > 25 * 1024 * 1024) {
+                throw new Error(
+                  `${anexo.nome} ultrapassa 25 MB.`
+                );
+              }
+
+              if (buffer.subarray(0, 5).toString() !== '%PDF-') {
+                throw new Error(
+                  `${anexo.nome} não é um PDF válido.`
+                );
+              }
+
+              return buffer;
+            }
+
+            // Comenta e fecha a Issue após sucesso
+            async function concluirIssue(mensagem) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: mensagem
+              });
+
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+            }
+
+            try {
+              // Lê os campos do formulário
+              const operacao = campo('Operação desejada');
+              const titulo = campo('Título do material');
+              const disciplina = campo('Disciplina');
+              const arquivoAlvo = campo('Caminho do PDF existente');
+
+              const anexos = obterAnexos(
+                campo('Novos arquivos PDF')
+              );
+
+              if (!titulo || !disciplina) {
+                throw new Error(
+                  'Informe o título e a disciplina.'
+                );
+              }
+
+              // Valida operação
+              const operacoesPermitidas = [
+                'Adicionar PDFs',
+                'Substituir PDF',
+                'Remover PDF'
+              ];
+
+              if (!operacoesPermitidas.includes(operacao)) {
+                throw new Error('Operação inválida.');
+              }
+
+              // Valida disciplina
+              const disciplinasPermitidas = [
+                'Teoria do Direito',
+                'Filosofia do Direito'
+              ];
+
+              if (!disciplinasPermitidas.includes(disciplina)) {
+                throw new Error('Disciplina inválida.');
+              }
+
+              // Valida quantidade de anexos
+              if (
+                operacao === 'Adicionar PDFs' &&
+                anexos.length === 0
+              ) {
+                throw new Error('Anexe pelo menos um PDF.');
+              }
+
+              if (
+                operacao === 'Substituir PDF' &&
+                (!arquivoAlvo || anexos.length !== 1)
+              ) {
+                throw new Error(
+                  'Para substituir, informe o arquivo existente e anexe exatamente um novo PDF.'
+                );
+              }
+
+              if (
+                operacao === 'Remover PDF' &&
+                (!arquivoAlvo || anexos.length !== 0)
+              ) {
+                throw new Error(
+                  'Para remover, informe o arquivo existente e não anexe novos PDFs.'
+                );
+              }
+
+              // Carrega a biblioteca
+              const documentos = JSON.parse(
+                fs.readFileSync('documentos.json', 'utf8')
+              );
+
+              // Localiza o material
+              const encontrados = documentos.filter(doc =>
+                doc.titulo === titulo &&
+                doc.disciplina === disciplina
+              );
+
+              if (encontrados.length !== 1) {
+                throw new Error(
+                  encontrados.length === 0
+                    ? 'Material não encontrado.'
+                    : 'Existem materiais duplicados com esse título e disciplina.'
+                );
+              }
+
+              const doc = encontrados[0];
+
+              // Recupera os PDFs já associados
+              const arquivosAtuais = [
+                ...new Set([
+                  ...(Array.isArray(doc.arquivos)
+                    ? doc.arquivos
+                    : []),
+                  doc.arquivo
+                ].filter(Boolean))
+              ];
+
+              const pasta = `documentos/${slug(disciplina)}`;
+
+              // Valida caminhos de arquivos
+              function validarCaminho(caminho) {
+                if (
+                  !caminho ||
+                  !caminho.startsWith('documentos/') ||
+                  !caminho.toLowerCase().endsWith('.pdf') ||
+                  caminho.includes('..') ||
+                  caminho.includes('\\') ||
+                  path.isAbsolute(caminho)
+                ) {
+                  throw new Error('Caminho do PDF inválido.');
+                }
+              }
+
+              // =====================================
+              // OPERAÇÃO 1: ADICIONAR PDFs
+              // =====================================
+
+              if (operacao === 'Adicionar PDFs') {
+                for (const anexo of anexos) {
+                  const buffer = await baixarPDF(anexo);
+
+                  const base = slug(
+                    path.basename(
+                      anexo.nome,
+                      path.extname(anexo.nome)
+                    )
+                  ) || 'arquivo';
+
+                  let nomeFinal = `${base}.pdf`;
+                  let contador = 2;
+                  let destino = `${pasta}/${nomeFinal}`;
+
+                  // Evita sobrescrever arquivos existentes
+                  while (
+                    fs.existsSync(destino) ||
+                    arquivosAtuais.includes(destino)
+                  ) {
+                    nomeFinal = `${base}-${contador}.pdf`;
+                    destino = `${pasta}/${nomeFinal}`;
+                    contador++;
+                  }
+
+                  fs.mkdirSync(pasta, {
+                    recursive: true
+                  });
+
+                  fs.writeFileSync(destino, buffer);
+
+                  arquivosAtuais.push(destino);
+                }
+              }
+
+              // =====================================
+              // OPERAÇÃO 2: SUBSTITUIR PDF
+              // =====================================
+
+              if (operacao === 'Substituir PDF') {
+                validarCaminho(arquivoAlvo);
+
+                if (!arquivosAtuais.includes(arquivoAlvo)) {
+                  throw new Error(
+                    'O PDF informado não pertence a esse material.'
+                  );
+                }
+
+                if (!fs.existsSync(arquivoAlvo)) {
+                  throw new Error(
+                    'O arquivo existente não foi encontrado.'
+                  );
+                }
+
+                const buffer = await baixarPDF(anexos[0]);
+
+                // Compara o conteúdo antes de substituir
+                const conteudoAtual = fs.readFileSync(arquivoAlvo);
+
+                if (conteudoAtual.equals(buffer)) {
+                  core.info(
+                    'O PDF enviado é idêntico ao arquivo existente.'
+                  );
+                } else {
+                  fs.writeFileSync(arquivoAlvo, buffer);
+
+                  core.info(
+                    'PDF substituído com sucesso.'
+                  );
+                }
+              }
+
+              // =====================================
+              // OPERAÇÃO 3: REMOVER PDF
+              // =====================================
+
+              if (operacao === 'Remover PDF') {
+                validarCaminho(arquivoAlvo);
+
+                if (!arquivosAtuais.includes(arquivoAlvo)) {
+                  throw new Error(
+                    'O PDF informado não pertence a esse material.'
+                  );
+                }
+
+                // Verifica se outro material utiliza o mesmo arquivo
+                const utilizadoPorOutroMaterial =
+                  documentos.some(outro =>
+                    outro !== doc &&
+                    [
+                      ...(Array.isArray(outro.arquivos)
+                        ? outro.arquivos
+                        : []),
+                      outro.arquivo
+                    ].includes(arquivoAlvo)
+                  );
+
+                // Remove somente a associação selecionada
+                const indice = arquivosAtuais.indexOf(arquivoAlvo);
+
+                arquivosAtuais.splice(indice, 1);
+
+                // Exclui o arquivo físico somente se não houver
+                // outra associação
+                if (
+                  !utilizadoPorOutroMaterial &&
+                  fs.existsSync(arquivoAlvo)
+                ) {
+                  fs.unlinkSync(arquivoAlvo);
+                }
+              }
+
+              // =====================================
+              // ATUALIZAR DOCUMENTOS.JSON
+              // =====================================
+
+              if (arquivosAtuais.length > 0) {
+                doc.arquivos = arquivosAtuais;
+                doc.arquivo = arquivosAtuais[0];
+              } else {
+                delete doc.arquivos;
+                delete doc.arquivo;
+              }
+
+              fs.writeFileSync(
+                'documentos.json',
+                JSON.stringify(documentos, null, 2) + '\n'
+              );
+
+              // =====================================
+              // CONFIGURAR GIT
+              // =====================================
+
+              execFileSync('git', [
+                'config',
+                'user.name',
+                'github-actions[bot]'
+              ]);
+
+              execFileSync('git', [
+                'config',
+                'user.email',
+                '41898282+github-actions[bot]@users.noreply.github.com'
+              ]);
+
+              // Adiciona arquivos modificados
+              execFileSync('git', [
+                'add',
+                '-A',
+                '--',
+                'documentos.json',
+                'documentos'
+              ]);
+
+              // Verifica se existem alterações
+              const alteracoes = execFileSync(
+                'git',
+                ['diff', '--cached', '--name-only'],
+                { encoding: 'utf8' }
+              ).trim();
+
+              // =====================================
+              // COMMIT E PUSH
+              // =====================================
+
+              if (alteracoes) {
+                execFileSync('git', [
+                  'commit',
+                  '-m',
+                  `Gerenciar PDFs: ${titulo}`
+                ]);
+
+                execFileSync('git', ['push']);
+
+                core.info(
+                  'Alterações registradas e enviadas ao GitHub.'
+                );
+              } else {
+                core.info(
+                  'Nenhuma alteração necessária. O conteúdo já está atualizado.'
+                );
+              }
+
+              // =====================================
+              // MENSAGEM DE SUCESSO
+              // =====================================
+
+              let mensagem;
+
+              if (operacao === 'Adicionar PDFs') {
+                mensagem =
+                  `${anexos.length} PDF(s) adicionado(s) com sucesso!`;
+
+              } else if (operacao === 'Substituir PDF') {
+                mensagem =
+                  'Substituição processada com sucesso. ' +
+                  'Se o conteúdo era idêntico, nenhuma alteração foi necessária.';
+
+              } else {
+                mensagem =
+                  `PDF removido com sucesso: ${arquivoAlvo}`;
+              }
+
+              mensagem +=
+                `\n\nO material agora possui ${arquivosAtuais.length} PDF(s).`;
+
+              await concluirIssue(mensagem);
+
+            } catch (erro) {
+              core.setFailed(erro.message);
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body:
+                  'Não foi possível executar a operação: ' +
+                  erro.message +
+                  '\n\nA Issue permanece aberta para correção.'
+              });
+            }

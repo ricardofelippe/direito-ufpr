@@ -1,0 +1,135 @@
+
+name: Processar cadastro de material
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  cadastrar:
+    if: contains(github.event.issue.title, '[Cadastro de material]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Processar cadastro
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          body = os.environ.get("ISSUE_BODY", "")
+
+          def campo(nome):
+              marcador = f"### {nome}"
+              partes = body.split(marcador, 1)
+
+              if len(partes) < 2:
+                  return ""
+
+              valor = partes[1].split("### ", 1)[0].strip()
+
+              if valor in ("_No response_", "Não informado"):
+                  return ""
+
+              return valor
+
+          titulo = campo("Título do material")
+          disciplina = campo("Disciplina")
+          categoria = campo("Categoria")
+          descricao = campo("Descrição")
+          arquivo = campo("Caminho do PDF")
+
+          disciplinas_validas = [
+              "Teoria do Direito",
+              "Filosofia do Direito"
+          ]
+
+          categorias_validas = [
+              "Texto de estudo",
+              "Resumo",
+              "Exercício",
+              "Mapa conceitual"
+          ]
+
+          if not titulo:
+              raise SystemExit("Erro: título não informado.")
+
+          if disciplina not in disciplinas_validas:
+              raise SystemExit("Erro: disciplina inválida.")
+
+          if categoria not in categorias_validas:
+              raise SystemExit("Erro: categoria inválida.")
+
+          if arquivo:
+              caminho = Path(arquivo)
+              raiz = Path("documentos").resolve()
+              destino = caminho.resolve()
+
+              if not destino.is_relative_to(raiz):
+                  raise SystemExit("Erro: caminho fora da pasta documentos.")
+
+              if caminho.suffix.lower() != ".pdf":
+                  raise SystemExit("Erro: o arquivo deve ser PDF.")
+
+              if not caminho.is_file():
+                  raise SystemExit("Erro: PDF não encontrado no repositório.")
+
+          json_path = Path("documentos.json")
+
+          with json_path.open("r", encoding="utf-8") as f:
+              documentos = json.load(f)
+
+          if not isinstance(documentos, list):
+              raise SystemExit("Erro: documentos.json deve conter uma lista.")
+
+          for doc in documentos:
+              if (
+                  doc.get("titulo", "").strip().lower() == titulo.lower()
+                  and doc.get("disciplina") == disciplina
+              ):
+                  raise SystemExit("Erro: material já cadastrado.")
+
+          novo = {
+              "titulo": titulo,
+              "categoria": categoria,
+              "descricao": descricao,
+              "disciplina": disciplina,
+              "arquivo": arquivo
+          }
+
+          documentos.append(novo)
+
+          with json_path.open("w", encoding="utf-8") as f:
+              json.dump(documentos, f, ensure_ascii=False, indent=2)
+
+          print("Material cadastrado com sucesso.")
+          PY
+
+      - name: Salvar no repositório
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add documentos.json
+          git commit -m "Cadastro de novo material"
+          git push
+
+      - name: Confirmar cadastro
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$REPOSITORY" \
+            --body "Cadastro processado. Consulte a Biblioteca de Direito para verificar o material."
+          gh issue close "$ISSUE_NUMBER" --repo "$REPOSITORY"

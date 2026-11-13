@@ -1,0 +1,247 @@
+
+name: Processar envio de material com PDF
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  processar:
+    if: startsWith(github.event.issue.title, '[Novo material]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Processar material e múltiplos PDFs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const { execFileSync } = require('child_process');
+
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+
+            function campo(nome) {
+              const escapado = nome.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const regex = new RegExp(
+                `### ${escapado}\\s*\\r?\\n([\\s\\S]*?)(?=\\r?\\n### |$)`
+              );
+              const resultado = body.match(regex);
+              return resultado ? resultado[1].trim() : '';
+            }
+
+            function slug(texto) {
+              return texto
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '');
+            }
+
+            try {
+              const titulo = campo('Título do material');
+              const disciplina = campo('Disciplina');
+              const categoria = campo('Categoria');
+              const descricao = campo('Descrição');
+              const campoArquivo = campo('Arquivo PDF');
+
+              if (!titulo || !disciplina || !categoria) {
+                throw new Error(
+                  'Preencha título, disciplina e categoria.'
+                );
+              }
+
+              const disciplinasPermitidas = [
+                'Teoria do Direito',
+                'Filosofia do Direito'
+              ];
+
+              const categoriasPermitidas = [
+                'Texto de estudo',
+                'Resumo',
+                'Exercício',
+                'Mapa conceitual'
+              ];
+
+              if (!disciplinasPermitidas.includes(disciplina)) {
+                throw new Error('Disciplina inválida.');
+              }
+
+              if (!categoriasPermitidas.includes(categoria)) {
+                throw new Error('Categoria inválida.');
+              }
+
+              // Localiza todos os PDFs anexados ao campo de upload
+              const anexos = [
+                ...campoArquivo.matchAll(
+                  /\[([^\]]+\.pdf)\]\((https:\/\/github\.com\/user-attachments\/files\/[^)\s]+)\)/gi
+                )
+              ];
+
+              if (anexos.length === 0) {
+                throw new Error(
+                  'Nenhum PDF foi encontrado no campo Arquivo PDF.'
+                );
+              }
+
+              const documentos = JSON.parse(
+                fs.readFileSync('documentos.json', 'utf8')
+              );
+
+              const duplicado = documentos.some(doc =>
+                doc.titulo === titulo &&
+                doc.disciplina === disciplina
+              );
+
+              if (duplicado) {
+                throw new Error('Esse material já está cadastrado.');
+              }
+
+              const pasta = `documentos/${slug(disciplina)}`;
+
+              fs.mkdirSync(pasta, { recursive: true });
+
+              const caminhos = [];
+
+              // Baixa e salva cada PDF
+              for (const anexo of anexos) {
+                const nomeOriginal = anexo[1].trim();
+                const endereco = anexo[2];
+
+                const url = new URL(endereco);
+
+                if (
+                  url.hostname !== 'github.com' ||
+                  !url.pathname.startsWith('/user-attachments/files/')
+                ) {
+                  throw new Error('Endereço de anexo não permitido.');
+                }
+
+                if (path.extname(nomeOriginal).toLowerCase() !== '.pdf') {
+                  throw new Error(
+                    `O arquivo ${nomeOriginal} não é um PDF.`
+                  );
+                }
+
+                const resposta = await fetch(url.toString(), {
+                  redirect: 'follow'
+                });
+
+                if (!resposta.ok) {
+                  throw new Error(
+                    `Não foi possível baixar ${nomeOriginal}.`
+                  );
+                }
+
+                const buffer = Buffer.from(
+                  await resposta.arrayBuffer()
+                );
+
+                if (buffer.length > 25 * 1024 * 1024) {
+                  throw new Error(
+                    `${nomeOriginal} ultrapassa 25 MB.`
+                  );
+                }
+
+                if (buffer.subarray(0, 5).toString() !== '%PDF-') {
+                  throw new Error(
+                    `${nomeOriginal} não é um PDF válido.`
+                  );
+                }
+
+                // Gera nome seguro e evita sobrescrever arquivos
+                const base = slug(
+                  path.basename(nomeOriginal, path.extname(nomeOriginal))
+                ) || 'arquivo';
+
+                let nomeFinal = `${base}.pdf`;
+                let contador = 2;
+
+                while (
+                  fs.existsSync(path.join(pasta, nomeFinal)) ||
+                  caminhos.includes(`${pasta}/${nomeFinal}`)
+                ) {
+                  nomeFinal = `${base}-${contador}.pdf`;
+                  contador++;
+                }
+
+                const caminho = `${pasta}/${nomeFinal}`;
+
+                fs.writeFileSync(caminho, buffer);
+                caminhos.push(caminho);
+              }
+
+              // Registra o material com todos os PDFs
+              documentos.push({
+                titulo,
+                disciplina,
+                categoria,
+                descricao,
+                arquivo: caminhos[0],
+                arquivos: caminhos
+              });
+
+              fs.writeFileSync(
+                'documentos.json',
+                JSON.stringify(documentos, null, 2) + '\n'
+              );
+
+              execFileSync('git', [
+                'config', 'user.name', 'github-actions[bot]'
+              ]);
+
+              execFileSync('git', [
+                'config', 'user.email',
+                '41898282+github-actions[bot]@users.noreply.github.com'
+              ]);
+
+              execFileSync('git', ['add', 'documentos.json', pasta]);
+
+              execFileSync('git', [
+                'commit',
+                '-m',
+                `Cadastrar material: ${titulo}`
+              ]);
+
+              execFileSync('git', ['push']);
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body:
+                  `Material cadastrado com sucesso!\n\n` +
+                  `${caminhos.length} PDF(s) foram salvos:\n` +
+                  caminhos.map(c => `- \`${c}\``).join('\n') +
+                  '\n\nA biblioteca será atualizada após a publicação do GitHub Pages.'
+              });
+
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+
+            } catch (erro) {
+              core.setFailed(erro.message);
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body:
+                  'Não foi possível cadastrar o material: ' +
+                  erro.message +
+                  '\n\nA Issue permanece aberta para correção.'
+              });
+            }

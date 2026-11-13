@@ -1,0 +1,53 @@
+
+name: Enviar material com PDF
+description: Cadastrar um material enviando o PDF diretamente pelo formulário
+title: "[Novo material] "
+
+body:
+  - type: input
+    id: titulo
+    attributes:
+      label: Título do material
+      placeholder: "Exemplo: Introdução à Teoria do Direito"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: disciplina
+    attributes:
+      label: Disciplina
+      options:
+        - Teoria do Direito
+        - Filosofia do Direito
+    validations:
+      required: true
+
+  - type: dropdown
+    id: categoria
+    attributes:
+      label: Categoria
+      options:
+        - Texto de estudo
+        - Resumo
+        - Exercício
+        - Mapa conceitual
+    validations:
+      required: true
+
+  - type: textarea
+    id: descricao
+    attributes:
+      label: Descrição
+      placeholder: "Escreva uma breve descrição do material."
+    validations:
+      required: false
+
+  - type: upload
+    id: arquivo
+    attributes:
+      label: Arquivo PDF
+      description: "Selecione ou arraste o PDF do seu computador. Limite de 25 MB."
+    validations:
+      required: true
+      accept: ".pdf"
+

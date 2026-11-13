@@ -1,0 +1,774 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Microconteúdos | Biblioteca de Direito</title>
+
+  <style>
+    :root {
+      --fundo: #05080e;
+      --painel: #090e17;
+      --cartao: #0a101a;
+      --borda: #12313d;
+      --texto: #e2e8f0;
+      --suave: #91a5b9;
+      --ciano: #00d9e8;
+      --ciano-fundo: #06242b;
+      --verde: #36d399;
+      --amarelo: #eabf55;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--fundo);
+      color: var(--texto);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    header {
+      background: #03060c;
+      border-bottom: 1px solid var(--borda);
+      padding: 20px 5%;
+    }
+
+    .topo {
+      max-width: 1400px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .marca {
+      font-family: Georgia, serif;
+      font-size: 23px;
+      font-weight: bold;
+    }
+
+    .marca span {
+      color: var(--ciano);
+    }
+
+    .voltar {
+      color: var(--suave);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .voltar:hover {
+      color: var(--ciano);
+    }
+
+    .navegacao {
+      max-width: 1400px;
+      margin: 22px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+    }
+
+    .navegacao a {
+      color: var(--suave);
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .navegacao a.ativo,
+    .navegacao a:hover {
+      color: var(--ciano);
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 45px 5%;
+    }
+
+    .identificacao {
+      margin-bottom: 35px;
+    }
+
+    .sobretitulo {
+      color: var(--ciano);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(30px, 4vw, 43px);
+      margin: 0 0 12px;
+    }
+
+    .descricao-principal {
+      color: var(--suave);
+      line-height: 1.6;
+      max-width: 680px;
+    }
+
+    .indicadores {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 30px 0;
+    }
+
+    .indicador {
+      background: var(--painel);
+      border: 1px solid var(--borda);
+      border-radius: 13px;
+      padding: 20px;
+    }
+
+    .indicador strong {
+      display: block;
+      color: var(--ciano);
+      font-family: Georgia, serif;
+      font-size: 29px;
+      margin-bottom: 5px;
+    }
+
+    .indicador span {
+      color: var(--suave);
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .controles {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 35px 0 25px;
+    }
+
+    .filtros {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .filtro {
+      background: transparent;
+      border: 1px solid var(--borda);
+      border-radius: 30px;
+      color: var(--suave);
+      padding: 9px 15px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .filtro:hover,
+    .filtro.ativo {
+      background: var(--ciano-fundo);
+      border-color: var(--ciano);
+      color: var(--ciano);
+    }
+
+    .busca {
+      background: var(--painel);
+      border: 1px solid var(--borda);
+      border-radius: 9px;
+      color: var(--texto);
+      padding: 12px 15px;
+      min-width: 260px;
+      font-size: 14px;
+    }
+
+    .busca:focus {
+      outline: 1px solid var(--ciano);
+    }
+
+    .grade-modulos {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .modulo {
+      background: var(--cartao);
+      border: 1px solid var(--borda);
+      border-radius: 20px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      min-height: 330px;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .modulo:hover {
+      border-color: var(--ciano);
+      transform: translateY(-3px);
+    }
+
+    .modulo-topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .icone-modulo {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--borda);
+      background: var(--ciano-fundo);
+      border-radius: 14px;
+      color: var(--ciano);
+      font-size: 25px;
+    }
+
+    .seta {
+      color: var(--suave);
+      font-size: 24px;
+    }
+
+    .status {
+      display: inline-block;
+      align-self: flex-start;
+      border: 1px solid var(--borda);
+      border-radius: 20px;
+      padding: 5px 10px;
+      color: var(--suave);
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    .status.em_andamento {
+      color: var(--amarelo);
+      border-color: #66501c;
+    }
+
+    .status.concluido {
+      color: var(--verde);
+      border-color: #155c48;
+    }
+
+    .modulo h2 {
+      font-family: Georgia, serif;
+      font-size: 22px;
+      line-height: 1.3;
+      margin: 0 0 10px;
+    }
+
+    .disciplina {
+      color: var(--suave);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .modulo-descricao {
+      color: var(--suave);
+      font-size: 14px;
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .estatisticas {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--borda);
+      border-bottom: 1px solid var(--borda);
+      margin: 20px 0;
+    }
+
+    .estatistica {
+      text-align: center;
+      padding: 16px 5px;
+      border-right: 1px solid var(--borda);
+    }
+
+    .estatistica:last-child {
+      border-right: none;
+    }
+
+    .estatistica strong {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .estatistica span {
+      color: var(--suave);
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    .progresso {
+      height: 5px;
+      background: #18222e;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .progresso div {
+      height: 100%;
+      background: var(--ciano);
+      width: 0%;
+    }
+
+    .botao-modulo {
+      display: block;
+      text-align: center;
+      background: #101721;
+      border: 1px solid #075365;
+      border-radius: 10px;
+      padding: 14px;
+      color: var(--ciano);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 13px;
+      letter-spacing: 1px;
+      transition: .2s;
+    }
+
+    .botao-modulo:hover {
+      background: var(--ciano);
+      color: #001014;
+    }
+
+    .vazio,
+    .carregando {
+      color: var(--suave);
+      text-align: center;
+      padding: 50px 20px;
+      grid-column: 1 / -1;
+    }
+
+    footer {
+      border-top: 1px solid var(--borda);
+      color: var(--suave);
+      text-align: center;
+      padding: 25px;
+      font-size: 12px;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 1000px) {
+      .grade-modulos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 650px) {
+      .topo {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .navegacao {
+        gap: 17px;
+      }
+
+      .indicadores {
+        grid-template-columns: 1fr;
+      }
+
+      .grade-modulos {
+        grid-template-columns: 1fr;
+      }
+
+      .busca {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="topo">
+      <div class="marca">
+        <span>§</span> Biblioteca de Direito
+      </div>
+
+      <a class="voltar" href="biblioteca.html">
+        ← Voltar à biblioteca
+      </a>
+    </div>
+
+    <nav class="navegacao">
+      <a href="direito.html">Início</a>
+      <a href="biblioteca.html">Materiais</a>
+      <a href="microconteudos.html" class="ativo">Microconteúdos</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="identificacao">
+      <div class="sobretitulo">Aprendizagem em pequenas etapas</div>
+
+      <h1>Microconteúdos</h1>
+
+      <p class="descricao-principal">
+        Trilhas de aprendizagem para compreender conceitos,
+        testar conhecimentos e revisar os principais temas
+        do Direito.
+      </p>
+    </section>
+
+    <section class="indicadores">
+
+      <div class="indicador">
+        <strong id="total-modulos">0</strong>
+        <span>Módulos disponíveis</span>
+      </div>
+
+      <div class="indicador">
+        <strong id="total-questoes">0</strong>
+        <span>Questões disponíveis</span>
+      </div>
+
+      <div class="indicador">
+        <strong id="total-conceitos">0</strong>
+        <span>Flashcards</span>
+      </div>
+
+    </section>
+
+    <section class="controles">
+
+      <div class="filtros">
+
+        <button class="filtro ativo" data-status="todos">
+          Todos
+        </button>
+
+        <button class="filtro" data-status="em_andamento">
+          Em andamento
+        </button>
+
+        <button class="filtro" data-status="nao_iniciado">
+          Não iniciados
+        </button>
+
+        <button class="filtro" data-status="concluido">
+          Concluídos
+        </button>
+
+      </div>
+
+      <input
+        type="search"
+        class="busca"
+        id="busca"
+        placeholder="Buscar módulo ou disciplina..."
+      >
+
+    </section>
+
+    <section class="grade-modulos" id="grade-modulos">
+
+      <div class="carregando">
+        Carregando módulos...
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    Biblioteca de Direito · Ambiente de aprendizagem
+  </footer>
+
+  <script>
+
+    let modulos = [];
+    let filtroAtual = "todos";
+
+    async function carregarModulos() {
+
+      const grade = document.getElementById("grade-modulos");
+
+      try {
+
+        const resposta = await fetch("./microconteudos.json");
+
+        if (!resposta.ok) {
+          throw new Error("Não foi possível carregar microconteudos.json");
+        }
+
+        const dados = await resposta.json();
+
+        modulos = dados.modulos || [];
+
+        atualizarIndicadores();
+        exibirModulos();
+
+      } catch (erro) {
+
+        console.error(erro);
+
+        grade.innerHTML = `
+          <div class="vazio">
+            Não foi possível carregar os módulos.
+            Verifique o arquivo microconteudos.json.
+          </div>
+        `;
+
+      }
+
+    }
+
+    function obterProgresso(modulo) {
+
+      const chave = "progresso_" + modulo.id;
+
+      try {
+        return JSON.parse(localStorage.getItem(chave)) || {};
+      } catch {
+        return {};
+      }
+
+    }
+
+    function calcularEstado(modulo) {
+
+      const progresso = obterProgresso(modulo);
+
+      const total = modulo.etapas.length;
+
+      const concluidas = modulo.etapas.filter(etapa =>
+        progresso[etapa.id] === true
+      ).length;
+
+      let status = "nao_iniciado";
+
+      if (concluidas === total && total > 0) {
+        status = "concluido";
+      } else if (concluidas > 0) {
+        status = "em_andamento";
+      }
+
+      return {
+        status,
+        concluidas,
+        total,
+        percentual: total ? Math.round(concluidas / total * 100) : 0
+      };
+
+    }
+
+    function atualizarIndicadores() {
+
+      const totalQuestoes = modulos.reduce((total, modulo) => {
+
+        return total + modulo.etapas.reduce((soma, etapa) => {
+          return soma + (etapa.questoes || []).length;
+        }, 0);
+
+      }, 0);
+
+      const totalFlashcards = modulos.reduce((total, modulo) => {
+        return total + (modulo.flashcards || []).length;
+      }, 0);
+
+      document.getElementById("total-modulos").textContent =
+        modulos.length;
+
+      document.getElementById("total-questoes").textContent =
+        totalQuestoes;
+
+      document.getElementById("total-conceitos").textContent =
+        totalFlashcards;
+
+    }
+
+    function criarCartao(modulo) {
+
+      const estado = calcularEstado(modulo);
+
+      const cartao = document.createElement("article");
+
+      cartao.className = "modulo";
+
+      const questoes = modulo.etapas.reduce((total, etapa) => {
+        return total + (etapa.questoes || []).length;
+      }, 0);
+
+      const icone = document.createElement("div");
+      icone.className = "icone-modulo";
+      icone.textContent = "§";
+
+      const topo = document.createElement("div");
+      topo.className = "modulo-topo";
+
+      const seta = document.createElement("span");
+      seta.className = "seta";
+      seta.textContent = "▷";
+
+      topo.append(icone, seta);
+
+      const status = document.createElement("span");
+      status.className = "status " + estado.status;
+
+      const nomesStatus = {
+        nao_iniciado: "Não iniciado",
+        em_andamento: "Em andamento",
+        concluido: "Concluído"
+      };
+
+      status.textContent = "● " + nomesStatus[estado.status];
+
+      const titulo = document.createElement("h2");
+      titulo.textContent = modulo.titulo;
+
+      const disciplina = document.createElement("div");
+      disciplina.className = "disciplina";
+      disciplina.textContent = modulo.disciplina;
+
+      const descricao = document.createElement("p");
+      descricao.className = "modulo-descricao";
+      descricao.textContent = modulo.descricao || "";
+
+      const estatisticas = document.createElement("div");
+      estatisticas.className = "estatisticas";
+
+      const dados = [
+        [estado.concluidas + "/" + estado.total, "ETAPAS"],
+        [questoes, "QUESTÕES"],
+        [(modulo.flashcards || []).length, "FLASHCARDS"]
+      ];
+
+      dados.forEach(item => {
+
+        const elemento = document.createElement("div");
+        elemento.className = "estatistica";
+
+        const numero = document.createElement("strong");
+        numero.textContent = item[0];
+
+        const legenda = document.createElement("span");
+        legenda.textContent = item[1];
+
+        elemento.append(numero, legenda);
+        estatisticas.appendChild(elemento);
+
+      });
+
+      const barra = document.createElement("div");
+      barra.className = "progresso";
+
+      const preenchimento = document.createElement("div");
+      preenchimento.style.width = estado.percentual + "%";
+
+      barra.appendChild(preenchimento);
+
+      const botao = document.createElement("a");
+      botao.className = "botao-modulo";
+
+      botao.href =
+        "modulo.html?id=" + encodeURIComponent(modulo.id);
+
+      botao.textContent =
+        estado.status === "concluido"
+          ? "REVISAR MÓDULO →"
+          : estado.status === "em_andamento"
+            ? "CONTINUAR MÓDULO →"
+            : "COMEÇAR MÓDULO →";
+
+      cartao.append(
+        topo,
+        status,
+        titulo,
+        disciplina,
+        descricao,
+        estatisticas,
+        barra,
+        botao
+      );
+
+      return cartao;
+
+    }
+
+    function exibirModulos() {
+
+      const grade = document.getElementById("grade-modulos");
+
+      const termo = document.getElementById("busca")
+        .value.trim().toLocaleLowerCase("pt-BR");
+
+      grade.replaceChildren();
+
+      const filtrados = modulos.filter(modulo => {
+
+        const estado = calcularEstado(modulo);
+
+        const texto = (
+          modulo.titulo + " " + modulo.disciplina + " " +
+          (modulo.descricao || "")
+        ).toLocaleLowerCase("pt-BR");
+
+        const correspondeBusca = texto.includes(termo);
+
+        const correspondeStatus =
+          filtroAtual === "todos" || estado.status === filtroAtual;
+
+        return correspondeBusca && correspondeStatus;
+
+      });
+
+      if (filtrados.length === 0) {
+
+        const vazio = document.createElement("div");
+        vazio.className = "vazio";
+        vazio.textContent = "Nenhum módulo encontrado.";
+
+        grade.appendChild(vazio);
+        return;
+
+      }
+
+      filtrados.forEach(modulo => {
+        grade.appendChild(criarCartao(modulo));
+      });
+
+    }
+
+    document.querySelectorAll(".filtro").forEach(botao => {
+
+      botao.addEventListener("click", () => {
+
+        document.querySelectorAll(".filtro").forEach(item => {
+          item.classList.remove("ativo");
+        });
+
+        botao.classList.add("ativo");
+
+        filtroAtual = botao.dataset.status;
+
+        exibirModulos();
+
+      });
+
+    });
+
+    document.getElementById("busca")
+      .addEventListener("input", exibirModulos);
+
+    carregarModulos();
+
+  </script>
+
+</body>
+</html>

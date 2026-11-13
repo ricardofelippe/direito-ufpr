@@ -1,0 +1,155 @@
+
+name: Cadastrar material na biblioteca
+
+on:
+  workflow_dispatch:
+    inputs:
+      titulo:
+        description: "Título do material"
+        required: true
+        type: string
+
+      disciplina:
+        description: "Nome da disciplina"
+        required: true
+        type: choice
+        options:
+          - Teoria do Direito
+          - Filosofia do Direito
+
+      categoria:
+        description: "Categoria"
+        required: true
+        type: choice
+        options:
+          - Texto de estudo
+          - Resumo
+          - Exercício
+          - Mapa conceitual
+
+      descricao:
+        description: "Descrição do material"
+        required: false
+        type: string
+
+      arquivo:
+        description: "Caminho do PDF no repositório"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  cadastrar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Validar e cadastrar documento
+        env:
+          TITULO: ${{ inputs.titulo }}
+          DISCIPLINA: ${{ inputs.disciplina }}
+          CATEGORIA: ${{ inputs.categoria }}
+          DESCRICAO: ${{ inputs.descricao }}
+          ARQUIVO: ${{ inputs.arquivo }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          disciplinas = [
+              "Teoria do Direito",
+              "Filosofia do Direito"
+          ]
+
+          categorias = [
+              "Texto de estudo",
+              "Resumo",
+              "Exercício",
+              "Mapa conceitual"
+          ]
+
+          titulo = os.environ["TITULO"].strip()
+          disciplina = os.environ["DISCIPLINA"].strip()
+          categoria = os.environ["CATEGORIA"].strip()
+          descricao = os.environ["DESCRICAO"].strip()
+          arquivo = os.environ["ARQUIVO"].strip()
+
+          if not titulo:
+              raise SystemExit("Erro: título obrigatório.")
+
+          if disciplina not in disciplinas:
+              raise SystemExit("Erro: disciplina não permitida.")
+
+          if categoria not in categorias:
+              raise SystemExit("Erro: categoria inválida.")
+
+          if arquivo:
+              caminho = Path(arquivo)
+
+              if not arquivo.startswith("documentos/"):
+                  raise SystemExit("Erro: PDF deve estar na pasta documentos.")
+
+              if caminho.suffix.lower() != ".pdf":
+                  raise SystemExit("Erro: arquivo precisa ser PDF.")
+
+              raiz = Path("documentos").resolve()
+              arquivo_real = caminho.resolve()
+
+              if not arquivo_real.is_relative_to(raiz):
+                  raise SystemExit("Erro: caminho de arquivo inválido.")
+
+              if not arquivo_real.is_file():
+                  raise SystemExit("Erro: PDF não encontrado no repositório.")
+
+          caminho_json = "documentos.json"
+
+          with open(caminho_json, "r", encoding="utf-8") as f:
+              documentos = json.load(f)
+
+          if not isinstance(documentos, list):
+              raise SystemExit("Erro: documentos.json não contém uma lista.")
+
+          duplicado = any(
+              d.get("titulo", "").strip().casefold() == titulo.casefold()
+              and d.get("disciplina", "").strip().casefold() == disciplina.casefold()
+              for d in documentos
+          )
+
+          if duplicado:
+              raise SystemExit("Erro: material já cadastrado.")
+
+          novo = {
+              "titulo": titulo,
+              "categoria": categoria,
+              "descricao": descricao,
+              "disciplina": disciplina,
+              "arquivo": arquivo
+          }
+
+          documentos.append(novo)
+
+          with open(caminho_json, "w", encoding="utf-8") as f:
+              json.dump(
+                  documentos,
+                  f,
+                  ensure_ascii=False,
+                  indent=2
+              )
+              f.write("\n")
+
+          print("Material validado e cadastrado com sucesso!")
+          PY
+
+      - name: Salvar alterações no GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add documentos.json
+          git commit -m "Cadastro de novo material"
+          git push
+
