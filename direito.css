@@ -579,3 +579,132 @@ select option {
     padding: 20px 16px;
   }
 }
+
+/* =========================================
+   NOVA IDENTIDADE VISUAL — BIBLIOTECA
+   Tema claro, com identidade acadêmica
+   ========================================= */
+
+body.pagina-biblioteca {
+  --fundo: #f3f5f8;
+  --fundo-secundario: #ffffff;
+  --superficie: #ffffff;
+  --superficie-hover: #f0f4f9;
+  --borda: #dce3ec;
+
+  --azul: #315b86;
+  --azul-claro: #315b86;
+  --azul-fundo: #e8eff7;
+
+  --texto: #243449;
+  --texto-secundario: #64748b;
+  --texto-suave: #8290a3;
+
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+body.pagina-biblioteca > header {
+  background: #ffffff;
+  color: var(--texto);
+  text-align: left;
+  padding: 28px 35px;
+  border-bottom: 1px solid var(--borda);
+}
+
+body.pagina-biblioteca > header h1 {
+  color: #203b59;
+  font-size: 30px;
+}
+
+body.pagina-biblioteca > header p {
+  color: var(--texto-secundario);
+}
+
+body.pagina-biblioteca .layout-biblioteca {
+  grid-template-columns: 250px minmax(0, 1fr);
+}
+
+body.pagina-biblioteca .menu-lateral {
+  background: #ffffff;
+  border-right: 1px solid var(--borda);
+}
+
+body.pagina-biblioteca .menu-identidade {
+  border-bottom-color: var(--borda);
+}
+
+body.pagina-biblioteca .menu-identidade h2 {
+  color: #203b59;
+}
+
+body.pagina-biblioteca .menu-identidade p,
+body.pagina-biblioteca .menu-secao {
+  color: var(--texto-suave);
+}
+
+body.pagina-biblioteca .menu-lateral nav a,
+body.pagina-biblioteca .menu-disciplinas a {
+  color: var(--texto-secundario);
+}
+
+body.pagina-biblioteca .menu-lateral nav a:hover,
+body.pagina-biblioteca .menu-lateral nav a.ativo,
+body.pagina-biblioteca .menu-disciplinas a:hover,
+body.pagina-biblioteca .menu-disciplinas a.ativo {
+  background: var(--azul-fundo);
+  color: var(--azul);
+}
+
+body.pagina-biblioteca .conteudo-biblioteca {
+  padding: 38px;
+}
+
+body.pagina-biblioteca .conteudo-biblioteca h2 {
+  color: #203b59;
+  font-size: 27px;
+}
+
+body.pagina-biblioteca .documento,
+body.pagina-biblioteca .indicador-biblioteca {
+  background: #ffffff;
+  border: 1px solid var(--borda);
+  box-shadow: 0 3px 12px rgba(30, 50, 75, 0.05);
+}
+
+body.pagina-biblioteca .documento:hover {
+  border-color: #a9bfd8;
+}
+
+body.pagina-biblioteca .documento h3,
+body.pagina-biblioteca .indicador-numero {
+  color: #315b86;
+}
+
+body.pagina-biblioteca .documento > p,
+body.pagina-biblioteca .indicador-descricao {
+  color: var(--texto-secundario);
+}
+
+body.pagina-biblioteca #busca,
+body.pagina-biblioteca #filtro-disciplina,
+body.pagina-biblioteca #filtro-categoria {
+  background: #ffffff;
+  color: var(--texto);
+  border-color: var(--borda);
+}
+
+body.pagina-biblioteca .lista-pdfs li {
+  background: #f5f7fa;
+  border-color: var(--borda);
+}
+
+@media (max-width: 800px) {
+  body.pagina-biblioteca .conteudo-biblioteca {
+    padding: 22px 16px;
+  }
+
+  body.pagina-biblioteca > header {
+    padding: 22px 18px;
+  }
+}
