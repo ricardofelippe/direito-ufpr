@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste Gemini - Biblioteca de Direito</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #171b24;
+      color: #e8edf5;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #55c8e8;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      box-sizing: border-box;
+      background: #252c38;
+      color: white;
+      border: 1px solid #465266;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 12px;
+      padding: 12px 22px;
+      background: #1687bd;
+      color: white;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: wait;
+    }
+
+    #resposta {
+      margin-top: 24px;
+      padding: 18px;
+      background: #252c38;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    #status {
+      color: #9eafc5;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Biblioteca de Direito — Tutor Gemini</h1>
+
+  <p>Faça uma pergunta para testar o tutor acadêmico.</p>
+
+  <textarea id="pergunta"
+    placeholder="Ex.: Qual a diferença entre Direito objetivo e subjetivo?"></textarea>
+
+  <br>
+
+  <button id="enviar">Perguntar ao Gemini</button>
+
+  <p id="status"></p>
+
+  <div id="resposta"></div>
+
+  <script type="module">
+    import { perguntarGemini } from "./firebase-ai.js";
+
+    const botao = document.getElementById("enviar");
+    const campo = document.getElementById("pergunta");
+    const status = document.getElementById("status");
+    const resposta = document.getElementById("resposta");
+
+    botao.addEventListener("click", async () => {
+      const pergunta = campo.value.trim();
+
+      if (!pergunta) {
+        status.textContent = "Digite uma pergunta.";
+        return;
+      }
+
+      botao.disabled = true;
+      status.textContent = "Consultando o Gemini...";
+      resposta.textContent = "";
+
+      try {
+        const resultado = await perguntarGemini(pergunta);
+
+        resposta.textContent = resultado;
+        status.textContent = "Resposta recebida com sucesso.";
+
+      } catch (erro) {
+        console.error(erro);
+        status.textContent = "Não foi possível consultar o Gemini.";
+        resposta.textContent = erro.message || "Erro desconhecido.";
+      } finally {
+        botao.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
