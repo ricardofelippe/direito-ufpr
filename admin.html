@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Painel administrativo da biblioteca de estudos de Direito.">
+  <title>Administração de conteúdos - Estudos de Direito</title>
+  <link rel="stylesheet" href="direito.css">
+  <style>
+    body.pagina-admin {
+      --fundo:#070b12; --fundo-secundario:#0c1420; --superficie:#101b29;
+      --superficie-hover:#172638; --borda:#1b3041; --azul:#19c7ce;
+      --azul-claro:#36d9dc; --azul-fundo:#10343d; --texto:#e6edf5;
+      --texto-secundario:#a5b8ca; --texto-suave:#71869b;
+      min-height:100vh; background:var(--fundo); color:var(--texto);
+    }
+    .pagina-admin header { text-align:left; padding:26px 22px; background:linear-gradient(135deg,#0c1420,#101f2c); border-bottom:1px solid var(--borda); }
+    .admin-largura { max-width:1050px; margin:0 auto; }
+    .pagina-admin header h1 { margin:0; font-size:clamp(24px,3vw,32px); }
+    .pagina-admin header p { margin:8px 0 0; color:var(--texto-secundario); }
+    .admin-voltar { display:inline-block; margin-bottom:12px; color:var(--azul-claro); text-decoration:none; font-size:13px; }
+    .admin-conteudo { max-width:1050px; margin:30px auto; padding:0 22px 55px; }
+    .admin-intro { margin-bottom:22px; }
+    .admin-intro h2 { margin:0 0 6px; color:var(--texto); font-size:20px; }
+    .admin-intro p { margin:0; color:var(--texto-secundario); font-size:14px; }
+    .admin-formulario, .admin-preview { padding:22px; background:var(--superficie); border:1px solid var(--borda); border-radius:12px; }
+    .admin-grade { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    .admin-campo { display:flex; flex-direction:column; gap:7px; margin-bottom:17px; }
+    .admin-campo label { color:var(--texto); font-size:13px; font-weight:700; }
+    .admin-campo input, .admin-campo select, .admin-campo textarea {
+      width:100%; border:1px solid var(--borda); border-radius:8px; padding:12px;
+      background:var(--fundo-secundario); color:var(--texto); font:14px Arial,sans-serif;
+    }
+    .admin-campo input, .admin-campo select { min-height:44px; }
+    .admin-campo textarea { min-height:260px; resize:vertical; line-height:1.65; }
+    .admin-campo input:focus, .admin-campo select:focus, .admin-campo textarea:focus { outline:2px solid var(--azul); outline-offset:1px; }
+    .admin-ajuda { color:var(--texto-suave); font-size:12px; }
+    .admin-acoes { display:flex; flex-wrap:wrap; gap:10px; margin-top:5px; }
+    .admin-botao { border:1px solid var(--borda); border-radius:8px; padding:11px 16px; cursor:pointer; font-weight:700; font-size:13px; }
+    .admin-botao-principal { background:var(--azul-fundo); border-color:#28515a; color:var(--azul-claro); }
+    .admin-botao-secundario { background:transparent; color:var(--texto-secundario); }
+    .admin-preview { margin-top:22px; }
+    .admin-preview h2 { margin:0 0 5px; color:var(--texto); font-size:18px; }
+    .admin-preview-meta { margin:0 0 16px; color:var(--texto-suave); font-size:12px; }
+    .admin-preview-titulo { margin:0 0 12px; color:var(--azul-claro); font-size:18px; }
+    .admin-preview-texto { margin:0; color:var(--texto-secundario); white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.7; }
+    .admin-aviso { margin-top:18px; padding:13px 15px; border:1px solid var(--borda); border-radius:8px; color:var(--texto-secundario); background:var(--fundo-secundario); font-size:12px; }
+    .admin-erro { color:#ffaaaa; font-size:13px; }
+    [hidden] { display:none !important; }
+    @media(max-width:650px) { .admin-grade { grid-template-columns:1fr; gap:0; } .admin-conteudo { padding:0 15px 40px; } .admin-formulario,.admin-preview { padding:16px; } }
+  </style>
+</head>
+<body class="pagina-admin">
+  <header>
+    <div class="admin-largura">
+      <a class="admin-voltar" href="direito.html">← Voltar ao currículo</a>
+      <h1>Painel de estudos</h1>
+      <p>Cadastro de conteúdos das disciplinas</p>
+    </div>
+  </header>
+
+  <main class="admin-conteudo">
+    <section class="admin-intro">
+      <h2>Novo resumo</h2>
+      <p>Selecione o assunto e escreva seu resumo no campo de texto. A prévia preserva as quebras de linha.</p>
+    </section>
+
+    <form id="form-resumo" class="admin-formulario">
+      <div class="admin-grade">
+        <div class="admin-campo">
+          <label for="disciplina">Disciplina</label>
+          <select id="disciplina" required><option value="">Carregando disciplinas...</option></select>
+        </div>
+        <div class="admin-campo">
+          <label for="unidade">Unidade</label>
+          <select id="unidade" required disabled><option value="">Selecione uma disciplina primeiro</option></select>
+        </div>
+      </div>
+      <div class="admin-campo">
+        <label for="assunto">Assunto</label>
+        <select id="assunto" required disabled><option value="">Selecione uma unidade primeiro</option></select>
+      </div>
+      <div class="admin-campo">
+        <label for="titulo">Título do resumo</label>
+        <input id="titulo" name="titulo" type="text" maxlength="180" placeholder="Ex.: Introdução ao conceito de Direito" required>
+      </div>
+      <div class="admin-campo">
+        <label for="conteudo">Texto do resumo</label>
+        <textarea id="conteudo" name="conteudo" placeholder="Escreva seu resumo aqui..." required></textarea>
+        <span class="admin-ajuda">Editor simples: texto livre, sem necessidade de Markdown ou comandos especiais.</span>
+      </div>
+      <div class="admin-acoes">
+        <button class="admin-botao admin-botao-principal" type="submit">Visualizar prévia</button>
+        <button class="admin-botao admin-botao-secundario" type="reset">Limpar formulário</button>
+      </div>
+      <p id="erro-carregamento" class="admin-erro" role="alert" hidden></p>
+    </form>
+
+    <section id="area-preview" class="admin-preview" aria-live="polite" hidden>
+      <h2>Pré-visualização</h2>
+      <p id="preview-meta" class="admin-preview-meta"></p>
+      <h3 id="preview-titulo" class="admin-preview-titulo"></h3>
+      <p id="preview-texto" class="admin-preview-texto"></p>
+    </section>
+
+    <aside class="admin-aviso">
+      Nesta primeira etapa, o formulário permite selecionar a estrutura acadêmica e conferir a prévia. A gravação definitiva no <code>conteudos.json</code> será implementada depois, com um fluxo seguro de integração ao GitHub.
+    </aside>
+  </main>
+
+  <script>
+    (() => {
+      'use strict';
+      const disciplinaSelect = document.getElementById('disciplina');
+      const unidadeSelect = document.getElementById('unidade');
+      const assuntoSelect = document.getElementById('assunto');
+      const formulario = document.getElementById('form-resumo');
+      const erro = document.getElementById('erro-carregamento');
+      let estrutura = null;
+
+      function preencher(select, itens, textoInicial, valorId, textoNome) {
+        select.replaceChildren(new Option(textoInicial, ''));
+        itens.forEach(item => select.add(new Option(item[textoNome], item[valorId])));
+        select.disabled = itens.length === 0;
+      }
+
+      function unidadesDaDisciplina() {
+        const unidades = estrutura.unidades
+          .filter(item => item.disciplina_id === disciplinaSelect.value)
+          .sort((a, b) => a.ordem - b.ordem);
+        preencher(unidadeSelect, unidades, unidades.length ? 'Selecione uma unidade' : 'Nenhuma unidade cadastrada', 'id', 'nome');
+        preencher(assuntoSelect, [], 'Selecione uma unidade primeiro', 'id', 'nome');
+      }
+
+      function assuntosDaUnidade() {
+        const assuntos = estrutura.assuntos
+          .filter(item => item.unidade_id === unidadeSelect.value)
+          .sort((a, b) => a.ordem - b.ordem);
+        preencher(assuntoSelect, assuntos, assuntos.length ? 'Selecione um assunto' : 'Nenhum assunto cadastrado', 'id', 'nome');
+      }
+
+      async function carregarEstrutura() {
+        try {
+          const resposta = await fetch('dados/estrutura.json', { cache: 'no-store' });
+          if (!resposta.ok) throw new Error(`Falha HTTP ${resposta.status}`);
+          estrutura = await resposta.json();
+          const disciplinas = estrutura.disciplinas
+            .filter(item => item.categoria === 'obrigatoria' || item.categoria === 'optativa')
+            .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+          preencher(disciplinaSelect, disciplinas, 'Selecione uma disciplina', 'id', 'nome');
+          const teoria = disciplinas.find(item => item.id === 'teoria-do-direito');
+          if (teoria) {
+            disciplinaSelect.value = teoria.id;
+            unidadesDaDisciplina();
+          }
+        } catch (falha) {
+          erro.textContent = 'Não foi possível carregar dados/estrutura.json. Confira o caminho do arquivo e tente novamente.';
+          erro.hidden = false;
+          disciplinaSelect.replaceChildren(new Option('Falha ao carregar disciplinas', ''));
+          disciplinaSelect.disabled = true;
+        }
+      }
+
+      disciplinaSelect.addEventListener('change', unidadesDaDisciplina);
+      unidadeSelect.addEventListener('change', assuntosDaUnidade);
+
+      formulario.addEventListener('submit', evento => {
+        evento.preventDefault();
+        if (!formulario.reportValidity()) return;
+        const disciplina = estrutura.disciplinas.find(item => item.id === disciplinaSelect.value);
+        const unidade = estrutura.unidades.find(item => item.id === unidadeSelect.value);
+        const assunto = estrutura.assuntos.find(item => item.id === assuntoSelect.value);
+        document.getElementById('preview-meta').textContent = `${disciplina.nome} · ${unidade.nome} · ${assunto.nome}`;
+        document.getElementById('preview-titulo').textContent = document.getElementById('titulo').value.trim();
+        document.getElementById('preview-texto').textContent = document.getElementById('conteudo').value.trim();
+        document.getElementById('area-preview').hidden = false;
+        document.getElementById('area-preview').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      formulario.addEventListener('reset', () => {
+        document.getElementById('area-preview').hidden = true;
+        window.setTimeout(() => {
+          if (estrutura) {
+            disciplinaSelect.value = 'teoria-do-direito';
+            unidadesDaDisciplina();
+          }
+        }, 0);
+      });
+
+      carregarEstrutura();
+    })();
+  </script>
+</body>
+</html>

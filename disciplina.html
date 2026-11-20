@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Área de estudos da disciplina de Direito.">
+  <title>Disciplina - Estudos de Direito</title>
+  <link rel="stylesheet" href="direito.css">
+  <style>
+    body.pagina-disciplina {
+      --fundo: #070b12; --fundo-secundario: #0c1420; --superficie: #101b29;
+      --superficie-hover: #172638; --borda: #1b3041; --azul: #19c7ce;
+      --azul-claro: #36d9dc; --azul-fundo: #10343d; --texto: #e6edf5;
+      --texto-secundario: #a5b8ca; --texto-suave: #71869b;
+      background: var(--fundo); color: var(--texto); min-height: 100vh;
+    }
+    .pagina-disciplina header {
+      text-align: left; padding: 28px 22px; background: linear-gradient(135deg,#0c1420,#101f2c);
+      border-bottom: 1px solid var(--borda);
+    }
+    .cabecalho-disciplina, .conteudo-disciplina { max-width: 1240px; margin: 0 auto; }
+    .voltar-curriculo { display: inline-block; margin-bottom: 15px; color: var(--azul-claro); text-decoration: none; font-size: 13px; }
+    .voltar-curriculo:hover { text-decoration: underline; }
+    .cabecalho-disciplina h1 { margin: 0; font-size: clamp(25px,3vw,34px); letter-spacing: -.4px; }
+    .metadados-disciplina { display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:10px; color:var(--texto-secundario); font-size:13px; }
+    .descricao-disciplina { max-width:780px; margin:12px 0 0; color:var(--texto-secundario); }
+    .conteudo-disciplina { padding: 28px 22px 60px; }
+    .topicos-disciplina { margin-bottom:28px; }
+    .topicos-disciplina h2 { margin:0 0 14px; color:var(--texto); font-size:19px; }
+    .lista-unidades { display:flex; flex-direction:column; gap:24px; }
+    .unidade-disciplina { padding:0; }
+    .cabecalho-unidade { margin:0 0 12px; padding:0 0 10px; border-bottom:1px solid var(--borda); }
+    .cabecalho-unidade h3 { margin:0; color:var(--texto); font-size:17px; line-height:1.4; }
+    .identificador-unidade { display:inline-block; margin-right:8px; color:var(--azul-claro); font-size:12px; font-weight:700; }
+    .grade-topicos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+    .cartao-topico { display:flex; flex-direction:column; min-height:128px; padding:17px; text-align:left; color:var(--texto); background:var(--superficie); border:1px solid var(--borda); border-radius:10px; cursor:pointer; font:inherit; transition:.18s ease; }
+    .cartao-topico:hover, .cartao-topico[aria-pressed="true"] { border-color:var(--azul); background:var(--superficie-hover); }
+    .cartao-topico[aria-pressed="true"] { box-shadow:inset 0 0 0 1px var(--azul); }
+    .icone-topico { color:var(--azul-claro); font-size:20px; margin-bottom:8px; }
+    .nome-topico { font-weight:700; font-size:14px; }
+    .descricao-topico { margin-top:5px; color:var(--texto-secundario); font-size:12px; }
+    .navegacao-abas { display:flex; gap:8px; overflow-x:auto; padding:0 0 10px; border-bottom:1px solid var(--borda); }
+    .aba-disciplina { flex:0 0 auto; padding:10px 14px; color:var(--texto-secundario); background:transparent; border:1px solid transparent; border-radius:8px; cursor:pointer; font:600 13px Arial,sans-serif; }
+    .aba-disciplina:hover { color:var(--texto); background:var(--superficie); }
+    .aba-disciplina[aria-selected="true"] { color:var(--azul-claro); background:var(--azul-fundo); border-color:#28515a; }
+    .painel-aba { padding-top:22px; }
+    .estado-disciplina { padding:22px; border:1px solid var(--borda); border-radius:10px; background:var(--superficie); color:var(--texto-secundario); }
+    .estado-disciplina h3 { margin:0 0 7px; color:var(--texto); font-size:16px; }
+    .estado-disciplina p { margin:0; font-size:13px; }
+    .lista-conteudos { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .item-conteudo { padding:18px; background:var(--superficie); border:1px solid var(--borda); border-radius:10px; }
+    .item-conteudo h3 { margin:0 0 8px; color:var(--azul-claro); font-size:16px; }
+    .item-conteudo p { margin:6px 0; color:var(--texto-secundario); font-size:13px; }
+    .item-conteudo details { margin-top:12px; }
+    .item-conteudo summary { color:var(--azul-claro); cursor:pointer; font-size:13px; }
+    .material-link { display:inline-block; margin-top:10px; color:var(--azul-claro); overflow-wrap:anywhere; }
+    .aviso-filtro { margin:0 0 14px; color:var(--texto-suave); font-size:12px; }
+    .carregando { color:var(--texto-secundario); }
+    button:focus-visible, a:focus-visible { outline:2px solid var(--azul-claro); outline-offset:3px; }
+    @media(max-width:850px) { .grade-topicos { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media(max-width:600px) { .grade-topicos,.lista-conteudos { grid-template-columns:1fr; } .pagina-disciplina header { padding:22px 16px; } .conteudo-disciplina { padding:22px 16px 45px; } }
+  </style>
+</head>
+<body class="pagina-disciplina">
+  <header>
+    <div class="cabecalho-disciplina">
+      <a class="voltar-curriculo" href="direito.html">← Voltar ao currículo</a>
+      <h1 id="nome-disciplina">Carregando disciplina...</h1>
+      <div class="metadados-disciplina" id="metadados-disciplina"></div>
+      <p class="descricao-disciplina" id="descricao-disciplina"></p>
+    </div>
+  </header>
+
+  <main class="conteudo-disciplina">
+    <section class="topicos-disciplina" aria-labelledby="titulo-topicos">
+      <h2 id="titulo-topicos">Assuntos da disciplina</h2>
+      <div id="lista-topicos" class="grade-topicos">
+        <p class="carregando">Carregando assuntos...</p>
+      </div>
+    </section>
+
+    <nav class="navegacao-abas" aria-label="Seções da disciplina" role="tablist">
+      <button class="aba-disciplina" id="aba-resumos" role="tab" aria-selected="true" aria-controls="painel-disciplina" data-aba="resumos">Resumos</button>
+      <button class="aba-disciplina" id="aba-revisoes" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="revisoes">Revisões de literatura</button>
+      <button class="aba-disciplina" id="aba-questoes" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="questoes">Questões</button>
+      <button class="aba-disciplina" id="aba-flashcards" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="flashcards">Flashcards</button>
+      <button class="aba-disciplina" id="aba-fluxogramas" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="fluxogramas">Fluxogramas</button>
+      <button class="aba-disciplina" id="aba-materiais" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="materiais">Materiais</button>
+    </nav>
+    <section id="painel-disciplina" class="painel-aba" role="tabpanel" aria-labelledby="aba-resumos" tabindex="0">
+      <p class="carregando">Preparando conteúdo...</p>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      'use strict';
+      const params = new URLSearchParams(window.location.search);
+      const disciplinaId = params.get('id');
+      const painel = document.getElementById('painel-disciplina');
+      const listaTopicos = document.getElementById('lista-topicos');
+      const nomeEl = document.getElementById('nome-disciplina');
+      const metaEl = document.getElementById('metadados-disciplina');
+      const descricaoEl = document.getElementById('descricao-disciplina');
+      let disciplinaAtual = null;
+      let estrutura = null;
+      let conteudos = null;
+      let documentos = [];
+      let assuntoSelecionado = null;
+      let abaAtual = 'resumos';
+
+      const escapeHTML = (valor) => String(valor ?? '').replace(/[&<>"']/g, caractere => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[caractere]));
+      const ordenar = (a,b) => (Number(a.ordem) || 0) - (Number(b.ordem) || 0);
+      const textoRegistro = (item, chaves) => {
+        for (const chave of chaves) if (item && item[chave] != null && item[chave] !== '') return item[chave];
+        return '';
+      };
+      function mostrarEstado(container, titulo, mensagem) {
+        container.innerHTML = `<div class="estado-disciplina"><h3>${escapeHTML(titulo)}</h3><p>${escapeHTML(mensagem)}</p></div>`;
+      }
+      function mostrarErro(mensagem) {
+        nomeEl.textContent = 'Não foi possível abrir a disciplina';
+        metaEl.textContent = '';
+        listaTopicos.innerHTML = '';
+        mostrarEstado(painel, 'Falha no carregamento', mensagem);
+        const botao = document.createElement('button');
+        botao.className = 'aba-disciplina'; botao.textContent = 'Tentar novamente';
+        botao.addEventListener('click', iniciar);
+        painel.appendChild(botao);
+      }
+      async function carregarJSON(caminho) {
+        const resposta = await fetch(caminho, { cache: 'no-store' });
+        if (!resposta.ok) throw new Error(`Não foi possível carregar ${caminho} (HTTP ${resposta.status}).`);
+        return resposta.json();
+      }
+      function montarCabecalho() {
+        nomeEl.textContent = disciplinaAtual.nome;
+        const partes = [];
+        if (disciplinaAtual.codigo) partes.push(`Código: ${disciplinaAtual.codigo}`);
+        if (disciplinaAtual.ano) partes.push(`${disciplinaAtual.ano}º ano`);
+        if (disciplinaAtual.status) partes.push(`Situação: ${disciplinaAtual.status}`);
+        metaEl.textContent = partes.join('  •  ');
+        descricaoEl.textContent = disciplinaAtual.descricao || 'Organize aqui os conteúdos, materiais e atividades desta disciplina.';
+        document.title = `${disciplinaAtual.nome} - Estudos de Direito`;
+      }
+      function montarTopicos() {
+        const unidades = (estrutura.unidades || [])
+          .filter(unidade => unidade.disciplina_id === disciplinaId)
+          .sort(ordenar);
+        const todosAssuntos = estrutura.assuntos || [];
+
+        if (!unidades.length) {
+          mostrarEstado(listaTopicos, 'Assuntos ainda não cadastrados', 'Quando as unidades e os assuntos desta disciplina forem incluídos em estrutura.json, eles aparecerão aqui.');
+          return;
+        }
+
+        const grupos = unidades.map((unidade, indice) => ({
+          unidade,
+          assuntos: todosAssuntos
+            .filter(assunto => assunto.unidade_id === unidade.id)
+            .sort(ordenar),
+          indice
+        }));
+
+        listaTopicos.className = 'lista-unidades';
+        listaTopicos.innerHTML = grupos.map(({ unidade, assuntos, indice }) => `
+          <section class="unidade-disciplina" aria-labelledby="titulo-${escapeHTML(unidade.id)}">
+            <div class="cabecalho-unidade">
+              <h3 id="titulo-${escapeHTML(unidade.id)}"><span class="identificador-unidade">UNIDADE ${indice + 1}</span>${escapeHTML(unidade.nome || unidade.titulo || `Unidade ${indice + 1}`)}</h3>
+            </div>
+            ${assuntos.length ? `
+              <div class="grade-topicos">
+                ${assuntos.map((assunto, assuntoIndice) => {
+                  const titulo = textoRegistro(assunto, ['nome','titulo']) || `Assunto ${assuntoIndice + 1}`;
+                  const descricao = textoRegistro(assunto, ['descricao','ementa']) || 'Selecione para filtrar os conteúdos deste assunto.';
+                  return `<button class="cartao-topico" type="button" data-assunto="${escapeHTML(assunto.id)}" aria-pressed="false"><span class="icone-topico">§</span><span class="nome-topico">${escapeHTML(titulo)}</span><span class="descricao-topico">${escapeHTML(descricao)}</span></button>`;
+                }).join('')}
+              </div>
+            ` : '<p class="carregando">Nenhum assunto cadastrado nesta unidade.</p>'}
+          </section>
+        `).join('');
+
+        listaTopicos.querySelectorAll('[data-assunto]').forEach(botao => botao.addEventListener('click', () => {
+          const id = botao.dataset.assunto;
+          assuntoSelecionado = assuntoSelecionado === id ? null : id;
+          listaTopicos.querySelectorAll('[data-assunto]').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.assunto === assuntoSelecionado)));
+          renderizarAba();
+        }));
+      }
+      function registrosDaAba(tipo) {
+        const registros = conteudos[tipo] || [];
+        return registros.filter(item => item.disciplina_id === disciplinaId || item.disciplinaId === disciplinaId || (item.assunto_id && (estrutura.assuntos || []).some(a => a.id === item.assunto_id && (a.disciplina_id === disciplinaId || (estrutura.unidades || []).some(u => u.id === a.unidade_id && u.disciplina_id === disciplinaId)))));
+      }
+      function filtrarAssunto(registros) {
+        return assuntoSelecionado ? registros.filter(item => item.assunto_id === assuntoSelecionado) : registros;
+      }
+      function renderizarListaConteudos(tipo) {
+        const registros = filtrarAssunto(registrosDaAba(tipo)).sort(ordenar);
+        if (!registros.length) {
+          mostrarEstado(painel, 'Nenhum conteúdo cadastrado', assuntoSelecionado ? 'Não há conteúdo cadastrado para este assunto nesta seção.' : 'Esta seção está pronta para receber conteúdos. Nenhum registro foi cadastrado ainda.');
+          return;
+        }
+        painel.innerHTML = `<div class="lista-conteudos">${registros.map((item, i) => {
+          const titulo = textoRegistro(item, ['titulo','nome']) || `${tipo === 'resumos' ? 'Resumo' : tipo === 'revisoes' ? 'Revisão' : tipo === 'questoes' ? 'Conjunto de questões' : 'Flashcard'} ${i+1}`;
+          const descricao = textoRegistro(item, ['descricao','resumo','enunciado','frente','conteudo','texto']);
+          const corpo = textoRegistro(item, ['conteudo','texto','desenvolvimento','resposta','verso','comentario','explicacao']);
+          return `<article class="item-conteudo"><h3>${escapeHTML(titulo)}</h3>${descricao ? `<p>${escapeHTML(descricao)}</p>` : ''}${corpo ? `<details><summary>Ver conteúdo</summary><p>${escapeHTML(corpo)}</p></details>` : ''}</article>`;
+        }).join('')}</div>`;
+      }
+      function renderizarMateriais() {
+        const materiais = documentos.filter(doc => String(doc.disciplina || '').trim().toLocaleLowerCase('pt-BR') === disciplinaAtual.nome.trim().toLocaleLowerCase('pt-BR'));
+        if (!materiais.length) {
+          mostrarEstado(painel, 'Nenhum material cadastrado', 'Os documentos associados a esta disciplina em documentos.json aparecerão aqui.');
+          return;
+        }
+        painel.innerHTML = `<div class="lista-conteudos">${materiais.map(doc => {
+          const titulo = doc.titulo || 'Material sem título';
+          const arquivos = Array.isArray(doc.arquivos) && doc.arquivos.length ? doc.arquivos : (doc.arquivo ? [doc.arquivo] : []);
+          const links = arquivos.map((arquivo, i) => `<a class="material-link" href="${escapeHTML(arquivo)}" target="_blank" rel="noopener">${arquivos.length > 1 ? `Abrir arquivo ${i+1}` : 'Abrir material'}</a>`).join('<br>');
+          return `<article class="item-conteudo"><h3>${escapeHTML(titulo)}</h3>${doc.categoria ? `<p>Categoria: ${escapeHTML(doc.categoria)}</p>` : ''}${doc.descricao ? `<p>${escapeHTML(doc.descricao)}</p>` : ''}${links || '<p>Arquivo ainda não associado.</p>'}</article>`;
+        }).join('')}</div>`;
+      }
+      function renderizarAba() {
+        const nomes = {resumos:'Resumos',revisoes:'Revisões de literatura',questoes:'Questões',flashcards:'Flashcards',fluxogramas:'Fluxogramas',materiais:'Materiais'};
+        document.querySelectorAll('.aba-disciplina').forEach(botao => {
+          if (!botao.dataset.aba) return;
+          const ativo = botao.dataset.aba === abaAtual;
+          botao.setAttribute('aria-selected', String(ativo));
+          botao.tabIndex = ativo ? 0 : -1;
+        });
+        painel.setAttribute('aria-labelledby', `aba-${abaAtual}`);
+        if (['resumos','revisoes','questoes','flashcards'].includes(abaAtual)) renderizarListaConteudos(abaAtual);
+        else if (abaAtual === 'materiais') renderizarMateriais();
+        else mostrarEstado(painel, 'Fluxogramas ainda não cadastrados', 'Os fluxogramas vinculados à disciplina poderão ser adicionados futuramente como imagens ou arquivos estáticos.');
+        if (assuntoSelecionado) {
+          const assunto = (estrutura.assuntos || []).find(a => a.id === assuntoSelecionado) || (estrutura.unidades || []).find(u => u.id === assuntoSelecionado);
+          painel.insertAdjacentHTML('afterbegin', `<p class="aviso-filtro">Filtro ativo: ${escapeHTML(textoRegistro(assunto, ['nome','titulo']) || 'assunto selecionado')} — <a href="#" id="limpar-filtro">limpar filtro</a></p>`);
+          document.getElementById('limpar-filtro').addEventListener('click', event => { event.preventDefault(); assuntoSelecionado = null; listaTopicos.querySelectorAll('[data-assunto]').forEach(el => el.setAttribute('aria-pressed','false')); renderizarAba(); });
+        }
+        painel.setAttribute('aria-labelledby', `aba-${abaAtual}`);
+      }
+      document.querySelectorAll('.aba-disciplina[data-aba]').forEach(botao => botao.addEventListener('click', () => { abaAtual = botao.dataset.aba; renderizarAba(); }));
+      async function iniciar() {
+        if (!disciplinaId) { mostrarErro('O endereço não informou o identificador da disciplina. Volte ao currículo e selecione uma disciplina.'); return; }
+        try {
+          [estrutura, conteudos, documentos] = await Promise.all([
+            carregarJSON('dados/estrutura.json'), carregarJSON('dados/conteudos.json'), carregarJSON('documentos.json')
+          ]);
+          if (!Array.isArray(documentos)) documentos = [];
+          disciplinaAtual = (estrutura.disciplinas || []).find(item => item.id === disciplinaId);
+          if (!disciplinaAtual) { mostrarErro('A disciplina solicitada não foi encontrada em dados/estrutura.json.'); return; }
+          montarCabecalho(); montarTopicos(); renderizarAba();
+        } catch (erro) {
+          console.error(erro);
+          mostrarErro(`${erro.message} Verifique se os arquivos JSON estão nos caminhos esperados e tente novamente.`);
+        }
+      }
+      iniciar();
+    })();
+  </script>
+</body>
+</html>
