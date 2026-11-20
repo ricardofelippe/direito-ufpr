@@ -1,67 +1,511 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Currículo de Direito da UFPR organizado para acompanhar meus estudos e acessar os materiais de cada disciplina.">
   <title>Currículo de Direito - UFPR</title>
   <link rel="stylesheet" href="direito.css">
-</head>
-<body>
+  <style>
+    /* Estilos exclusivos do currículo: preservam os estilos globais e não alteram a biblioteca. */
+    body.pagina-curriculo {
+      --fundo: #070b12;
+      --fundo-secundario: #0c1420;
+      --superficie: #101b29;
+      --superficie-hover: #172638;
+      --borda: #1b3041;
+      --azul: #19c7ce;
+      --azul-claro: #36d9dc;
+      --azul-fundo: #10343d;
+      --texto: #e6edf5;
+      --texto-secundario: #a5b8ca;
+      --texto-suave: #71869b;
+      background: var(--fundo);
+      color: var(--texto);
+    }
 
+    .pagina-curriculo > header {
+      background: linear-gradient(135deg, #0c1420, #101f2c);
+      border-bottom: 1px solid var(--borda);
+      padding: 34px 20px 30px;
+    }
+
+    .cabecalho-curriculo {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .cabecalho-curriculo h1 {
+      font-size: clamp(25px, 3vw, 34px);
+      letter-spacing: -0.5px;
+    }
+
+    .cabecalho-curriculo p {
+      margin: 7px 0 0;
+      color: var(--texto-secundario);
+    }
+
+    .atalhos-curriculo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .atalhos-curriculo a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      background: rgba(16, 27, 41, .8);
+      color: var(--texto);
+      text-decoration: none;
+      transition: .2s ease;
+    }
+
+    .atalhos-curriculo a:hover {
+      border-color: var(--azul);
+      color: var(--azul-claro);
+      background: var(--superficie-hover);
+    }
+
+    .pagina-curriculo main {
+      max-width: 1240px;
+      margin: 30px auto 60px;
+    }
+
+    .introducao-curriculo {
+      margin: 0 0 30px;
+      color: var(--texto-secundario);
+      max-width: 760px;
+    }
+
+    .ano-curriculo,
+    .secao-sem-ano {
+      margin: 34px 0 42px;
+    }
+
+    .titulo-ano,
+    .titulo-sem-ano {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin: 0 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--borda);
+      color: var(--texto);
+      font-size: 23px;
+    }
+
+    .titulo-ano .numero-ano {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--azul-fundo);
+      color: var(--azul-claro);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .grupo-categoria {
+      margin: 22px 0 26px;
+    }
+
+    .titulo-categoria {
+      margin: 0 0 12px;
+      color: var(--texto-secundario);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+
+    .grade-disciplinas {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .cartao-disciplina {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 132px;
+      padding: 17px 18px 15px;
+      border: 1px solid var(--borda);
+      border-left: 3px solid var(--azul);
+      border-radius: 10px;
+      background: var(--superficie);
+      color: var(--texto);
+      text-decoration: none;
+      transition: background .18s ease, border-color .18s ease, transform .18s ease;
+    }
+
+    .cartao-disciplina:hover {
+      transform: translateY(-2px);
+      border-color: var(--azul);
+      background: var(--superficie-hover);
+      color: #fff;
+    }
+
+    .cartao-disciplina:focus-visible,
+    .atalhos-curriculo a:focus-visible,
+    .botao-tentar-novamente:focus-visible {
+      outline: 2px solid var(--azul-claro);
+      outline-offset: 3px;
+    }
+
+    .cartao-topo {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .nome-disciplina {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .codigo-disciplina {
+      display: block;
+      margin-top: 9px;
+      color: var(--texto-suave);
+      font-size: 12px;
+      letter-spacing: .3px;
+    }
+
+    .situacao-disciplina {
+      flex: 0 0 auto;
+      padding: 3px 8px;
+      border: 1px solid #66552c;
+      border-radius: 20px;
+      background: #332b19;
+      color: #e8c978;
+      font-size: 10px;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    .situacao-disciplina.ativa {
+      border-color: #245b50;
+      background: #12372f;
+      color: #83d8bd;
+    }
+
+    .situacao-disciplina.inativa {
+      border-color: #5a3941;
+      background: #321e25;
+      color: #e7a0aa;
+    }
+
+    .indicador-acesso {
+      margin-top: auto;
+      padding-top: 12px;
+      color: var(--azul-claro);
+      font-size: 11px;
+    }
+
+    .cartao-topico-previsto {
+      min-height: 132px;
+      padding: 17px 18px;
+      border: 1px dashed #28515a;
+      border-radius: 10px;
+      background: rgba(16, 52, 61, .32);
+    }
+
+    .cartao-topico-previsto strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--azul-claro);
+      font-size: 15px;
+    }
+
+    .cartao-topico-previsto p {
+      margin: 0;
+      color: var(--texto-secundario);
+      font-size: 13px;
+    }
+
+    .resumo-topicas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      margin-top: 12px;
+      color: var(--texto-secundario);
+      font-size: 12px;
+    }
+
+    .estado-carregamento,
+    .estado-erro,
+    .estado-vazio {
+      padding: 22px;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      background: var(--superficie);
+      color: var(--texto-secundario);
+    }
+
+    .estado-erro {
+      border-color: #684047;
+      color: #efb1b8;
+    }
+
+    .botao-tentar-novamente {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 9px 13px;
+      border: 1px solid var(--azul);
+      border-radius: 7px;
+      background: var(--azul-fundo);
+      color: var(--azul-claro);
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .rodape-curriculo {
+      margin-top: 48px;
+      padding-top: 18px;
+      border-top: 1px solid var(--borda);
+      color: var(--texto-suave);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .grade-disciplinas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 600px) {
+      .pagina-curriculo > header { padding: 26px 16px; }
+      .pagina-curriculo main { padding: 0 16px; }
+      .grade-disciplinas { grid-template-columns: 1fr; }
+      .titulo-ano, .titulo-sem-ano { font-size: 20px; }
+    }
+  </style>
+</head>
+<body class="pagina-curriculo">
   <header>
-    <h1>Currículo de Direito - UFPR</h1>
-    <p>Meu mapa de estudos e documentos</p>
-    <p>
-    <a href="biblioteca.html">
-      📚 Acessar minha biblioteca de estudos
-    </a>
-  </p>
+    <div class="cabecalho-curriculo">
+      <h1>Currículo de Direito - UFPR</h1>
+      <p>Meu mapa de estudos e documentos</p>
+      <nav class="atalhos-curriculo" aria-label="Navegação principal">
+        <a href="biblioteca.html">📚 Biblioteca geral</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <h2>1º Ano</h2>
-
-    <section class="disciplinas">
-      <a class="disciplina" href="#economia">
-        Economia Política
-      </a>
-
-      <a class="disciplina" href="#estado">
-        Teoria do Estado e Ciência Política
-      </a>
-
-      <a class="disciplina" href="#sociedade">
-        Direito e Sociedade
-      </a>
-
-      <a class="disciplina" href="teoria-do-direito.html">
-        Teoria do Direito
-      </a>
-
-      <a class="disciplina" href="#metodologia">
-        Metodologia do Trabalho Científico em Direito
-      </a>
-
-      <a class="disciplina" href="#historia">
-        História do Direito
-      </a>
-
-      <a class="disciplina" href="#romano">
-        Direito Romano
-      </a>
-
-      <a class="disciplina" href="#civil">
-        Direito Civil A
-      </a>
-    </section>
-
-    <h2>Meus documentos</h2>
-    <p>
-      Em breve, cada disciplina terá sua própria
-      biblioteca de PDFs e materiais de estudo.
+    <p class="introducao-curriculo">
+      Disciplinas organizadas por ano e categoria. Selecione uma disciplina para acessar sua página de estudos.
     </p>
+
+    <div id="curriculo" aria-live="polite">
+      <p class="estado-carregamento">Carregando estrutura curricular...</p>
+    </div>
+
+    <footer class="rodape-curriculo">
+      Estrutura acadêmica carregada de <code>dados/estrutura.json</code>.
+    </footer>
   </main>
 
+  <script>
+    (() => {
+      'use strict';
+
+      const URL_ESTRUTURA = './dados/estrutura.json';
+      const elementoCurriculo = document.getElementById('curriculo');
+
+      const categorias = {
+        obrigatoria: 'Disciplinas obrigatórias',
+        atividade_complementar: 'Atividades curriculares complementares',
+        npj: 'Núcleo de Prática Jurídica (NPJ)',
+        outros_setores: 'Disciplinas ofertadas a outros setores'
+      };
+
+      const ordemCategorias = [
+        'obrigatoria',
+        'atividade_complementar',
+        'npj',
+        'outros_setores'
+      ];
+
+      function criarElemento(tag, classe, texto) {
+        const elemento = document.createElement(tag);
+        if (classe) elemento.className = classe;
+        if (texto !== undefined && texto !== null) elemento.textContent = texto;
+        return elemento;
+      }
+
+      function ordenarRegistros(registros) {
+        return [...registros].sort((a, b) => {
+          const ordemA = Number.isFinite(Number(a.ordem)) ? Number(a.ordem) : 9999;
+          const ordemB = Number.isFinite(Number(b.ordem)) ? Number(b.ordem) : 9999;
+          return ordemA - ordemB || String(a.nome || '').localeCompare(String(b.nome || ''), 'pt-BR');
+        });
+      }
+
+      function criarCartao(disciplina) {
+        const link = criarElemento('a', 'cartao-disciplina');
+        link.href = `disciplina.html?id=${encodeURIComponent(disciplina.id)}`;
+        link.setAttribute('aria-label', `Abrir ${disciplina.nome || 'disciplina'}`);
+
+        const topo = criarElemento('div', 'cartao-topo');
+        const nome = criarElemento('h4', 'nome-disciplina', disciplina.nome || 'Disciplina sem nome');
+        topo.appendChild(nome);
+
+        const status = String(disciplina.status || 'pendente').toLowerCase();
+        const rotulosStatus = {
+          ativa: 'Ativa',
+          inativa: 'Inativa',
+          pendente: 'Pendente'
+        };
+        const etiqueta = criarElemento(
+          'span',
+          `situacao-disciplina ${['ativa', 'inativa'].includes(status) ? status : ''}`.trim(),
+          rotulosStatus[status] || status
+        );
+        topo.appendChild(etiqueta);
+        link.appendChild(topo);
+
+        if (disciplina.codigo) {
+          link.appendChild(criarElemento('span', 'codigo-disciplina', disciplina.codigo));
+        }
+
+        link.appendChild(criarElemento('span', 'indicador-acesso', 'Acessar disciplina →'));
+        return link;
+      }
+
+      function criarGrupo(titulo, registros) {
+        if (!registros.length) return null;
+
+        const grupo = criarElemento('section', 'grupo-categoria');
+        grupo.appendChild(criarElemento('h3', 'titulo-categoria', titulo));
+        const grade = criarElemento('div', 'grade-disciplinas');
+        ordenarRegistros(registros).forEach(registro => grade.appendChild(criarCartao(registro)));
+        grupo.appendChild(grade);
+        return grupo;
+      }
+
+      function criarPrevisaoTopicas(previsao) {
+        const dados = previsao.find(item => Number(item.ano) === Number(anoAtual));
+        if (!dados) return null;
+
+        const grupo = criarElemento('section', 'grupo-categoria');
+        grupo.appendChild(criarElemento('h3', 'titulo-categoria', 'Disciplinas tópicas'));
+
+        const grade = criarElemento('div', 'grade-disciplinas');
+        const cartao = criarElemento('div', 'cartao-topico-previsto');
+        cartao.appendChild(criarElemento('strong', '', 'Previsão curricular'));
+        cartao.appendChild(criarElemento('p', '', 'Os componentes tópicos ainda serão cadastrados. Nenhum nome ou código foi presumido.'));
+
+        const resumo = criarElemento('div', 'resumo-topicas');
+        resumo.appendChild(criarElemento('span', '', `${dados.quantidade} disciplinas previstas`));
+        resumo.appendChild(criarElemento('span', '', `${dados.carga_horaria_total} horas no total`));
+        cartao.appendChild(resumo);
+        grade.appendChild(cartao);
+        grupo.appendChild(grade);
+        return grupo;
+      }
+
+      let anoAtual = 0;
+
+      function renderizar(estrutura) {
+        if (!estrutura || !Array.isArray(estrutura.disciplinas)) {
+          throw new Error('O arquivo não contém uma lista válida de disciplinas.');
+        }
+
+        const disciplinas = estrutura.disciplinas;
+        const fragmento = document.createDocumentFragment();
+        const anos = [1, 2, 3, 4, 5];
+
+        anos.forEach(ano => {
+          anoAtual = ano;
+          const registrosAno = disciplinas.filter(item => Number(item.ano) === ano);
+          const secao = criarElemento('section', 'ano-curriculo');
+          secao.appendChild(criarElemento('h2', 'titulo-ano'));
+          const titulo = secao.querySelector('.titulo-ano');
+          titulo.appendChild(criarElemento('span', 'numero-ano', String(ano)));
+          titulo.appendChild(document.createTextNode(`${ano}º Ano`));
+
+          ordemCategorias.forEach(categoria => {
+            const registros = registrosAno.filter(item => item.categoria === categoria);
+            const grupo = criarGrupo(categorias[categoria] || categoria, registros);
+            if (grupo) secao.appendChild(grupo);
+          });
+
+          const topicas = criarPrevisaoTopicas(Array.isArray(estrutura.previsao_topicas) ? estrutura.previsao_topicas : []);
+          if (topicas) secao.appendChild(topicas);
+
+          if (registrosAno.length || topicas) fragmento.appendChild(secao);
+        });
+
+        const semAno = disciplinas.filter(item => item.ano === null || item.ano === undefined || item.ano === '');
+        if (semAno.length) {
+          const secao = criarElemento('section', 'secao-sem-ano');
+          secao.appendChild(criarElemento('h2', 'titulo-sem-ano', 'Atividades e disciplinas sem ano definido'));
+          ordemCategorias.forEach(categoria => {
+            const registros = semAno.filter(item => item.categoria === categoria);
+            const grupo = criarGrupo(categorias[categoria] || categoria, registros);
+            if (grupo) secao.appendChild(grupo);
+          });
+
+          const categoriasDesconhecidas = [...new Set(semAno.map(item => item.categoria).filter(cat => !ordemCategorias.includes(cat)))];
+          categoriasDesconhecidas.forEach(categoria => {
+            const grupo = criarGrupo(categorias[categoria] || categoria, semAno.filter(item => item.categoria === categoria));
+            if (grupo) secao.appendChild(grupo);
+          });
+          fragmento.appendChild(secao);
+        }
+
+        const anosExtras = disciplinas.filter(item => item.ano != null && !anos.includes(Number(item.ano)));
+        if (anosExtras.length) {
+          const secao = criarElemento('section', 'secao-sem-ano');
+          secao.appendChild(criarElemento('h2', 'titulo-sem-ano', 'Outros registros curriculares'));
+          ordemCategorias.forEach(categoria => {
+            const grupo = criarGrupo(categorias[categoria] || categoria, anosExtras.filter(item => item.categoria === categoria));
+            if (grupo) secao.appendChild(grupo);
+          });
+          fragmento.appendChild(secao);
+        }
+
+        if (!fragmento.childNodes.length) {
+          elementoCurriculo.replaceChildren(criarElemento('p', 'estado-vazio', 'Nenhuma disciplina foi encontrada na estrutura curricular.'));
+          return;
+        }
+
+        elementoCurriculo.replaceChildren(fragmento);
+      }
+
+      async function carregarEstrutura() {
+        elementoCurriculo.replaceChildren(criarElemento('p', 'estado-carregamento', 'Carregando estrutura curricular...'));
+        try {
+          const resposta = await fetch(URL_ESTRUTURA, { cache: 'no-cache' });
+          if (!resposta.ok) {
+            throw new Error(`Não foi possível carregar a estrutura (HTTP ${resposta.status}).`);
+          }
+          const estrutura = await resposta.json();
+          renderizar(estrutura);
+        } catch (erro) {
+          console.error('Erro ao carregar o currículo:', erro);
+          const aviso = criarElemento('div', 'estado-erro');
+          aviso.appendChild(criarElemento('p', '', 'Não foi possível carregar o currículo. Verifique se dados/estrutura.json está publicado no repositório.'));
+          aviso.appendChild(criarElemento('p', '', erro.message || 'Ocorreu um erro inesperado.'));
+          const botao = criarElemento('button', 'botao-tentar-novamente', 'Tentar novamente');
+          botao.type = 'button';
+          botao.addEventListener('click', carregarEstrutura);
+          aviso.appendChild(botao);
+          elementoCurriculo.replaceChildren(aviso);
+        }
+      }
+
+      carregarEstrutura();
+    })();
+  </script>
 </body>
 </html>

@@ -1,0 +1,663 @@
+{
+  "disciplinas": [
+    {
+      "id": "economia-politica",
+      "codigo": "DB438",
+      "nome": "Economia Política",
+      "categoria": "obrigatoria",
+      "ano": 1,
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-do-estado-e-ciencia-politica",
+      "codigo": "DB431",
+      "nome": "Teoria do Estado e Ciência Política",
+      "categoria": "obrigatoria",
+      "ano": 1,
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-e-sociedade",
+      "codigo": "DB439",
+      "nome": "Direito e Sociedade",
+      "categoria": "obrigatoria",
+      "ano": 1,
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-do-direito",
+      "codigo": "DV447",
+      "nome": "Teoria do Direito",
+      "categoria": "obrigatoria",
+      "ano": 1,
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-do-trabalho-cientifico-em-direito",
+      "codigo": "DV437",
+      "nome": "Metodologia do Trabalho Científico em Direito",
+      "categoria": "obrigatoria",
+      "ano": 1,
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-do-direito",
+      "codigo": "DV448",
+      "nome": "História do Direito",
+      "categoria": "obrigatoria",
+      "ano": 1,
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-romano",
+      "codigo": "DV452",
+      "nome": "Direito Romano",
+      "categoria": "obrigatoria",
+      "ano": 1,
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a",
+      "codigo": "DC425",
+      "nome": "Direito Civil A",
+      "categoria": "obrigatoria",
+      "ano": 1,
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-constitucional-a",
+      "codigo": "DB435",
+      "nome": "Direito Constitucional A",
+      "categoria": "obrigatoria",
+      "ano": 2,
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-internacional-publico",
+      "codigo": "DB426",
+      "nome": "Direito Internacional Público",
+      "categoria": "obrigatoria",
+      "ano": 2,
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "antropologia-juridica",
+      "codigo": "DB441",
+      "nome": "Antropologia Jurídica",
+      "categoria": "obrigatoria",
+      "ano": 2,
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-penal-a",
+      "codigo": "DP417",
+      "nome": "Direito Penal A",
+      "categoria": "obrigatoria",
+      "ano": 2,
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "criminologia",
+      "codigo": "DP425",
+      "nome": "Criminologia",
+      "categoria": "obrigatoria",
+      "ano": 2,
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-internacional-privado",
+      "codigo": "DV441",
+      "nome": "Direito Internacional Privado",
+      "categoria": "obrigatoria",
+      "ano": 2,
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-b",
+      "codigo": "DC426",
+      "nome": "Direito Civil B",
+      "categoria": "obrigatoria",
+      "ano": 2,
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-processual-civil-a",
+      "codigo": "DC429",
+      "nome": "Direito Processual Civil A",
+      "categoria": "obrigatoria",
+      "ano": 2,
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "filosofia-do-direito",
+      "codigo": "DV453",
+      "nome": "Filosofia do Direito",
+      "categoria": "obrigatoria",
+      "ano": 2,
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-constitucional-b",
+      "codigo": "DB436",
+      "nome": "Direito Constitucional B",
+      "categoria": "obrigatoria",
+      "ano": 3,
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-financeiro-e-politicas-publicas",
+      "codigo": "DB442",
+      "nome": "Direito Financeiro e Políticas Públicas",
+      "categoria": "obrigatoria",
+      "ano": 3,
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-administrativo-a",
+      "codigo": "DB443",
+      "nome": "Direito Administrativo A",
+      "categoria": "obrigatoria",
+      "ano": 3,
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-penal-b",
+      "codigo": "DP418",
+      "nome": "Direito Penal B",
+      "categoria": "obrigatoria",
+      "ano": 3,
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-empresarial-a",
+      "codigo": "DV449",
+      "nome": "Direito Empresarial A",
+      "categoria": "obrigatoria",
+      "ano": 3,
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-c",
+      "codigo": "DC427",
+      "nome": "Direito Civil C",
+      "categoria": "obrigatoria",
+      "ano": 3,
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-processual-civil-b",
+      "codigo": "DC430",
+      "nome": "Direito Processual Civil B",
+      "categoria": "obrigatoria",
+      "ano": 3,
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-administrativo-b",
+      "codigo": "DB444",
+      "nome": "Direito Administrativo B",
+      "categoria": "obrigatoria",
+      "ano": 4,
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-penal-c",
+      "codigo": "DP419",
+      "nome": "Direito Penal C",
+      "categoria": "obrigatoria",
+      "ano": 4,
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-processual-penal-a",
+      "codigo": "DP421",
+      "nome": "Direito Processual Penal A",
+      "categoria": "obrigatoria",
+      "ano": 4,
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-empresarial-b",
+      "codigo": "DV450",
+      "nome": "Direito Empresarial B",
+      "categoria": "obrigatoria",
+      "ano": 4,
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-do-trabalho",
+      "codigo": "DV445",
+      "nome": "Direito do Trabalho",
+      "categoria": "obrigatoria",
+      "ano": 4,
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-d",
+      "codigo": "DC428",
+      "nome": "Direito Civil D",
+      "categoria": "obrigatoria",
+      "ano": 4,
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-processual-civil-c",
+      "codigo": "DC431",
+      "nome": "Direito Processual Civil C",
+      "categoria": "obrigatoria",
+      "ano": 4,
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-tributario",
+      "codigo": "DB428",
+      "nome": "Direito Tributário",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-ambiental",
+      "codigo": "DB440",
+      "nome": "Direito Ambiental",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-economico",
+      "codigo": "DB445",
+      "nome": "Direito Econômico",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-processual-penal-b",
+      "codigo": "DP422",
+      "nome": "Direito Processual Penal B",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-processual-do-trabalho",
+      "codigo": "DV451",
+      "nome": "Direito Processual do Trabalho",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-e",
+      "codigo": "DC435",
+      "nome": "Direito Civil E",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "pratica-juridica-civil",
+      "codigo": "DIR405",
+      "nome": "Prática Jurídica Civil",
+      "categoria": "npj",
+      "ano": null,
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "pratica-juridica-penal",
+      "codigo": "DIR406",
+      "nome": "Prática Jurídica Penal",
+      "categoria": "npj",
+      "ano": null,
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "pratica-juridica-trabalhista",
+      "codigo": "DIR407",
+      "nome": "Prática Jurídica Trabalhista",
+      "categoria": "npj",
+      "ano": null,
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "pratica-juridica-previdenciaria",
+      "codigo": "DIR408",
+      "nome": "Prática Jurídica Previdenciária",
+      "categoria": "npj",
+      "ano": null,
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "pratica-juridica-em-direitos-humanos",
+      "codigo": "DIR409",
+      "nome": "Prática Jurídica em Direitos Humanos",
+      "categoria": "npj",
+      "ano": null,
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-db201-instituicoes-de-direito-publico",
+      "codigo": "DB201",
+      "nome": "Instituições de Direito Público",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-dv042-direito-comercial",
+      "codigo": "DV042",
+      "nome": "Direito Comercial",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-dv414-legislacao-social-b",
+      "codigo": "DV414",
+      "nome": "Legislação Social B",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-db412-legislacao-tributaria-b",
+      "codigo": "DB412",
+      "nome": "Legislação Tributária B",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-dv411-legislacao-social-a",
+      "codigo": "DV411",
+      "nome": "Legislação Social A",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-db415-legislacao-tributaria",
+      "codigo": "DB415",
+      "nome": "Legislação Tributária",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-dv413-instituicoes-de-direito-privado-a",
+      "codigo": "DV413",
+      "nome": "Instituições de Direito Privado A",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-db411-legislacao-tributaria-a",
+      "codigo": "DB411",
+      "nome": "Legislação Tributária A",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-dv201-direito-privado-a",
+      "codigo": "DV201",
+      "nome": "Direito Privado A",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-dv418-direito-da-navegacao",
+      "codigo": "DV418",
+      "nome": "Direito da Navegação",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 10,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-dv412-legislacao-comercial",
+      "codigo": "DV412",
+      "nome": "Legislação Comercial",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 11,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-db410-instituicoes-de-direito-publico",
+      "codigo": "DB410",
+      "nome": "Instituições de Direito Público",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 12,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-dv044-direito-empresarial",
+      "codigo": "DV044",
+      "nome": "Direito Empresarial",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 13,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-dv417-legislacao-aduaneira-comparada",
+      "codigo": "DV417",
+      "nome": "Legislação Aduaneira Comparada",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 14,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-db414-instituicoes-de-direito-publico-a",
+      "codigo": "DB414",
+      "nome": "Instituições de Direito Público A",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 15,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-db202-legislacao-tributaria",
+      "codigo": "DB202",
+      "nome": "Legislação Tributária",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 16,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-dv043-direito-do-trabalho",
+      "codigo": "DV043",
+      "nome": "Direito do Trabalho",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 17,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-dv415-instituicoes-de-direito-privado",
+      "codigo": "DV415",
+      "nome": "Instituições de Direito Privado",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 18,
+      "status": "pendente"
+    },
+    {
+      "id": "outro-db413-direito-administrativo-a",
+      "codigo": "DB413",
+      "nome": "Direito Administrativo A",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 19,
+      "status": "pendente"
+    },
+    {
+      "id": "tcc-i",
+      "codigo": null,
+      "nome": "TCC I",
+      "categoria": "atividade_complementar",
+      "ano": 4,
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "tcc-ii",
+      "codigo": null,
+      "nome": "TCC II",
+      "categoria": "atividade_complementar",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "estagio-supervisionado",
+      "codigo": null,
+      "nome": "Estágio Supervisionado",
+      "categoria": "atividade_complementar",
+      "ano": null,
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    }
+  ],
+  "unidades": [],
+  "assuntos": [],
+  "previsao_topicas": [
+    {
+      "ano": 3,
+      "quantidade": 4,
+      "carga_horaria_total": 120
+    },
+    {
+      "ano": 4,
+      "quantidade": 4,
+      "carga_horaria_total": 120
+    },
+    {
+      "ano": 5,
+      "quantidade": 4,
+      "carga_horaria_total": 120
+    }
+  ]
+}
