@@ -1,5 +1,13 @@
 {
-  "resumos": [],
+  "resumos": [
+    {
+      "id": "resumo-1795278507331-20",
+      "assunto_id": "teoria-do-direito-assunto-08",
+      "titulo": "Teste de cadastro",
+      "ordem": 1,
+      "conteudo": "Este é um resumo de teste para verificar a integração entre o painel administrativo, o GitHub Issues e o arquivo conteudos.json.\n6."
+    }
+  ],
   "revisoes": [],
   "questoes": [],
   "flashcards": []
