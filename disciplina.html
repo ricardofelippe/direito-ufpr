@@ -202,9 +202,10 @@
         }
         painel.innerHTML = `<div class="lista-conteudos">${registros.map((item, i) => {
           const titulo = textoRegistro(item, ['titulo','nome']) || `${tipo === 'resumos' ? 'Resumo' : tipo === 'revisoes' ? 'Revisão' : tipo === 'questoes' ? 'Conjunto de questões' : 'Flashcard'} ${i+1}`;
-          const descricao = textoRegistro(item, ['descricao','resumo','enunciado','frente','conteudo','texto']);
+          const descricao = textoRegistro(item, ['descricao','resumo','enunciado','frente']);
           const corpo = textoRegistro(item, ['conteudo','texto','desenvolvimento','resposta','verso','comentario','explicacao']);
-          return `<article class="item-conteudo"><h3>${escapeHTML(titulo)}</h3>${descricao ? `<p>${escapeHTML(descricao)}</p>` : ''}${corpo ? `<details><summary>Ver conteúdo</summary><p>${escapeHTML(corpo)}</p></details>` : ''}</article>`;
+          const descricaoDiferente = descricao && descricao.trim() !== String(corpo || '').trim();
+          return `<article class="item-conteudo"><h3>${escapeHTML(titulo)}</h3>${descricaoDiferente ? `<p>${escapeHTML(descricao)}</p>` : ''}${corpo ? `<details><summary>Ver conteúdo</summary><p>${escapeHTML(corpo)}</p></details>` : ''}</article>`;
         }).join('')}</div>`;
       }
       function renderizarMateriais() {
