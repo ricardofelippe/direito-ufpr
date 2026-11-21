@@ -205,7 +205,12 @@
           const descricao = textoRegistro(item, ['descricao','resumo','enunciado','frente']);
           const corpo = textoRegistro(item, ['conteudo','texto','desenvolvimento','resposta','verso','comentario','explicacao']);
           const descricaoDiferente = descricao && descricao.trim() !== String(corpo || '').trim();
-          return `<article class="item-conteudo"><h3>${escapeHTML(titulo)}</h3>${descricaoDiferente ? `<p>${escapeHTML(descricao)}</p>` : ''}${corpo ? `<details><summary>Ver conteúdo</summary><p>${escapeHTML(corpo)}</p></details>` : ''}</article>`;
+          const referencia = tipo === 'revisoes' ? textoRegistro(item, ['referencia','referencia_bibliografica']) : '';
+          const dataElaboracao = tipo === 'revisoes' ? textoRegistro(item, ['data_elaboracao','data']) : '';
+          const metadadosRevisao = tipo === 'revisoes'
+            ? `${referencia ? `<p><strong>Referência bibliográfica:</strong> ${escapeHTML(referencia)}</p>` : ''}${dataElaboracao ? `<p><strong>Data de elaboração:</strong> ${escapeHTML(dataElaboracao)}</p>` : ''}`
+            : '';
+          return `<article class="item-conteudo"><h3>${escapeHTML(titulo)}</h3>${descricaoDiferente ? `<p>${escapeHTML(descricao)}</p>` : ''}${corpo || metadadosRevisao ? `<details><summary>Ver conteúdo</summary>${metadadosRevisao}<p>${escapeHTML(corpo)}</p></details>` : ''}</article>`;
         }).join('')}</div>`;
       }
       function renderizarMateriais() {
