@@ -8,7 +8,16 @@
       "conteudo": "Este é um resumo de teste para verificar a integração entre o painel administrativo, o GitHub Issues e o arquivo conteudos.json."
     }
   ],
-  "revisoes": [],
+  "revisoes": [
+    {
+      "id": "revisao-1795281451734-21",
+      "assunto_id": "teoria-do-direito-assunto-01",
+      "titulo": "Revisão de teste",
+      "ordem": 1,
+      "referencia": "AUTOR, Nome. Título da obra. Editora, 2024.",
+      "conteudo": "Texto breve para validar o cadastro de revisões de literatura."
+    }
+  ],
   "questoes": [],
   "flashcards": []
 }
