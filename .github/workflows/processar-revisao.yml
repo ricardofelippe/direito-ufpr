@@ -14,6 +14,7 @@ jobs:
     # Somente a conta proprietária do repositório pode solicitar a gravação.
     if: github.event.issue.user.login == 'ricardofelippe' && startsWith(github.event.issue.title, '[Nova revisão]')
     runs-on: ubuntu-latest
+
     steps:
       - name: Baixar repositório
         uses: actions/checkout@v4
@@ -24,6 +25,7 @@ jobs:
           script: |
             const fs = require('fs');
             const { execFileSync } = require('child_process');
+
             const issueNumber = context.payload.issue.number;
             const body = context.payload.issue.body || '';
             const dadosPath = 'dados/conteudos.json';
@@ -31,17 +33,28 @@ jobs:
             function campoUnico(marcador) {
               const linhas = body.split(/\r?\n/);
               const indice = linhas.indexOf(marcador);
-              if (indice < 0 || indice + 1 >= linhas.length) throw new Error(`Campo ausente: ${marcador}`);
+
+              if (indice < 0 || indice + 1 >= linhas.length) {
+                throw new Error(`Campo ausente: ${marcador}`);
+              }
+
               return linhas[indice + 1].trim();
             }
 
             function extrairConteudo() {
               const inicio = '<!-- CONTEUDO_INICIO -->';
               const fim = '<!-- CONTEUDO_FIM -->';
+
               const a = body.indexOf(inicio);
               const b = body.indexOf(fim);
-              if (a < 0 || b <= a) throw new Error('Texto do resumo ausente ou malformado.');
-              return body.slice(a + inicio.length, b).replace(/^\r?\n/, '').replace(/\r?\n$/, '');
+
+              if (a < 0 || b <= a) {
+                throw new Error('Texto da revisão ausente ou malformado.');
+              }
+
+              return body.slice(a + inicio.length, b)
+                .replace(/^\r?\n/, '')
+                .replace(/\r?\n$/, '');
             }
 
             try {
@@ -53,32 +66,78 @@ jobs:
               const dataElaboracao = campoUnico('<!-- DATA_ELABORACAO -->');
               const conteudo = extrairConteudo();
 
-              if (!titulo || titulo.length > 180) throw new Error('O título deve ter entre 1 e 180 caracteres.');
-              if (!referencia.trim() || referencia.length > 2000) throw new Error('A referência bibliográfica é obrigatória e deve ter até 2.000 caracteres.');
-
-              // Valida a data no formato AAAA-MM-DD.
-              if (dataElaboracao && !/^\d{4}-\d{2}-\d{2}$/.test(dataElaboracao)) {
-                throw new Error('A data de elaboração é inválida.');
+              if (!titulo || titulo.length > 180) {
+                throw new Error('O título deve ter entre 1 e 180 caracteres.');
               }
 
-              if (!conteudo.trim()) throw new Error('O conteúdo está vazio.');
-              if (conteudo.length > 100000) throw new Error('O conteúdo excede 100.000 caracteres.');
+              if (!referencia.trim() || referencia.length > 2000) {
+                throw new Error('A referência bibliográfica é obrigatória e deve ter até 2.000 caracteres.');
+              }
 
-              const estrutura = JSON.parse(fs.readFileSync('dados/estrutura.json', 'utf8'));
-              const disciplina = estrutura.disciplinas.find(x => x.id === disciplinaId);
-              const unidade = estrutura.unidades.find(x => x.id === unidadeId);
-              const assunto = estrutura.assuntos.find(x => x.id === assuntoId);
+              // Valida o formato e a existência da data.
+              if (dataElaboracao) {
+                const dataValida =
+                  /^\d{4}-\d{2}-\d{2}$/.test(dataElaboracao) &&
+                  !Number.isNaN(Date.parse(dataElaboracao)) &&
+                  new Date(dataElaboracao).toISOString().slice(0, 10) === dataElaboracao;
 
-              if (!disciplina) throw new Error('Disciplina não encontrada.');
-              if (!unidade || unidade.disciplina_id !== disciplinaId) throw new Error('Unidade não pertence à disciplina selecionada.');
-              if (!assunto || assunto.unidade_id !== unidadeId) throw new Error('Assunto não pertence à unidade selecionada.');
+                if (!dataValida) {
+                  throw new Error('A data de elaboração é inválida.');
+                }
+              }
 
-              const dados = JSON.parse(fs.readFileSync(dadosPath, 'utf8'));
-              if (!Array.isArray(dados.revisoes)) dados.revisoes = [];
+              if (!conteudo.trim()) {
+                throw new Error('O conteúdo está vazio.');
+              }
+
+              if (conteudo.length > 100000) {
+                throw new Error('O conteúdo excede 100.000 caracteres.');
+              }
+
+              const estrutura = JSON.parse(
+                fs.readFileSync('dados/estrutura.json', 'utf8')
+              );
+
+              const disciplina = estrutura.disciplinas.find(
+                x => x.id === disciplinaId
+              );
+
+              const unidade = estrutura.unidades.find(
+                x => x.id === unidadeId
+              );
+
+              const assunto = estrutura.assuntos.find(
+                x => x.id === assuntoId
+              );
+
+              if (!disciplina) {
+                throw new Error('Disciplina não encontrada.');
+              }
+
+              if (!unidade || unidade.disciplina_id !== disciplinaId) {
+                throw new Error('Unidade não pertence à disciplina selecionada.');
+              }
+
+              if (!assunto || assunto.unidade_id !== unidadeId) {
+                throw new Error('Assunto não pertence à unidade selecionada.');
+              }
+
+              const dados = JSON.parse(
+                fs.readFileSync(dadosPath, 'utf8')
+              );
+
+              if (!Array.isArray(dados.revisoes)) {
+                dados.revisoes = [];
+              }
 
               const id = `revisao-${Date.now()}-${issueNumber}`;
-              const ordem = dados.revisoes.filter(x => x.assunto_id === assuntoId)
-                .reduce((max, x) => Math.max(max, Number(x.ordem) || 0), 0) + 1;
+
+              const ordem = dados.revisoes
+                .filter(x => x.assunto_id === assuntoId)
+                .reduce(
+                  (max, x) => Math.max(max, Number(x.ordem) || 0),
+                  0
+                ) + 1;
 
               const registro = {
                 id,
@@ -89,15 +148,38 @@ jobs:
                 conteudo
               };
 
-              if (dataElaboracao) registro.data_elaboracao = dataElaboracao;
+              if (dataElaboracao) {
+                registro.data_elaboracao = dataElaboracao;
+              }
 
               dados.revisoes.push(registro);
-              fs.writeFileSync(dadosPath, JSON.stringify(dados, null, 2) + '\n', 'utf8');
 
-              execFileSync('git', ['config', 'user.name', 'github-actions[bot]']);
-              execFileSync('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com']);
+              fs.writeFileSync(
+                dadosPath,
+                JSON.stringify(dados, null, 2) + '\n',
+                'utf8'
+              );
+
+              execFileSync('git', [
+                'config',
+                'user.name',
+                'github-actions[bot]'
+              ]);
+
+              execFileSync('git', [
+                'config',
+                'user.email',
+                '41898282+github-actions[bot]@users.noreply.github.com'
+              ]);
+
               execFileSync('git', ['add', dadosPath]);
-              execFileSync('git', ['commit', '-m', `Adiciona revisão: ${titulo}`]);
+
+              execFileSync('git', [
+                'commit',
+                '-m',
+                `Adiciona revisão: ${titulo}`
+              ]);
+
               execFileSync('git', ['push']);
 
               await github.rest.issues.createComment({
