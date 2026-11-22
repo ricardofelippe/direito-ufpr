@@ -891,7 +891,17 @@
       "descricao": "",
       "ordem": 25,
       "status": "pendente"
+    },
+        {
+      "id": "teoria-do-direito-assunto-26",
+      "disciplina_id": "teoria-do-direito",
+      "unidade_id": null,
+      "nome": "Direito e moral: distinções e relações",
+      "descricao": "Relações entre direito, moralidade, justiça e validade jurídica.",
+      "ordem": 26,
+      "status": "pendente"
     }
+        
   ],
   "previsao_topicas": [
     {
