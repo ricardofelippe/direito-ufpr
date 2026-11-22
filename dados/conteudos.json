@@ -6,6 +6,13 @@
       "titulo": "Teste de cadastro",
       "ordem": 1,
       "conteudo": "Este é um resumo de teste para verificar a integração entre o painel administrativo, o GitHub Issues e o arquivo conteudos.json."
+    },
+    {
+      "id": "resumo-1795389633604-24",
+      "assunto_id": "teoria-do-direito-assunto-26",
+      "titulo": "Relações entre Direito e Moral",
+      "ordem": 1,
+      "conteudo": "O Direito e a Moral são sistemas normativos que orientam a conduta humana. Embora apresentem pontos de contato, distinguem-se quanto à forma de organização, às fontes de validade e aos mecanismos de cumprimento. O estudo dessa relação permite compreender debates sobre justiça, legitimidade e obrigatoriedade das normas jurídicas"
     }
   ],
   "revisoes": [
