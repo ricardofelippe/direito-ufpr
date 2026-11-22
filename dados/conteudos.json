@@ -16,6 +16,15 @@
       "ordem": 1,
       "referencia": "AUTOR, Nome. Título da obra. Editora, 2024.",
       "conteudo": "Texto breve para validar o cadastro de revisões de literatura."
+    },
+    {
+      "id": "revisao-1795303372048-23",
+      "assunto_id": "teoria-do-direito-assunto-18",
+      "titulo": "Herbert Hart e a textura aberta do direito",
+      "ordem": 1,
+      "referencia": "HART, H. L. A. O conceito de direito.",
+      "conteudo": "Para Herbert Hart, o direito é formado por um sistema de regras primárias e secundárias. A textura aberta da linguagem jurídica significa que as normas podem apresentar situações de incerteza, especialmente nos casos não previstos claramente pelo legislador. Nessas situações, o aplicador do direito dispõe de certa discricionariedade para decidir",
+      "data_elaboracao": "2026-11-21"
     }
   ],
   "questoes": [],
