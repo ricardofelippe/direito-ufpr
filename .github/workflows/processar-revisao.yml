@@ -102,9 +102,9 @@ jobs:
                 x => x.id === disciplinaId
               );
 
-              const unidade = estrutura.unidades.find(
-                x => x.id === unidadeId
-              );
+              const unidade = unidadeId
+                ? estrutura.unidades.find(x => x.id === unidadeId)
+                : null;
 
               const assunto = estrutura.assuntos.find(
                 x => x.id === assuntoId
@@ -114,12 +114,19 @@ jobs:
                 throw new Error('Disciplina não encontrada.');
               }
 
-              if (!unidade || unidade.disciplina_id !== disciplinaId) {
-                throw new Error('Unidade não pertence à disciplina selecionada.');
-              }
+              if (unidadeId) {
+                if (!unidade || unidade.disciplina_id !== disciplinaId) {
+                  throw new Error('Unidade não pertence à disciplina selecionada.');
+                }
 
-              if (!assunto || assunto.unidade_id !== unidadeId) {
-                throw new Error('Assunto não pertence à unidade selecionada.');
+                if (!assunto || assunto.disciplina_id !== disciplinaId || assunto.unidade_id !== unidadeId) {
+                  throw new Error('Assunto não pertence à unidade e à disciplina selecionadas.');
+                }
+              } else {
+                if (!assunto || assunto.disciplina_id !== disciplinaId ||
+                    (assunto.unidade_id !== null && assunto.unidade_id !== undefined && assunto.unidade_id !== '')) {
+                  throw new Error('Assunto não está vinculado diretamente à disciplina selecionada.');
+                }
               }
 
               const dados = JSON.parse(
