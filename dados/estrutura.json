@@ -678,6 +678,7 @@
   "assuntos": [
     {
       "id": "teoria-do-direito-assunto-01",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-1",
       "nome": "Introdução: o que é teoria?",
       "descricao": "",
@@ -686,6 +687,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-02",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-1",
       "nome": "Formação, abordagens e concepções de direito",
       "descricao": "",
@@ -694,6 +696,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-03",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-1",
       "nome": "Linguagem e textualidade do direito: dogmática e zetética jurídica",
       "descricao": "",
@@ -702,6 +705,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-04",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-1",
       "nome": "Epistemologia moderna e ciência do direito",
       "descricao": "",
@@ -710,6 +714,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-05",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-1",
       "nome": "Jusracionalismo e as ciências normativas",
       "descricao": "",
@@ -718,6 +723,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-06",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-1",
       "nome": "Formalismo, naturalismo e realismo no direito",
       "descricao": "",
@@ -726,6 +732,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-07",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-1",
       "nome": "O positivismo jurídico de Hans Kelsen",
       "descricao": "",
@@ -734,6 +741,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-08",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-2",
       "nome": "Teoria da Norma: paradigma da validade",
       "descricao": "",
@@ -742,6 +750,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-09",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-2",
       "nome": "Teoria da Norma: estrutura da norma jurídica",
       "descricao": "",
@@ -750,6 +759,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-10",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-2",
       "nome": "Teoria da Norma: classificação das normas jurídicas",
       "descricao": "",
@@ -758,6 +768,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-11",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-2",
       "nome": "Teoria do Ordenamento: estrutura, organização e racionalidade",
       "descricao": "",
@@ -766,6 +777,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-12",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-2",
       "nome": "Teoria do Ordenamento: as fontes do direito",
       "descricao": "",
@@ -774,6 +786,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-14",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-2",
       "nome": "Teorias clássicas da interpretação",
       "descricao": "",
@@ -782,6 +795,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-15",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-3",
       "nome": "Teoria da Interpretação em Hans Kelsen",
       "descricao": "",
@@ -790,6 +804,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-16",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-3",
       "nome": "Jusmoralismo e juspositivismo",
       "descricao": "",
@@ -798,6 +813,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-17",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-3",
       "nome": "Herbert Hart e o sistema de regras jurídicas",
       "descricao": "",
@@ -806,6 +822,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-18",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-3",
       "nome": "Herbert Hart e a textura aberta do direito",
       "descricao": "",
@@ -814,6 +831,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-19",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-3",
       "nome": "Ronald Dworkin I – Modelo de Regras: regras e princípios jurídicos",
       "descricao": "",
@@ -822,6 +840,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-20",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-3",
       "nome": "Ronald Dworkin II – O Império do Direito: o direito como integridade",
       "descricao": "",
@@ -830,6 +849,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-21",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-4",
       "nome": "Desdobramentos do debate Hart-Dworkin",
       "descricao": "",
@@ -838,6 +858,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-22",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-4",
       "nome": "John Finnis e o direito natural no século XX",
       "descricao": "",
@@ -846,6 +867,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-23",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-4",
       "nome": "Teorias críticas do direito I: as teorias marxistas do direito",
       "descricao": "",
@@ -854,6 +876,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-24",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-4",
       "nome": "Teorias críticas do direito II: Mangabeira Unger e o critical legal studies",
       "descricao": "",
@@ -862,6 +885,7 @@
     },
     {
       "id": "teoria-do-direito-assunto-25",
+      "disciplina_id": "teoria-do-direito",
       "unidade_id": "teoria-do-direito-parte-4",
       "nome": "Pluralismo jurídico e democracia no século XXI: diagnósticos de António Hespanha",
       "descricao": "",
