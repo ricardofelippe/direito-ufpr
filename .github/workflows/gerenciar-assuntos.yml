@@ -1,0 +1,225 @@
+
+name: Gerenciar assuntos curriculares
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  gerenciar-assunto:
+    if: github.event.issue.user.login == 'ricardofelippe' && startsWith(github.event.issue.title, '[Gerenciar assunto]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Validar e atualizar estrutura curricular
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const { execFileSync } = require('child_process');
+
+            const issueNumber = context.payload.issue.number;
+            const body = context.payload.issue.body || '';
+            const estruturaPath = 'dados/estrutura.json';
+
+            function campoUnico(marcador) {
+              const linhas = body.split(/\r?\n/);
+              const encontrados = [];
+
+              for (let i = 0; i < linhas.length; i++) {
+                if (linhas[i].trim() === marcador) {
+                  encontrados.push(i);
+                }
+              }
+
+              if (encontrados.length !== 1) {
+                throw new Error(`O marcador ${marcador} deve aparecer exatamente uma vez.`);
+              }
+
+              const indice = encontrados[0];
+
+              if (indice + 1 >= linhas.length) {
+                throw new Error(`Valor ausente após ${marcador}.`);
+              }
+
+              return linhas[indice + 1].trim();
+            }
+
+            function slug(texto) {
+              return texto
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '');
+            }
+
+            try {
+              const operacao = campoUnico('<!-- OPERACAO -->').toLowerCase();
+              const assuntoId = campoUnico('<!-- ASSUNTO_ID -->');
+              const disciplinaId = campoUnico('<!-- DISCIPLINA_ID -->');
+              const unidadeIdInformada = campoUnico('<!-- UNIDADE_ID -->');
+              const nome = campoUnico('<!-- NOME -->');
+              const descricao = campoUnico('<!-- DESCRICAO -->');
+              const ordemTexto = campoUnico('<!-- ORDEM -->');
+
+              if (!['criar', 'editar'].includes(operacao)) {
+                throw new Error('Operação inválida. Use criar ou editar.');
+              }
+
+              if (!nome || nome.length > 180) {
+                throw new Error('O nome deve ter entre 1 e 180 caracteres.');
+              }
+
+              if (descricao.length > 2000) {
+                throw new Error('A descrição não pode ultrapassar 2.000 caracteres.');
+              }
+
+              const ordem = Number(ordemTexto);
+
+              if (!Number.isInteger(ordem) || ordem < 1) {
+                throw new Error('A ordem deve ser um número inteiro maior que zero.');
+              }
+
+              const estrutura = JSON.parse(
+                fs.readFileSync(estruturaPath, 'utf8')
+              );
+
+              if (!Array.isArray(estrutura.disciplinas) ||
+                  !Array.isArray(estrutura.unidades) ||
+                  !Array.isArray(estrutura.assuntos)) {
+                throw new Error('A estrutura curricular não possui os blocos esperados.');
+              }
+
+              const disciplina = estrutura.disciplinas.find(
+                x => x.id === disciplinaId
+              );
+
+              if (!disciplina) {
+                throw new Error('Disciplina não encontrada.');
+              }
+
+              const unidadeId = unidadeIdInformada === 'null'
+                ? null
+                : unidadeIdInformada;
+
+              if (unidadeId !== null) {
+                const unidade = estrutura.unidades.find(
+                  x => x.id === unidadeId
+                );
+
+                if (!unidade || unidade.disciplina_id !== disciplinaId) {
+                  throw new Error('A unidade selecionada não pertence à disciplina.');
+                }
+              }
+
+              let assunto;
+
+              if (operacao === 'criar') {
+                const baseId = `assunto-${slug(nome) || 'novo'}-${issueNumber}`;
+                const idExistente = estrutura.assuntos.some(
+                  x => x.id === baseId
+                );
+
+                if (idExistente) {
+                  throw new Error('Já existe um assunto com o identificador gerado.');
+                }
+
+                assunto = {
+                  id: baseId,
+                  disciplina_id: disciplinaId,
+                  unidade_id: unidadeId,
+                  nome,
+                  descricao,
+                  ordem,
+                  status: 'pendente'
+                };
+
+                estrutura.assuntos.push(assunto);
+
+              } else {
+                if (!assuntoId) {
+                  throw new Error('Informe o identificador do assunto que será editado.');
+                }
+
+                assunto = estrutura.assuntos.find(
+                  x => x.id === assuntoId
+                );
+
+                if (!assunto) {
+                  throw new Error('Assunto não encontrado para edição.');
+                }
+
+                assunto.disciplina_id = disciplinaId;
+                assunto.unidade_id = unidadeId;
+                assunto.nome = nome;
+                assunto.descricao = descricao;
+                assunto.ordem = ordem;
+              }
+
+              fs.writeFileSync(
+                estruturaPath,
+                JSON.stringify(estrutura, null, 2) + '\n',
+                'utf8'
+              );
+
+              execFileSync('git', [
+                'config', 'user.name', 'github-actions[bot]'
+              ]);
+
+              execFileSync('git', [
+                'config', 'user.email',
+                '41898282+github-actions[bot]@users.noreply.github.com'
+              ]);
+
+              execFileSync('git', ['add', estruturaPath]);
+
+              const mensagemCommit = operacao === 'criar'
+                ? `Adiciona assunto: ${nome}`
+                : `Atualiza assunto: ${nome}`;
+
+              execFileSync('git', ['commit', '-m', mensagemCommit]);
+              execFileSync('git', ['push']);
+
+              const acao = operacao === 'criar'
+                ? 'criado'
+                : 'atualizado';
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body:
+                  `Assunto **${nome}** ${acao} com sucesso em ` +
+                  `\`dados/estrutura.json\`.\n\n` +
+                  `Identificador: \`${assunto.id}\`.\n\n` +
+                  `Disciplina: **${disciplina.nome}**.\n` +
+                  `Vínculo: ${unidadeId === null ? 'Direto à disciplina' : 'Unidade temática'}.`
+              });
+
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                state: 'closed'
+              });
+
+            } catch (error) {
+              core.setFailed(error.message);
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body:
+                  `Não foi possível processar a solicitação: **${error.message}**.\n\n` +
+                  `Nenhuma alteração foi confirmada. Corrija os dados e abra uma nova solicitação.`
+              });
+            }
