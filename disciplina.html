@@ -458,7 +458,14 @@
 
         const todosAssuntos = estrutura.assuntos || [];
 
-        if (!unidades.length) {
+        const assuntosDiretos = todosAssuntos
+          .filter(assunto =>
+            assunto.disciplina_id === disciplinaId &&
+            assunto.unidade_id == null
+          )
+          .sort(ordenar);
+
+        if (!unidades.length && !assuntosDiretos.length) {
           mostrarEstado(
             listaTopicos,
             'Assuntos ainda não cadastrados',
@@ -477,7 +484,7 @@
 
         listaTopicos.className = 'lista-unidades';
 
-        listaTopicos.innerHTML = grupos.map(({ unidade, assuntos, indice }) => `
+        const htmlUnidades = grupos.map(({ unidade, assuntos, indice }) => `
           <section class="unidade-disciplina" aria-labelledby="titulo-${escapeHTML(unidade.id)}">
             <div class="cabecalho-unidade">
               <h3 id="titulo-${escapeHTML(unidade.id)}">
@@ -510,6 +517,38 @@
           </section>
         `).join('');
 
+        const htmlAssuntosDiretos = assuntosDiretos.length ? `
+          <section class="unidade-disciplina" aria-labelledby="titulo-assuntos-diretos">
+            <div class="cabecalho-unidade">
+              <h3 id="titulo-assuntos-diretos">
+                Assuntos diretamente vinculados à disciplina
+              </h3>
+            </div>
+
+            <div class="grade-topicos">
+              ${assuntosDiretos.map((assunto, indice) => {
+                const titulo = textoRegistro(assunto, ['nome','titulo']) ||
+                  `Assunto ${indice + 1}`;
+
+                const descricao = textoRegistro(assunto, ['descricao','ementa']) ||
+                  'Selecione para filtrar os conteúdos deste assunto.';
+
+                return `
+                  <button class="cartao-topico"
+                    type="button"
+                    data-assunto="${escapeHTML(assunto.id)}"
+                    aria-pressed="false">
+                    <span class="icone-topico">§</span>
+                    <span class="nome-topico">${escapeHTML(titulo)}</span>
+                    <span class="descricao-topico">${escapeHTML(descricao)}</span>
+                  </button>`;
+              }).join('')}
+            </div>
+          </section>
+        ` : '';
+
+        listaTopicos.innerHTML = htmlUnidades + htmlAssuntosDiretos;
+
         listaTopicos.querySelectorAll('[data-assunto]').forEach(botao =>
           botao.addEventListener('click', () => {
             const id = botao.dataset.assunto;
@@ -517,7 +556,10 @@
             assuntoSelecionado = assuntoSelecionado === id ? null : id;
 
             listaTopicos.querySelectorAll('[data-assunto]').forEach(el =>
-              el.setAttribute('aria-pressed', String(el.dataset.assunto === assuntoSelecionado))
+              el.setAttribute(
+                'aria-pressed',
+                String(el.dataset.assunto === assuntoSelecionado)
+              )
             );
 
             renderizarAba();
