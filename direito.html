@@ -644,10 +644,14 @@
         const unidades = Array.isArray(estrutura.unidades) ? estrutura.unidades : [];
         const assuntos = Array.isArray(estrutura.assuntos) ? estrutura.assuntos : [];
 
-        function adicionarResultado(tipo, nome, contexto, disciplinaId, categoria) {
+        function adicionarResultado(tipo, nome, contexto, disciplinaId, categoria, assuntoId = null) {
           const link = criarElemento('a', 'resultado-busca-curriculo');
           link.dataset.categoria = categoria;
-          link.href = `disciplina.html?id=${encodeURIComponent(disciplinaId)}`;
+
+          const parametros = new URLSearchParams({ id: disciplinaId });
+          if (assuntoId) parametros.set('assunto', assuntoId);
+
+          link.href = `disciplina.html?${parametros.toString()}`;
           link.appendChild(criarElemento('span', 'tipo-resultado-busca', tipo));
           link.appendChild(criarElemento('span', 'nome-resultado-busca', nome));
           if (contexto) {
@@ -707,7 +711,7 @@
               ? `Disciplina: ${disciplina.nome} · Unidade: ${unidade.nome || unidade.titulo || 'Sem título'}`
               : `Disciplina: ${disciplina.nome} · Associação direta à disciplina`;
 
-            adicionarResultado('Assunto', nome, contexto, disciplina.id, 'assunto');
+            adicionarResultado('Assunto', nome, contexto, disciplina.id, 'assunto', assunto.id);
             quantidade++;
           });
 
