@@ -368,6 +368,7 @@
 
       const params = new URLSearchParams(window.location.search);
       const disciplinaId = params.get('id');
+      const assuntoIdSolicitado = params.get('assunto');
       const painel = document.getElementById('painel-disciplina');
       const listaTopicos = document.getElementById('lista-topicos');
       const nomeEl = document.getElementById('nome-disciplina');
@@ -548,6 +549,13 @@
         ` : '';
 
         listaTopicos.innerHTML = htmlUnidades + htmlAssuntosDiretos;
+
+        listaTopicos.querySelectorAll('[data-assunto]').forEach(botao =>
+          botao.setAttribute(
+            'aria-pressed',
+            String(botao.dataset.assunto === assuntoSelecionado)
+          )
+        );
 
         listaTopicos.querySelectorAll('[data-assunto]').forEach(botao =>
           botao.addEventListener('click', () => {
@@ -823,6 +831,19 @@
               'A disciplina solicitada não foi encontrada em dados/estrutura.json.'
             );
             return;
+          }
+
+          if (assuntoIdSolicitado) {
+            const assuntoSolicitado = (estrutura.assuntos || []).find(
+              item => item.id === assuntoIdSolicitado
+            );
+
+            if (
+              assuntoSolicitado &&
+              assuntoSolicitado.disciplina_id === disciplinaId
+            ) {
+              assuntoSelecionado = assuntoSolicitado.id;
+            }
           }
 
           montarCabecalho();
