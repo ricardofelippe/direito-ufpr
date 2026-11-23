@@ -316,6 +316,36 @@
       font-size: 12px;
     }
 
+    .filtros-busca-curriculo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .filtro-busca-curriculo {
+      padding: 7px 12px;
+      border: 1px solid var(--borda);
+      border-radius: 20px;
+      background: var(--fundo-secundario);
+      color: var(--texto-secundario);
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .filtro-busca-curriculo:hover,
+    .filtro-busca-curriculo[aria-pressed="true"] {
+      border-color: var(--azul);
+      background: var(--azul-fundo);
+      color: var(--azul-claro);
+    }
+
+    .filtro-busca-curriculo:focus-visible {
+      outline: 2px solid var(--azul-claro);
+      outline-offset: 2px;
+    }
+
     .resultados-busca-curriculo {
       display: grid;
       gap: 9px;
@@ -406,6 +436,12 @@
         aria-describedby="ajuda-busca-curriculo"
         aria-controls="resultados-busca-curriculo">
       <p id="ajuda-busca-curriculo" class="ajuda-busca-curriculo">A busca considera disciplinas, códigos, unidades temáticas e assuntos.</p>
+      <div id="filtros-busca-curriculo" class="filtros-busca-curriculo" aria-label="Filtrar resultados da busca" hidden>
+        <button class="filtro-busca-curriculo" type="button" data-filtro="todos" aria-pressed="true">Todos</button>
+        <button class="filtro-busca-curriculo" type="button" data-filtro="disciplina" aria-pressed="false">Disciplinas</button>
+        <button class="filtro-busca-curriculo" type="button" data-filtro="unidade" aria-pressed="false">Unidades temáticas</button>
+        <button class="filtro-busca-curriculo" type="button" data-filtro="assunto" aria-pressed="false">Assuntos</button>
+      </div>
       <div id="resultados-busca-curriculo" class="resultados-busca-curriculo" aria-live="polite"></div>
     </section>
 
@@ -597,12 +633,15 @@
       function configurarBusca(estrutura) {
         const campo = document.getElementById('campo-busca-curriculo');
         const resultados = document.getElementById('resultados-busca-curriculo');
+        const filtros = document.getElementById('filtros-busca-curriculo');
+        let filtroAtivo = 'todos';
         const disciplinas = Array.isArray(estrutura.disciplinas) ? estrutura.disciplinas : [];
         const unidades = Array.isArray(estrutura.unidades) ? estrutura.unidades : [];
         const assuntos = Array.isArray(estrutura.assuntos) ? estrutura.assuntos : [];
 
-        function adicionarResultado(tipo, nome, contexto, disciplinaId) {
+        function adicionarResultado(tipo, nome, contexto, disciplinaId, categoria) {
           const link = criarElemento('a', 'resultado-busca-curriculo');
+          link.dataset.categoria = categoria;
           link.href = `disciplina.html?id=${encodeURIComponent(disciplinaId)}`;
           link.appendChild(criarElemento('span', 'tipo-resultado-busca', tipo));
           link.appendChild(criarElemento('span', 'nome-resultado-busca', nome));
@@ -616,6 +655,7 @@
           const termoOriginal = campo.value.trim();
           const termo = normalizarTexto(termoOriginal);
           resultados.replaceChildren();
+          filtros.hidden = !termo;
 
           if (!termo) return;
 
@@ -631,7 +671,8 @@
                 codigo ? `Disciplina · ${codigo}` : 'Disciplina',
                 nome,
                 disciplina.ano ? `${disciplina.ano}º ano` : 'Ano não informado',
-                disciplina.id
+                disciplina.id,
+                'disciplina'
               );
               quantidade++;
             }
@@ -643,7 +684,7 @@
             if (!normalizarTexto(nome).includes(termo)) return;
             const disciplina = disciplinas.find(item => item.id === unidade.disciplina_id);
             if (!disciplina) return;
-            adicionarResultado('Unidade temática', nome, `Disciplina: ${disciplina.nome}`, disciplina.id);
+            adicionarResultado('Unidade temática', nome, `Disciplina: ${disciplina.nome}`, disciplina.id, 'unidade');
             quantidade++;
           });
 
@@ -661,7 +702,7 @@
               ? `Disciplina: ${disciplina.nome} · Unidade: ${unidade.nome || unidade.titulo || 'Sem título'}`
               : `Disciplina: ${disciplina.nome} · Associação direta à disciplina`;
 
-            adicionarResultado('Assunto', nome, contexto, disciplina.id);
+            adicionarResultado('Assunto', nome, contexto, disciplina.id, 'assunto');
             quantidade++;
           });
 
@@ -679,6 +720,32 @@
             ));
           }
         }
+
+        filtros.querySelectorAll('[data-filtro]').forEach(botao => {
+          botao.addEventListener('click', () => {
+            filtroAtivo = botao.dataset.filtro;
+            filtros.querySelectorAll('[data-filtro]').forEach(item => {
+              item.setAttribute('aria-pressed', String(item === botao));
+            });
+            pesquisar();
+          });
+        });
+
+        const pesquisarOriginal = pesquisar;
+        pesquisar = function() {
+          pesquisarOriginal();
+          if (filtroAtivo !== 'todos') {
+            resultados.querySelectorAll('.resultado-busca-curriculo').forEach(item => {
+              item.hidden = item.dataset.categoria !== filtroAtivo;
+            });
+            const visiveis = [...resultados.querySelectorAll('.resultado-busca-curriculo')]
+              .filter(item => !item.hidden).length;
+            const mensagem = resultados.querySelector('.mensagem-busca-curriculo');
+            if (!visiveis && !mensagem) {
+              resultados.appendChild(criarElemento('p', 'mensagem-busca-curriculo', 'Nenhum resultado encontrado neste tipo.'));
+            }
+          }
+        };
 
         campo.addEventListener('input', pesquisar);
       }
