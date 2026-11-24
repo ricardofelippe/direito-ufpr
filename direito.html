@@ -409,6 +409,47 @@
       font-size: 12px;
     }
 
+    .acoes-busca-curriculo,
+    .acoes-filtros-disciplinas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .botao-aplicar-curriculo {
+      padding: 9px 14px;
+      border: 1px solid var(--azul);
+      border-radius: 7px;
+      background: var(--azul-fundo);
+      color: var(--azul-claro);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .botao-aplicar-curriculo:hover {
+      background: var(--superficie-hover);
+    }
+
+    .botao-aplicar-curriculo:focus-visible,
+    .botao-limpar-busca:focus-visible {
+      outline: 2px solid var(--azul-claro);
+      outline-offset: 2px;
+    }
+
+    .botao-limpar-busca {
+      padding: 9px 12px;
+      border: 1px solid var(--borda);
+      border-radius: 7px;
+      background: transparent;
+      color: var(--texto-secundario);
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
     .filtros-busca-curriculo {
       display: flex;
       flex-wrap: wrap;
@@ -494,14 +535,18 @@
       outline-offset: 2px;
     }
 
+    .acoes-filtros-disciplinas {
+      align-items: center;
+    }
+
     .botao-limpar-filtros {
-      padding: 6px 10px;
+      padding: 9px 12px;
       border: 1px solid var(--borda);
       border-radius: 7px;
       background: transparent;
-      color: var(--azul-claro);
+      color: var(--texto-secundario);
       font: inherit;
-      font-size: 12px;
+      font-size: 13px;
       cursor: pointer;
     }
 
@@ -610,7 +655,11 @@
         autocomplete="off"
         aria-describedby="ajuda-busca-curriculo"
         aria-controls="resultados-busca-curriculo">
-      <p id="ajuda-busca-curriculo" class="ajuda-busca-curriculo">A busca considera disciplinas, códigos, unidades temáticas e assuntos.</p>
+      <p id="ajuda-busca-curriculo" class="ajuda-busca-curriculo">Digite o termo e pressione “Buscar” ou Enter para executar a pesquisa.</p>
+      <div class="acoes-busca-curriculo">
+        <button id="aplicar-busca-curriculo" class="botao-aplicar-curriculo" type="button">Buscar</button>
+        <button id="limpar-busca-curriculo" class="botao-limpar-busca" type="button">Limpar busca</button>
+      </div>
       <div id="filtros-busca-curriculo" class="filtros-busca-curriculo" aria-label="Filtrar resultados da busca" hidden>
         <button class="filtro-busca-curriculo" type="button" data-filtro="todos" aria-pressed="true">Todos</button>
         <button class="filtro-busca-curriculo" type="button" data-filtro="disciplina" aria-pressed="false">Disciplinas</button>
@@ -653,6 +702,10 @@
             <option value="nao_iniciado">Somente não iniciados</option>
           </select>
         </label>
+      </div>
+      <div class="acoes-filtros-disciplinas">
+        <button id="aplicar-filtros-disciplinas" class="botao-aplicar-curriculo" type="button">Aplicar filtros</button>
+        <button id="limpar-filtros-disciplinas" class="botao-limpar-filtros" type="button">Limpar filtros</button>
       </div>
       <p id="resumo-filtros-disciplinas" class="resumo-filtros-disciplinas" aria-live="polite">Exibindo todas as disciplinas.</p>
     </section>
@@ -891,12 +944,14 @@
 
       let anoAtual = 0;
 
+      let filtrosDisciplinasAplicados = {
+        administrativo: 'todos',
+        inicio: 'todos',
+        situacao: 'todos'
+      };
+
       function obterFiltrosDisciplinas() {
-        return {
-          administrativo: document.getElementById('filtro-status-administrativo')?.value || 'todos',
-          inicio: document.getElementById('filtro-inicio-estudos')?.value || 'todos',
-          situacao: document.getElementById('filtro-situacao-geral')?.value || 'todos'
-        };
+        return filtrosDisciplinasAplicados;
       }
 
       function filtrarDisciplinas(disciplinas) {
@@ -937,16 +992,26 @@
           'filtro-inicio-estudos',
           'filtro-situacao-geral'
         ];
-        ids.forEach(id => {
-          document.getElementById(id)?.addEventListener('change', () => {
-            if (estruturaAtual) renderizar(estruturaAtual);
-          });
+
+        document.getElementById('aplicar-filtros-disciplinas')?.addEventListener('click', () => {
+          filtrosDisciplinasAplicados = {
+            administrativo: document.getElementById('filtro-status-administrativo')?.value || 'todos',
+            inicio: document.getElementById('filtro-inicio-estudos')?.value || 'todos',
+            situacao: document.getElementById('filtro-situacao-geral')?.value || 'todos'
+          };
+          if (estruturaAtual) renderizar(estruturaAtual);
         });
+
         document.getElementById('limpar-filtros-disciplinas')?.addEventListener('click', () => {
           ids.forEach(id => {
             const controle = document.getElementById(id);
             if (controle) controle.value = 'todos';
           });
+          filtrosDisciplinasAplicados = {
+            administrativo: 'todos',
+            inicio: 'todos',
+            situacao: 'todos'
+          };
           if (estruturaAtual) renderizar(estruturaAtual);
         });
       }
@@ -1033,6 +1098,7 @@
         const resultados = document.getElementById('resultados-busca-curriculo');
         const filtros = document.getElementById('filtros-busca-curriculo');
         let filtroAtivo = 'todos';
+        let termoAplicado = '';
         const disciplinas = Array.isArray(estrutura.disciplinas) ? estrutura.disciplinas : [];
         const unidades = Array.isArray(estrutura.unidades) ? estrutura.unidades : [];
         const assuntos = Array.isArray(estrutura.assuntos) ? estrutura.assuntos : [];
@@ -1054,7 +1120,7 @@
         }
 
         function pesquisar() {
-          const termoOriginal = campo.value.trim();
+          const termoOriginal = termoAplicado;
           const termo = normalizarTexto(termoOriginal);
           resultados.replaceChildren();
           filtros.hidden = !termo;
@@ -1149,7 +1215,28 @@
           }
         };
 
-        campo.addEventListener('input', pesquisar);
+        document.getElementById('aplicar-busca-curriculo')?.addEventListener('click', () => {
+          termoAplicado = campo.value.trim();
+          pesquisar();
+        });
+
+        campo.addEventListener('keydown', evento => {
+          if (evento.key === 'Enter') {
+            evento.preventDefault();
+            termoAplicado = campo.value.trim();
+            pesquisar();
+          }
+        });
+
+        document.getElementById('limpar-busca-curriculo')?.addEventListener('click', () => {
+          campo.value = '';
+          termoAplicado = '';
+          filtroAtivo = 'todos';
+          filtros.querySelectorAll('[data-filtro]').forEach(botao => {
+            botao.setAttribute('aria-pressed', String(botao.dataset.filtro === 'todos'));
+          });
+          pesquisar();
+        });
       }
 
       async function carregarEstrutura() {
