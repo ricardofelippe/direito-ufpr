@@ -917,6 +917,15 @@
       "descricao": "Análise dos impactos da inteligência artificial sobre o Direito, considerando a interpretação das normas, a tomada de decisões jurídicas, a responsabilidade e os desafios à teoria da validade jurídica.",
       "ordem": 27,
       "status": "pendente"
+    },
+    {
+      "id": "assunto-conceito-de-justica-e-suas-principais-concepcoes-33",
+      "disciplina_id": "teoria-do-direito",
+      "unidade_id": "unidade-justica-legitimidade-e-democracia-32",
+      "nome": "Conceito de justiça e suas principais concepções",
+      "descricao": "Estudo das diferentes concepções de justiça, incluindo justiça distributiva, comutativa, social e procedimental.",
+      "ordem": 1,
+      "status": "pendente"
     }
   ],
   "previsao_topicas": [
