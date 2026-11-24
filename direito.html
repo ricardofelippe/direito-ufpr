@@ -371,12 +371,61 @@
     }
 
 
-    .busca-curriculo {
-      margin: 0 0 30px;
-      padding: 18px;
+    .busca-curriculo,
+    .painel-filtros-disciplinas {
+      margin: 0 0 14px;
+      padding: 0;
       border: 1px solid var(--borda);
       border-radius: 10px;
       background: var(--superficie);
+      overflow: hidden;
+    }
+
+    .gatilho-painel-curriculo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 18px;
+      color: var(--texto);
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+
+    .gatilho-painel-curriculo::-webkit-details-marker {
+      display: none;
+    }
+
+    .gatilho-painel-curriculo::before {
+      content: "+";
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      color: var(--azul-claro);
+      font-size: 17px;
+      line-height: 1;
+    }
+
+    details[open] > .gatilho-painel-curriculo::before {
+      content: "−";
+    }
+
+    .gatilho-painel-curriculo:hover {
+      background: var(--superficie-hover);
+      color: var(--azul-claro);
+    }
+
+    .gatilho-painel-curriculo:focus-visible {
+      outline: 2px solid var(--azul-claro);
+      outline-offset: -3px;
+    }
+
+    .conteudo-painel-curriculo {
+      padding: 0 18px 18px;
     }
 
     .busca-curriculo label {
@@ -481,17 +530,13 @@
     }
 
     .painel-filtros-disciplinas {
-      margin: 20px 0 24px;
-      padding: 16px;
-      border: 1px solid var(--borda);
-      border-radius: 10px;
       background: var(--fundo-secundario);
     }
 
     .cabecalho-filtros-disciplinas {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
       gap: 12px;
       margin-bottom: 12px;
     }
@@ -645,7 +690,9 @@
       Disciplinas organizadas por ano e categoria. Selecione uma disciplina para acessar sua página de estudos.
     </p>
 
-    <section class="busca-curriculo" aria-labelledby="rotulo-busca-curriculo">
+    <details class="busca-curriculo">
+      <summary class="gatilho-painel-curriculo">🔍 Buscar no currículo</summary>
+      <div class="conteudo-painel-curriculo">
       <label id="rotulo-busca-curriculo" for="campo-busca-curriculo">Buscar no currículo</label>
       <input
         id="campo-busca-curriculo"
@@ -667,11 +714,14 @@
         <button class="filtro-busca-curriculo" type="button" data-filtro="assunto" aria-pressed="false">Assuntos</button>
       </div>
       <div id="resultados-busca-curriculo" class="resultados-busca-curriculo" aria-live="polite"></div>
-    </section>
+      </div>
+    </details>
 
-    <section class="painel-filtros-disciplinas" aria-labelledby="titulo-filtros-disciplinas">
+    <details class="painel-filtros-disciplinas">
+      <summary class="gatilho-painel-curriculo">⚙️ Filtrar disciplinas</summary>
+      <div class="conteudo-painel-curriculo">
       <div class="cabecalho-filtros-disciplinas">
-        <h2 id="titulo-filtros-disciplinas">Filtrar disciplinas</h2>
+        <span></span>
         <button id="limpar-filtros-disciplinas" class="botao-limpar-filtros" type="button">Limpar filtros</button>
       </div>
       <div class="grade-filtros-disciplinas">
@@ -708,7 +758,8 @@
         <button id="limpar-filtros-disciplinas" class="botao-limpar-filtros" type="button">Limpar filtros</button>
       </div>
       <p id="resumo-filtros-disciplinas" class="resumo-filtros-disciplinas" aria-live="polite">Exibindo todas as disciplinas.</p>
-    </section>
+      </div>
+    </details>
 
     <div id="curriculo" aria-live="polite">
       <p class="estado-carregamento">Carregando estrutura curricular...</p>
