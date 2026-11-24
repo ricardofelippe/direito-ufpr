@@ -668,19 +668,38 @@
         const cartao = listaTopicos.querySelector(`[data-cartao-assunto="${CSS.escape(assuntoId)}"]`);
         if (!cartao) return;
 
-        const parametros = new URLSearchParams({
-          template: 'atualizar-progresso.yml',
-          title: '[Atualizar progresso] ' + assuntoId,
-          assunto_id: assuntoId
+        const valores = {};
+        cartao.querySelectorAll('[data-progresso-campo]').forEach(campo => {
+          valores[campo.dataset.progressoCampo] = campo.value;
         });
 
-        cartao.querySelectorAll('[data-progresso-campo]').forEach(campo => {
-          parametros.set(campo.dataset.progressoCampo, campo.value);
+        // Issue Forms não preenchem de forma confiável os campos dropdown por query string.
+        // Enviamos os mesmos campos como corpo Markdown pré-preenchido, que o workflow valida.
+        const corpo = [
+          '### ID do assunto',
+          assuntoId,
+          '',
+          '### Situação geral',
+          valores.situacao_geral,
+          '',
+          '### Conteúdo estudado',
+          valores.conteudo_status,
+          '',
+          '### Questões praticadas',
+          valores.questoes_status,
+          '',
+          '### Revisões realizadas',
+          valores.revisao_status
+        ].join('\\n');
+
+        const parametros = new URLSearchParams({
+          title: '[Atualizar progresso] ' + assuntoId,
+          body: corpo
         });
 
         const url = 'https://github.com/ricardofelippe/direito-ufpr/issues/new?' + parametros.toString();
         const mensagem = cartao.querySelector('.mensagem-progresso');
-        mensagem.textContent = 'Confira os dados no GitHub e envie a solicitação para salvar.';
+        mensagem.textContent = 'Confira os quatro estados preenchidos no GitHub e envie a solicitação para salvar.';
         window.open(url, '_blank', 'noopener');
       }
 
