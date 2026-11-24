@@ -7,22 +7,22 @@
       "categoria": "obrigatoria",
       "ano": 1,
       "descricao": "",
-      "ordem": 1,
-      "status": "pendente"
-    },
-    {
-      "id": "teoria-do-estado-e-ciencia-politica",
-      "codigo": "DB431",
-      "nome": "Teoria do Estado e Ciência Política",
-      "categoria": "obrigatoria",
-      "ano": 1,
-      "descricao": "",
       "ordem": 2,
       "status": "pendente"
     },
     {
+      "id": "teoria-do-estado-e-ciencia-politica",
+      "codigo": "DB448",
+      "nome": "Teoria do Estado e Ciência Política",
+      "categoria": "obrigatoria",
+      "ano": 1,
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
       "id": "direito-e-sociedade",
-      "codigo": "DB439",
+      "codigo": "DB450",
       "nome": "Direito e Sociedade",
       "categoria": "obrigatoria",
       "ano": 1,
@@ -37,33 +37,13 @@
       "categoria": "obrigatoria",
       "ano": 1,
       "descricao": "",
-      "ordem": 4,
+      "ordem": 8,
       "status": "pendente"
     },
     {
       "id": "metodologia-do-trabalho-cientifico-em-direito",
-      "codigo": "DV437",
+      "codigo": "DV456",
       "nome": "Metodologia do Trabalho Científico em Direito",
-      "categoria": "obrigatoria",
-      "ano": 1,
-      "descricao": "",
-      "ordem": 5,
-      "status": "pendente"
-    },
-    {
-      "id": "historia-do-direito",
-      "codigo": "DV448",
-      "nome": "História do Direito",
-      "categoria": "obrigatoria",
-      "ano": 1,
-      "descricao": "",
-      "ordem": 6,
-      "status": "pendente"
-    },
-    {
-      "id": "direito-romano",
-      "codigo": "DV452",
-      "nome": "Direito Romano",
       "categoria": "obrigatoria",
       "ano": 1,
       "descricao": "",
@@ -71,29 +51,39 @@
       "status": "pendente"
     },
     {
+      "id": "historia-do-direito",
+      "codigo": "DV458",
+      "nome": "História do Direito A",
+      "categoria": "obrigatoria",
+      "ano": 1,
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-romano",
+      "codigo": "DV452",
+      "nome": "Direito Romano",
+      "categoria": "outros_setores",
+      "ano": null,
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
       "id": "direito-civil-a",
-      "codigo": "DC425",
+      "codigo": "DC438",
       "nome": "Direito Civil A",
       "categoria": "obrigatoria",
       "ano": 1,
       "descricao": "",
-      "ordem": 8,
+      "ordem": 5,
       "status": "pendente"
     },
     {
       "id": "direito-constitucional-a",
-      "codigo": "DB435",
+      "codigo": "DB453",
       "nome": "Direito Constitucional A",
-      "categoria": "obrigatoria",
-      "ano": 2,
-      "descricao": "",
-      "ordem": 1,
-      "status": "pendente"
-    },
-    {
-      "id": "direito-internacional-publico",
-      "codigo": "DB426",
-      "nome": "Direito Internacional Público",
       "categoria": "obrigatoria",
       "ano": 2,
       "descricao": "",
@@ -101,8 +91,18 @@
       "status": "pendente"
     },
     {
+      "id": "direito-internacional-publico",
+      "codigo": "DB452",
+      "nome": "Direito Internacional Público",
+      "categoria": "obrigatoria",
+      "ano": 2,
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
       "id": "antropologia-juridica",
-      "codigo": "DB441",
+      "codigo": "DB454",
       "nome": "Antropologia Jurídica",
       "categoria": "obrigatoria",
       "ano": 2,
@@ -112,28 +112,8 @@
     },
     {
       "id": "direito-penal-a",
-      "codigo": "DP417",
+      "codigo": "DP428",
       "nome": "Direito Penal A",
-      "categoria": "obrigatoria",
-      "ano": 2,
-      "descricao": "",
-      "ordem": 4,
-      "status": "pendente"
-    },
-    {
-      "id": "criminologia",
-      "codigo": "DP425",
-      "nome": "Criminologia",
-      "categoria": "obrigatoria",
-      "ano": 2,
-      "descricao": "",
-      "ordem": 5,
-      "status": "pendente"
-    },
-    {
-      "id": "direito-internacional-privado",
-      "codigo": "DV441",
-      "nome": "Direito Internacional Privado",
       "categoria": "obrigatoria",
       "ano": 2,
       "descricao": "",
@@ -141,9 +121,9 @@
       "status": "pendente"
     },
     {
-      "id": "direito-civil-b",
-      "codigo": "DC426",
-      "nome": "Direito Civil B",
+      "id": "criminologia",
+      "codigo": "DP433",
+      "nome": "Criminologia",
       "categoria": "obrigatoria",
       "ano": 2,
       "descricao": "",
@@ -151,18 +131,38 @@
       "status": "pendente"
     },
     {
+      "id": "direito-internacional-privado",
+      "codigo": "DV466",
+      "nome": "Direito Internacional Privado",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-b",
+      "codigo": "DC439",
+      "nome": "Direito Civil B",
+      "categoria": "obrigatoria",
+      "ano": 2,
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
       "id": "direito-processual-civil-a",
-      "codigo": "DC429",
+      "codigo": "DC443",
       "nome": "Direito Processual Civil A",
       "categoria": "obrigatoria",
       "ano": 2,
       "descricao": "",
-      "ordem": 8,
+      "ordem": 5,
       "status": "pendente"
     },
     {
       "id": "filosofia-do-direito",
-      "codigo": "DV453",
+      "codigo": "DV460",
       "nome": "Filosofia do Direito",
       "categoria": "obrigatoria",
       "ano": 2,
@@ -172,7 +172,7 @@
     },
     {
       "id": "direito-constitucional-b",
-      "codigo": "DB436",
+      "codigo": "DB455",
       "nome": "Direito Constitucional B",
       "categoria": "obrigatoria",
       "ano": 3,
@@ -182,8 +182,8 @@
     },
     {
       "id": "direito-financeiro-e-politicas-publicas",
-      "codigo": "DB442",
-      "nome": "Direito Financeiro e Políticas Públicas",
+      "codigo": "DB456",
+      "nome": "Direito Financeiro",
       "categoria": "obrigatoria",
       "ano": 3,
       "descricao": "",
@@ -192,7 +192,7 @@
     },
     {
       "id": "direito-administrativo-a",
-      "codigo": "DB443",
+      "codigo": "DB457",
       "nome": "Direito Administrativo A",
       "categoria": "obrigatoria",
       "ano": 3,
@@ -202,28 +202,8 @@
     },
     {
       "id": "direito-penal-b",
-      "codigo": "DP418",
+      "codigo": "DP429",
       "nome": "Direito Penal B",
-      "categoria": "obrigatoria",
-      "ano": 3,
-      "descricao": "",
-      "ordem": 4,
-      "status": "pendente"
-    },
-    {
-      "id": "direito-empresarial-a",
-      "codigo": "DV449",
-      "nome": "Direito Empresarial A",
-      "categoria": "obrigatoria",
-      "ano": 3,
-      "descricao": "",
-      "ordem": 5,
-      "status": "pendente"
-    },
-    {
-      "id": "direito-civil-c",
-      "codigo": "DC427",
-      "nome": "Direito Civil C",
       "categoria": "obrigatoria",
       "ano": 3,
       "descricao": "",
@@ -231,18 +211,38 @@
       "status": "pendente"
     },
     {
+      "id": "direito-empresarial-a",
+      "codigo": "DV462",
+      "nome": "Direito Empresarial A",
+      "categoria": "obrigatoria",
+      "ano": 3,
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-c",
+      "codigo": "DC440",
+      "nome": "Direito Civil C",
+      "categoria": "obrigatoria",
+      "ano": 3,
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
       "id": "direito-processual-civil-b",
-      "codigo": "DC430",
+      "codigo": "DC444",
       "nome": "Direito Processual Civil B",
       "categoria": "obrigatoria",
       "ano": 3,
       "descricao": "",
-      "ordem": 7,
+      "ordem": 5,
       "status": "pendente"
     },
     {
       "id": "direito-administrativo-b",
-      "codigo": "DB444",
+      "codigo": "DB458",
       "nome": "Direito Administrativo B",
       "categoria": "obrigatoria",
       "ano": 4,
@@ -252,28 +252,8 @@
     },
     {
       "id": "direito-penal-c",
-      "codigo": "DP419",
+      "codigo": "DP430",
       "nome": "Direito Penal C",
-      "categoria": "obrigatoria",
-      "ano": 4,
-      "descricao": "",
-      "ordem": 2,
-      "status": "pendente"
-    },
-    {
-      "id": "direito-processual-penal-a",
-      "codigo": "DP421",
-      "nome": "Direito Processual Penal A",
-      "categoria": "obrigatoria",
-      "ano": 4,
-      "descricao": "",
-      "ordem": 3,
-      "status": "pendente"
-    },
-    {
-      "id": "direito-empresarial-b",
-      "codigo": "DV450",
-      "nome": "Direito Empresarial B",
       "categoria": "obrigatoria",
       "ano": 4,
       "descricao": "",
@@ -281,9 +261,9 @@
       "status": "pendente"
     },
     {
-      "id": "direito-do-trabalho",
-      "codigo": "DV445",
-      "nome": "Direito do Trabalho",
+      "id": "direito-processual-penal-a",
+      "codigo": "DP431",
+      "nome": "Direito Processual Penal A",
       "categoria": "obrigatoria",
       "ano": 4,
       "descricao": "",
@@ -291,9 +271,9 @@
       "status": "pendente"
     },
     {
-      "id": "direito-civil-d",
-      "codigo": "DC428",
-      "nome": "Direito Civil D",
+      "id": "direito-empresarial-b",
+      "codigo": "DV463",
+      "nome": "Direito Empresarial B",
       "categoria": "obrigatoria",
       "ano": 4,
       "descricao": "",
@@ -301,9 +281,9 @@
       "status": "pendente"
     },
     {
-      "id": "direito-processual-civil-c",
-      "codigo": "DC431",
-      "nome": "Direito Processual Civil C",
+      "id": "direito-do-trabalho",
+      "codigo": "DV464",
+      "nome": "Direito do Trabalho",
       "categoria": "obrigatoria",
       "ano": 4,
       "descricao": "",
@@ -311,8 +291,28 @@
       "status": "pendente"
     },
     {
+      "id": "direito-civil-d",
+      "codigo": "DC441",
+      "nome": "Direito Civil D",
+      "categoria": "obrigatoria",
+      "ano": 4,
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-processual-civil-c",
+      "codigo": "DC445",
+      "nome": "Direito Processual Civil C",
+      "categoria": "obrigatoria",
+      "ano": 4,
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
       "id": "direito-tributario",
-      "codigo": "DB428",
+      "codigo": "DB459",
       "nome": "Direito Tributário",
       "categoria": "obrigatoria",
       "ano": 5,
@@ -322,7 +322,7 @@
     },
     {
       "id": "direito-ambiental",
-      "codigo": "DB440",
+      "codigo": "DB460",
       "nome": "Direito Ambiental",
       "categoria": "obrigatoria",
       "ano": 5,
@@ -332,7 +332,7 @@
     },
     {
       "id": "direito-economico",
-      "codigo": "DB445",
+      "codigo": "DB461",
       "nome": "Direito Econômico",
       "categoria": "obrigatoria",
       "ano": 5,
@@ -342,18 +342,8 @@
     },
     {
       "id": "direito-processual-penal-b",
-      "codigo": "DP422",
+      "codigo": "DP432",
       "nome": "Direito Processual Penal B",
-      "categoria": "obrigatoria",
-      "ano": 5,
-      "descricao": "",
-      "ordem": 4,
-      "status": "pendente"
-    },
-    {
-      "id": "direito-processual-do-trabalho",
-      "codigo": "DV451",
-      "nome": "Direito Processual do Trabalho",
       "categoria": "obrigatoria",
       "ano": 5,
       "descricao": "",
@@ -361,9 +351,9 @@
       "status": "pendente"
     },
     {
-      "id": "direito-civil-e",
-      "codigo": "DC435",
-      "nome": "Direito Civil E",
+      "id": "direito-processual-do-trabalho",
+      "codigo": "DV465",
+      "nome": "Direito Processual do Trabalho",
       "categoria": "obrigatoria",
       "ano": 5,
       "descricao": "",
@@ -371,53 +361,63 @@
       "status": "pendente"
     },
     {
-      "id": "pratica-juridica-civil",
-      "codigo": "DIR405",
-      "nome": "Prática Jurídica Civil",
-      "categoria": "npj",
-      "ano": null,
-      "descricao": "",
-      "ordem": 1,
-      "status": "pendente"
-    },
-    {
-      "id": "pratica-juridica-penal",
-      "codigo": "DIR406",
-      "nome": "Prática Jurídica Penal",
-      "categoria": "npj",
-      "ano": null,
-      "descricao": "",
-      "ordem": 2,
-      "status": "pendente"
-    },
-    {
-      "id": "pratica-juridica-trabalhista",
-      "codigo": "DIR407",
-      "nome": "Prática Jurídica Trabalhista",
-      "categoria": "npj",
-      "ano": null,
-      "descricao": "",
-      "ordem": 3,
-      "status": "pendente"
-    },
-    {
-      "id": "pratica-juridica-previdenciaria",
-      "codigo": "DIR408",
-      "nome": "Prática Jurídica Previdenciária",
-      "categoria": "npj",
-      "ano": null,
+      "id": "direito-civil-e",
+      "codigo": "DC442",
+      "nome": "Direito Civil E",
+      "categoria": "obrigatoria",
+      "ano": 5,
       "descricao": "",
       "ordem": 4,
       "status": "pendente"
     },
     {
-      "id": "pratica-juridica-em-direitos-humanos",
-      "codigo": "DIR409",
-      "nome": "Prática Jurídica em Direitos Humanos",
-      "categoria": "npj",
-      "ano": null,
+      "id": "pratica-juridica-civil",
+      "codigo": "DIR412",
+      "nome": "Prática Jurídica Cível",
+      "categoria": "obrigatoria",
+      "ano": 5,
       "descricao": "",
-      "ordem": 5,
+      "ordem": 10,
+      "status": "pendente"
+    },
+    {
+      "id": "pratica-juridica-penal",
+      "codigo": "DIR413",
+      "nome": "Prática Jurídica Penal",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 11,
+      "status": "pendente"
+    },
+    {
+      "id": "pratica-juridica-trabalhista",
+      "codigo": "DIR414",
+      "nome": "Prática Jurídica em Direito do Trabalho",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 12,
+      "status": "pendente"
+    },
+    {
+      "id": "pratica-juridica-previdenciaria",
+      "codigo": "DIR415",
+      "nome": "Prática Jurídica em Direito Previdenciário",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 13,
+      "status": "pendente"
+    },
+    {
+      "id": "pratica-juridica-em-direitos-humanos",
+      "codigo": "DIR416",
+      "nome": "Prática Jurídica em Direitos Humanos",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 14,
       "status": "pendente"
     },
     {
@@ -612,32 +612,102 @@
     },
     {
       "id": "tcc-i",
-      "codigo": null,
+      "codigo": "DV467",
       "nome": "TCC I",
-      "categoria": "atividade_complementar",
+      "categoria": "obrigatoria",
       "ano": 4,
       "descricao": "",
-      "ordem": 1,
+      "ordem": 8,
       "status": "pendente"
     },
     {
       "id": "tcc-ii",
-      "codigo": null,
+      "codigo": "DV468",
       "nome": "TCC II",
-      "categoria": "atividade_complementar",
+      "categoria": "obrigatoria",
       "ano": 5,
       "descricao": "",
-      "ordem": 2,
+      "ordem": 8,
       "status": "pendente"
     },
     {
       "id": "estagio-supervisionado",
-      "codigo": null,
+      "codigo": "DIR411",
       "nome": "Estágio Supervisionado",
-      "categoria": "atividade_complementar",
-      "ano": null,
+      "categoria": "obrigatoria",
+      "ano": 5,
       "descricao": "",
-      "ordem": 3,
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-em-direitos-humanos",
+      "codigo": "DB451",
+      "nome": "Vivências em Direitos Humanos",
+      "categoria": "obrigatoria",
+      "ano": 1,
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "introducao-praticas-extensionistas-ace-i",
+      "codigo": "DIR410",
+      "nome": "Introdução às Práticas Extensionistas – ACE I",
+      "categoria": "obrigatoria",
+      "ano": 1,
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-do-direito-b",
+      "codigo": "DV459",
+      "nome": "História do Direito B",
+      "categoria": "obrigatoria",
+      "ano": 2,
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-digital",
+      "codigo": "DV461",
+      "nome": "Direito Digital",
+      "categoria": "obrigatoria",
+      "ano": 3,
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "pratica-juridica-constitucional",
+      "codigo": "DIR417",
+      "nome": "Prática Jurídica em Direito Constitucional",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 15,
+      "status": "pendente"
+    },
+    {
+      "id": "pratica-juridica-civil-turma-especial",
+      "codigo": "DIR418",
+      "nome": "Prática Jurídica Cível – turma especial",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 16,
+      "status": "pendente"
+    },
+    {
+      "id": "pratica-juridica-penal-turma-especial",
+      "codigo": "DIR419",
+      "nome": "Prática Jurídica Penal – turma especial",
+      "categoria": "obrigatoria",
+      "ano": 5,
+      "descricao": "",
+      "ordem": 17,
       "status": "pendente"
     }
   ],
