@@ -926,6 +926,15 @@
       "descricao": "Estudo das diferentes concepções de justiça, incluindo justiça distributiva, comutativa, social e procedimental.",
       "ordem": 1,
       "status": "pendente"
+    },
+    {
+      "id": "assunto-direito-legitimidade-e-autoridade-34",
+      "disciplina_id": "teoria-do-direito",
+      "unidade_id": "unidade-justica-legitimidade-e-democracia-32",
+      "nome": "Direito, legitimidade e autoridade",
+      "descricao": "Estudo dos fundamentos da legitimidade do poder jurídico, da autoridade das normas e das relações entre validade jurídica, obrigação de obedecer e reconhecimento da autoridade do Direito.",
+      "ordem": 2,
+      "status": "pendente"
     }
   ],
   "previsao_topicas": [
