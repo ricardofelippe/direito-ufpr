@@ -733,8 +733,16 @@
               <span class="descricao-topico">${escapeHTML(descricao)}</span>
               <span class="indicador-situacao" data-indicador-situacao>${iconeSituacao} ${escapeHTML(rotuloSituacao)}</span>
             </button>
-            <div class="controles-progresso" aria-label="Progresso do assunto">
+            <div class="controles-progresso" aria-label="Progresso e planejamento do assunto">
               ${campos}
+              <label class="campo-progresso">
+                <span>Data de estudo</span>
+                <input type="date" data-planejamento-campo="data_estudo" value="${escapeHTML(registro.data_estudo || '')}">
+              </label>
+              <label class="campo-progresso">
+                <span>Data de revisão</span>
+                <input type="date" data-planejamento-campo="data_revisao" value="${escapeHTML(registro.data_revisao || '')}">
+              </label>
               <button class="botao-salvar-progresso" type="button" data-salvar-progresso="${escapeHTML(assunto.id)}">
                 Salvar progresso
               </button>
@@ -768,7 +776,13 @@
           valores.questoes_status,
           '',
           '### Revisões realizadas',
-          valores.revisao_status
+          valores.revisao_status,
+          '',
+          '### Data de estudo',
+          cartao.querySelector('[data-planejamento-campo="data_estudo"]').value,
+          '',
+          '### Data de revisão',
+          cartao.querySelector('[data-planejamento-campo="data_revisao"]').value
         ].join('\n');
 
         const parametros = new URLSearchParams({
@@ -779,7 +793,7 @@
 
         const url = 'https://github.com/ricardofelippe/direito-ufpr/issues/new?' + parametros.toString();
         const mensagem = cartao.querySelector('.mensagem-progresso');
-        mensagem.textContent = 'Confira os quatro estados preenchidos no GitHub e envie a solicitação para salvar.';
+        mensagem.textContent = 'Confira os estados e as datas preenchidos no GitHub e envie a solicitação para salvar.';
         window.open(url, '_blank', 'noopener');
       }
 
