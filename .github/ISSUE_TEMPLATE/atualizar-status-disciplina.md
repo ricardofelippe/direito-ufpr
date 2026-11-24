@@ -8,6 +8,6 @@ assignees: ricardofelippe
 
 Solicitação de alteração do status administrativo de uma disciplina.
 
-<!-- DISCIPLINA_ID -->
+### Identificador da disciplina
 
-<!-- STATUS -->
+### Novo status
