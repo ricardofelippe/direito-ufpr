@@ -129,6 +129,29 @@
       gap: 14px;
     }
 
+    .cartao-disciplina-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .acao-status-disciplina {
+      align-self: flex-start;
+      border: 0;
+      padding: 4px 2px;
+      background: transparent;
+      color: var(--azul-claro);
+      font: 11px Arial, sans-serif;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+
+    .acao-status-disciplina:hover {
+      color: #fff;
+    }
+
     .cartao-disciplina {
       position: relative;
       display: flex;
@@ -647,6 +670,7 @@
       let estruturaAtual = null;
 
       function criarCartao(disciplina) {
+        const wrapper = criarElemento('div', 'cartao-disciplina-wrapper');
         const link = criarElemento('a', 'cartao-disciplina');
         link.href = `disciplina.html?id=${encodeURIComponent(disciplina.id)}`;
         link.setAttribute('aria-label', `Abrir ${disciplina.nome || 'disciplina'}`);
@@ -683,7 +707,6 @@
           link.appendChild(criarElemento('span', 'codigo-disciplina', disciplina.codigo));
         }
 
-
         const painelProgresso = criarElemento('div', 'painel-progresso-disciplina');
         painelProgresso.appendChild(criarElemento(
           'div',
@@ -696,7 +719,28 @@
         link.appendChild(painelProgresso);
 
         link.appendChild(criarElemento('span', 'indicador-acesso', 'Acessar disciplina →'));
-        return link;
+        wrapper.appendChild(link);
+
+        const corpo = [
+          '<!-- DISCIPLINA_ID -->',
+          disciplina.id,
+          '',
+          '<!-- STATUS -->',
+          status
+        ].join('\\n');
+        const parametros = new URLSearchParams({
+          template: 'atualizar-status-disciplina.md',
+          title: '[Atualizar status da disciplina] ' + (disciplina.codigo || disciplina.id),
+          body: corpo
+        });
+        const acao = criarElemento('a', 'acao-status-disciplina', 'Alterar status administrativo');
+        acao.href = 'https://github.com/ricardofelippe/direito-ufpr/issues/new?' + parametros.toString();
+        acao.target = '_blank';
+        acao.rel = 'noopener';
+        acao.setAttribute('aria-label', 'Alterar status administrativo de ' + (disciplina.nome || 'disciplina'));
+        wrapper.appendChild(acao);
+
+        return wrapper;
       }
 
       function criarGrupo(titulo, registros) {
