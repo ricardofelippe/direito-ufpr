@@ -823,6 +823,54 @@
       "descricao": "",
       "ordem": 9,
       "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-unidade-01",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "nome": "Filosofia Política, Ciência Política e Teoria do Estado",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-unidade-02",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "nome": "Fundamentos da Ciência Política contemporânea",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-unidade-03",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "nome": "Teoria Política",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-unidade-04",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "nome": "Estado",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-unidade-05",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "nome": "Estado e Direito",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-unidade-06",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "nome": "Formas de Estado, Governo e Representação Política",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
     }
   ],
   "assuntos": [
@@ -1454,6 +1502,240 @@
       "nome": "Desenvolvimento econômico",
       "descricao": "",
       "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-01-01",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-01",
+      "nome": "Filosofia Política",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-01-02",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-01",
+      "nome": "A Ciência Política",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-01-03",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-01",
+      "nome": "Teoria do Estado",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-01-04",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-01",
+      "nome": "Teoria Política",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-01-05",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-01",
+      "nome": "Conceito de poder",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-02-01",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-02",
+      "nome": "Neoinstitucionalismos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-02-02",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-02",
+      "nome": "Conceitos fundamentais: ação, interação e instituições políticas",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-02-03",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-02",
+      "nome": "Relações de poder: dominação, autoridade, poder e poder simbólico",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-03-01",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-03",
+      "nome": "Maquiavel",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-03-02",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-03",
+      "nome": "Hobbes",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-03-03",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-03",
+      "nome": "Locke",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-03-04",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-03",
+      "nome": "Montesquieu",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-03-05",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-03",
+      "nome": "Rousseau",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-03-06",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-03",
+      "nome": "Os Federalistas",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-04-01",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-04",
+      "nome": "Conceitos de Estado",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-04-02",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-04",
+      "nome": "Formação dos Estados Modernos",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-04-03",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-04",
+      "nome": "Os elementos do Estado",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-04-04",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-04",
+      "nome": "Formação da cidadania",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-05-01",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-05",
+      "nome": "Formação histórica dos Estados de Direito",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-05-02",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-05",
+      "nome": "Funções do Estado e separação de poderes",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-05-03",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-05",
+      "nome": "Estado liberal, social e neoliberal",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-06-01",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-06",
+      "nome": "Formas de Estado",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-06-02",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-06",
+      "nome": "Formas de Governo",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-06-03",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-06",
+      "nome": "Democracia",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-06-04",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-06",
+      "nome": "Sistemas de governo",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "teoria-estado-assunto-06-05",
+      "disciplina_id": "teoria-do-estado-e-ciencia-politica",
+      "unidade_id": "teoria-estado-unidade-06",
+      "nome": "Sistemas eleitorais",
+      "descricao": "",
+      "ordem": 5,
       "status": "pendente"
     }
   ],
