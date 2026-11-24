@@ -26,6 +26,66 @@ body.pagina-admin{--fundo:#070b12;--fundo-secundario:#0c1420;--superficie:#101b2
 </form>
 <section id="area-preview" class="admin-preview" aria-live="polite" hidden><h2>Pré-visualização</h2><p id="preview-meta" class="admin-preview-meta"></p><h3 id="preview-titulo" class="admin-preview-titulo"></h3><p id="preview-texto" class="admin-preview-texto"></p><div class="admin-acoes" style="margin-top:20px"><button id="enviar-github" class="admin-botao admin-botao-principal" type="button">Enviar para o GitHub</button><button id="voltar-edicao" class="admin-botao admin-botao-secundario" type="button">Voltar à edição</button></div><p id="mensagem-envio" role="status" class="admin-ajuda" hidden></p></section>
 
+
+<section class="admin-preview" id="integracao-notebooklm" style="margin-top:22px">
+  <h2>Produção de conteúdos com NotebookLM</h2>
+  <p class="admin-preview-meta">Abra o notebook associado à disciplina selecionada. Ao retornar, importe o material gerado para conferir sua estrutura.</p>
+  <div class="admin-campo">
+    <label for="disciplina-notebooklm">Disciplina do notebook</label>
+    <select id="disciplina-notebooklm"><option value="">Carregando disciplinas...</option></select>
+  </div>
+  <div class="admin-acoes">
+    <button class="admin-botao admin-botao-principal" id="abrir-notebooklm" type="button">Abrir NotebookLM</button>
+  </div>
+  <p id="status-notebooklm" class="admin-ajuda" role="status" aria-live="polite">O endereço do notebook será associado à disciplina na configuração do painel.</p>
+  <div class="admin-aviso"><strong>Fluxo previsto:</strong> selecione a disciplina, abra o notebook correspondente, gere o conteúdo e retorne a esta página para importá-lo.</div>
+</section>
+
+<section class="admin-preview" id="importacao-notebooklm" style="margin-top:22px">
+  <h2>Importar conteúdo do NotebookLM</h2>
+  <p class="admin-preview-meta">Selecione o assunto de destino e carregue um arquivo exportado ou preparado a partir do NotebookLM.</p>
+  <div class="admin-grade">
+    <div class="admin-campo">
+      <label for="tipo-importacao">Tipo de conteúdo</label>
+      <select id="tipo-importacao">
+        <option value="resumo">Resumo (Markdown ou TXT)</option>
+        <option value="questoes">Questões (JSON)</option>
+        <option value="flashcards">Flashcards (CSV)</option>
+      </select>
+    </div>
+    <div class="admin-campo">
+      <label for="arquivo-importacao">Arquivo</label>
+      <input id="arquivo-importacao" type="file" accept=".md,.markdown,.txt,.json,.csv,text/plain,text/markdown,application/json,text/csv">
+      <span class="admin-ajuda" id="ajuda-formato-importacao">Resumo: arquivo .md ou .txt. Questões: JSON com lista de objetos (enunciado, alternativas com cinco textos, resposta_correta A–E e justificativa opcional). Flashcards: CSV com cabeçalhos frente,verso. O arquivo é lido localmente.</span>
+    </div>
+  </div>
+  <div class="admin-campo" id="campo-titulo-importacao">
+    <label for="titulo-importacao">Título do resumo</label>
+    <input id="titulo-importacao" type="text" maxlength="180" placeholder="Ex.: Direito, legitimidade e autoridade">
+    <span class="admin-ajuda">Usado quando o tipo selecionado for resumo.</span>
+  </div>
+  <div class="admin-grade">
+    <div class="admin-campo"><label for="disciplina-importacao">Disciplina</label><select id="disciplina-importacao"><option value="">Carregando disciplinas...</option></select></div>
+    <div class="admin-campo"><label for="unidade-importacao">Unidade temática</label><select id="unidade-importacao" disabled><option value="">Selecione uma disciplina primeiro</option></select></div>
+  </div>
+  <div class="admin-campo"><label for="assunto-importacao">Assunto de destino</label><select id="assunto-importacao" disabled><option value="">Selecione uma unidade ou vínculo direto</option></select></div>
+  <p id="erro-importacao" class="admin-erro" role="alert" hidden></p>
+  <div id="preview-importacao" class="admin-aviso" hidden>
+    <strong>Pré-visualização do arquivo</strong>
+    <p id="resumo-importacao" class="admin-preview-meta"></p>
+    <pre id="conteudo-importacao" style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow:auto;color:var(--texto-secundario);font:12px/1.6 monospace"></pre>
+    <div class="admin-acoes" style="margin-top:14px">
+      <button class="admin-botao admin-botao-principal" id="preparar-envio-notebooklm" type="button">Preparar salvamento no GitHub</button>
+    </div>
+    <p id="status-envio-notebooklm" class="admin-ajuda" role="status" aria-live="polite" hidden></p>
+    <div id="area-payload-notebooklm" hidden style="margin-top:14px">
+      <p class="admin-ajuda">Copie o conteúdo abaixo e cole no campo <strong>payload</strong> da execução do workflow no GitHub.</p>
+      <textarea id="payload-notebooklm" readonly style="min-height:180px;font:12px/1.5 monospace"></textarea>
+      <div class="admin-acoes"><button class="admin-botao admin-botao-secundario" id="copiar-payload-notebooklm" type="button">Copiar payload</button><button class="admin-botao admin-botao-principal" id="abrir-workflow-notebooklm" type="button">Abrir workflow no GitHub</button></div>
+    </div>
+  </div>
+</section>
+
 <section class="admin-preview" id="gestao-assuntos" style="margin-top:22px">
   <h2>Gestão de assuntos curriculares</h2>
   <p class="admin-preview-meta">Crie assuntos ou edite os existentes. A solicitação será enviada ao GitHub para validação e atualização de <code>dados/estrutura.json</code>.</p>
@@ -103,7 +163,7 @@ const REPOSITORIO_ISSUES='https://github.com/ricardofelippe/direito-ufpr/issues/
 function preencher(select,itens,inicial,id,nome){select.replaceChildren(new Option(inicial,''));itens.forEach(item=>select.add(new Option(item[nome],item[id])));select.disabled=itens.length===0}
 function unidadesDaDisciplina(){const itens=estrutura.unidades.filter(x=>x.disciplina_id===disciplinaSelect.value).sort((a,b)=>a.ordem-b.ordem);unidadeSelect.replaceChildren(new Option('Selecione uma opção',''),new Option('Sem unidade temática','__sem_unidade__'));itens.forEach(item=>unidadeSelect.add(new Option(item.nome,item.id)));unidadeSelect.disabled=false;preencher(assuntoSelect,[],'Selecione uma unidade ou a opção sem unidade','id','nome')}
 function assuntosDaSelecao(){const disciplinaId=disciplinaSelect.value,unidadeId=unidadeSelect.value;if(!disciplinaId||!unidadeId){preencher(assuntoSelect,[],'Selecione uma unidade ou a opção sem unidade','id','nome');return}const itens=estrutura.assuntos.filter(x=>x.disciplina_id===disciplinaId&&(unidadeId==='__sem_unidade__'?(x.unidade_id===null||x.unidade_id===undefined||x.unidade_id===''):x.unidade_id===unidadeId)).sort((a,b)=>a.ordem-b.ordem);preencher(assuntoSelect,itens,itens.length?'Selecione um assunto':'Nenhum assunto cadastrado nesta opção','id','nome')}
-async function carregar(){try{const r=await fetch('dados/estrutura.json',{cache:'no-store'});if(!r.ok)throw Error(`HTTP ${r.status}`);estrutura=await r.json();const itens=estrutura.disciplinas.filter(x=>x.categoria==='obrigatoria'||x.categoria==='optativa').sort((a,b)=>a.nome.localeCompare(b.nome,'pt-BR'));preencher(disciplinaSelect,itens,'Selecione uma disciplina','id','nome');preencher(disciplinaAssunto,itens,'Selecione uma disciplina','id','nome');preencher(disciplinaUnidade,itens,'Selecione uma disciplina','id','nome');atualizarListaUnidades();if(itens.some(x=>x.id==='teoria-do-direito')){disciplinaSelect.value='teoria-do-direito';unidadesDaDisciplina();disciplinaAssunto.value='teoria-do-direito';atualizarUnidadesAssunto();atualizarListaAssuntos()}}catch(e){erro.textContent='Não foi possível carregar dados/estrutura.json. Confira o caminho do arquivo.';erro.hidden=false;disciplinaSelect.replaceChildren(new Option('Falha ao carregar disciplinas',''));disciplinaSelect.disabled=true}}
+async function carregar(){try{const r=await fetch('dados/estrutura.json',{cache:'no-store'});if(!r.ok)throw Error(`HTTP ${r.status}`);estrutura=await r.json();const itens=estrutura.disciplinas.filter(x=>x.categoria==='obrigatoria'||x.categoria==='optativa').sort((a,b)=>a.nome.localeCompare(b.nome,'pt-BR'));preencher(disciplinaSelect,itens,'Selecione uma disciplina','id','nome');preencher(disciplinaAssunto,itens,'Selecione uma disciplina','id','nome');preencher(disciplinaUnidade,itens,'Selecione uma disciplina','id','nome');atualizarListaUnidades();preencherDisciplinasIntegracao();if(itens.some(x=>x.id==='teoria-do-direito')){disciplinaSelect.value='teoria-do-direito';unidadesDaDisciplina();disciplinaAssunto.value='teoria-do-direito';atualizarUnidadesAssunto();atualizarListaAssuntos()}}catch(e){erro.textContent='Não foi possível carregar dados/estrutura.json. Confira o caminho do arquivo.';erro.hidden=false;disciplinaSelect.replaceChildren(new Option('Falha ao carregar disciplinas',''));disciplinaSelect.disabled=true}}
 disciplinaSelect.addEventListener('change',unidadesDaDisciplina);unidadeSelect.addEventListener('change',assuntosDaSelecao);
 tipoSelect.addEventListener('change',()=>{const revisao=tipoSelect.value==='revisoes';camposRevisao.hidden=!revisao;referenciaInput.required=revisao;document.querySelector('.admin-intro h2').textContent=revisao?'Nova revisão de literatura':'Novo resumo';});
 formulario.addEventListener('submit',e=>{e.preventDefault();if(!formulario.reportValidity())return;const d=estrutura.disciplinas.find(x=>x.id===disciplinaSelect.value),u=estrutura.unidades.find(x=>x.id===unidadeSelect.value),a=estrutura.assuntos.find(x=>x.id===assuntoSelect.value),direto=unidadeSelect.value==='__sem_unidade__';const vinculoValido=d&&a&&a.disciplina_id===d.id&&(direto?(a.unidade_id===null||a.unidade_id===undefined||a.unidade_id===''):(u&&u.disciplina_id===d.id&&a.unidade_id===u.id));if(!vinculoValido){erro.textContent='Seleção acadêmica inválida. Selecione novamente os campos.';erro.hidden=false;return}erro.hidden=true;document.getElementById('preview-meta').textContent=`${d.nome} · ${direto?'Sem unidade temática':u.nome} · ${a.nome}`+(tipoSelect.value==='revisoes'? ` · Referência: ${referenciaInput.value.trim()}${dataInput.value?' · Data: '+dataInput.value:''}`:'');document.getElementById('preview-titulo').textContent=document.getElementById('titulo').value.trim();document.getElementById('preview-texto').textContent=document.getElementById('conteudo').value.trim();mensagemEnvio.hidden=true;areaPreview.hidden=false;areaPreview.scrollIntoView({behavior:'smooth',block:'start'})});
@@ -290,6 +350,184 @@ formUnidade.addEventListener('reset',()=>setTimeout(()=>{
   statusUnidade.hidden=true;
 },0));
 
+
+// Integração com NotebookLM e importação estruturada.
+const NOTEBOOKLM_URLS = {
+  'teoria-do-direito': 'https://notebook.google.com/notebook/8afe7bdf-bef5-4b75-96be-02aa91a65768'
+};
+const WORKFLOW_IMPORTACAO='https://github.com/ricardofelippe/direito-ufpr/actions/workflows/importar-notebooklm.yml';
+const disciplinaNotebook=document.getElementById('disciplina-notebooklm');
+const statusNotebook=document.getElementById('status-notebooklm');
+const disciplinaImp=document.getElementById('disciplina-importacao');
+const unidadeImp=document.getElementById('unidade-importacao');
+const assuntoImp=document.getElementById('assunto-importacao');
+const arquivoImp=document.getElementById('arquivo-importacao');
+const tipoImp=document.getElementById('tipo-importacao');
+const erroImp=document.getElementById('erro-importacao');
+const previewImp=document.getElementById('preview-importacao');
+const statusEnvioImp=document.getElementById('status-envio-notebooklm');
+const areaPayloadImp=document.getElementById('area-payload-notebooklm');
+const payloadImp=document.getElementById('payload-notebooklm');
+let importacaoPreparada=null;
+let arquivoLido=null;
+
+function preencherDisciplinasIntegracao(){
+  if(!estrutura)return;
+  const itens=estrutura.disciplinas.filter(x=>x.categoria==='obrigatoria'||x.categoria==='optativa').sort((a,b)=>a.nome.localeCompare(b.nome,'pt-BR'));
+  preencher(disciplinaNotebook,itens,'Selecione uma disciplina','id','nome');
+  preencher(disciplinaImp,itens,'Selecione uma disciplina','id','nome');
+  if(itens.some(x=>x.id==='teoria-do-direito')){
+    disciplinaNotebook.value='teoria-do-direito';
+    disciplinaImp.value='teoria-do-direito';
+    atualizarUnidadesImportacao();
+  }
+}
+function atualizarUnidadesImportacao(){
+  if(!estrutura||!disciplinaImp.value){
+    unidadeImp.replaceChildren(new Option('Selecione uma disciplina primeiro',''));
+    unidadeImp.disabled=true;
+    preencher(assuntoImp,[],'Selecione uma unidade ou vínculo direto','id','nome');
+    return;
+  }
+  const itens=estrutura.unidades.filter(x=>x.disciplina_id===disciplinaImp.value).sort((a,b)=>a.ordem-b.ordem);
+  unidadeImp.replaceChildren(new Option('Selecione uma opção',''),new Option('Diretamente à disciplina','__sem_unidade__'));
+  itens.forEach(x=>unidadeImp.add(new Option(x.nome,x.id)));
+  unidadeImp.disabled=false;
+  preencher(assuntoImp,[],'Selecione uma unidade ou vínculo direto','id','nome');
+}
+function atualizarAssuntosImportacao(){
+  const disciplinaId=disciplinaImp.value,unidadeId=unidadeImp.value;
+  if(!disciplinaId||!unidadeId){preencher(assuntoImp,[],'Selecione uma unidade ou vínculo direto','id','nome');return;}
+  const itens=estrutura.assuntos.filter(x=>x.disciplina_id===disciplinaId&&(unidadeId==='__sem_unidade__'?(x.unidade_id===null||x.unidade_id===undefined||x.unidade_id===''):x.unidade_id===unidadeId)).sort((a,b)=>a.ordem-b.ordem);
+  preencher(assuntoImp,itens,itens.length?'Selecione um assunto':'Nenhum assunto nesta opção','id','nome');
+}
+function parseCSV(texto){
+  const linhas=[];let linha=[],campo='',aspas=false;
+  for(let i=0;i<texto.length;i++){
+    const c=texto[i],proximo=texto[i+1];
+    if(c==='"'&&aspas&&proximo==='"'){campo+='"';i++;}
+    else if(c==='"'){aspas=!aspas;}
+    else if(c===','&&!aspas){linha.push(campo);campo='';}
+    else if((c==='\n'||c==='\r')&&!aspas){
+      if(c==='\r'&&proximo==='\n')i++;
+      linha.push(campo);campo='';
+      if(linha.some(x=>x.trim()))linhas.push(linha);
+      linha=[];
+    }else campo+=c;
+  }
+  if(aspas)throw Error('CSV inválido: há aspas sem fechamento.');
+  linha.push(campo);if(linha.some(x=>x.trim()))linhas.push(linha);
+  if(linhas.length<2)throw Error('O CSV deve conter cabeçalho e pelo menos um flashcard.');
+  const cabecalho=linhas.shift().map(x=>x.trim().toLowerCase());
+  const iFrente=cabecalho.indexOf('frente'),iVerso=cabecalho.indexOf('verso');
+  if(iFrente<0||iVerso<0)throw Error('O CSV deve possuir as colunas "frente" e "verso".');
+  return linhas.map((l,i)=>{
+    const frente=(l[iFrente]||'').trim(),verso=(l[iVerso]||'').trim();
+    if(!frente||!verso)throw Error(`Flashcard ${i+1}: frente e verso são obrigatórios.`);
+    return {frente,verso};
+  });
+}
+function validarQuestoes(lista){
+  if(!Array.isArray(lista)||!lista.length)throw Error('O JSON deve conter uma lista com pelo menos uma questão.');
+  return lista.map((q,i)=>{
+    if(!q||typeof q!=='object'||Array.isArray(q))throw Error(`Questão ${i+1}: registro inválido.`);
+    const enunciado=String(q.enunciado||q.pergunta||'').trim();
+    const alternativas=Array.isArray(q.alternativas)?q.alternativas.map(x=>String(x).trim()):[];
+    let correta=String(q.resposta_correta??q.gabarito??'').trim().toUpperCase();
+    if(/^[0-4]$/.test(correta))correta='ABCDE'[Number(correta)];
+    if(!enunciado||alternativas.length!==5||alternativas.some(x=>!x)||!['A','B','C','D','E'].includes(correta)){
+      throw Error(`Questão ${i+1}: informe enunciado, cinco alternativas e resposta_correta de A a E (ou índice 0 a 4).`);
+    }
+    return {enunciado,alternativas,resposta_correta:correta,justificativa:String(q.justificativa||q.explicacao||'').trim()};
+  });
+}
+function montarRegistrosImportacao(raw){
+  if(tipoImp.value==='resumo'){
+    const titulo=document.getElementById('titulo-importacao').value.trim();
+    if(!titulo||titulo.length>180)throw Error('Informe um título com até 180 caracteres para o resumo.');
+    if(!raw.trim())throw Error('O arquivo do resumo está vazio.');
+    return {tipo:'resumos',registros:[{titulo,conteudo:raw.trim()}]};
+  }
+  if(tipoImp.value==='questoes')return {tipo:'questoes',registros:validarQuestoes(JSON.parse(raw))};
+  return {tipo:'flashcards',registros:parseCSV(raw)};
+}
+function validarVinculoImportacao(){
+  const d=estrutura.disciplinas.find(x=>x.id===disciplinaImp.value);
+  const unidadeId=unidadeImp.value;
+  const u=unidadeId&&unidadeId!=='__sem_unidade__'?estrutura.unidades.find(x=>x.id===unidadeId):null;
+  const a=estrutura.assuntos.find(x=>x.id===assuntoImp.value);
+  const direto=unidadeId==='__sem_unidade__';
+  const ok=d&&a&&a.disciplina_id===d.id&&(direto?(a.unidade_id===null||a.unidade_id===undefined||a.unidade_id===''):(u&&u.disciplina_id===d.id&&a.unidade_id===u.id));
+  if(!ok)throw Error('Selecione uma disciplina, unidade e assunto compatíveis.');
+  return {disciplina_id:d.id,unidade_id:direto?null:u.id,assunto_id:a.id};
+}
+document.getElementById('abrir-notebooklm').addEventListener('click',()=>{
+  const id=disciplinaNotebook.value,url=NOTEBOOKLM_URLS[id];
+  if(!id){statusNotebook.textContent='Selecione uma disciplina.';return;}
+  if(!url){statusNotebook.textContent='O endereço do notebook desta disciplina ainda não foi configurado.';return;}
+  window.open(url,'_blank','noopener');
+});
+disciplinaImp.addEventListener('change',atualizarUnidadesImportacao);
+unidadeImp.addEventListener('change',atualizarAssuntosImportacao);
+arquivoImp.addEventListener('change',async()=>{
+  erroImp.hidden=true;previewImp.hidden=true;areaPayloadImp.hidden=true;importacaoPreparada=null;arquivoLido=null;
+  const file=arquivoImp.files&&arquivoImp.files[0];if(!file)return;
+  try{
+    arquivoLido=await file.text();
+    const dados=montarRegistrosImportacao(arquivoLido);
+    const d=estrutura.disciplinas.find(x=>x.id===disciplinaImp.value);
+    const a=estrutura.assuntos.find(x=>x.id===assuntoImp.value);
+    document.getElementById('resumo-importacao').textContent=
+      `${file.name} · ${file.size.toLocaleString('pt-BR')} bytes · ${dados.registros.length} registro(s) reconhecido(s)`;
+    document.getElementById('conteudo-importacao').textContent=
+      JSON.stringify(dados.registros,null,2).slice(0,20000);
+    previewImp.hidden=false;
+    statusEnvioImp.hidden=true;
+  }catch(e){erroImp.textContent='Não foi possível interpretar o arquivo: '+e.message;erroImp.hidden=false;}
+});
+tipoImp.addEventListener('change',()=>{
+  arquivoImp.value='';arquivoLido=null;previewImp.hidden=true;areaPayloadImp.hidden=true;erroImp.hidden=true;
+  document.getElementById('campo-titulo-importacao').hidden=tipoImp.value!=='resumo';
+  const ajuda=document.getElementById('ajuda-formato-importacao');
+  ajuda.textContent=tipoImp.value==='resumo'
+    ? 'Resumo: arquivo .md ou .txt. Informe o título abaixo. O conteúdo será associado ao assunto selecionado.'
+    : tipoImp.value==='questoes'
+      ? 'Questões: JSON com uma lista de objetos. Cada questão deve conter enunciado, alternativas (cinco textos), resposta_correta (A–E ou índice 0–4) e justificativa opcional.'
+      : 'Flashcards: CSV com cabeçalhos frente,verso. Cada linha deve conter um par frente/verso.';
+});
+document.getElementById('preparar-envio-notebooklm').addEventListener('click',async()=>{
+  erroImp.hidden=true;statusEnvioImp.hidden=true;areaPayloadImp.hidden=true;
+  try{
+    if(!arquivoLido)throw Error('Selecione um arquivo e aguarde a pré-visualização.');
+    const vinculo=validarVinculoImportacao();
+    const dados=montarRegistrosImportacao(arquivoLido);
+    const payload={
+      versao:1,
+      lote_id:`notebooklm-${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
+      ...vinculo,
+      tipo:dados.tipo,
+      registros:dados.registros
+    };
+    const serializado=JSON.stringify(payload);
+    if(serializado.length>60000)throw Error(`O payload possui ${serializado.length} caracteres. O limite operacional é 60.000; divida a importação em lotes menores.`);
+    importacaoPreparada=serializado;
+    payloadImp.value=serializado;
+    areaPayloadImp.hidden=false;
+    statusEnvioImp.textContent='Payload validado. Copie-o e abra o workflow para concluir a gravação.';
+    statusEnvioImp.hidden=false;
+  }catch(e){erroImp.textContent=e.message;erroImp.hidden=false;}
+});
+document.getElementById('copiar-payload-notebooklm').addEventListener('click',async()=>{
+  if(!importacaoPreparada)return;
+  try{await navigator.clipboard.writeText(importacaoPreparada);statusEnvioImp.textContent='Payload copiado. Agora abra o workflow no GitHub e cole no campo payload.';}
+  catch(e){payloadImp.focus();payloadImp.select();statusEnvioImp.textContent='A cópia automática não foi autorizada pelo navegador. O payload está selecionado; use Ctrl+C.';}
+  statusEnvioImp.hidden=false;
+});
+document.getElementById('abrir-workflow-notebooklm').addEventListener('click',()=>{
+  if(!importacaoPreparada){erroImp.textContent='Prepare o payload antes de abrir o workflow.';erroImp.hidden=false;return;}
+  window.open(WORKFLOW_IMPORTACAO,'_blank','noopener');
+});
+document.getElementById('campo-titulo-importacao').hidden=tipoImp.value!=='resumo';
 document.getElementById('voltar-edicao').addEventListener('click',()=>{areaPreview.hidden=true;document.getElementById('titulo').focus()});formulario.addEventListener('reset',()=>{areaPreview.hidden=true;mensagemEnvio.hidden=true;setTimeout(()=>{tipoSelect.value='resumos';camposRevisao.hidden=true;referenciaInput.required=false;document.querySelector('.admin-intro h2').textContent='Novo resumo';if(estrutura){disciplinaSelect.value='teoria-do-direito';unidadesDaDisciplina()}},0)});carregar();
 })();
 </script></body></html>
