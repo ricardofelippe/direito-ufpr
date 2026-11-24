@@ -153,6 +153,72 @@
       margin-bottom: 8px;
     }
 
+    .cartao-topico-item {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+      padding: 14px;
+      background: var(--superficie);
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+    }
+
+    .cartao-topico-item .cartao-topico {
+      width: 100%;
+      min-height: 0;
+      padding: 4px;
+      border: 0;
+      background: transparent;
+    }
+
+    .controles-progresso {
+      display: grid;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--borda);
+    }
+
+    .campo-progresso {
+      display: grid;
+      gap: 4px;
+      color: var(--texto-secundario);
+      font-size: 11px;
+    }
+
+    .campo-progresso select {
+      width: 100%;
+      min-width: 0;
+      padding: 8px;
+      color: var(--texto);
+      background: var(--fundo-secundario);
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 12px;
+    }
+
+    .botao-salvar-progresso {
+      padding: 9px 12px;
+      color: #061318;
+      background: var(--azul-claro);
+      border: 0;
+      border-radius: 7px;
+      cursor: pointer;
+      font: 700 12px Arial,sans-serif;
+    }
+
+    .botao-salvar-progresso:hover {
+      filter: brightness(1.08);
+    }
+
+    .mensagem-progresso {
+      min-height: 14px;
+      color: var(--texto-suave);
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
     .nome-topico {
       font-weight: 700;
       font-size: 14px;
@@ -427,6 +493,7 @@
       let disciplinaAtual = null;
       let estrutura = null;
       let conteudos = null;
+      let progresso = { progresso: [] };
       let documentos = [];
       let assuntoSelecionado = null;
       let abaAtual = 'resumos';
@@ -519,6 +586,104 @@
         document.title = `${disciplinaAtual.nome} - Estudos de Direito`;
       }
 
+      const opcoesProgresso = {
+        situacao_geral: [
+          ['nao_iniciado', 'Não iniciado'],
+          ['em_andamento', 'Em andamento'],
+          ['concluido', 'Concluído'],
+          ['pendente', 'Pendente']
+        ],
+        conteudo_status: [
+          ['nao_iniciado', 'Não iniciado'],
+          ['em_andamento', 'Em andamento'],
+          ['estudado', 'Estudado']
+        ],
+        questoes_status: [
+          ['nao_iniciado', 'Não iniciado'],
+          ['em_andamento', 'Em andamento'],
+          ['concluido', 'Concluído'],
+          ['nao_se_aplica', 'Não se aplica']
+        ],
+        revisao_status: [
+          ['nao_iniciado', 'Não iniciado'],
+          ['em_andamento', 'Em andamento'],
+          ['concluido', 'Concluído'],
+          ['nao_se_aplica', 'Não se aplica']
+        ]
+      };
+
+      const rotulosProgresso = {
+        situacao_geral: 'Situação geral',
+        conteudo_status: 'Conteúdo estudado',
+        questoes_status: 'Questões praticadas',
+        revisao_status: 'Revisões realizadas'
+      };
+
+      function registroProgresso(assuntoId) {
+        return (progresso.progresso || []).find(item => item.assunto_id === assuntoId) || {
+          assunto_id: assuntoId,
+          situacao_geral: 'nao_iniciado',
+          conteudo_status: 'nao_iniciado',
+          questoes_status: 'nao_iniciado',
+          revisao_status: 'nao_iniciado'
+        };
+      }
+
+      function montarCartaoAssunto(assunto, indice) {
+        const titulo = textoRegistro(assunto, ['nome','titulo']) || `Assunto ${indice + 1}`;
+        const descricao = textoRegistro(assunto, ['descricao','ementa']) ||
+          'Selecione para filtrar os conteúdos deste assunto.';
+        const registro = registroProgresso(assunto.id);
+
+        const campos = Object.entries(opcoesProgresso).map(([campo, opcoes]) => `
+          <label class="campo-progresso">
+            <span>${rotulosProgresso[campo]}</span>
+            <select data-progresso-campo="${campo}" aria-label="${rotulosProgresso[campo]} — ${escapeHTML(titulo)}">
+              ${opcoes.map(([valor, rotulo]) => `
+                <option value="${valor}" ${registro[campo] === valor ? 'selected' : ''}>${rotulo}</option>
+              `).join('')}
+            </select>
+          </label>
+        `).join('');
+
+        return `
+          <article class="cartao-topico-item" data-cartao-assunto="${escapeHTML(assunto.id)}">
+            <button class="cartao-topico" type="button"
+              data-assunto="${escapeHTML(assunto.id)}" aria-pressed="false">
+              <span class="icone-topico">§</span>
+              <span class="nome-topico">${escapeHTML(titulo)}</span>
+              <span class="descricao-topico">${escapeHTML(descricao)}</span>
+            </button>
+            <div class="controles-progresso" aria-label="Progresso do assunto">
+              ${campos}
+              <button class="botao-salvar-progresso" type="button" data-salvar-progresso="${escapeHTML(assunto.id)}">
+                Salvar progresso
+              </button>
+              <span class="mensagem-progresso" aria-live="polite"></span>
+            </div>
+          </article>`;
+      }
+
+      function abrirFormularioProgresso(assuntoId, botao) {
+        const cartao = listaTopicos.querySelector(`[data-cartao-assunto="${CSS.escape(assuntoId)}"]`);
+        if (!cartao) return;
+
+        const parametros = new URLSearchParams({
+          template: 'atualizar-progresso.yml',
+          title: '[Atualizar progresso] ' + assuntoId,
+          assunto_id: assuntoId
+        });
+
+        cartao.querySelectorAll('[data-progresso-campo]').forEach(campo => {
+          parametros.set(campo.dataset.progressoCampo, campo.value);
+        });
+
+        const url = 'https://github.com/ricardofelippe/direito-ufpr/issues/new?' + parametros.toString();
+        const mensagem = cartao.querySelector('.mensagem-progresso');
+        mensagem.textContent = 'Confira os dados no GitHub e envie a solicitação para salvar.';
+        window.open(url, '_blank', 'noopener');
+      }
+
       function montarTopicos() {
         const unidades = (estrutura.unidades || [])
           .filter(unidade => unidade.disciplina_id === disciplinaId)
@@ -570,15 +735,7 @@
                   const descricao = textoRegistro(assunto, ['descricao','ementa']) ||
                     'Selecione para filtrar os conteúdos deste assunto.';
 
-                  return `
-                    <button class="cartao-topico"
-                      type="button"
-                      data-assunto="${escapeHTML(assunto.id)}"
-                      aria-pressed="false">
-                      <span class="icone-topico">§</span>
-                      <span class="nome-topico">${escapeHTML(titulo)}</span>
-                      <span class="descricao-topico">${escapeHTML(descricao)}</span>
-                    </button>`;
+                  return montarCartaoAssunto(assunto, assuntoIndice);
                 }).join('')}
               </div>
             ` : '<p class="carregando">Nenhum assunto cadastrado nesta unidade.</p>'}
@@ -601,15 +758,7 @@
                 const descricao = textoRegistro(assunto, ['descricao','ementa']) ||
                   'Selecione para filtrar os conteúdos deste assunto.';
 
-                return `
-                  <button class="cartao-topico"
-                    type="button"
-                    data-assunto="${escapeHTML(assunto.id)}"
-                    aria-pressed="false">
-                    <span class="icone-topico">§</span>
-                    <span class="nome-topico">${escapeHTML(titulo)}</span>
-                    <span class="descricao-topico">${escapeHTML(descricao)}</span>
-                  </button>`;
+                return montarCartaoAssunto(assunto, indice);
               }).join('')}
             </div>
           </section>
@@ -621,6 +770,12 @@
           botao.setAttribute(
             'aria-pressed',
             String(botao.dataset.assunto === assuntoSelecionado)
+          )
+        );
+
+        listaTopicos.querySelectorAll('[data-salvar-progresso]').forEach(botao =>
+          botao.addEventListener('click', () =>
+            abrirFormularioProgresso(botao.dataset.salvarProgresso, botao)
           )
         );
 
@@ -884,10 +1039,12 @@
           [estrutura, conteudos, documentos] = await Promise.all([
             carregarJSON('dados/estrutura.json'),
             carregarJSON('dados/conteudos.json'),
-            carregarJSON('documentos.json')
+            carregarJSON('documentos.json'),
+            carregarJSON('dados/progresso.json').catch(() => ({ progresso: [] }))
           ]);
 
           if (!Array.isArray(documentos)) documentos = [];
+          if (!progresso || !Array.isArray(progresso.progresso)) progresso = { progresso: [] };
 
           disciplinaAtual = (estrutura.disciplinas || []).find(
             item => item.id === disciplinaId
