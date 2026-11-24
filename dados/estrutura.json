@@ -900,6 +900,15 @@
       "descricao": "Relações entre direito, moralidade, justiça e validade jurídica.",
       "ordem": 26,
       "status": "pendente"
+    },
+    {
+      "id": "assunto-direito-e-inteligencia-artificial-desafios-para-a-validade-interpretacao-e-aplicacao-das-normas-juridicas-29",
+      "disciplina_id": "teoria-do-direito",
+      "unidade_id": null,
+      "nome": "Direito e inteligência artificial: desafios para a validade, interpretação e aplicação das normas jurídicas.",
+      "descricao": "Análise dos impactos da inteligência artificial sobre o Direito, considerando a interpretação das normas, a tomada de decisões jurídicas, a responsabilidade e os desafios à teoria da validade jurídica.",
+      "ordem": 27,
+      "status": "pendente"
     }
   ],
   "previsao_topicas": [
