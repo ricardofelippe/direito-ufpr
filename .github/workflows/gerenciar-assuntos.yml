@@ -181,12 +181,22 @@ jobs:
 
               execFileSync('git', ['add', estruturaPath]);
 
-              const mensagemCommit = operacao === 'criar'
-                ? `Adiciona assunto: ${nome}`
-                : `Atualiza assunto: ${nome}`;
+              const alteracoes = execFileSync(
+                'git',
+                ['status', '--porcelain', '--', estruturaPath],
+                { encoding: 'utf8' }
+              ).trim();
 
-              execFileSync('git', ['commit', '-m', mensagemCommit]);
-              execFileSync('git', ['push']);
+              if (alteracoes) {
+                const mensagemCommit = operacao === 'criar'
+                  ? `Adiciona assunto: ${nome}`
+                  : `Atualiza assunto: ${nome}`;
+
+                execFileSync('git', ['commit', '-m', mensagemCommit]);
+                execFileSync('git', ['push']);
+              } else {
+                core.info('Nenhuma alteração necessária. Os dados já estão atualizados.');
+              }
 
               const acao = operacao === 'criar'
                 ? 'criado'
