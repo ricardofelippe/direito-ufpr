@@ -1151,6 +1151,30 @@
       "descricao": "",
       "ordem": 5,
       "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-unidade-01",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "nome": "PARTE I – Princípios e Fundamentos do Conhecimento Científico",
+      "descricao": "Divisão em partes conforme o programa oficial da ficha DV456.",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-unidade-02",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "nome": "PARTE II – Métodos e técnicas (estratégias metodológicas) de pesquisa em Direito",
+      "descricao": "Divisão em partes conforme o programa oficial da ficha DV456.",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-unidade-03",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "nome": "PARTE III – A arte da pesquisa e os truques da escrita",
+      "descricao": "Divisão em partes conforme o programa oficial da ficha DV456.",
+      "ordem": 3,
+      "status": "pendente"
     }
   ],
   "assuntos": [
@@ -3402,6 +3426,393 @@
       "nome": "Difusão Científica",
       "descricao": "",
       "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-01-01",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-01",
+      "nome": "O que é ciência, afinal?",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-01-02",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-01",
+      "nome": "Trabalho Científico em Direito: Primeiras Questões",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-01-03",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-01",
+      "nome": "Liberdade Acadêmica e Liberdade de Pesquisa",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-01-04",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-01",
+      "nome": "Dilemas da Educação e do Ensino Jurídico",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-01-05",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-01",
+      "nome": "Elementos Básicos de Trabalhos Acadêmicos e Científicos",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-01-06",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-01",
+      "nome": "Leitura de Texto, Resumos e Fichamentos",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-01-07",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-01",
+      "nome": "Normas da ABNT: Citação e Referência Bibliográfica",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-01-08",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-01",
+      "nome": "Papers e Artigos Científicos: Elementos Pré-Textuais, Textuais e Pós-Textuais",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-01-09",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-01",
+      "nome": "Fundamentos de Epistemologia",
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-01-10",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-01",
+      "nome": "Conhecimento: Sentidos Pré-Modernos e Modernos",
+      "descricao": "",
+      "ordem": 10,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-01-11",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-01",
+      "nome": "Vertentes e Tradições: Racionalismo, Empirismo, Criticismo, Positivismos e Pós-Positivismo",
+      "descricao": "",
+      "ordem": 11,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-01-12",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-01",
+      "nome": "A Questão do Método na Racionalidade Científica",
+      "descricao": "",
+      "ordem": 12,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-01",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Jurídico-Dogmática ou Positivismo Jurídico Normativismo: Prevalência do Monismo Metodológico",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-02",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Interdisciplinaridade e Transdisciplinaridade e Pós-Positivismo",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-03",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Recortes de Pesquisa (Raça e Gênero)",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-04",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Direito e Ciência: Natureza e Sociedade",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-05",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Formas de Raciocínio",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-06",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Hipotético-Dedutivo",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-07",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Escolha Racional",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-08",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Paradigmático",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-09",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Lógica Material",
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-10",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Dados e Fontes",
+      "descricao": "",
+      "ordem": 10,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-11",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Fontes de Pesquisa: Primárias e Secundárias",
+      "descricao": "",
+      "ordem": 11,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-12",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Fontes de Pesquisa e Fontes Jurídicas: Doutrina, Jurisprudência, Constituição, Leis, Costumes, Direito Internacional, Normação Privada e Outras Fontes",
+      "descricao": "",
+      "ordem": 12,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-13",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Tipos e técnicas de pesquisa empírica em Direito",
+      "descricao": "",
+      "ordem": 13,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-14",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Abordagens quantitativas e qualitativas",
+      "descricao": "",
+      "ordem": 14,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-15",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Aprendendo com os dados: coleta, tratamento e interpretação",
+      "descricao": "",
+      "ordem": 15,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-16",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Jurimetria e métodos estatísticos",
+      "descricao": "",
+      "ordem": 16,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-17",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Estudos de caso",
+      "descricao": "",
+      "ordem": 17,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-18",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Análise documental e de fontes",
+      "descricao": "",
+      "ordem": 18,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-19",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Etnografia e observação participante",
+      "descricao": "",
+      "ordem": 19,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-20",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Direito e Literatura",
+      "descricao": "",
+      "ordem": 20,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-02-21",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-02",
+      "nome": "Direito comparado",
+      "descricao": "",
+      "ordem": 21,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-03-01",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-03",
+      "nome": "Escolha do Tema e Construção do Problema",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-03-02",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-03",
+      "nome": "Como não se Faz (ou Não se Deveria Fazer) Pesquisa em Direito",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-03-03",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-03",
+      "nome": "Escolha do Tema: Disciplina, Prospecção e Escolha do Assunto",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-03-04",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-03",
+      "nome": "Elaboração do Plano: Oficina",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-03-05",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-03",
+      "nome": "Planos Provisório e Definitivo",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-03-06",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-03",
+      "nome": "Projeto de Pesquisa",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-03-07",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-03",
+      "nome": "Redação e Texto Definitivo: Oficina",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-03-08",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-03",
+      "nome": "Marco Teórico e Estado da Arte",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-03-09",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-03",
+      "nome": "“Truques da escrita”: a estruturação final do Texto",
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "metodologia-direito-assunto-03-10",
+      "disciplina_id": "metodologia-do-trabalho-cientifico-em-direito",
+      "unidade_id": "metodologia-direito-unidade-03",
+      "nome": "Publicação, difusão e discussão de trabalhos científicos",
+      "descricao": "",
+      "ordem": 10,
       "status": "pendente"
     }
   ],
