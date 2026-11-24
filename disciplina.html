@@ -219,6 +219,14 @@
       line-height: 1.4;
     }
 
+    /* Destaque visual conforme a situação geral do assunto */
+    .cartao-topico-item.status-em-andamento { border-color:#22d3ee; background:linear-gradient(145deg,rgba(34,211,238,.10),var(--superficie) 62%); box-shadow:inset 3px 0 0 #22d3ee; }
+    .cartao-topico-item.status-concluido { border-color:#22c55e; background:linear-gradient(145deg,rgba(34,197,94,.09),var(--superficie) 62%); box-shadow:inset 3px 0 0 #22c55e; }
+    .cartao-topico-item.status-pendente { border-color:#f59e0b; background:linear-gradient(145deg,rgba(245,158,11,.09),var(--superficie) 62%); box-shadow:inset 3px 0 0 #f59e0b; }
+    .indicador-situacao { display:inline-flex; align-items:center; align-self:flex-start; gap:6px; margin-top:8px; padding:4px 8px; border-radius:999px; font-size:10px; font-weight:700; background:rgba(148,163,184,.12); color:var(--texto-secundario); }
+    .status-em-andamento .indicador-situacao { color:#67e8f9; background:rgba(34,211,238,.13); }
+    .status-concluido .indicador-situacao { color:#86efac; background:rgba(34,197,94,.13); }
+    .status-pendente .indicador-situacao { color:#fcd34d; background:rgba(245,158,11,.13); }
     .nome-topico {
       font-weight: 700;
       font-size: 14px;
@@ -646,8 +654,20 @@
           </label>
         `).join('');
 
+        const situacao = registro.situacao_geral || 'nao_iniciado';
+        const classesSituacao = ['em_andamento','concluido','pendente'].includes(situacao) ? ` status-${situacao.replace('_','-')}` : '';
+        const rotuloSituacao = (opcoesProgresso.situacao_geral.find(opcao => opcao[0] === situacao) || [null,'Não iniciado'])[1];
+        const iconeSituacao = situacao === 'concluido' ? '✓' : situacao === 'pendente' ? '!' : situacao === 'em_andamento' ? '●' : '○';
+
         return `
-          <article class="cartao-topico-item" data-cartao-assunto="${escapeHTML(assunto.id)}">
+          <article class="cartao-topico-item${classesSituacao}" data-cartao-assunto="${escapeHTML(assunto.id)}">
+            <button class="cartao-topico" type="button"
+              data-assunto="${escapeHTML(assunto.id)}" aria-pressed="false">
+              <span class="icone-topico">§</span>
+              <span class="nome-topico">${escapeHTML(titulo)}</span>
+              <span class="descricao-topico">${escapeHTML(descricao)}</span>
+              <span class="indicador-situacao" data-indicador-situacao>${iconeSituacao} ${escapeHTML(rotuloSituacao)}</span>
+            </button>
             <button class="cartao-topico" type="button"
               data-assunto="${escapeHTML(assunto.id)}" aria-pressed="false">
               <span class="icone-topico">§</span>
@@ -793,6 +813,20 @@
           )
         );
 
+        listaTopicos.querySelectorAll('[data-progresso-campo="situacao_geral"]').forEach(campo => {
+          campo.addEventListener('change', () => {
+            const cartao = campo.closest('[data-cartao-assunto]');
+            if (!cartao) return;
+            cartao.classList.remove('status-em-andamento','status-concluido','status-pendente');
+            const estado = campo.value;
+            if (['em_andamento','concluido','pendente'].includes(estado)) cartao.classList.add('status-' + estado.replace('_','-'));
+            const op = opcoesProgresso.situacao_geral.find(item => item[0] === estado);
+            const rotulo = op ? op[1] : 'Não iniciado';
+            const icone = estado === 'concluido' ? '✓' : estado === 'pendente' ? '!' : estado === 'em_andamento' ? '●' : '○';
+            const indicador = cartao.querySelector('[data-indicador-situacao]');
+            if (indicador) indicador.textContent = icone + ' ' + rotulo;
+          });
+        });
         listaTopicos.querySelectorAll('[data-salvar-progresso]').forEach(botao =>
           botao.addEventListener('click', () =>
             abrirFormularioProgresso(botao.dataset.salvarProgresso, botao)
