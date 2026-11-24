@@ -25,6 +25,27 @@ body.pagina-admin{--fundo:#070b12;--fundo-secundario:#0c1420;--superficie:#101b2
 <div class="admin-acoes"><button class="admin-botao admin-botao-principal" type="submit">Visualizar prévia</button><button class="admin-botao admin-botao-secundario" type="reset">Limpar formulário</button></div><p id="erro-carregamento" class="admin-erro" role="alert" hidden></p>
 </form>
 <section id="area-preview" class="admin-preview" aria-live="polite" hidden><h2>Pré-visualização</h2><p id="preview-meta" class="admin-preview-meta"></p><h3 id="preview-titulo" class="admin-preview-titulo"></h3><p id="preview-texto" class="admin-preview-texto"></p><div class="admin-acoes" style="margin-top:20px"><button id="enviar-github" class="admin-botao admin-botao-principal" type="button">Enviar para o GitHub</button><button id="voltar-edicao" class="admin-botao admin-botao-secundario" type="button">Voltar à edição</button></div><p id="mensagem-envio" role="status" class="admin-ajuda" hidden></p></section>
+
+<section class="admin-preview" id="gestao-assuntos" style="margin-top:22px">
+  <h2>Gestão de assuntos curriculares</h2>
+  <p class="admin-preview-meta">Crie assuntos ou edite os existentes. A solicitação será enviada ao GitHub para validação e atualização de <code>dados/estrutura.json</code>.</p>
+  <form id="form-assunto">
+    <div class="admin-grade">
+      <div class="admin-campo"><label for="operacao-assunto">Operação</label><select id="operacao-assunto" required><option value="criar">Criar novo assunto</option><option value="editar">Editar assunto existente</option></select></div>
+      <div class="admin-campo" id="campo-assunto-existente" hidden><label for="assunto-existente">Assunto para editar</label><select id="assunto-existente"><option value="">Selecione um assunto</option></select></div>
+    </div>
+    <div class="admin-grade">
+      <div class="admin-campo"><label for="disciplina-assunto">Disciplina</label><select id="disciplina-assunto" required><option value="">Carregando disciplinas...</option></select></div>
+      <div class="admin-campo"><label for="unidade-assunto">Unidade temática</label><select id="unidade-assunto" required disabled><option value="">Selecione uma disciplina primeiro</option></select><span class="admin-ajuda">Escolha “Diretamente à disciplina” quando o assunto não pertencer a uma unidade.</span></div>
+    </div>
+    <div class="admin-campo"><label for="nome-assunto">Nome do assunto</label><input id="nome-assunto" type="text" maxlength="180" required placeholder="Ex.: Direito e moral: distinções e relações"></div>
+    <div class="admin-campo"><label for="descricao-assunto">Descrição</label><input id="descricao-assunto" type="text" maxlength="2000" placeholder="Descrição breve do assunto"><span class="admin-ajuda">Use uma única linha, sem quebras.</span></div>
+    <div class="admin-campo" style="max-width:220px"><label for="ordem-assunto">Ordem</label><input id="ordem-assunto" type="number" min="1" step="1" required></div>
+    <div class="admin-acoes"><button class="admin-botao admin-botao-principal" type="submit">Enviar solicitação ao GitHub</button><button class="admin-botao admin-botao-secundario" type="reset">Limpar gestão de assuntos</button></div>
+    <p id="erro-assunto" class="admin-erro" role="alert" hidden></p><p id="status-assunto" class="admin-ajuda" role="status" hidden></p>
+  </form>
+</section>
+
 <aside class="admin-aviso"><strong>Como funciona:</strong> o botão abre uma solicitação no GitHub com os campos já preenchidos. Confira e clique em <em>Submit new issue</em>. O workflow verifica sua conta, valida disciplina, unidade (quando houver) e assunto e, se estiver correto, grava o conteúdo em <code>dados/conteudos.json</code>. O formulário não precisa ser preenchido novamente.<br><br><strong>Limite:</strong> textos muito longos podem ultrapassar o limite prático do navegador/GitHub. O painel avisa antes de abrir e não corta o texto.</aside>
 </main>
 <script>
@@ -35,7 +56,7 @@ const REPOSITORIO_ISSUES='https://github.com/ricardofelippe/direito-ufpr/issues/
 function preencher(select,itens,inicial,id,nome){select.replaceChildren(new Option(inicial,''));itens.forEach(item=>select.add(new Option(item[nome],item[id])));select.disabled=itens.length===0}
 function unidadesDaDisciplina(){const itens=estrutura.unidades.filter(x=>x.disciplina_id===disciplinaSelect.value).sort((a,b)=>a.ordem-b.ordem);unidadeSelect.replaceChildren(new Option('Selecione uma opção',''),new Option('Sem unidade temática','__sem_unidade__'));itens.forEach(item=>unidadeSelect.add(new Option(item.nome,item.id)));unidadeSelect.disabled=false;preencher(assuntoSelect,[],'Selecione uma unidade ou a opção sem unidade','id','nome')}
 function assuntosDaSelecao(){const disciplinaId=disciplinaSelect.value,unidadeId=unidadeSelect.value;if(!disciplinaId||!unidadeId){preencher(assuntoSelect,[],'Selecione uma unidade ou a opção sem unidade','id','nome');return}const itens=estrutura.assuntos.filter(x=>x.disciplina_id===disciplinaId&&(unidadeId==='__sem_unidade__'?(x.unidade_id===null||x.unidade_id===undefined||x.unidade_id===''):x.unidade_id===unidadeId)).sort((a,b)=>a.ordem-b.ordem);preencher(assuntoSelect,itens,itens.length?'Selecione um assunto':'Nenhum assunto cadastrado nesta opção','id','nome')}
-async function carregar(){try{const r=await fetch('dados/estrutura.json',{cache:'no-store'});if(!r.ok)throw Error(`HTTP ${r.status}`);estrutura=await r.json();const itens=estrutura.disciplinas.filter(x=>x.categoria==='obrigatoria'||x.categoria==='optativa').sort((a,b)=>a.nome.localeCompare(b.nome,'pt-BR'));preencher(disciplinaSelect,itens,'Selecione uma disciplina','id','nome');if(itens.some(x=>x.id==='teoria-do-direito')){disciplinaSelect.value='teoria-do-direito';unidadesDaDisciplina()}}catch(e){erro.textContent='Não foi possível carregar dados/estrutura.json. Confira o caminho do arquivo.';erro.hidden=false;disciplinaSelect.replaceChildren(new Option('Falha ao carregar disciplinas',''));disciplinaSelect.disabled=true}}
+async function carregar(){try{const r=await fetch('dados/estrutura.json',{cache:'no-store'});if(!r.ok)throw Error(`HTTP ${r.status}`);estrutura=await r.json();const itens=estrutura.disciplinas.filter(x=>x.categoria==='obrigatoria'||x.categoria==='optativa').sort((a,b)=>a.nome.localeCompare(b.nome,'pt-BR'));preencher(disciplinaSelect,itens,'Selecione uma disciplina','id','nome');preencher(disciplinaAssunto,itens,'Selecione uma disciplina','id','nome');if(itens.some(x=>x.id==='teoria-do-direito')){disciplinaSelect.value='teoria-do-direito';unidadesDaDisciplina();disciplinaAssunto.value='teoria-do-direito';atualizarUnidadesAssunto();atualizarListaAssuntos()}}catch(e){erro.textContent='Não foi possível carregar dados/estrutura.json. Confira o caminho do arquivo.';erro.hidden=false;disciplinaSelect.replaceChildren(new Option('Falha ao carregar disciplinas',''));disciplinaSelect.disabled=true}}
 disciplinaSelect.addEventListener('change',unidadesDaDisciplina);unidadeSelect.addEventListener('change',assuntosDaSelecao);
 tipoSelect.addEventListener('change',()=>{const revisao=tipoSelect.value==='revisoes';camposRevisao.hidden=!revisao;referenciaInput.required=revisao;document.querySelector('.admin-intro h2').textContent=revisao?'Nova revisão de literatura':'Novo resumo';});
 formulario.addEventListener('submit',e=>{e.preventDefault();if(!formulario.reportValidity())return;const d=estrutura.disciplinas.find(x=>x.id===disciplinaSelect.value),u=estrutura.unidades.find(x=>x.id===unidadeSelect.value),a=estrutura.assuntos.find(x=>x.id===assuntoSelect.value),direto=unidadeSelect.value==='__sem_unidade__';const vinculoValido=d&&a&&a.disciplina_id===d.id&&(direto?(a.unidade_id===null||a.unidade_id===undefined||a.unidade_id===''):(u&&u.disciplina_id===d.id&&a.unidade_id===u.id));if(!vinculoValido){erro.textContent='Seleção acadêmica inválida. Selecione novamente os campos.';erro.hidden=false;return}erro.hidden=true;document.getElementById('preview-meta').textContent=`${d.nome} · ${direto?'Sem unidade temática':u.nome} · ${a.nome}`+(tipoSelect.value==='revisoes'? ` · Referência: ${referenciaInput.value.trim()}${dataInput.value?' · Data: '+dataInput.value:''}`:'');document.getElementById('preview-titulo').textContent=document.getElementById('titulo').value.trim();document.getElementById('preview-texto').textContent=document.getElementById('conteudo').value.trim();mensagemEnvio.hidden=true;areaPreview.hidden=false;areaPreview.scrollIntoView({behavior:'smooth',block:'start'})});
@@ -47,6 +68,60 @@ if(tipo==='revisoes') campos.push('<!-- REFERENCIA -->',referenciaInput.value.tr
 campos.push('<!-- CONTEUDO_INICIO -->',conteudo,'<!-- CONTEUDO_FIM -->');
 const issueBody=campos.join('\n'),url=`${REPOSITORIO_ISSUES}?${new URLSearchParams({title:issueTitle,body:issueBody})}`;
 if(url.length>LIMITE_URL){mensagemEnvio.textContent=`O endereço ficou muito longo (${url.length} caracteres). Nada foi enviado e o texto não foi cortado. Reduza o conteúdo ou divida o resumo em partes menores.`;mensagemEnvio.hidden=false;return}mensagemEnvio.textContent='O GitHub será aberto com a solicitação preenchida. Confira os dados e clique em “Submit new issue”.';mensagemEnvio.hidden=false;window.open(url,'_blank','noopener')});
+const operacaoAssunto=document.getElementById('operacao-assunto');
+const disciplinaAssunto=document.getElementById('disciplina-assunto');
+const unidadeAssunto=document.getElementById('unidade-assunto');
+const assuntoExistente=document.getElementById('assunto-existente');
+const campoAssuntoExistente=document.getElementById('campo-assunto-existente');
+const nomeAssunto=document.getElementById('nome-assunto');
+const descricaoAssunto=document.getElementById('descricao-assunto');
+const ordemAssunto=document.getElementById('ordem-assunto');
+const formAssunto=document.getElementById('form-assunto');
+const erroAssunto=document.getElementById('erro-assunto');
+const statusAssunto=document.getElementById('status-assunto');
+const REPOSITORIO_ASSUNTOS='https://github.com/ricardofelippe/direito-ufpr/issues/new';
+function atualizarUnidadesAssunto(valor=''){
+ const itens=estrutura.unidades.filter(x=>x.disciplina_id===disciplinaAssunto.value).sort((a,b)=>a.ordem-b.ordem);
+ unidadeAssunto.replaceChildren(new Option('Selecione uma opção',''),new Option('Diretamente à disciplina','null'));
+ itens.forEach(item=>unidadeAssunto.add(new Option(item.nome,item.id)));
+ unidadeAssunto.disabled=!disciplinaAssunto.value;
+ if(valor) unidadeAssunto.value=valor;
+}
+function atualizarListaAssuntos(valor=''){
+ const itens=estrutura.assuntos.filter(x=>x.disciplina_id===disciplinaAssunto.value).sort((a,b)=>a.ordem-b.ordem);
+ assuntoExistente.replaceChildren(new Option('Selecione um assunto',''));
+ itens.forEach(item=>assuntoExistente.add(new Option(`${item.nome} (${item.id})`,item.id)));
+ if(valor) assuntoExistente.value=valor;
+}
+function carregarAssuntoParaEdicao(){
+ const item=estrutura.assuntos.find(x=>x.id===assuntoExistente.value); if(!item)return;
+ disciplinaAssunto.value=item.disciplina_id;
+ atualizarUnidadesAssunto(item.unidade_id===null||item.unidade_id===undefined||item.unidade_id===''?'null':item.unidade_id);
+ nomeAssunto.value=item.nome||''; descricaoAssunto.value=item.descricao||''; ordemAssunto.value=item.ordem||1;
+}
+operacaoAssunto.addEventListener('change',()=>{
+ const editar=operacaoAssunto.value==='editar'; campoAssuntoExistente.hidden=!editar; assuntoExistente.required=editar;
+ nomeAssunto.value=''; descricaoAssunto.value=''; ordemAssunto.value=''; if(editar)atualizarListaAssuntos();
+ erroAssunto.hidden=true; statusAssunto.hidden=true;
+});
+disciplinaAssunto.addEventListener('change',()=>{atualizarUnidadesAssunto();if(operacaoAssunto.value==='editar')atualizarListaAssuntos();});
+assuntoExistente.addEventListener('change',carregarAssuntoParaEdicao);
+formAssunto.addEventListener('submit',e=>{
+ e.preventDefault(); erroAssunto.hidden=true; statusAssunto.hidden=true;
+ const operacao=operacaoAssunto.value, disciplina=estrutura.disciplinas.find(x=>x.id===disciplinaAssunto.value), unidadeId=unidadeAssunto.value;
+ const unidade=unidadeId==='null'?null:estrutura.unidades.find(x=>x.id===unidadeId);
+ const atual=operacao==='editar'?estrutura.assuntos.find(x=>x.id===assuntoExistente.value):null;
+ const nome=nomeAssunto.value.trim(), descricao=descricaoAssunto.value.trim(), ordem=Number(ordemAssunto.value);
+ if(!disciplina||!unidadeId||(unidadeId!=='null'&&(!unidade||unidade.disciplina_id!==disciplina.id))){erroAssunto.textContent='Selecione uma disciplina e uma unidade válida, ou o vínculo direto à disciplina.';erroAssunto.hidden=false;return;}
+ if(operacao==='editar'&&!atual){erroAssunto.textContent='Selecione o assunto que deseja editar.';erroAssunto.hidden=false;return;}
+ if(!nome||nome.length>180||descricao.length>2000||!Number.isInteger(ordem)||ordem<1){erroAssunto.textContent='Confira o nome, a descrição e a ordem. A ordem deve ser um inteiro maior que zero.';erroAssunto.hidden=false;return;}
+ const linhas=['<!-- OPERACAO -->',operacao,'<!-- ASSUNTO_ID -->',atual?atual.id:'','<!-- DISCIPLINA_ID -->',disciplina.id,'<!-- UNIDADE_ID -->',unidadeId,'<!-- NOME -->',nome,'<!-- DESCRICAO -->',descricao,'<!-- ORDEM -->',String(ordem)];
+ const titulo=`[Gerenciar assunto] ${operacao==='criar'?'Novo':'Editar'}: ${nome}`;
+ const url=`${REPOSITORIO_ASSUNTOS}?${new URLSearchParams({title:titulo,body:linhas.join('\n')})}`;
+ if(url.length>LIMITE_URL){erroAssunto.textContent='A solicitação ficou muito longa para ser aberta pelo navegador. Reduza os campos.';erroAssunto.hidden=false;return;}
+ statusAssunto.textContent='O GitHub será aberto com a solicitação preenchida. Confira os dados e clique em “Submit new issue”.'; statusAssunto.hidden=false; window.open(url,'_blank','noopener');
+});
+formAssunto.addEventListener('reset',()=>setTimeout(()=>{campoAssuntoExistente.hidden=true;assuntoExistente.required=false;if(estrutura){disciplinaAssunto.value='';atualizarUnidadesAssunto();atualizarListaAssuntos();}erroAssunto.hidden=true;statusAssunto.hidden=true;},0));
 document.getElementById('voltar-edicao').addEventListener('click',()=>{areaPreview.hidden=true;document.getElementById('titulo').focus()});formulario.addEventListener('reset',()=>{areaPreview.hidden=true;mensagemEnvio.hidden=true;setTimeout(()=>{tipoSelect.value='resumos';camposRevisao.hidden=true;referenciaInput.required=false;document.querySelector('.admin-intro h2').textContent='Novo resumo';if(estrutura){disciplinaSelect.value='teoria-do-direito';unidadesDaDisciplina()}},0)});carregar();
 })();
 </script></body></html>
