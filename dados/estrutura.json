@@ -999,6 +999,110 @@
       "descricao": "",
       "ordem": 16,
       "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Aproximação histórica dos Direitos Humanos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-02",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Fundamentos dos Direitos Humanos",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-03",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Educar em Direitos Humanos",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-04",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Direitos Humanos no cenário internacional",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-05",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Direitos Humanos e política",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-06",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Direitos Humanos, vulnerabilidades e interseccionalidades",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-07",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Desafios contemporâneos dos Direitos Humanos e proteção das mulheres",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-08",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Desafios contemporâneos dos Direitos Humanos e gênero",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-09",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Desafios contemporâneos dos Direitos Humanos e raça",
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-10",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Desafios contemporâneos dos Direitos Humanos e crise climática",
+      "descricao": "",
+      "ordem": 10,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-11",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Direitos Humanos, Estado e transformação social",
+      "descricao": "",
+      "ordem": 11,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-12",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Educação, inclusão e universidade",
+      "descricao": "",
+      "ordem": 12,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-unidade-13",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "nome": "Direitos Humanos e universidade",
+      "descricao": "",
+      "ordem": 13,
+      "status": "pendente"
     }
   ],
   "assuntos": [
@@ -2800,6 +2904,123 @@
       "nome": "Considerações finais",
       "descricao": "",
       "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-01-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-01",
+      "nome": "De onde vieram e para onde vão?",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-02-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-02",
+      "nome": "Por que temos direitos?",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-03-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-03",
+      "nome": "Como e para quem?",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-04-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-04",
+      "nome": "Como (sobre)viver entre guerras, globalizações e pandemias?",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-05-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-05",
+      "nome": "Há democracia sem direitos humanos e direitos humanos sem democracia?",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-06-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-06",
+      "nome": "Igualdade, diferença e não discriminação",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-07-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-07",
+      "nome": "Direitos para as humanas!",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-08-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-08",
+      "nome": "Direitos para todes!",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-09-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-09",
+      "nome": "Há racismo no Brasil!",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-10-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-10",
+      "nome": "Não há planeta B!",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-11-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-11",
+      "nome": "Direitos sociais são direitos fundamentais!",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-12-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-12",
+      "nome": "Os direitos das pessoas com deficiência",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "vivencias-direitos-humanos-assunto-13-01",
+      "disciplina_id": "vivencias-em-direitos-humanos",
+      "unidade_id": "vivencias-direitos-humanos-unidade-13",
+      "nome": "Desafios e perspectivas do nosso papel e de nossas responsabilidades",
+      "descricao": "",
+      "ordem": 1,
       "status": "pendente"
     }
   ],
