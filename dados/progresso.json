@@ -2,7 +2,7 @@
   "progresso": [
     {
       "assunto_id": "teoria-do-direito-assunto-01",
-      "situacao_geral": "em_andamento",
+      "situacao_geral": "nao_iniciado",
       "conteudo_status": "nao_iniciado",
       "questoes_status": "nao_iniciado",
       "revisao_status": "nao_se_aplica"
