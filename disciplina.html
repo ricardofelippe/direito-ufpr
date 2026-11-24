@@ -280,8 +280,55 @@
       color: var(--texto-secundario);
       font-size: 13px;
       line-height: 1.7;
-      white-space: pre-wrap;
       overflow-wrap: anywhere;
+    }
+
+    /* Conteúdos convertidos de Markdown para HTML */
+    .texto-markdown {
+      color: var(--texto-secundario);
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .texto-markdown > :first-child { margin-top: 0; }
+    .texto-markdown > :last-child { margin-bottom: 0; }
+    .texto-markdown h1,
+    .texto-markdown h2,
+    .texto-markdown h3,
+    .texto-markdown h4 {
+      color: var(--texto);
+      line-height: 1.4;
+      margin: 18px 0 8px;
+    }
+    .texto-markdown h1 { font-size: 21px; }
+    .texto-markdown h2 { font-size: 18px; }
+    .texto-markdown h3 { font-size: 16px; }
+    .texto-markdown h4 { font-size: 14px; }
+    .texto-markdown p { margin: 8px 0; }
+    .texto-markdown ul,
+    .texto-markdown ol {
+      margin: 8px 0;
+      padding-left: 24px;
+    }
+    .texto-markdown li { margin: 4px 0; }
+    .texto-markdown strong { color: var(--texto); }
+    .texto-markdown a { color: var(--azul-claro); }
+    .texto-markdown blockquote {
+      margin: 12px 0;
+      padding: 8px 12px;
+      border-left: 3px solid var(--azul);
+      background: var(--fundo-secundario);
+    }
+    .texto-markdown code {
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: var(--fundo-secundario);
+    }
+    .texto-markdown hr {
+      border: 0;
+      border-top: 1px solid var(--borda);
+      margin: 16px 0;
     }
 
     .material-link {
@@ -328,6 +375,8 @@
       }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
 </head>
 
 <body class="pagina-disciplina">
@@ -390,6 +439,24 @@
           '"': '&quot;',
           "'": '&#39;'
         }[caractere]));
+
+      function renderizarMarkdown(texto) {
+        const textoSeguro = String(texto ?? '');
+
+        // Se as bibliotecas não carregarem, exibe o texto com segurança.
+        if (!window.marked || !window.DOMPurify) {
+          return escapeHTML(textoSeguro).replace(/\r?\n/g, '<br>');
+        }
+
+        const html = window.marked.parse(textoSeguro, {
+          gfm: true,
+          breaks: false
+        });
+
+        return window.DOMPurify.sanitize(html, {
+          USE_PROFILES: { html: true }
+        });
+      }
 
       const ordenar = (a,b) =>
         (Number(a.ordem) || 0) - (Number(b.ordem) || 0);
@@ -666,8 +733,8 @@
 
               const conteudoHTML = corpo
                 ? tipo === 'revisoes'
-                  ? `<div class="texto-revisao">${escapeHTML(corpo)}</div>`
-                  : `<p>${escapeHTML(corpo)}</p>`
+                  ? `<div class="texto-revisao texto-markdown">${renderizarMarkdown(corpo)}</div>`
+                  : `<div class="texto-markdown">${renderizarMarkdown(corpo)}</div>`
                 : '';
 
               return `
