@@ -673,6 +673,14 @@
       "descricao": "",
       "ordem": 4,
       "status": "pendente"
+    },
+    {
+      "id": "unidade-justica-legitimidade-e-democracia-32",
+      "disciplina_id": "teoria-do-direito",
+      "nome": "Justiça, legitimidade e democracia",
+      "descricao": "Estudo das relações entre Direito, justiça, democracia e legitimidade do poder. Análise dos fundamentos da autoridade jurídica, do Estado de Direito, da legitimidade das normas e da relação entre democracia e ordem jurídica.",
+      "ordem": 5,
+      "status": "pendente"
     }
   ],
   "assuntos": [
@@ -908,6 +916,24 @@
       "nome": "Direito e inteligência artificial: desafios para a validade, interpretação e aplicação das normas jurídicas.",
       "descricao": "Análise dos impactos da inteligência artificial sobre o Direito, considerando a interpretação das normas, a tomada de decisões jurídicas, a responsabilidade e os desafios à teoria da validade jurídica.",
       "ordem": 27,
+      "status": "pendente"
+    },
+    {
+      "id": "assunto-conceito-de-justica-e-suas-principais-concepcoes-33",
+      "disciplina_id": "teoria-do-direito",
+      "unidade_id": "unidade-justica-legitimidade-e-democracia-32",
+      "nome": "Conceito de justiça e suas principais concepções",
+      "descricao": "Estudo das diferentes concepções de justiça, incluindo justiça distributiva, comutativa, social e procedimental.",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "assunto-direito-legitimidade-e-autoridade-34",
+      "disciplina_id": "teoria-do-direito",
+      "unidade_id": "unidade-justica-legitimidade-e-democracia-32",
+      "nome": "Direito, legitimidade e autoridade",
+      "descricao": "Estudo dos fundamentos da legitimidade do poder jurídico, da autoridade das normas e das relações entre validade jurídica, obrigação de obedecer e reconhecimento da autoridade do Direito.",
+      "ordem": 2,
       "status": "pendente"
     }
   ],
