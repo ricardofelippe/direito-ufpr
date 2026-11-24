@@ -33,7 +33,7 @@ jobs:
             const caminho = 'dados/estrutura.json';
 
             function obterCampo(marcador) {
-              const linhas = body.split(/\\r?\\n/);
+              const linhas = body.split(/\r?\n/);
               const indices = [];
               for (let i = 0; i < linhas.length; i++) {
                 if (linhas[i].trim() === marcador) indices.push(i);
@@ -83,7 +83,7 @@ jobs:
                 await comentar('O status da disciplina já estava como **' + novoStatus + '**. Nenhuma alteração foi necessária.');
               } else {
                 disciplina.status = novoStatus;
-                fs.writeFileSync(caminho, JSON.stringify(estrutura, null, 2) + '\\n', 'utf8');
+                fs.writeFileSync(caminho, JSON.stringify(estrutura, null, 2) + '\n', 'utf8');
 
                 execFileSync('git', ['config', 'user.name', 'github-actions[bot]']);
                 execFileSync('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com']);
