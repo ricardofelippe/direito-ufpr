@@ -32,19 +32,15 @@ jobs:
             const body = issue.body || '';
             const caminho = 'dados/estrutura.json';
 
-            function obterCampo(marcador) {
-              const linhas = body.split(/\r?\n/);
-              const indices = [];
-              for (let i = 0; i < linhas.length; i++) {
-                if (linhas[i].trim() === marcador) indices.push(i);
+            function obterCampo(titulo) {
+              const marcador = '### ' + titulo;
+              const ocorrencias = body.split(marcador).length - 1;
+              if (ocorrencias !== 1) {
+                throw new Error('O campo "' + titulo + '" deve aparecer exatamente uma vez.');
               }
-
-              if (indices.length !== 1) {
-                throw new Error('O marcador ' + marcador + ' deve aparecer exatamente uma vez.');
-              }
-
-              const valor = (linhas[indices[0] + 1] || '').trim();
-              if (!valor) throw new Error('Valor ausente para ' + marcador + '.');
+              const restante = body.split(marcador)[1];
+              const valor = restante.replace(/^\\r?\\n+/, '').split(/\\r?\\n### /, 1)[0].trim();
+              if (!valor) throw new Error('Informe um valor para "' + titulo + '".');
               return valor;
             }
 
@@ -58,8 +54,8 @@ jobs:
             }
 
             try {
-              const disciplinaId = obterCampo('<!-- DISCIPLINA_ID -->');
-              const novoStatus = obterCampo('<!-- STATUS -->').toLowerCase();
+              const disciplinaId = obterCampo('Identificador da disciplina');
+              const novoStatus = obterCampo('Novo status').toLowerCase();
               const permitidos = ['ativa', 'inativa', 'pendente'];
 
               if (!/^[a-z0-9][a-z0-9-]{0,179}$/.test(disciplinaId)) {
