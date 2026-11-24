@@ -681,6 +681,86 @@
       "descricao": "Estudo das relações entre Direito, justiça, democracia e legitimidade do poder. Análise dos fundamentos da autoridade jurídica, do Estado de Direito, da legitimidade das normas e da relação entre democracia e ordem jurídica.",
       "ordem": 5,
       "status": "pendente"
+    },
+    {
+      "id": "economia-politica-unidade-01",
+      "disciplina_id": "economia-politica",
+      "nome": "Introdução à Economia Política",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-unidade-02",
+      "disciplina_id": "economia-politica",
+      "nome": "Economia e escassez",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-unidade-03",
+      "disciplina_id": "economia-politica",
+      "nome": "Coordenação da atividade econômica",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-unidade-04",
+      "disciplina_id": "economia-politica",
+      "nome": "Fundamentos da análise microeconômica",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-unidade-05",
+      "disciplina_id": "economia-politica",
+      "nome": "Eficiência, excedente total e bem-estar social",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-unidade-06",
+      "disciplina_id": "economia-politica",
+      "nome": "O setor público e a economia",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-unidade-07",
+      "disciplina_id": "economia-politica",
+      "nome": "Fundamentos da análise macroeconômica",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-unidade-08",
+      "disciplina_id": "economia-politica",
+      "nome": "Teoria monetária",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-unidade-09",
+      "disciplina_id": "economia-politica",
+      "nome": "Economia internacional",
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-unidade-10",
+      "disciplina_id": "economia-politica",
+      "nome": "Desenvolvimento econômico",
+      "descricao": "",
+      "ordem": 10,
+      "status": "pendente"
     }
   ],
   "assuntos": [
