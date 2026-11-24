@@ -685,7 +685,7 @@
     {
       "id": "economia-politica-unidade-01",
       "disciplina_id": "economia-politica",
-      "nome": "Introdução à Economia Política",
+      "nome": "Introdução",
       "descricao": "",
       "ordem": 1,
       "status": "pendente"
@@ -693,7 +693,7 @@
     {
       "id": "economia-politica-unidade-02",
       "disciplina_id": "economia-politica",
-      "nome": "Economia e escassez",
+      "nome": "Conceitos básicos",
       "descricao": "",
       "ordem": 2,
       "status": "pendente"
@@ -701,7 +701,7 @@
     {
       "id": "economia-politica-unidade-03",
       "disciplina_id": "economia-politica",
-      "nome": "Coordenação da atividade econômica",
+      "nome": "Metodologia",
       "descricao": "",
       "ordem": 3,
       "status": "pendente"
@@ -709,7 +709,7 @@
     {
       "id": "economia-politica-unidade-04",
       "disciplina_id": "economia-politica",
-      "nome": "Fundamentos da análise microeconômica",
+      "nome": "Autonomia e inter-relações da Economia",
       "descricao": "",
       "ordem": 4,
       "status": "pendente"
@@ -717,7 +717,7 @@
     {
       "id": "economia-politica-unidade-05",
       "disciplina_id": "economia-politica",
-      "nome": "Eficiência, excedente total e bem-estar social",
+      "nome": "Evolução do pensamento econômico",
       "descricao": "",
       "ordem": 5,
       "status": "pendente"
@@ -725,7 +725,7 @@
     {
       "id": "economia-politica-unidade-06",
       "disciplina_id": "economia-politica",
-      "nome": "O setor público e a economia",
+      "nome": "Sistema econômico em economia de mercado",
       "descricao": "",
       "ordem": 6,
       "status": "pendente"
@@ -733,7 +733,7 @@
     {
       "id": "economia-politica-unidade-07",
       "disciplina_id": "economia-politica",
-      "nome": "Fundamentos da análise macroeconômica",
+      "nome": "Produção, população, recursos e tecnologia",
       "descricao": "",
       "ordem": 7,
       "status": "pendente"
@@ -741,7 +741,7 @@
     {
       "id": "economia-politica-unidade-08",
       "disciplina_id": "economia-politica",
-      "nome": "Teoria monetária",
+      "nome": "Circulação de riquezas",
       "descricao": "",
       "ordem": 8,
       "status": "pendente"
@@ -749,7 +749,7 @@
     {
       "id": "economia-politica-unidade-09",
       "disciplina_id": "economia-politica",
-      "nome": "Economia internacional",
+      "nome": "Repartição dos produtos",
       "descricao": "",
       "ordem": 9,
       "status": "pendente"
@@ -757,9 +757,25 @@
     {
       "id": "economia-politica-unidade-10",
       "disciplina_id": "economia-politica",
-      "nome": "Desenvolvimento econômico",
+      "nome": "Consumo de riquezas",
       "descricao": "",
       "ordem": 10,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-unidade-11",
+      "disciplina_id": "economia-politica",
+      "nome": "Produto da atividade econômica",
+      "descricao": "",
+      "ordem": 11,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-unidade-12",
+      "disciplina_id": "economia-politica",
+      "nome": "Desenvolvimento econômico",
+      "descricao": "",
+      "ordem": 12,
       "status": "pendente"
     }
   ],
@@ -1041,6 +1057,609 @@
       "nome": "Formas e espécies de Economia",
       "descricao": "",
       "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-02-01",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-02",
+      "nome": "Fato e fenômeno econômico",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-02-02",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-02",
+      "nome": "Atividade e curso econômico",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-02-03",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-02",
+      "nome": "Lei econômica; necessidades e bens econômicos",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-02-04",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-02",
+      "nome": "Utilidade, utilidade marginal e riquezas",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-02-05",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-02",
+      "nome": "Valor: conceitos e teorias",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-02-06",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-02",
+      "nome": "Preço: conceito, preços correntes e constantes",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-03-01",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-03",
+      "nome": "Métodos de investigação",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-03-02",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-03",
+      "nome": "Método dedutivo",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-03-03",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-03",
+      "nome": "Método indutivo",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-03-04",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-03",
+      "nome": "Método misto e métodos subsidiários",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-04-01",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-04",
+      "nome": "Economia e Ciência Política",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-04-02",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-04",
+      "nome": "Economia e Geografia",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-04-03",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-04",
+      "nome": "Economia e Psicologia",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-04-04",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-04",
+      "nome": "Economia e Biologia",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-04-05",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-04",
+      "nome": "Economia e Direito",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-04-06",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-04",
+      "nome": "Economia e Sociologia",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-04-07",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-04",
+      "nome": "Inter-relações com as demais ciências",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-05-01",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-05",
+      "nome": "Filósofos políticos da Grécia e Roma",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-05-02",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-05",
+      "nome": "Escolástica medieval",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-05-03",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-05",
+      "nome": "Mercantilismo dos séculos XVI e XVII",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-05-04",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-05",
+      "nome": "Fisiocracia",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-05-05",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-05",
+      "nome": "Escola Clássica ou Liberal",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-05-06",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-05",
+      "nome": "Principais reações ao Classicismo",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-05-07",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-05",
+      "nome": "Marginalistas e teóricos do equilíbrio",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-05-08",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-05",
+      "nome": "Pensamento moderno e Keynesianismo (a fonte registra “Keynianismo”)",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-06-01",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-06",
+      "nome": "Elementos técnicos do sistema econômico",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-06-02",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-06",
+      "nome": "Recursos, unidade de produção e instituições",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-06-03",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-06",
+      "nome": "Fluxos econômicos fundamentais",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-06-04",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-06",
+      "nome": "Fluxos econômicos e divisão do trabalho",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-06-05",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-06",
+      "nome": "Organização da atividade econômica",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-06-06",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-06",
+      "nome": "Laissez-faire e planificação global",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-06-07",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-06",
+      "nome": "Sistemas mistos",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-06-08",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-06",
+      "nome": "Livre empresa: o que, quanto e para quem produzir",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-06-09",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-06",
+      "nome": "Função e responsabilidades dos empresários",
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-06-10",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-06",
+      "nome": "Presença do Estado nos sistemas de livre empresa e razões da interferência",
+      "descricao": "",
+      "ordem": 10,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-06-11",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-06",
+      "nome": "Organização da atividade econômica planificada",
+      "descricao": "",
+      "ordem": 11,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-06-12",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-06",
+      "nome": "Tendências da livre empresa",
+      "descricao": "",
+      "ordem": 12,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-07-01",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-07",
+      "nome": "Produção, fluxo e fatores; classificação e geração dos bens; formação de fatores",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-07-02",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-07",
+      "nome": "Funções macroeconômicas da produção; lei dos rendimentos decrescentes; produtividade; população, recursos e rendimento; bases demográficas da atividade econômica",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-07-03",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-07",
+      "nome": "Recursos naturais",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-07-04",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-07",
+      "nome": "Trabalho: aspectos ocupacionais, divisão do trabalho e situação brasileira",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-07-05",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-07",
+      "nome": "Capital: acumulação e eficiência do sistema",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-07-06",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-07",
+      "nome": "Tecnologia: função do processo tecnológico, corrida tecnológica e problema tecnológico nos países subdesenvolvidos",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-08-01",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-08",
+      "nome": "Circulação e troca; mercado; oferta; demanda; concorrência; monopólio",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-08-02",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-08",
+      "nome": "Comércio e meios de transportes",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-08-03",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-08",
+      "nome": "Preços: espécies, custos, formação e variação",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-08-04",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-08",
+      "nome": "Moeda: natureza, funções e espécies",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-08-05",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-08",
+      "nome": "Valor e variações monetárias; padrão e sistemas monetários",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-08-06",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-08",
+      "nome": "Níveis de preços, números e índices",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-08-07",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-08",
+      "nome": "Teoria quantitativa; inflação e deflação; créditos; bancos; comércio exterior",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-08-08",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-08",
+      "nome": "Balanços de pagamentos",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-09-01",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-09",
+      "nome": "Disparidades econômicas internacionais e regionais; repartição de renda no Brasil; desequilíbrios regionais; evolução da composição setorial e repartição funcional",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-09-02",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-09",
+      "nome": "Renda e rendimentos; propensões a consumir e poupar; política fiscal; estoques e taxa de juros",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-09-03",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-09",
+      "nome": "Poupança e investimento; fatores endógenos e exógenos; procura e oferta global; equilíbrio e atividade econômica; pleno emprego e investimento",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-10-01",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-10",
+      "nome": "Consumo",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-10-02",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-10",
+      "nome": "Comportamento do consumidor",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-10-03",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-10",
+      "nome": "Defesa do consumidor",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-10-04",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-10",
+      "nome": "Crises econômicas",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-11-01",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-11",
+      "nome": "Estudo do Produto Nacional",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-11-02",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-11",
+      "nome": "Conceito e cálculo do Produto Nacional",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-11-03",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-11",
+      "nome": "Produto Bruto: método de avaliação",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-11-04",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-11",
+      "nome": "Contas Nacionais: conceito de produto e renda; PIB; PNB; PNL; Renda Nacional; renda pessoal disponível",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-12-01",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-12",
+      "nome": "Excedente econômico",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-12-02",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-12",
+      "nome": "Conceituação de desenvolvimento econômico",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-12-03",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-12",
+      "nome": "Processo de acumulação; fatores condicionais do desenvolvimento; indicadores do desenvolvimento e indicadores sociais",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-12-04",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-12",
+      "nome": "Subdesenvolvimento: características",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-12-05",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-12",
+      "nome": "Aspectos da Economia Brasileira",
+      "descricao": "",
+      "ordem": 5,
       "status": "pendente"
     }
   ],
