@@ -1,0 +1,109 @@
+name: Atualizar status administrativo da disciplina
+
+on:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: atualizar-status-disciplinas
+  cancel-in-progress: false
+
+jobs:
+  atualizar-status:
+    if: github.event.issue.user.login == 'ricardofelippe' && startsWith(github.event.issue.title, '[Atualizar status da disciplina]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Validar e atualizar status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const { execFileSync } = require('child_process');
+
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+            const caminho = 'dados/estrutura.json';
+
+            function obterCampo(marcador) {
+              const linhas = body.split(/\\r?\\n/);
+              const indices = [];
+              for (let i = 0; i < linhas.length; i++) {
+                if (linhas[i].trim() === marcador) indices.push(i);
+              }
+
+              if (indices.length !== 1) {
+                throw new Error('O marcador ' + marcador + ' deve aparecer exatamente uma vez.');
+              }
+
+              const valor = (linhas[indices[0] + 1] || '').trim();
+              if (!valor) throw new Error('Valor ausente para ' + marcador + '.');
+              return valor;
+            }
+
+            async function comentar(mensagem) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: mensagem
+              });
+            }
+
+            try {
+              const disciplinaId = obterCampo('<!-- DISCIPLINA_ID -->');
+              const novoStatus = obterCampo('<!-- STATUS -->').toLowerCase();
+              const permitidos = ['ativa', 'inativa', 'pendente'];
+
+              if (!/^[a-z0-9][a-z0-9-]{0,179}$/.test(disciplinaId)) {
+                throw new Error('Identificador de disciplina inválido.');
+              }
+
+              if (!permitidos.includes(novoStatus)) {
+                throw new Error('Status inválido. Utilize ativa, inativa ou pendente.');
+              }
+
+              const estrutura = JSON.parse(fs.readFileSync(caminho, 'utf8'));
+              if (!Array.isArray(estrutura.disciplinas)) {
+                throw new Error('A lista de disciplinas não foi encontrada em estrutura.json.');
+              }
+
+              const disciplina = estrutura.disciplinas.find(x => x.id === disciplinaId);
+              if (!disciplina) throw new Error('A disciplina informada não existe.');
+
+              const statusAnterior = String(disciplina.status || 'pendente').toLowerCase();
+              if (statusAnterior === novoStatus) {
+                await comentar('O status da disciplina já estava como **' + novoStatus + '**. Nenhuma alteração foi necessária.');
+              } else {
+                disciplina.status = novoStatus;
+                fs.writeFileSync(caminho, JSON.stringify(estrutura, null, 2) + '\\n', 'utf8');
+
+                execFileSync('git', ['config', 'user.name', 'github-actions[bot]']);
+                execFileSync('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com']);
+                execFileSync('git', ['add', caminho]);
+                execFileSync('git', ['commit', '-m', 'Atualiza status da disciplina: ' + disciplinaId]);
+                execFileSync('git', ['push']);
+
+                await comentar(
+                  'Status administrativo atualizado com sucesso: **' + statusAnterior +
+                  ' → ' + novoStatus + '**. A página será atualizada após a publicação do GitHub Pages.'
+                );
+              }
+
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+            } catch (erro) {
+              core.setFailed(erro.message);
+              await comentar('Não foi possível atualizar o status: **' + erro.message + '**. Corrija os dados e abra uma nova solicitação.');
+            }
