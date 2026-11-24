@@ -892,7 +892,7 @@
       "ordem": 25,
       "status": "pendente"
     },
-        {
+    {
       "id": "teoria-do-direito-assunto-26",
       "disciplina_id": "teoria-do-direito",
       "unidade_id": null,
@@ -901,7 +901,6 @@
       "ordem": 26,
       "status": "pendente"
     }
-        
   ],
   "previsao_topicas": [
     {
