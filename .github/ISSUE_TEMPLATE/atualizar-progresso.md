@@ -15,3 +15,7 @@ assignees: ricardofelippe
 ### Questões praticadas
 
 ### Revisões realizadas
+
+### Data de estudo
+
+### Data de revisão
