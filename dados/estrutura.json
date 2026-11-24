@@ -1103,6 +1103,14 @@
       "descricao": "",
       "ordem": 13,
       "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-unidade-01",
+      "disciplina_id": "direito-civil-a",
+      "nome": "Teoria Geral do Direito Civil",
+      "descricao": "Organização temática do programa oficial da ficha DC438. A ficha apresenta os conteúdos em sequência, sem numerá-los como unidades.",
+      "ordem": 1,
+      "status": "pendente"
     }
   ],
   "assuntos": [
@@ -3021,6 +3029,159 @@
       "nome": "Desafios e perspectivas do nosso papel e de nossas responsabilidades",
       "descricao": "",
       "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-01",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "A teoria geral do Direito Civil",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-02",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "O conceito de sistema jurídico e sua aplicação no Código Civil Brasileiro",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-03",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "Relação jurídica: elementos internos e externos",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-04",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "A crítica à teoria da relação jurídica",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-05",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "Princípios e institutos do direito privado",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-06",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "Sujeitos da relação jurídica: pessoa natural e pessoa jurídica",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-07",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "Objeto da relação jurídica",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-08",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "Os fatos jurídicos nos planos da existência, validade e eficácia",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-09",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "Os atos ilícitos",
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-10",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "O abuso de Direito",
+      "descricao": "",
+      "ordem": 10,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-11",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "A pessoa jurídica",
+      "descricao": "",
+      "ordem": 11,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-12",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "As associações",
+      "descricao": "",
+      "ordem": 12,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-13",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "As fundações",
+      "descricao": "",
+      "ordem": 13,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-14",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "Negócio jurídico: elementos, requisitos e fatores da eficácia",
+      "descricao": "",
+      "ordem": 14,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-15",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "As invalidades",
+      "descricao": "",
+      "ordem": 15,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-16",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "A eficácia",
+      "descricao": "",
+      "ordem": 16,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-civil-a-assunto-17",
+      "disciplina_id": "direito-civil-a",
+      "unidade_id": "direito-civil-a-unidade-01",
+      "nome": "Prescrição e decadência",
+      "descricao": "",
+      "ordem": 17,
       "status": "pendente"
     }
   ],
