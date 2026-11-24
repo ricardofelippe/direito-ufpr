@@ -673,6 +673,14 @@
       "descricao": "",
       "ordem": 4,
       "status": "pendente"
+    },
+    {
+      "id": "unidade-justica-legitimidade-e-democracia-32",
+      "disciplina_id": "teoria-do-direito",
+      "nome": "Justiça, legitimidade e democracia",
+      "descricao": "Estudo das relações entre Direito, justiça, democracia e legitimidade do poder. Análise dos fundamentos da autoridade jurídica, do Estado de Direito, da legitimidade das normas e da relação entre democracia e ordem jurídica.",
+      "ordem": 5,
+      "status": "pendente"
     }
   ],
   "assuntos": [
