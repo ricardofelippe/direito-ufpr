@@ -903,6 +903,102 @@
       "descricao": "",
       "ordem": 4,
       "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-05",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Função Social",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-06",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Estrutura Social",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-07",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Sistema social I",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-08",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Conflito Social",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-09",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Ação Social",
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-10",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Processo de racionalização e “desencantamento” do mundo",
+      "descricao": "",
+      "ordem": 10,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-11",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Sistema Social 2",
+      "descricao": "",
+      "ordem": 11,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-12",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Complexidade e contingência",
+      "descricao": "",
+      "ordem": 12,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-13",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Ideologia",
+      "descricao": "",
+      "ordem": 13,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-14",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Campos Sociais",
+      "descricao": "",
+      "ordem": 14,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-15",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Teorias sociais contemporâneas",
+      "descricao": "",
+      "ordem": 15,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-16",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Globalização",
+      "descricao": "",
+      "ordem": 16,
+      "status": "pendente"
     }
   ],
   "assuntos": [
@@ -1927,7 +2023,7 @@
       "id": "direito-sociedade-assunto-03-06",
       "disciplina_id": "direito-e-sociedade",
       "unidade_id": "direito-sociedade-unidade-03",
-      "nome": "Anomia: divisão do trabalho anômico e a teoria da anomia de Robert Merton",
+      "nome": "Anomia: divisão do trabalho anômico e teoria da anomia de Robert Merton",
       "descricao": "",
       "ordem": 6,
       "status": "pendente"
@@ -1966,6 +2062,744 @@
       "nome": "Considerações finais",
       "descricao": "",
       "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-05-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-05",
+      "nome": "Pressupostos teóricos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-05-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-05",
+      "nome": "Exposição histórica: período organicista; período de construção de conceitos e orientações interpretativas; período de revisão crítica e sistematização teórica",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-05-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-05",
+      "nome": "Concepções: teleológica, mecânica e positiva",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-05-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-05",
+      "nome": "Tipos de função: manifesta, latente, derivada e social",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-05-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-05",
+      "nome": "Funções sociais do direito",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-05-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-05",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-06-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-06",
+      "nome": "Pressupostos teóricos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-06-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-06",
+      "nome": "Características: totalidade, invariância, precariedade, essencialidade, internalidade e dedutibilidade",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-06-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-06",
+      "nome": "Estrutura e organização social",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-06-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-06",
+      "nome": "Diacronia e sincronia",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-06-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-06",
+      "nome": "Direito e estrutura social",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-06-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-06",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-07-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-07",
+      "nome": "Subsistemas social, cultural e da personalidade",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-07-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-07",
+      "nome": "Componentes estruturais: valores, normas, coletividades e papéis",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-07-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-07",
+      "nome": "Imperativos funcionais: estabilidade normativa, integração, prosseguimento dos fins e adaptação",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-07-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-07",
+      "nome": "Hierarquia dos componentes estruturais e das funções",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-07-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-07",
+      "nome": "Processo de institucionalização e de socialização",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-07-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-07",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-08-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-08",
+      "nome": "Pressupostos teóricos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-08-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-08",
+      "nome": "O método dialético nas perspectivas de Marx e Engels",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-08-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-08",
+      "nome": "Materialismo histórico; estrutura social e causalidade estrutural da economia: superestrutura e infraestrutura",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-08-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-08",
+      "nome": "Meios de produção, relações de produção e modos de produção",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-08-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-08",
+      "nome": "Valor de uso e valor de troca; dinheiro e capital; mais-valia e lucro; mercadoria; trabalho como mercadoria; alienação",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-08-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-08",
+      "nome": "Classe social e luta de classes",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-08-07",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-08",
+      "nome": "Ideologia",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-08-08",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-08",
+      "nome": "A questão do Direito em Marx e Engels",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-09-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-09",
+      "nome": "Pressupostos metodológicos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-09-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-09",
+      "nome": "Compreensão",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-09-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-09",
+      "nome": "Causalidade",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-09-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-09",
+      "nome": "Ação social e tipo ideal",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-09-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-09",
+      "nome": "Tipos ideais de ação: tradicional, afetiva e racional com relação a fins e com relação a valor",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-09-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-09",
+      "nome": "Poder",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-09-07",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-09",
+      "nome": "Dominação e tipos de dominação: tradicional, carismática e legal",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-09-08",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-09",
+      "nome": "Ordem legítima: convenção, direito, costume e uso",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-09-09",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-09",
+      "nome": "Justificação da ordem legítima: tradição, crença e estatuto",
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-09-10",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-09",
+      "nome": "Tipologia do direito: irracional material, irracional formal, racional material e racional formal",
+      "descricao": "",
+      "ordem": 10,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-10-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-10",
+      "nome": "Burocracia: racionalização do Estado",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-10-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-10",
+      "nome": "Direito e capitalismo",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-10-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-10",
+      "nome": "Racionalização do Direito; Estado e Direito",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-10-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-10",
+      "nome": "Afinidade eletiva: direito, política, economia e religião",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-10-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-10",
+      "nome": "Racionalização do pensamento jurídico",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-10-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-10",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-11-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-11",
+      "nome": "Pressupostos teóricos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-11-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-11",
+      "nome": "A sociedade como sistema",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-11-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-11",
+      "nome": "Sistema e entorno",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-11-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-11",
+      "nome": "Diferenciação funcional e clausura operativa",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-11-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-11",
+      "nome": "Autorreferência e racionalidade",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-11-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-11",
+      "nome": "Observação",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-11-07",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-11",
+      "nome": "Autopoiesis",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-11-08",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-11",
+      "nome": "Acoplamento estrutural",
+      "descricao": "",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-11-09",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-11",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-12-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-12",
+      "nome": "Estruturas de expectativas e função do direito",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-12-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-12",
+      "nome": "Dimensão temporal",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-12-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-12",
+      "nome": "Dimensão social",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-12-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-12",
+      "nome": "Dimensão prática",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-12-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-12",
+      "nome": "A sociedade e o direito",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-12-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-12",
+      "nome": "Comunicação jurídica",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-12-07",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-12",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-13-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-13",
+      "nome": "Infraestrutura e superestrutura",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-13-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-13",
+      "nome": "Aparelhos ideológicos e repressivos do Estado",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-13-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-13",
+      "nome": "O Estado como organizador do poder e como condensação de relações de classe",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-13-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-13",
+      "nome": "Direito, legitimação e dependência estrutural do capitalismo",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-13-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-13",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-14-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-14",
+      "nome": "Pressupostos teóricos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-14-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-14",
+      "nome": "Espaço social e campos sociais",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-14-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-14",
+      "nome": "Habitus",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-14-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-14",
+      "nome": "Capital simbólico",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-14-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-14",
+      "nome": "Doxa e illusio",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-14-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-14",
+      "nome": "Violência simbólica",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-14-07",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-14",
+      "nome": "O campo do direito",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-15-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-15",
+      "nome": "Sociologia da crítica e os sentidos da justiça",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-15-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-15",
+      "nome": "Direito e experiência: lógicas e sistemas de ação",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-15-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-15",
+      "nome": "Direito e realismo crítico",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-15-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-15",
+      "nome": "Direito e teorias relacionalistas",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-15-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-15",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-16-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-16",
+      "nome": "O Estado-nação em questão",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-16-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-16",
+      "nome": "A mundialização do capital: neoliberalismo e ordem global",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-16-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-16",
+      "nome": "Globalização e seus efeitos na cultura",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-16-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-16",
+      "nome": "Participação política, cidadania e globalização",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-16-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-16",
+      "nome": "Globalização e crise no mundo do trabalho",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-16-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-16",
+      "nome": "Globalização e direito",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-16-07",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-16",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 7,
       "status": "pendente"
     }
   ],
