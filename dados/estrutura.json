@@ -1015,6 +1015,33 @@
       "descricao": "Estudo dos fundamentos da legitimidade do poder jurídico, da autoridade das normas e das relações entre validade jurídica, obrigação de obedecer e reconhecimento da autoridade do Direito.",
       "ordem": 2,
       "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-01",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-01",
+      "nome": "Economia Política: conceito e objeto",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-02",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-01",
+      "nome": "Denominação e divisão da Economia",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "economia-politica-assunto-03",
+      "disciplina_id": "economia-politica",
+      "unidade_id": "economia-politica-unidade-01",
+      "nome": "Formas e espécies de Economia",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
     }
   ],
   "previsao_topicas": [
