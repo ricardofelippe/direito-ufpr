@@ -439,6 +439,83 @@
       outline-offset: 2px;
     }
 
+    .painel-filtros-disciplinas {
+      margin: 20px 0 24px;
+      padding: 16px;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      background: var(--fundo-secundario);
+    }
+
+    .cabecalho-filtros-disciplinas {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .cabecalho-filtros-disciplinas h2 {
+      margin: 0;
+      color: var(--texto);
+      font-size: 16px;
+    }
+
+    .grade-filtros-disciplinas {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .grade-filtros-disciplinas label {
+      display: grid;
+      gap: 6px;
+      color: var(--texto-secundario);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .grade-filtros-disciplinas select {
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      padding: 9px 10px;
+      border: 1px solid var(--borda);
+      border-radius: 7px;
+      background: var(--fundo);
+      color: var(--texto);
+      font: inherit;
+      font-size: 13px;
+    }
+
+    .grade-filtros-disciplinas select:focus-visible,
+    .botao-limpar-filtros:focus-visible {
+      outline: 2px solid var(--azul-claro);
+      outline-offset: 2px;
+    }
+
+    .botao-limpar-filtros {
+      padding: 6px 10px;
+      border: 1px solid var(--borda);
+      border-radius: 7px;
+      background: transparent;
+      color: var(--azul-claro);
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .resumo-filtros-disciplinas {
+      margin: 10px 0 0;
+      color: var(--texto-suave);
+      font-size: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .grade-filtros-disciplinas { grid-template-columns: 1fr; }
+      .painel-filtros-disciplinas { padding: 12px; }
+    }
+
     .resultados-busca-curriculo {
       display: grid;
       gap: 9px;
@@ -541,6 +618,43 @@
         <button class="filtro-busca-curriculo" type="button" data-filtro="assunto" aria-pressed="false">Assuntos</button>
       </div>
       <div id="resultados-busca-curriculo" class="resultados-busca-curriculo" aria-live="polite"></div>
+    </section>
+
+    <section class="painel-filtros-disciplinas" aria-labelledby="titulo-filtros-disciplinas">
+      <div class="cabecalho-filtros-disciplinas">
+        <h2 id="titulo-filtros-disciplinas">Filtrar disciplinas</h2>
+        <button id="limpar-filtros-disciplinas" class="botao-limpar-filtros" type="button">Limpar filtros</button>
+      </div>
+      <div class="grade-filtros-disciplinas">
+        <label>
+          <span>Status administrativo</span>
+          <select id="filtro-status-administrativo">
+            <option value="todos">Todos</option>
+            <option value="ativa">Ativa</option>
+            <option value="inativa">Inativa</option>
+            <option value="pendente">Pendente</option>
+          </select>
+        </label>
+        <label>
+          <span>Início dos estudos</span>
+          <select id="filtro-inicio-estudos">
+            <option value="todos">Todas</option>
+            <option value="iniciada">Estudos iniciados</option>
+            <option value="nao-iniciada">Não iniciadas</option>
+          </select>
+        </label>
+        <label>
+          <span>Situação geral dos assuntos</span>
+          <select id="filtro-situacao-geral">
+            <option value="todos">Todas</option>
+            <option value="em_andamento">Com assuntos em andamento</option>
+            <option value="concluido">Com assuntos concluídos</option>
+            <option value="pendente">Com assuntos pendentes</option>
+            <option value="nao_iniciado">Somente não iniciados</option>
+          </select>
+        </label>
+      </div>
+      <p id="resumo-filtros-disciplinas" class="resumo-filtros-disciplinas" aria-live="polite">Exibindo todas as disciplinas.</p>
     </section>
 
     <div id="curriculo" aria-live="polite">
@@ -777,13 +891,73 @@
 
       let anoAtual = 0;
 
+      function obterFiltrosDisciplinas() {
+        return {
+          administrativo: document.getElementById('filtro-status-administrativo')?.value || 'todos',
+          inicio: document.getElementById('filtro-inicio-estudos')?.value || 'todos',
+          situacao: document.getElementById('filtro-situacao-geral')?.value || 'todos'
+        };
+      }
+
+      function filtrarDisciplinas(disciplinas) {
+        const filtros = obterFiltrosDisciplinas();
+        return disciplinas.filter(disciplina => {
+          const status = String(disciplina.status || 'pendente').toLowerCase();
+          if (filtros.administrativo !== 'todos' && status !== filtros.administrativo) return false;
+
+          const progresso = calcularProgressoDisciplina(disciplina.id);
+          const iniciada = progresso.iniciados > 0;
+          if (filtros.inicio === 'iniciada' && !iniciada) return false;
+          if (filtros.inicio === 'nao-iniciada' && iniciada) return false;
+
+          if (filtros.situacao !== 'todos') {
+            if (filtros.situacao === 'nao_iniciado') {
+              if (progresso.situacoes.nao_iniciado !== progresso.total) return false;
+            } else if (progresso.situacoes[filtros.situacao] === 0) {
+              return false;
+            }
+          }
+          return true;
+        });
+      }
+
+      function atualizarResumoFiltros(total) {
+        const resumo = document.getElementById('resumo-filtros-disciplinas');
+        if (!resumo) return;
+        const filtros = obterFiltrosDisciplinas();
+        const ativos = Object.values(filtros).some(valor => valor !== 'todos');
+        resumo.textContent = ativos
+          ? `Exibindo ${total} disciplina(s) conforme os filtros selecionados.`
+          : 'Exibindo todas as disciplinas.';
+      }
+
+      function configurarFiltrosDisciplinas() {
+        const ids = [
+          'filtro-status-administrativo',
+          'filtro-inicio-estudos',
+          'filtro-situacao-geral'
+        ];
+        ids.forEach(id => {
+          document.getElementById(id)?.addEventListener('change', () => {
+            if (estruturaAtual) renderizar(estruturaAtual);
+          });
+        });
+        document.getElementById('limpar-filtros-disciplinas')?.addEventListener('click', () => {
+          ids.forEach(id => {
+            const controle = document.getElementById(id);
+            if (controle) controle.value = 'todos';
+          });
+          if (estruturaAtual) renderizar(estruturaAtual);
+        });
+      }
+
       function renderizar(estrutura) {
         estruturaAtual = estrutura;
         if (!estrutura || !Array.isArray(estrutura.disciplinas)) {
           throw new Error('O arquivo não contém uma lista válida de disciplinas.');
         }
 
-        const disciplinas = estrutura.disciplinas;
+        const disciplinas = filtrarDisciplinas(estrutura.disciplinas);
         const fragmento = document.createDocumentFragment();
         const anos = [1, 2, 3, 4, 5];
 
@@ -803,9 +977,9 @@
           });
 
           const topicas = criarPrevisaoTopicas(Array.isArray(estrutura.previsao_topicas) ? estrutura.previsao_topicas : []);
-          if (topicas) secao.appendChild(topicas);
+          if (topicas && (registrosAno.length || disciplinas.length === 0)) secao.appendChild(topicas);
 
-          if (registrosAno.length || topicas) fragmento.appendChild(secao);
+          if (registrosAno.length || (topicas && disciplinas.length === 0)) fragmento.appendChild(secao);
         });
 
         const semAno = disciplinas.filter(item => item.ano === null || item.ano === undefined || item.ano === '');
@@ -837,8 +1011,9 @@
           fragmento.appendChild(secao);
         }
 
+        atualizarResumoFiltros(disciplinas.length);
         if (!fragmento.childNodes.length) {
-          elementoCurriculo.replaceChildren(criarElemento('p', 'estado-vazio', 'Nenhuma disciplina foi encontrada na estrutura curricular.'));
+          elementoCurriculo.replaceChildren(criarElemento('p', 'estado-vazio', 'Nenhuma disciplina corresponde aos filtros selecionados.'));
           return;
         }
 
@@ -993,6 +1168,7 @@
             registrosProgresso = [];
           }
           configurarBusca(estrutura);
+          configurarFiltrosDisciplinas();
           renderizar(estrutura);
         } catch (erro) {
           console.error('Erro ao carregar o currículo:', erro);
