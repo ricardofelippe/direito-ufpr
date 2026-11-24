@@ -1,0 +1,194 @@
+name: Importar conteúdos do NotebookLM
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: "Cole aqui o JSON preparado pelo painel administrativo"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  importar:
+    if: github.actor == 'ricardofelippe'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Validar e gravar conteúdos
+        uses: actions/github-script@v7
+        env:
+          PAYLOAD: ${{ inputs.payload }}
+        with:
+          script: |
+            const fs = require('fs');
+            const { execFileSync } = require('child_process');
+
+            const payloadTexto = process.env.PAYLOAD || '';
+            const dadosPath = 'dados/conteudos.json';
+            const estruturaPath = 'dados/estrutura.json';
+
+            function exigir(condicao, mensagem) {
+              if (!condicao) throw new Error(mensagem);
+            }
+
+            try {
+              exigir(payloadTexto.length > 0, 'Payload vazio.');
+              exigir(payloadTexto.length <= 60000, 'Payload excede 60.000 caracteres.');
+
+              const payload = JSON.parse(payloadTexto);
+              exigir(payload.versao === 1, 'Versão do payload não suportada.');
+              exigir(typeof payload.lote_id === 'string' && /^notebooklm-[a-zA-Z0-9-]+$/.test(payload.lote_id),
+                'Identificador do lote inválido.');
+
+              const tipos = ['resumos', 'questoes', 'flashcards'];
+              exigir(tipos.includes(payload.tipo), 'Tipo de conteúdo inválido.');
+              exigir(Array.isArray(payload.registros) && payload.registros.length > 0,
+                'A lista de registros está vazia.');
+              exigir(payload.registros.length <= 200, 'Limite de 200 registros por importação.');
+
+              const estrutura = JSON.parse(fs.readFileSync(estruturaPath, 'utf8'));
+              const disciplina = estrutura.disciplinas.find(x => x.id === payload.disciplina_id);
+              exigir(!!disciplina, 'Disciplina não encontrada na estrutura curricular.');
+
+              const assunto = estrutura.assuntos.find(x => x.id === payload.assunto_id);
+              exigir(!!assunto && assunto.disciplina_id === payload.disciplina_id,
+                'Assunto não pertence à disciplina selecionada.');
+
+              if (payload.unidade_id === null) {
+                exigir(assunto.unidade_id === null || assunto.unidade_id === undefined || assunto.unidade_id === '',
+                  'O assunto selecionado não está vinculado diretamente à disciplina.');
+              } else {
+                const unidade = estrutura.unidades.find(x => x.id === payload.unidade_id);
+                exigir(!!unidade && unidade.disciplina_id === payload.disciplina_id,
+                  'Unidade não pertence à disciplina selecionada.');
+                exigir(assunto.unidade_id === payload.unidade_id,
+                  'Assunto não pertence à unidade selecionada.');
+              }
+
+              const dados = JSON.parse(fs.readFileSync(dadosPath, 'utf8'));
+              for (const tipo of ['resumos', 'revisoes', 'questoes', 'flashcards']) {
+                if (!Array.isArray(dados[tipo])) dados[tipo] = [];
+              }
+
+              const destino = dados[payload.tipo];
+              if (destino.some(x => x.lote_id === payload.lote_id)) {
+                core.notice('Este lote já foi importado anteriormente. Nenhum registro duplicado foi criado.');
+                await core.summary
+                  .addHeading('Importação já realizada')
+                  .addRaw(`O lote \`${payload.lote_id}\` já consta em \`dados/conteudos.json\`. Nenhuma alteração foi feita.`)
+                  .write();
+                return;
+              }
+
+              let adicionados = 0;
+              for (let i = 0; i < payload.registros.length; i++) {
+                const item = payload.registros[i];
+                exigir(item && typeof item === 'object' && !Array.isArray(item),
+                  `Registro ${i + 1}: formato inválido.`);
+
+                const ordem = destino
+                  .filter(x => x.assunto_id === payload.assunto_id)
+                  .reduce((max, x) => Math.max(max, Number(x.ordem) || 0), 0) + 1;
+
+                const base = {
+                  id: `${payload.tipo === 'resumos' ? 'resumo' : payload.tipo === 'questoes' ? 'questao' : 'flashcard'}-${Date.now()}-${i + 1}`,
+                  assunto_id: payload.assunto_id,
+                  ordem,
+                  lote_id: payload.lote_id
+                };
+
+                if (payload.tipo === 'resumos') {
+                  const titulo = String(item.titulo || '').trim();
+                  const conteudo = String(item.conteudo || '').trim();
+                  exigir(titulo.length > 0 && titulo.length <= 180, `Resumo ${i + 1}: título inválido.`);
+                  exigir(conteudo.length > 0 && conteudo.length <= 100000,
+                    `Resumo ${i + 1}: conteúdo vazio ou acima de 100.000 caracteres.`);
+                  destino.push({ ...base, titulo, conteudo });
+                }
+
+                if (payload.tipo === 'questoes') {
+                  const enunciado = String(item.enunciado || '').trim();
+                  const alternativas = Array.isArray(item.alternativas)
+                    ? item.alternativas.map(x => String(x).trim())
+                    : [];
+                  const correta = String(item.resposta_correta || '').trim().toUpperCase();
+                  const justificativa = String(item.justificativa || '').trim();
+
+                  exigir(enunciado.length > 0 && enunciado.length <= 10000,
+                    `Questão ${i + 1}: enunciado inválido.`);
+                  exigir(alternativas.length === 5 && alternativas.every(x => x.length > 0 && x.length <= 2000),
+                    `Questão ${i + 1}: são necessárias cinco alternativas válidas.`);
+                  exigir(['A', 'B', 'C', 'D', 'E'].includes(correta),
+                    `Questão ${i + 1}: resposta_correta deve ser A, B, C, D ou E.`);
+                  exigir(justificativa.length <= 10000, `Questão ${i + 1}: justificativa muito longa.`);
+
+                  destino.push({
+                    ...base,
+                    titulo: `Questão ${i + 1}`,
+                    enunciado,
+                    alternativas,
+                    resposta_correta: correta,
+                    justificativa,
+                    resposta: alternativas.map((texto, indice) => `${'ABCDE'[indice]}) ${texto}`).join('\\n') +
+                      `\\n\\nGabarito: ${correta}` +
+                      (justificativa ? `\\nJustificativa: ${justificativa}` : '')
+                  });
+                }
+
+                if (payload.tipo === 'flashcards') {
+                  const frente = String(item.frente || '').trim();
+                  const verso = String(item.verso || '').trim();
+                  exigir(frente.length > 0 && frente.length <= 5000,
+                    `Flashcard ${i + 1}: frente inválida.`);
+                  exigir(verso.length > 0 && verso.length <= 10000,
+                    `Flashcard ${i + 1}: verso inválido.`);
+                  destino.push({
+                    ...base,
+                    titulo: `Flashcard ${i + 1}`,
+                    frente,
+                    verso
+                  });
+                }
+
+                adicionados++;
+              }
+
+              fs.writeFileSync(dadosPath, JSON.stringify(dados, null, 2) + '\n', 'utf8');
+
+              execFileSync('git', ['config', 'user.name', 'github-actions[bot]']);
+              execFileSync('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com']);
+              execFileSync('git', ['add', dadosPath]);
+
+              const alteracoes = execFileSync('git', ['status', '--porcelain', '--', dadosPath], { encoding: 'utf8' }).trim();
+              if (alteracoes) {
+                execFileSync('git', ['commit', '-m', `Importa ${adicionados} ${payload.tipo} do NotebookLM`]);
+                execFileSync('git', ['push']);
+              }
+
+              await core.summary
+                .addHeading('Importação concluída')
+                .addTable([
+                  [{ data: 'Campo', header: true }, { data: 'Resultado', header: true }],
+                  ['Disciplina', disciplina.nome],
+                  ['Assunto', assunto.nome],
+                  ['Tipo', payload.tipo],
+                  ['Registros gravados', String(adicionados)],
+                  ['Arquivo', dadosPath],
+                  ['Lote', payload.lote_id]
+                ])
+                .addRaw('Os conteúdos estarão disponíveis no site após a publicação do GitHub Pages.')
+                .write();
+
+            } catch (error) {
+              core.setFailed(error.message);
+              await core.summary
+                .addHeading('Falha na importação')
+                .addRaw(error.message)
+                .write();
+            }
