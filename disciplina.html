@@ -85,6 +85,70 @@
       font-size: 19px;
     }
 
+    .resumo-progresso-disciplina {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0 0 22px;
+    }
+
+    .indicador-progresso-disciplina {
+      min-width: 0;
+      padding: 13px;
+      border: 1px solid var(--borda);
+      border-radius: 9px;
+      background: var(--superficie);
+      color: var(--texto-secundario);
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .indicador-progresso-disciplina:hover,
+    .indicador-progresso-disciplina[aria-pressed="true"] {
+      border-color: var(--azul);
+      background: var(--superficie-hover);
+    }
+
+    .indicador-progresso-disciplina[aria-pressed="true"] {
+      box-shadow: inset 0 0 0 1px var(--azul);
+    }
+
+    .indicador-progresso-disciplina strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--texto);
+      font-size: 23px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .indicador-progresso-disciplina span {
+      font-size: 11px;
+      line-height: 1.3;
+    }
+
+    .aviso-filtro-assuntos {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 16px;
+      color: var(--texto-secundario);
+      font-size: 12px;
+    }
+
+    .limpar-filtro-assuntos {
+      padding: 5px 9px;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--azul-claro);
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .cartao-topico-item[hidden] { display: none !important; }
+
     .lista-unidades {
       display: flex;
       flex-direction: column;
@@ -429,16 +493,14 @@
     }
 
     @media(max-width:850px) {
-      .grade-topicos {
-        grid-template-columns: repeat(2,minmax(0,1fr));
-      }
+      .grade-topicos { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .resumo-progresso-disciplina { grid-template-columns: repeat(3,minmax(0,1fr)); }
     }
 
     @media(max-width:600px) {
       .grade-topicos,
-      .lista-conteudos {
-        grid-template-columns: 1fr;
-      }
+      .lista-conteudos { grid-template-columns: 1fr; }
+      .resumo-progresso-disciplina { grid-template-columns: repeat(2,minmax(0,1fr)); }
 
       .pagina-disciplina header {
         padding: 22px 16px;
@@ -466,6 +528,8 @@
   <main class="conteudo-disciplina">
     <section class="topicos-disciplina" aria-labelledby="titulo-topicos">
       <h2 id="titulo-topicos">Assuntos da disciplina</h2>
+      <div id="resumo-progresso-disciplina" class="resumo-progresso-disciplina" aria-label="Resumo do progresso da disciplina"></div>
+      <div id="aviso-filtro-assuntos" class="aviso-filtro-assuntos" hidden aria-live="polite"></div>
       <div id="lista-topicos" class="grade-topicos">
         <p class="carregando">Carregando assuntos...</p>
       </div>
@@ -504,6 +568,7 @@
       let progresso = { progresso: [] };
       let documentos = [];
       let assuntoSelecionado = null;
+      let filtroSituacaoAssuntos = 'todos';
       let abaAtual = 'resumos';
 
       const escapeHTML = (valor) =>
@@ -718,7 +783,74 @@
         window.open(url, '_blank', 'noopener');
       }
 
+      function montarResumoProgresso() {
+        const assuntos = (estrutura.assuntos || []).filter(assunto => {
+          if (assunto.disciplina_id === disciplinaId) return true;
+          if (assunto.unidade_id == null) return false;
+          const unidade = (estrutura.unidades || []).find(item => item.id === assunto.unidade_id);
+          return unidade && unidade.disciplina_id === disciplinaId;
+        });
+        const contagens = { todos: assuntos.length, nao_iniciado: 0, em_andamento: 0, concluido: 0, pendente: 0 };
+        assuntos.forEach(assunto => {
+          const situacao = registroProgresso(assunto.id).situacao_geral || 'nao_iniciado';
+          if (Object.prototype.hasOwnProperty.call(contagens, situacao)) contagens[situacao]++;
+          else contagens.nao_iniciado++;
+        });
+        const indicadores = [
+          ['todos', 'Total de assuntos'], ['nao_iniciado', 'Não iniciados'],
+          ['em_andamento', 'Em andamento'], ['concluido', 'Concluídos'], ['pendente', 'Pendentes']
+        ];
+        const resumo = document.getElementById('resumo-progresso-disciplina');
+        resumo.replaceChildren();
+        indicadores.forEach(([chave, rotulo]) => {
+          const botao = document.createElement('button');
+          botao.type = 'button';
+          botao.className = 'indicador-progresso-disciplina';
+          botao.dataset.filtroSituacao = chave;
+          botao.setAttribute('aria-pressed', String(filtroSituacaoAssuntos === chave));
+          const numero = document.createElement('strong');
+          numero.textContent = String(contagens[chave]);
+          const texto = document.createElement('span');
+          texto.textContent = rotulo;
+          botao.append(numero, texto);
+          botao.addEventListener('click', () => {
+            filtroSituacaoAssuntos = chave;
+            aplicarFiltroSituacaoAssuntos();
+          });
+          resumo.appendChild(botao);
+        });
+      }
+
+      function aplicarFiltroSituacaoAssuntos() {
+        document.querySelectorAll('[data-cartao-assunto]').forEach(cartao => {
+          const situacao = registroProgresso(cartao.dataset.cartaoAssunto).situacao_geral || 'nao_iniciado';
+          cartao.hidden = filtroSituacaoAssuntos !== 'todos' && situacao !== filtroSituacaoAssuntos;
+        });
+        document.querySelectorAll('[data-filtro-situacao]').forEach(botao => {
+          botao.setAttribute('aria-pressed', String(botao.dataset.filtroSituacao === filtroSituacaoAssuntos));
+        });
+        const aviso = document.getElementById('aviso-filtro-assuntos');
+        aviso.replaceChildren();
+        if (filtroSituacaoAssuntos === 'todos') {
+          aviso.hidden = true;
+          return;
+        }
+        const rotulos = { nao_iniciado: 'Não iniciados', em_andamento: 'Em andamento', concluido: 'Concluídos', pendente: 'Pendentes' };
+        aviso.hidden = false;
+        aviso.appendChild(document.createTextNode('Exibindo somente assuntos: ' + rotulos[filtroSituacaoAssuntos] + '. '));
+        const limpar = document.createElement('button');
+        limpar.type = 'button';
+        limpar.className = 'limpar-filtro-assuntos';
+        limpar.textContent = 'Limpar filtro';
+        limpar.addEventListener('click', () => {
+          filtroSituacaoAssuntos = 'todos';
+          aplicarFiltroSituacaoAssuntos();
+        });
+        aviso.appendChild(limpar);
+      }
+
       function montarTopicos() {
+        montarResumoProgresso();
         const unidades = (estrutura.unidades || [])
           .filter(unidade => unidade.disciplina_id === disciplinaId)
           .sort(ordenar);
@@ -799,6 +931,7 @@
         ` : '';
 
         listaTopicos.innerHTML = htmlUnidades + htmlAssuntosDiretos;
+        aplicarFiltroSituacaoAssuntos();
 
         listaTopicos.querySelectorAll('[data-assunto]').forEach(botao =>
           botao.setAttribute(
