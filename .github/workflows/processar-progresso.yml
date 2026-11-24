@@ -34,17 +34,17 @@ jobs:
             const progressoPath = 'dados/progresso.json';
 
             function obterCampo(titulo) {
-              const escaped = titulo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-              const regex = new RegExp('^### ' + escaped + '\\s*\\r?\\n+([\\s\\S]*?)(?=\\r?\\n### |$)', 'm');
-              const match = body.match(regex);
+              const marcador = '### ' + titulo;
+              const inicio = body.indexOf(marcador);
 
-              if (!match) {
+              if (inicio < 0) {
                 throw new Error('Campo ausente: ' + titulo);
               }
 
-              return match[1].trim();
+              const restante = body.slice(inicio + marcador.length);
+              const valor = restante.replace(/^\\r?\\n+/, '').split(/\\r?\\n### /, 1)[0].trim();
+              return valor;
             }
-
             const opcoes = {
               situacao_geral: ['nao_iniciado', 'em_andamento', 'concluido', 'pendente'],
               conteudo_status: ['nao_iniciado', 'em_andamento', 'estudado'],
