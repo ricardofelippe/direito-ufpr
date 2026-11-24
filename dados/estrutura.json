@@ -1111,6 +1111,46 @@
       "descricao": "Organização temática do programa oficial da ficha DC438. A ficha apresenta os conteúdos em sequência, sem numerá-los como unidades.",
       "ordem": 1,
       "status": "pendente"
+    },
+    {
+      "id": "ace-i-unidade-01",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "nome": "História da Universidade Brasileira: Ensino, Pesquisa e Extensão Universitária",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-unidade-02",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "nome": "Concepções e Tendências da Extensão Universitária",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-unidade-03",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "nome": "Legislação da Extensão Universitária",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-unidade-04",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "nome": "Procedimentos Metodológicos, Didáticos e Técnico-Científicos",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-unidade-05",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "nome": "Extensão e Direito: diálogos e perspectivas",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
     }
   ],
   "assuntos": [
@@ -3182,6 +3222,186 @@
       "nome": "Prescrição e decadência",
       "descricao": "",
       "ordem": 17,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-01-01",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-01",
+      "nome": "Antecedentes Latino Americanos da Extensão Universitária",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-01-02",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-01",
+      "nome": "Primeiras Experiências Brasileiras Extensionistas: RONDON e Extensão Agrícola",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-01-03",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-01",
+      "nome": "Tripé Ensino Pesquisa e Extensão",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-01-04",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-01",
+      "nome": "Institucionalidade Universitária de Extensão e Fórum de Pró-Reitores de Extensão",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-01-05",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-01",
+      "nome": "Plano Nacional de Extensão",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-02-01",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-02",
+      "nome": "Assistencialismo e Extensão",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-02-02",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-02",
+      "nome": "Extensão e Comunicação",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-02-03",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-02",
+      "nome": "Extensão e ação transformadora",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-02-04",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-02",
+      "nome": "Extensão Hoje: cinco princípios extensionistas",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-03-01",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-03",
+      "nome": "Constituição Federal",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-03-02",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-03",
+      "nome": "Plano Nacional de Educação",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-03-03",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-03",
+      "nome": "RESOLUÇÃO CNE N° 7, 18/2018 – Estabelece Diretrizes para a Extensão e regimento o disposto na Meta 12.7 do PNE",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-03-04",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-03",
+      "nome": "RESOLUÇÃO N° 57/19 – CEPE - Dispõe sobre as atividades de Extensão na Universidade Federal do Paraná",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-03-05",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-03",
+      "nome": "RESOLUÇÃO N° 86/20 - Dispõe sobre a creditação das Atividades de Extensão",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-04-01",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-04",
+      "nome": "Procedimentos Metodológicos, Didáticos e Técnico-Científicos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-05-01",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-05",
+      "nome": "Diálogos com Poderes Públicos e Sistema de Justiça",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-05-02",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-05",
+      "nome": "Formação Popular em Direitos",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-05-03",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-05",
+      "nome": "Assessoria Jurídica Popular",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-05-04",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-05",
+      "nome": "Clínicas Jurídicas",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "ace-i-assunto-05-05",
+      "disciplina_id": "introducao-praticas-extensionistas-ace-i",
+      "unidade_id": "ace-i-unidade-05",
+      "nome": "Difusão Científica",
+      "descricao": "",
+      "ordem": 5,
       "status": "pendente"
     }
   ],
