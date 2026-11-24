@@ -1,0 +1,138 @@
+name: Processar atualização do progresso dos estudos
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+# Evita duas gravações simultâneas no mesmo arquivo de progresso.
+concurrency:
+  group: atualizar-progresso-estudos
+  cancel-in-progress: false
+
+jobs:
+  atualizar-progresso:
+    if: github.event.issue.user.login == 'ricardofelippe' && startsWith(github.event.issue.title, '[Atualizar progresso]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Validar e gravar progresso
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const { execFileSync } = require('child_process');
+
+            const issueNumber = context.payload.issue.number;
+            const body = context.payload.issue.body || '';
+            const progressoPath = 'dados/progresso.json';
+
+            function obterCampo(titulo) {
+              const escaped = titulo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const regex = new RegExp('^### ' + escaped + '\\s*\\r?\\n+([\\s\\S]*?)(?=\\r?\\n### |$)', 'm');
+              const match = body.match(regex);
+
+              if (!match) {
+                throw new Error('Campo ausente: ' + titulo);
+              }
+
+              return match[1].trim();
+            }
+
+            const opcoes = {
+              situacao_geral: ['nao_iniciado', 'em_andamento', 'concluido', 'pendente'],
+              conteudo_status: ['nao_iniciado', 'em_andamento', 'estudado'],
+              questoes_status: ['nao_iniciado', 'em_andamento', 'concluido', 'nao_se_aplica'],
+              revisao_status: ['nao_iniciado', 'em_andamento', 'concluido', 'nao_se_aplica']
+            };
+
+            try {
+              const assuntoId = obterCampo('ID do assunto');
+              const registroNovo = {
+                assunto_id: assuntoId,
+                situacao_geral: obterCampo('Situação geral'),
+                conteudo_status: obterCampo('Conteúdo estudado'),
+                questoes_status: obterCampo('Questões praticadas'),
+                revisao_status: obterCampo('Revisões realizadas')
+              };
+
+              if (!/^[a-z0-9][a-z0-9-]{0,179}$/.test(assuntoId)) {
+                throw new Error('O ID do assunto possui formato inválido.');
+              }
+
+              for (const [campo, valores] of Object.entries(opcoes)) {
+                if (!valores.includes(registroNovo[campo])) {
+                  throw new Error('Valor inválido para o campo: ' + campo);
+                }
+              }
+
+              const estrutura = JSON.parse(fs.readFileSync('dados/estrutura.json', 'utf8'));
+              const assunto = estrutura.assuntos.find(x => x.id === assuntoId);
+
+              if (!assunto) {
+                throw new Error('O assunto informado não existe em dados/estrutura.json.');
+              }
+
+              const dados = JSON.parse(fs.readFileSync(progressoPath, 'utf8'));
+
+              if (!Array.isArray(dados.progresso)) {
+                throw new Error('A estrutura de dados/progresso.json é inválida.');
+              }
+
+              const encontrados = dados.progresso.filter(x => x.assunto_id === assuntoId);
+
+              if (encontrados.length > 1) {
+                throw new Error('Há registros duplicados para este assunto. Corrija o arquivo antes de atualizar.');
+              }
+
+              if (encontrados.length === 1) {
+                const existente = encontrados[0];
+                // Atualiza somente os quatro campos previstos, sem alterar outros dados do registro.
+                Object.assign(existente, registroNovo);
+              } else {
+                dados.progresso.push(registroNovo);
+              }
+
+              fs.writeFileSync(progressoPath, JSON.stringify(dados, null, 2) + '\n', 'utf8');
+
+              execFileSync('git', ['config', 'user.name', 'github-actions[bot]']);
+              execFileSync('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com']);
+              execFileSync('git', ['add', progressoPath]);
+
+              try {
+                execFileSync('git', ['commit', '-m', 'Atualiza progresso: ' + assuntoId]);
+                execFileSync('git', ['push']);
+              } catch (gitError) {
+                throw new Error('Não foi possível publicar a atualização no GitHub: ' + gitError.message);
+              }
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: 'Progresso do assunto `' + assuntoId + '` validado e salvo em `dados/progresso.json`. A publicação do GitHub Pages pode levar alguns instantes.'
+              });
+
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                state: 'closed'
+              });
+
+            } catch (error) {
+              core.setFailed(error.message);
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: 'Não foi possível salvar o progresso: **' + error.message + '**. Verifique os dados e abra uma nova solicitação.'
+              });
+            }
