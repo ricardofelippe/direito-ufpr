@@ -1,0 +1,190 @@
+
+name: Gerenciar unidades temáticas
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  gerenciar-unidade:
+    if: github.actor == 'ricardofelippe' && startsWith(github.event.issue.title, '[Gerenciar unidade]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Processar unidade temática
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+            const issue = context.payload.issue;
+            const corpo = issue.body || '';
+
+            function obterCampo(nome) {
+              const marcador = `<!-- ${nome} -->`;
+              const ocorrencias = corpo.split(marcador).length - 1;
+
+              if (ocorrencias !== 1) {
+                throw new Error(`O campo ${nome} deve aparecer exatamente uma vez.`);
+              }
+
+              const depois = corpo.split(marcador)[1];
+              const valor = depois.split('\n')[1];
+
+              return (valor || '').trim();
+            }
+
+            async function comentar(mensagem) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: mensagem
+              });
+            }
+
+            try {
+              const operacao = obterCampo('OPERACAO').toLowerCase();
+              const unidadeId = obterCampo('UNIDADE_ID');
+              const disciplinaId = obterCampo('DISCIPLINA_ID');
+              const nome = obterCampo('NOME');
+              const descricao = obterCampo('DESCRICAO');
+              const ordemTexto = obterCampo('ORDEM');
+
+              if (!['criar', 'editar'].includes(operacao)) {
+                throw new Error('Operação inválida. Use criar ou editar.');
+              }
+
+              if (!nome || nome.length > 180) {
+                throw new Error('Informe um nome com até 180 caracteres.');
+              }
+
+              if (!disciplinaId) {
+                throw new Error('A disciplina é obrigatória.');
+              }
+
+              if (descricao.length > 2000) {
+                throw new Error('A descrição deve ter no máximo 2000 caracteres.');
+              }
+
+              const ordem = Number(ordemTexto);
+
+              if (!Number.isInteger(ordem) || ordem < 1) {
+                throw new Error('A ordem deve ser um número inteiro positivo.');
+              }
+
+              const caminho = 'dados/estrutura.json';
+              const estrutura = JSON.parse(fs.readFileSync(caminho, 'utf8'));
+
+              if (!Array.isArray(estrutura.disciplinas) ||
+                  !Array.isArray(estrutura.unidades) ||
+                  !Array.isArray(estrutura.assuntos)) {
+                throw new Error('A estrutura do arquivo estrutura.json não está no formato esperado.');
+              }
+
+              const disciplina = estrutura.disciplinas.find(
+                d => d.id === disciplinaId
+              );
+
+              if (!disciplina) {
+                throw new Error('A disciplina informada não foi encontrada.');
+              }
+
+              if (operacao === 'criar') {
+                if (unidadeId) {
+                  throw new Error('Na criação, o campo UNIDADE_ID deve ficar vazio.');
+                }
+
+                const slug = nome
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '')
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, '-')
+                  .replace(/^-|-$/g, '');
+
+                const novoId = `unidade-${slug}-${issue.number}`;
+
+                if (estrutura.unidades.some(u => u.id === novoId)) {
+                  throw new Error(`Já existe uma unidade com o identificador ${novoId}.`);
+                }
+
+                estrutura.unidades.push({
+                  id: novoId,
+                  disciplina_id: disciplinaId,
+                  nome,
+                  descricao,
+                  ordem,
+                  status: 'pendente'
+                });
+
+              } else {
+                if (!unidadeId) {
+                  throw new Error('Informe o identificador da unidade que será editada.');
+                }
+
+                const unidade = estrutura.unidades.find(
+                  u => u.id === unidadeId
+                );
+
+                if (!unidade) {
+                  throw new Error('A unidade informada não foi encontrada.');
+                }
+
+                if (unidade.disciplina_id !== disciplinaId) {
+                  throw new Error('Não é permitido alterar a disciplina de uma unidade já cadastrada. Isso preserva os vínculos com os assuntos existentes.');
+                }
+
+                unidade.nome = nome;
+                unidade.descricao = descricao;
+                unidade.ordem = ordem;
+              }
+
+              fs.writeFileSync(
+                caminho,
+                JSON.stringify(estrutura, null, 2) + '\n',
+                'utf8'
+              );
+
+              execSync('git config user.name "github-actions[bot]"');
+              execSync('git config user.email "41898282+github-actions[bot]@users.noreply.github.com"');
+              execSync('git add dados/estrutura.json');
+
+              const alteracoes = execSync('git status --porcelain', {
+                encoding: 'utf8'
+              }).trim();
+
+              if (alteracoes) {
+                execSync(
+                  `git commit -m "feat: ${operacao} unidade temática"`,
+                  { stdio: 'inherit' }
+                );
+                execSync('git push', { stdio: 'inherit' });
+              }
+
+              const mensagem = operacao === 'criar'
+                ? 'Unidade temática cadastrada com sucesso.'
+                : 'Unidade temática atualizada com sucesso.';
+
+              await comentar(
+                `**${mensagem}**\n\n` +
+                'A estrutura do currículo será atualizada após a publicação do GitHub Pages.'
+              );
+
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+
+            } catch (erro) {
+              core.setFailed(erro.message);
+              await comentar(`**Erro ao processar a unidade temática:** ${erro.message}`);
+            }
