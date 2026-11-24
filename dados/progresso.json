@@ -6,6 +6,13 @@
       "conteudo_status": "nao_iniciado",
       "questoes_status": "nao_iniciado",
       "revisao_status": "nao_se_aplica"
+    },
+    {
+      "assunto_id": "teoria-estado-assunto-01-01",
+      "situacao_geral": "em_andamento",
+      "conteudo_status": "nao_iniciado",
+      "questoes_status": "nao_iniciado",
+      "revisao_status": "nao_iniciado"
     }
   ]
 }
