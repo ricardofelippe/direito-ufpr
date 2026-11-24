@@ -871,6 +871,38 @@
       "descricao": "",
       "ordem": 6,
       "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-01",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Sociologia",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-02",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Vitalismo Jurídico",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-03",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Fato social e teorias da anomia",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-unidade-04",
+      "disciplina_id": "direito-e-sociedade",
+      "nome": "Instituição Social",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
     }
   ],
   "assuntos": [
@@ -1736,6 +1768,204 @@
       "nome": "Sistemas eleitorais",
       "descricao": "",
       "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-01-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-01",
+      "nome": "Consequências da industrialização e urbanização",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-01-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-01",
+      "nome": "Herança intelectual da Sociologia",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-01-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-01",
+      "nome": "Sociologia do Direito e Sociologia Jurídica: a questão do objeto e do método",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-01-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-01",
+      "nome": "Sociologia do Direito no Brasil",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-01-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-01",
+      "nome": "Necessidade e importância do estudo da Sociologia do Direito",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-01-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-01",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-02-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-02",
+      "nome": "Pressupostos teóricos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-02-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-02",
+      "nome": "A Escola do Direito Livre",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-02-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-02",
+      "nome": "O Estado e o Direito",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-02-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-02",
+      "nome": "A investigação do Direito Vivo",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-02-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-02",
+      "nome": "Contextualização",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-02-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-02",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-03-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-03",
+      "nome": "Pressupostos teóricos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-03-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-03",
+      "nome": "Fato social: exterioridade, coercitividade e generalidade",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-03-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-03",
+      "nome": "Consciência individual e consciência coletiva",
+      "descricao": "",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-03-04",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-03",
+      "nome": "Solidariedade mecânica e solidariedade orgânica",
+      "descricao": "",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-03-05",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-03",
+      "nome": "Direito repressivo e direito restitutivo",
+      "descricao": "",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-03-06",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-03",
+      "nome": "Anomia: divisão do trabalho anômico e a teoria da anomia de Robert Merton",
+      "descricao": "",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-03-07",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-03",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-04-01",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-04",
+      "nome": "Pressupostos teóricos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-04-02",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-04",
+      "nome": "Características: exterioridade, objetividade, coercitividade, autoridade moral e historicidade",
+      "descricao": "",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "direito-sociedade-assunto-04-03",
+      "disciplina_id": "direito-e-sociedade",
+      "unidade_id": "direito-sociedade-unidade-04",
+      "nome": "Considerações finais",
+      "descricao": "",
+      "ordem": 3,
       "status": "pendente"
     }
   ],
