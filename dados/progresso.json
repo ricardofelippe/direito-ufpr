@@ -1,3 +1,11 @@
 {
-  "progresso": []
+  "progresso": [
+    {
+      "assunto_id": "teoria-do-direito-assunto-01",
+      "situacao_geral": "em_andamento",
+      "conteudo_status": "nao_iniciado",
+      "questoes_status": "nao_iniciado",
+      "revisao_status": "nao_se_aplica"
+    }
+  ]
 }
