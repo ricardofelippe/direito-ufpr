@@ -46,6 +46,53 @@ body.pagina-admin{--fundo:#070b12;--fundo-secundario:#0c1420;--superficie:#101b2
   </form>
 </section>
 
+
+<section class="admin-preview" id="gestao-unidades" style="margin-top:22px">
+  <h2>Gestão de unidades temáticas</h2>
+  <p class="admin-preview-meta">Crie unidades ou edite as existentes. A edição preserva o identificador e os assuntos vinculados. A disciplina não pode ser alterada em unidades já cadastradas.</p>
+  <form id="form-unidade">
+    <div class="admin-grade">
+      <div class="admin-campo">
+        <label for="operacao-unidade">Operação</label>
+        <select id="operacao-unidade" required>
+          <option value="criar">Criar nova unidade</option>
+          <option value="editar">Editar unidade existente</option>
+        </select>
+      </div>
+      <div class="admin-campo" id="campo-unidade-existente" hidden>
+        <label for="unidade-existente">Unidade para editar</label>
+        <select id="unidade-existente"><option value="">Selecione uma unidade</option></select>
+      </div>
+    </div>
+    <div class="admin-grade">
+      <div class="admin-campo">
+        <label for="disciplina-unidade">Disciplina</label>
+        <select id="disciplina-unidade" required><option value="">Carregando disciplinas...</option></select>
+        <span class="admin-ajuda" id="ajuda-disciplina-unidade">Na edição, a disciplina fica bloqueada para preservar os vínculos.</span>
+      </div>
+      <div class="admin-campo">
+        <label for="ordem-unidade">Ordem</label>
+        <input id="ordem-unidade" type="number" min="1" step="1" required>
+      </div>
+    </div>
+    <div class="admin-campo">
+      <label for="nome-unidade">Nome da unidade</label>
+      <input id="nome-unidade" type="text" maxlength="180" required placeholder="Ex.: Epistemologia e Ciência do Direito">
+    </div>
+    <div class="admin-campo">
+      <label for="descricao-unidade">Descrição</label>
+      <input id="descricao-unidade" type="text" maxlength="2000" placeholder="Descrição breve da unidade">
+      <span class="admin-ajuda">Use uma única linha, sem quebras.</span>
+    </div>
+    <div class="admin-acoes">
+      <button class="admin-botao admin-botao-principal" type="submit">Enviar solicitação ao GitHub</button>
+      <button class="admin-botao admin-botao-secundario" type="reset">Limpar gestão de unidades</button>
+    </div>
+    <p id="erro-unidade" class="admin-erro" role="alert" hidden></p>
+    <p id="status-unidade" class="admin-ajuda" role="status" hidden></p>
+  </form>
+</section>
+
 <aside class="admin-aviso"><strong>Como funciona:</strong> o botão abre uma solicitação no GitHub com os campos já preenchidos. Confira e clique em <em>Submit new issue</em>. O workflow verifica sua conta, valida disciplina, unidade (quando houver) e assunto e, se estiver correto, grava o conteúdo em <code>dados/conteudos.json</code>. O formulário não precisa ser preenchido novamente.<br><br><strong>Limite:</strong> textos muito longos podem ultrapassar o limite prático do navegador/GitHub. O painel avisa antes de abrir e não corta o texto.</aside>
 </main>
 <script>
@@ -56,7 +103,7 @@ const REPOSITORIO_ISSUES='https://github.com/ricardofelippe/direito-ufpr/issues/
 function preencher(select,itens,inicial,id,nome){select.replaceChildren(new Option(inicial,''));itens.forEach(item=>select.add(new Option(item[nome],item[id])));select.disabled=itens.length===0}
 function unidadesDaDisciplina(){const itens=estrutura.unidades.filter(x=>x.disciplina_id===disciplinaSelect.value).sort((a,b)=>a.ordem-b.ordem);unidadeSelect.replaceChildren(new Option('Selecione uma opção',''),new Option('Sem unidade temática','__sem_unidade__'));itens.forEach(item=>unidadeSelect.add(new Option(item.nome,item.id)));unidadeSelect.disabled=false;preencher(assuntoSelect,[],'Selecione uma unidade ou a opção sem unidade','id','nome')}
 function assuntosDaSelecao(){const disciplinaId=disciplinaSelect.value,unidadeId=unidadeSelect.value;if(!disciplinaId||!unidadeId){preencher(assuntoSelect,[],'Selecione uma unidade ou a opção sem unidade','id','nome');return}const itens=estrutura.assuntos.filter(x=>x.disciplina_id===disciplinaId&&(unidadeId==='__sem_unidade__'?(x.unidade_id===null||x.unidade_id===undefined||x.unidade_id===''):x.unidade_id===unidadeId)).sort((a,b)=>a.ordem-b.ordem);preencher(assuntoSelect,itens,itens.length?'Selecione um assunto':'Nenhum assunto cadastrado nesta opção','id','nome')}
-async function carregar(){try{const r=await fetch('dados/estrutura.json',{cache:'no-store'});if(!r.ok)throw Error(`HTTP ${r.status}`);estrutura=await r.json();const itens=estrutura.disciplinas.filter(x=>x.categoria==='obrigatoria'||x.categoria==='optativa').sort((a,b)=>a.nome.localeCompare(b.nome,'pt-BR'));preencher(disciplinaSelect,itens,'Selecione uma disciplina','id','nome');preencher(disciplinaAssunto,itens,'Selecione uma disciplina','id','nome');if(itens.some(x=>x.id==='teoria-do-direito')){disciplinaSelect.value='teoria-do-direito';unidadesDaDisciplina();disciplinaAssunto.value='teoria-do-direito';atualizarUnidadesAssunto();atualizarListaAssuntos()}}catch(e){erro.textContent='Não foi possível carregar dados/estrutura.json. Confira o caminho do arquivo.';erro.hidden=false;disciplinaSelect.replaceChildren(new Option('Falha ao carregar disciplinas',''));disciplinaSelect.disabled=true}}
+async function carregar(){try{const r=await fetch('dados/estrutura.json',{cache:'no-store'});if(!r.ok)throw Error(`HTTP ${r.status}`);estrutura=await r.json();const itens=estrutura.disciplinas.filter(x=>x.categoria==='obrigatoria'||x.categoria==='optativa').sort((a,b)=>a.nome.localeCompare(b.nome,'pt-BR'));preencher(disciplinaSelect,itens,'Selecione uma disciplina','id','nome');preencher(disciplinaAssunto,itens,'Selecione uma disciplina','id','nome');preencher(disciplinaUnidade,itens,'Selecione uma disciplina','id','nome');atualizarListaUnidades();if(itens.some(x=>x.id==='teoria-do-direito')){disciplinaSelect.value='teoria-do-direito';unidadesDaDisciplina();disciplinaAssunto.value='teoria-do-direito';atualizarUnidadesAssunto();atualizarListaAssuntos()}}catch(e){erro.textContent='Não foi possível carregar dados/estrutura.json. Confira o caminho do arquivo.';erro.hidden=false;disciplinaSelect.replaceChildren(new Option('Falha ao carregar disciplinas',''));disciplinaSelect.disabled=true}}
 disciplinaSelect.addEventListener('change',unidadesDaDisciplina);unidadeSelect.addEventListener('change',assuntosDaSelecao);
 tipoSelect.addEventListener('change',()=>{const revisao=tipoSelect.value==='revisoes';camposRevisao.hidden=!revisao;referenciaInput.required=revisao;document.querySelector('.admin-intro h2').textContent=revisao?'Nova revisão de literatura':'Novo resumo';});
 formulario.addEventListener('submit',e=>{e.preventDefault();if(!formulario.reportValidity())return;const d=estrutura.disciplinas.find(x=>x.id===disciplinaSelect.value),u=estrutura.unidades.find(x=>x.id===unidadeSelect.value),a=estrutura.assuntos.find(x=>x.id===assuntoSelect.value),direto=unidadeSelect.value==='__sem_unidade__';const vinculoValido=d&&a&&a.disciplina_id===d.id&&(direto?(a.unidade_id===null||a.unidade_id===undefined||a.unidade_id===''):(u&&u.disciplina_id===d.id&&a.unidade_id===u.id));if(!vinculoValido){erro.textContent='Seleção acadêmica inválida. Selecione novamente os campos.';erro.hidden=false;return}erro.hidden=true;document.getElementById('preview-meta').textContent=`${d.nome} · ${direto?'Sem unidade temática':u.nome} · ${a.nome}`+(tipoSelect.value==='revisoes'? ` · Referência: ${referenciaInput.value.trim()}${dataInput.value?' · Data: '+dataInput.value:''}`:'');document.getElementById('preview-titulo').textContent=document.getElementById('titulo').value.trim();document.getElementById('preview-texto').textContent=document.getElementById('conteudo').value.trim();mensagemEnvio.hidden=true;areaPreview.hidden=false;areaPreview.scrollIntoView({behavior:'smooth',block:'start'})});
@@ -122,6 +169,127 @@ formAssunto.addEventListener('submit',e=>{
  statusAssunto.textContent='O GitHub será aberto com a solicitação preenchida. Confira os dados e clique em “Submit new issue”.'; statusAssunto.hidden=false; window.open(url,'_blank','noopener');
 });
 formAssunto.addEventListener('reset',()=>setTimeout(()=>{campoAssuntoExistente.hidden=true;assuntoExistente.required=false;if(estrutura){disciplinaAssunto.value='';atualizarUnidadesAssunto();atualizarListaAssuntos();}erroAssunto.hidden=true;statusAssunto.hidden=true;},0));
+
+const operacaoUnidade=document.getElementById('operacao-unidade');
+const unidadeExistente=document.getElementById('unidade-existente');
+const campoUnidadeExistente=document.getElementById('campo-unidade-existente');
+const disciplinaUnidade=document.getElementById('disciplina-unidade');
+const nomeUnidade=document.getElementById('nome-unidade');
+const descricaoUnidade=document.getElementById('descricao-unidade');
+const ordemUnidade=document.getElementById('ordem-unidade');
+const formUnidade=document.getElementById('form-unidade');
+const erroUnidade=document.getElementById('erro-unidade');
+const statusUnidade=document.getElementById('status-unidade');
+const REPOSITORIO_UNIDADES='https://github.com/ricardofelippe/direito-ufpr/issues/new';
+
+function atualizarListaUnidades(valor=''){
+  if(!estrutura)return;
+  const itens=[...estrutura.unidades].sort((a,b)=>{
+    const da=estrutura.disciplinas.find(d=>d.id===a.disciplina_id)?.nome||'';
+    const db=estrutura.disciplinas.find(d=>d.id===b.disciplina_id)?.nome||'';
+    return da.localeCompare(db,'pt-BR') || a.ordem-b.ordem;
+  });
+  unidadeExistente.replaceChildren(new Option('Selecione uma unidade',''));
+  itens.forEach(item=>{
+    const disciplina=estrutura.disciplinas.find(d=>d.id===item.disciplina_id);
+    unidadeExistente.add(new Option(`${item.nome} — ${disciplina?.nome||item.disciplina_id}`,item.id));
+  });
+  if(valor)unidadeExistente.value=valor;
+}
+
+function carregarUnidadeParaEdicao(){
+  const item=estrutura.unidades.find(x=>x.id===unidadeExistente.value);
+  if(!item)return;
+  disciplinaUnidade.value=item.disciplina_id;
+  disciplinaUnidade.disabled=true;
+  nomeUnidade.value=item.nome||'';
+  descricaoUnidade.value=item.descricao||'';
+  ordemUnidade.value=item.ordem||1;
+}
+
+operacaoUnidade.addEventListener('change',()=>{
+  const editar=operacaoUnidade.value==='editar';
+  campoUnidadeExistente.hidden=!editar;
+  unidadeExistente.required=editar;
+  disciplinaUnidade.disabled=editar;
+  nomeUnidade.value='';
+  descricaoUnidade.value='';
+  ordemUnidade.value='';
+  unidadeExistente.value='';
+  erroUnidade.hidden=true;
+  statusUnidade.hidden=true;
+  if(!editar){
+    disciplinaUnidade.value='';
+  }
+});
+
+unidadeExistente.addEventListener('change',carregarUnidadeParaEdicao);
+
+formUnidade.addEventListener('submit',e=>{
+  e.preventDefault();
+  erroUnidade.hidden=true;
+  statusUnidade.hidden=true;
+
+  const operacao=operacaoUnidade.value;
+  const atual=operacao==='editar'
+    ? estrutura.unidades.find(x=>x.id===unidadeExistente.value)
+    : null;
+  const disciplina=estrutura.disciplinas.find(x=>x.id===disciplinaUnidade.value);
+  const nome=nomeUnidade.value.trim();
+  const descricao=descricaoUnidade.value.trim();
+  const ordem=Number(ordemUnidade.value);
+
+  if(operacao==='editar'&&!atual){
+    erroUnidade.textContent='Selecione a unidade que deseja editar.';
+    erroUnidade.hidden=false;
+    return;
+  }
+  if(!disciplina){
+    erroUnidade.textContent='Selecione uma disciplina válida.';
+    erroUnidade.hidden=false;
+    return;
+  }
+  if(atual&&atual.disciplina_id!==disciplina.id){
+    erroUnidade.textContent='A disciplina da unidade existente não pode ser alterada.';
+    erroUnidade.hidden=false;
+    return;
+  }
+  if(!nome||nome.length>180||descricao.length>2000||!Number.isInteger(ordem)||ordem<1){
+    erroUnidade.textContent='Confira o nome, a descrição e a ordem. A ordem deve ser um inteiro maior que zero.';
+    erroUnidade.hidden=false;
+    return;
+  }
+
+  const linhas=[
+    '<!-- OPERACAO -->',operacao,
+    '<!-- UNIDADE_ID -->',atual?atual.id:'',
+    '<!-- DISCIPLINA_ID -->',disciplina.id,
+    '<!-- NOME -->',nome,
+    '<!-- DESCRICAO -->',descricao,
+    '<!-- ORDEM -->',String(ordem)
+  ];
+  const titulo=`[Gerenciar unidade] ${operacao==='criar'?'Criar':'Editar'}: ${nome}`;
+  const url=`${REPOSITORIO_UNIDADES}?${new URLSearchParams({title:titulo,body:linhas.join('\n')})}`;
+  if(url.length>LIMITE_URL){
+    erroUnidade.textContent='A solicitação ficou muito longa para ser aberta pelo navegador. Reduza os campos.';
+    erroUnidade.hidden=false;
+    return;
+  }
+  statusUnidade.textContent='O GitHub será aberto com a solicitação preenchida. Confira os dados e clique em “Submit new issue”.';
+  statusUnidade.hidden=false;
+  window.open(url,'_blank','noopener');
+});
+
+formUnidade.addEventListener('reset',()=>setTimeout(()=>{
+  campoUnidadeExistente.hidden=true;
+  unidadeExistente.required=false;
+  disciplinaUnidade.disabled=false;
+  disciplinaUnidade.value='';
+  unidadeExistente.value='';
+  erroUnidade.hidden=true;
+  statusUnidade.hidden=true;
+},0));
+
 document.getElementById('voltar-edicao').addEventListener('click',()=>{areaPreview.hidden=true;document.getElementById('titulo').focus()});formulario.addEventListener('reset',()=>{areaPreview.hidden=true;mensagemEnvio.hidden=true;setTimeout(()=>{tipoSelect.value='resumos';camposRevisao.hidden=true;referenciaInput.required=false;document.querySelector('.admin-intro h2').textContent='Novo resumo';if(estrutura){disciplinaSelect.value='teoria-do-direito';unidadesDaDisciplina()}},0)});carregar();
 })();
 </script></body></html>
