@@ -1175,6 +1175,142 @@
       "descricao": "Divisão em partes conforme o programa oficial da ficha DV456.",
       "ordem": 3,
       "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-01",
+      "disciplina_id": "historia-do-direito",
+      "nome": "Apresentação do Curso",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-02",
+      "disciplina_id": "historia-do-direito",
+      "nome": "A História e a História do Direito",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 2,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-03",
+      "disciplina_id": "historia-do-direito",
+      "nome": "Positivismo e Historicismo",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 3,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-04",
+      "disciplina_id": "historia-do-direito",
+      "nome": "Escola dos Annales",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 4,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-05",
+      "disciplina_id": "historia-do-direito",
+      "nome": "Materialismo Histórico",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 5,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-06",
+      "disciplina_id": "historia-do-direito",
+      "nome": "Walter Benjamin e a História dos Vencidos",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 6,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-07",
+      "disciplina_id": "historia-do-direito",
+      "nome": "O Direito na Antiguidade",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 7,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-08",
+      "disciplina_id": "historia-do-direito",
+      "nome": "O Direito Romano Arcaico",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 8,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-09",
+      "disciplina_id": "historia-do-direito",
+      "nome": "A Lei das XII Tábuas",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 9,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-10",
+      "disciplina_id": "historia-do-direito",
+      "nome": "A Formação do ius honorarium",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 10,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-11",
+      "disciplina_id": "historia-do-direito",
+      "nome": "A Sistematização do Saber Jurídico",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 11,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-12",
+      "disciplina_id": "historia-do-direito",
+      "nome": "O Direito no Império – Principado e Dominato",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 12,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-13",
+      "disciplina_id": "historia-do-direito",
+      "nome": "O Corpus Iuris Civilis",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 13,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-14",
+      "disciplina_id": "historia-do-direito",
+      "nome": "O Direito Tardo-Antigo",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 14,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-15",
+      "disciplina_id": "historia-do-direito",
+      "nome": "O Direito na Alta Idade Média",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 15,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-16",
+      "disciplina_id": "historia-do-direito",
+      "nome": "O Direito na Baixa Idade Média",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 16,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-unidade-17",
+      "disciplina_id": "historia-do-direito",
+      "nome": "O Humanismo Jurídico",
+      "descricao": "Módulo conforme o programa oficial da ficha DV458.",
+      "ordem": 17,
+      "status": "pendente"
     }
   ],
   "assuntos": [
@@ -3813,6 +3949,159 @@
       "nome": "Publicação, difusão e discussão de trabalhos científicos",
       "descricao": "",
       "ordem": 10,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-01",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-01",
+      "nome": "Apresentação do Curso",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-02",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-02",
+      "nome": "A História e a História do Direito",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-03",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-03",
+      "nome": "Positivismo e Historicismo",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-04",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-04",
+      "nome": "Escola dos Annales",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-05",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-05",
+      "nome": "Materialismo Histórico",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-06",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-06",
+      "nome": "Walter Benjamin e a História dos Vencidos",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-07",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-07",
+      "nome": "O Direito na Antiguidade",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-08",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-08",
+      "nome": "O Direito Romano Arcaico",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-09",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-09",
+      "nome": "A Lei das XII Tábuas",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-10",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-10",
+      "nome": "A Formação do ius honorarium",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-11",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-11",
+      "nome": "A Sistematização do Saber Jurídico",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-12",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-12",
+      "nome": "O Direito no Império – Principado e Dominato",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-13",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-13",
+      "nome": "O Corpus Iuris Civilis",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-14",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-14",
+      "nome": "O Direito Tardo-Antigo",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-15",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-15",
+      "nome": "O Direito na Alta Idade Média",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-16",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-16",
+      "nome": "O Direito na Baixa Idade Média",
+      "descricao": "",
+      "ordem": 1,
+      "status": "pendente"
+    },
+    {
+      "id": "historia-direito-a-assunto-17",
+      "disciplina_id": "historia-do-direito",
+      "unidade_id": "historia-direito-a-unidade-17",
+      "nome": "O Humanismo Jurídico",
+      "descricao": "",
+      "ordem": 1,
       "status": "pendente"
     }
   ],
