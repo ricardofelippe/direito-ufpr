@@ -204,6 +204,32 @@
       color: #e7a0aa;
     }
 
+    .etiquetas-disciplina {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 5px;
+      flex: 0 0 auto;
+    }
+
+    .indicador-inicio {
+      padding: 3px 8px;
+      border: 1px solid #465568;
+      border-radius: 20px;
+      background: #202d3b;
+      color: #b8c7d6;
+      font-size: 10px;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    .indicador-inicio.iniciada {
+      border-color: #245b50;
+      background: #12372f;
+      color: #83d8bd;
+    }
+
     .indicador-acesso {
       margin-top: auto;
       padding-top: 12px;
@@ -555,6 +581,7 @@
         };
 
         let conteudoFeito = 0;
+        let assuntosIniciados = 0;
         let questoesAplicaveis = 0;
         let questoesFeitas = 0;
         let revisoesAplicaveis = 0;
@@ -570,6 +597,13 @@
           }
 
           if (registro.conteudo_status === 'estudado') conteudoFeito++;
+
+          const estudoIniciado =
+            ['em_andamento', 'concluido'].includes(registro.situacao_geral) ||
+            ['em_andamento', 'estudado'].includes(registro.conteudo_status) ||
+            ['em_andamento', 'concluido'].includes(registro.questoes_status) ||
+            ['em_andamento', 'concluido'].includes(registro.revisao_status);
+          if (estudoIniciado) assuntosIniciados++;
 
           if (registro.questoes_status !== 'nao_se_aplica') {
             questoesAplicaveis++;
@@ -589,6 +623,7 @@
         return {
           total: assuntos.length,
           situacoes,
+          iniciados: assuntosIniciados,
           conteudo: percentual(conteudoFeito, assuntos.length),
           questoes: percentual(questoesFeitas, questoesAplicaveis),
           revisoes: percentual(revisoesFeitas, revisoesAplicaveis)
@@ -626,19 +661,29 @@
           inativa: 'Inativa',
           pendente: 'Pendente'
         };
+        const etiquetas = criarElemento('div', 'etiquetas-disciplina');
         const etiqueta = criarElemento(
           'span',
           `situacao-disciplina ${['ativa', 'inativa'].includes(status) ? status : ''}`.trim(),
           rotulosStatus[status] || status
         );
-        topo.appendChild(etiqueta);
+        etiquetas.appendChild(etiqueta);
+
+        const progressoDisciplina = calcularProgressoDisciplina(disciplina.id);
+        const inicio = progressoDisciplina.iniciados > 0;
+        etiquetas.appendChild(criarElemento(
+          'span',
+          `indicador-inicio ${inicio ? 'iniciada' : ''}`.trim(),
+          inicio ? 'Estudos iniciados' : 'Não iniciada'
+        ));
+        topo.appendChild(etiquetas);
         link.appendChild(topo);
 
         if (disciplina.codigo) {
           link.appendChild(criarElemento('span', 'codigo-disciplina', disciplina.codigo));
         }
 
-        const progressoDisciplina = calcularProgressoDisciplina(disciplina.id);
+
         const painelProgresso = criarElemento('div', 'painel-progresso-disciplina');
         painelProgresso.appendChild(criarElemento(
           'div',
