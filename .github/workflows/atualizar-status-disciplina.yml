@@ -39,7 +39,7 @@ jobs:
                 throw new Error('O campo "' + titulo + '" deve aparecer exatamente uma vez.');
               }
               const restante = body.split(marcador)[1];
-              const valor = restante.replace(/^\\r?\\n+/, '').split(/\\r?\\n### /, 1)[0].trim();
+              const valor = restante.replace(/^\r?\n+/, '').split(/\r?\n### /, 1)[0].trim();
               if (!valor) throw new Error('Informe um valor para "' + titulo + '".');
               return valor;
             }
