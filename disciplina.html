@@ -1036,7 +1036,7 @@
         }
 
         try {
-          [estrutura, conteudos, documentos] = await Promise.all([
+          [estrutura, conteudos, documentos, progresso] = await Promise.all([
             carregarJSON('dados/estrutura.json'),
             carregarJSON('dados/conteudos.json'),
             carregarJSON('documentos.json'),
