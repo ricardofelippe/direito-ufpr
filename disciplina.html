@@ -668,12 +668,6 @@
               <span class="descricao-topico">${escapeHTML(descricao)}</span>
               <span class="indicador-situacao" data-indicador-situacao>${iconeSituacao} ${escapeHTML(rotuloSituacao)}</span>
             </button>
-            <button class="cartao-topico" type="button"
-              data-assunto="${escapeHTML(assunto.id)}" aria-pressed="false">
-              <span class="icone-topico">§</span>
-              <span class="nome-topico">${escapeHTML(titulo)}</span>
-              <span class="descricao-topico">${escapeHTML(descricao)}</span>
-            </button>
             <div class="controles-progresso" aria-label="Progresso do assunto">
               ${campos}
               <button class="botao-salvar-progresso" type="button" data-salvar-progresso="${escapeHTML(assunto.id)}">
