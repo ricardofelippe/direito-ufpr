@@ -211,6 +211,50 @@
       font-size: 11px;
     }
 
+    .painel-progresso-disciplina {
+      display: grid;
+      gap: 9px;
+      margin-top: 13px;
+      padding-top: 11px;
+      border-top: 1px solid var(--borda);
+    }
+
+    .distribuicao-situacao {
+      color: var(--texto-secundario);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .linha-percentual {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 5px 10px;
+      align-items: center;
+      color: var(--texto-secundario);
+      font-size: 10px;
+    }
+
+    .linha-percentual strong {
+      color: var(--texto);
+      font-size: 10px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .barra-percentual {
+      grid-column: 1 / -1;
+      height: 5px;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #243445;
+    }
+
+    .barra-percentual span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--azul);
+    }
+
     .cartao-topico-previsto {
       min-height: 132px;
       padding: 17px 18px;
@@ -465,6 +509,7 @@
 
       const URL_ESTRUTURA = './dados/estrutura.json';
       const elementoCurriculo = document.getElementById('curriculo');
+      let registrosProgresso = [];
 
       const categorias = {
         obrigatoria: 'Disciplinas obrigatórias',
@@ -495,6 +540,77 @@
         });
       }
 
+      function calcularProgressoDisciplina(disciplinaId) {
+        const assuntos = (estruturaAtual.assuntos || []).filter(
+          assunto => assunto.disciplina_id === disciplinaId
+        );
+        const porAssunto = new Map(
+          registrosProgresso.map(registro => [registro.assunto_id, registro])
+        );
+        const situacoes = {
+          nao_iniciado: 0,
+          em_andamento: 0,
+          concluido: 0,
+          pendente: 0
+        };
+
+        let conteudoFeito = 0;
+        let questoesAplicaveis = 0;
+        let questoesFeitas = 0;
+        let revisoesAplicaveis = 0;
+        let revisoesFeitas = 0;
+
+        assuntos.forEach(assunto => {
+          const registro = porAssunto.get(assunto.id) || {};
+          const situacao = registro.situacao_geral || 'nao_iniciado';
+          if (Object.prototype.hasOwnProperty.call(situacoes, situacao)) {
+            situacoes[situacao]++;
+          } else {
+            situacoes.nao_iniciado++;
+          }
+
+          if (registro.conteudo_status === 'estudado') conteudoFeito++;
+
+          if (registro.questoes_status !== 'nao_se_aplica') {
+            questoesAplicaveis++;
+            if (registro.questoes_status === 'concluido') questoesFeitas++;
+          }
+
+          if (registro.revisao_status !== 'nao_se_aplica') {
+            revisoesAplicaveis++;
+            if (registro.revisao_status === 'concluido') revisoesFeitas++;
+          }
+        });
+
+        const percentual = (feito, total) => total
+          ? Math.round((feito / total) * 100)
+          : null;
+
+        return {
+          total: assuntos.length,
+          situacoes,
+          conteudo: percentual(conteudoFeito, assuntos.length),
+          questoes: percentual(questoesFeitas, questoesAplicaveis),
+          revisoes: percentual(revisoesFeitas, revisoesAplicaveis)
+        };
+      }
+
+      function adicionarIndicadorPercentual(container, rotulo, valor) {
+        const linha = criarElemento('div', 'linha-percentual');
+        linha.appendChild(criarElemento('span', '', rotulo));
+        linha.appendChild(criarElemento('strong', '', valor === null ? 'N/A' : `${valor}%`));
+
+        const barra = criarElemento('div', 'barra-percentual');
+        barra.setAttribute('aria-hidden', 'true');
+        const preenchimento = criarElemento('span');
+        preenchimento.style.width = `${valor === null ? 0 : valor}%`;
+        barra.appendChild(preenchimento);
+        linha.appendChild(barra);
+        container.appendChild(linha);
+      }
+
+      let estruturaAtual = null;
+
       function criarCartao(disciplina) {
         const link = criarElemento('a', 'cartao-disciplina');
         link.href = `disciplina.html?id=${encodeURIComponent(disciplina.id)}`;
@@ -521,6 +637,18 @@
         if (disciplina.codigo) {
           link.appendChild(criarElemento('span', 'codigo-disciplina', disciplina.codigo));
         }
+
+        const progressoDisciplina = calcularProgressoDisciplina(disciplina.id);
+        const painelProgresso = criarElemento('div', 'painel-progresso-disciplina');
+        painelProgresso.appendChild(criarElemento(
+          'div',
+          'distribuicao-situacao',
+          `Assuntos: ${progressoDisciplina.total} · Não iniciados: ${progressoDisciplina.situacoes.nao_iniciado} · Em andamento: ${progressoDisciplina.situacoes.em_andamento} · Concluídos: ${progressoDisciplina.situacoes.concluido} · Pendentes: ${progressoDisciplina.situacoes.pendente}`
+        ));
+        adicionarIndicadorPercentual(painelProgresso, 'Conteúdo estudado', progressoDisciplina.conteudo);
+        adicionarIndicadorPercentual(painelProgresso, 'Questões praticadas', progressoDisciplina.questoes);
+        adicionarIndicadorPercentual(painelProgresso, 'Revisões realizadas', progressoDisciplina.revisoes);
+        link.appendChild(painelProgresso);
 
         link.appendChild(criarElemento('span', 'indicador-acesso', 'Acessar disciplina →'));
         return link;
@@ -561,6 +689,7 @@
       let anoAtual = 0;
 
       function renderizar(estrutura) {
+        estruturaAtual = estrutura;
         if (!estrutura || !Array.isArray(estrutura.disciplinas)) {
           throw new Error('O arquivo não contém uma lista válida de disciplinas.');
         }
@@ -767,6 +896,13 @@
             throw new Error(`Não foi possível carregar a estrutura (HTTP ${resposta.status}).`);
           }
           const estrutura = await resposta.json();
+          const respostaProgresso = await fetch('./dados/progresso.json', { cache: 'no-cache' });
+          if (respostaProgresso.ok) {
+            const dadosProgresso = await respostaProgresso.json();
+            registrosProgresso = Array.isArray(dadosProgresso.progresso) ? dadosProgresso.progresso : [];
+          } else {
+            registrosProgresso = [];
+          }
           configurarBusca(estrutura);
           renderizar(estrutura);
         } catch (erro) {
