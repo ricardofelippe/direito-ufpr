@@ -136,7 +136,8 @@ jobs:
               "categoria": categoria,
               "descricao": descricao,
               "disciplina": disciplina,
-              "arquivo": arquivo
+              "arquivo": arquivo,
+              "visivel_biblioteca": True
           }
 
           documentos.append(novo)
