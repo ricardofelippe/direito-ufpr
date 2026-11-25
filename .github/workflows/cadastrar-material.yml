@@ -26,6 +26,8 @@ on:
           - Resumo
           - Exercício
           - Mapa conceitual
+          - Bibliografia básica
+          - Bibliografia complementar
 
       descricao:
         description: "Descrição do material"
@@ -70,7 +72,9 @@ jobs:
               "Texto de estudo",
               "Resumo",
               "Exercício",
-              "Mapa conceitual"
+              "Mapa conceitual",
+              "Bibliografia básica",
+              "Bibliografia complementar"
           ]
 
           titulo = os.environ["TITULO"].strip()
