@@ -157,6 +157,10 @@ jobs:
                   historico[indice].data = dataSessao;
                 } else {
                   historico.splice(indice,1);
+                  // Evita que a data antiga de estudo seja migrada novamente após sua exclusão.
+                  if (tipoHistorico === 'estudos' && registro.data_estudo === dataRegistrada) {
+                    delete registro.data_estudo;
+                  }
                 }
               }
               historico.sort((a,b) => a.data.localeCompare(b.data));
