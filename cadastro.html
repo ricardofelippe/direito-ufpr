@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cadastro de materiais</title>
+  <title>Gerenciar materiais</title>
   <link rel="stylesheet" href="direito.css">
   <style>
     .modos-gerenciamento { display:flex; gap:10px; flex-wrap:wrap; margin:20px 0; }
@@ -511,6 +511,8 @@
         if (encontrado) seletorMaterial.value = encontrado.value;
         if (params.get("operacao")) seletorOperacao.value = params.get("operacao");
         atualizarOpcoesPDF();
+        const arquivoInicial = params.get("arquivo_alvo");
+        if (arquivoInicial) seletorPdfAlvo.value = arquivoInicial;
         if (params.get("modo") === "gerenciar") definirModo("existente");
       } catch (erro) {
         seletorMaterial.replaceChildren(new Option("Lista de materiais indisponível", ""));
