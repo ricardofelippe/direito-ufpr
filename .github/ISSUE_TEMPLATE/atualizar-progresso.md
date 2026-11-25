@@ -16,6 +16,6 @@ assignees: ricardofelippe
 
 ### Revisões realizadas
 
-### Data de estudo
+### Nova sessão de estudo
 
 ### Data de revisão
