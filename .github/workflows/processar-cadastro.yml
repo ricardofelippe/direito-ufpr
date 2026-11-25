@@ -46,6 +46,7 @@ jobs:
           titulo = campo("Título do material")
           disciplina = campo("Disciplina")
           assunto = campo("Assunto vinculado")
+          assunto_id = campo("ID do assunto")
           categoria = campo("Categoria")
           descricao = campo("Descrição")
           arquivo = campo("Caminho do PDF")
@@ -73,14 +74,22 @@ jobs:
               u["id"] for u in estrutura.get("unidades", [])
               if u.get("disciplina_id") == disciplina_registro["id"]
           }
-          assuntos_validos = {
-              a["nome"]: a for a in estrutura.get("assuntos", [])
+          assuntos_validos = [
+              a for a in estrutura.get("assuntos", [])
               if a.get("unidade_id") in unidades_disciplina
               or (a.get("disciplina_id") == disciplina_registro["id"] and not a.get("unidade_id"))
-          }
+          ]
+          assunto_por_id = {a["id"]: a for a in assuntos_validos}
 
-          if assunto and assunto not in assuntos_validos:
-              raise SystemExit("Erro: assunto não pertence à disciplina selecionada.")
+          if assunto_id and assunto_id not in assunto_por_id:
+              raise SystemExit("Erro: ID do assunto não pertence à disciplina selecionada.")
+          if assunto and not assunto_id:
+              correspondencias = [a for a in assuntos_validos if a.get("nome") == assunto]
+              if len(correspondencias) != 1:
+                  raise SystemExit("Erro: informe um ID de assunto válido para evitar vínculo ambíguo.")
+              assunto_id = correspondencias[0]["id"]
+          if assunto_id:
+              assunto = assunto_por_id[assunto_id]["nome"]
 
           if categoria not in categorias_validas:
               raise SystemExit("Erro: categoria inválida.")
@@ -119,7 +128,7 @@ jobs:
               "categoria": categoria,
               "descricao": descricao,
               "disciplina": disciplina,
-              "assunto_id": assuntos_validos[assunto]["id"] if assunto else "",
+              "assunto_id": assunto_id,
               "assunto": assunto,
               "arquivo": arquivo
           }
