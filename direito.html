@@ -211,6 +211,75 @@
       border-top: 1px solid var(--borda);
     }
 
+    .ficha-pedagogica {
+      margin-top: 12px;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      background: rgba(255,255,255,.015);
+      overflow: hidden;
+    }
+
+    .ficha-pedagogica > summary,
+    .ficha-campo > summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .ficha-pedagogica > summary::-webkit-details-marker,
+    .ficha-campo > summary::-webkit-details-marker { display: none; }
+
+    .ficha-pedagogica > summary {
+      padding: 10px 12px;
+      color: var(--azul-claro);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .ficha-pedagogica > summary::after,
+    .ficha-campo > summary::after {
+      content: "+";
+      float: right;
+      color: var(--azul-claro);
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .ficha-pedagogica[open] > summary::after,
+    .ficha-campo[open] > summary::after { content: "−"; }
+
+    .ficha-pedagogica-conteudo {
+      padding: 0 10px 10px;
+      border-top: 1px solid var(--borda);
+    }
+
+    .ficha-campo {
+      border-bottom: 1px solid var(--borda);
+    }
+
+    .ficha-campo:last-of-type { border-bottom: 0; }
+
+    .ficha-campo > summary {
+      padding: 9px 2px;
+      color: var(--texto-secundario);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .ficha-campo > p {
+      margin: 0 2px 11px;
+      color: var(--texto);
+      font-size: 11px;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    .ficha-fonte {
+      display: inline-block;
+      margin-top: 9px;
+      font-size: 10px;
+      color: var(--texto-suave);
+    }
+
     .conteudo-cartao-disciplina .painel-progresso-disciplina {
       margin-top: 12px;
     }
@@ -1059,6 +1128,40 @@
         cartao.appendChild(resumo);
 
         const conteudo = criarElemento('div', 'conteudo-cartao-disciplina');
+
+        const ficha = disciplina.informacoes_pedagogicas;
+        if (ficha && Object.keys(ficha).some(chave => chave !== 'fonte' && chave !== 'fonte_titulo' && chave !== 'fonte_data' && ficha[chave])) {
+          const painelFicha = criarElemento('details', 'ficha-pedagogica');
+          painelFicha.appendChild(criarElemento('summary', '', 'Informações pedagógicas · Ficha UFPR'));
+          const corpoFicha = criarElemento('div', 'ficha-pedagogica-conteudo');
+          const camposFicha = [
+            ['ementa', 'Ementa'],
+            ['programa', 'Programa da disciplina'],
+            ['objetivo_geral', 'Objetivo geral'],
+            ['objetivos_especificos', 'Objetivos específicos'],
+            ['procedimentos_didaticos', 'Procedimentos didáticos'],
+            ['formas_avaliacao', 'Formas de avaliação'],
+            ['bibliografia_basica', 'Bibliografia básica'],
+            ['bibliografia_complementar', 'Bibliografia complementar']
+          ];
+          camposFicha.forEach(([chave, rotulo]) => {
+            if (!ficha[chave]) return;
+            const campo = criarElemento('details', 'ficha-campo');
+            campo.appendChild(criarElemento('summary', '', rotulo));
+            campo.appendChild(criarElemento('p', '', ficha[chave]));
+            corpoFicha.appendChild(campo);
+          });
+          if (ficha.fonte) {
+            const fonte = criarElemento('a', 'ficha-fonte', 'Consultar ficha original da UFPR ↗');
+            fonte.href = ficha.fonte;
+            fonte.target = '_blank';
+            fonte.rel = 'noopener noreferrer';
+            corpoFicha.appendChild(fonte);
+          }
+          painelFicha.appendChild(corpoFicha);
+          conteudo.appendChild(painelFicha);
+        }
+
         const painelProgresso = criarElemento('div', 'painel-progresso-disciplina');
         painelProgresso.appendChild(criarElemento(
           'div',
