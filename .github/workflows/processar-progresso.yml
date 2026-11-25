@@ -60,7 +60,10 @@ jobs:
                 conteudo_status: obterCampo('Conteúdo estudado'),
                 questoes_status: obterCampo('Questões praticadas'),
                 revisao_status: obterCampo('Revisões realizadas'),
-                acao_historico: obterCampo('Ação no histórico') || 'adicionar',\n                data_registrada: obterCampo('Data registrada') || '',\n                nova_sessao_estudo: obterCampo('Nova sessão de estudo') || '',
+                acao_historico: obterCampo('Ação no histórico') || 'adicionar',
+                tipo_historico: obterCampo('Tipo de histórico') || 'estudos',
+                data_registrada: obterCampo('Data registrada') || '',
+                nova_sessao_estudo: obterCampo('Nova sessão de estudo') || '',
                 nova_sessao_revisao: obterCampo('Nova sessão de revisão') || '',
                 data_revisao: obterCampo('Data de revisão') || ''
               };
