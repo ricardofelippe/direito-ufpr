@@ -1,0 +1,161 @@
+name: Cadastrar oferta de disciplina
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  cadastrar:
+    if: startsWith(github.event.issue.title, '[Nova oferta]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Processar oferta e salvar Plano de Ensino
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const { execFileSync } = require('child_process');
+
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+
+            function campo(nome) {
+              const escaped = nome.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const regex = new RegExp(
+                `### ${escaped}\\s*\\r?\\n([\\s\\S]*?)(?=\\r?\\n### |$)`
+              );
+              const match = body.match(regex);
+              return match ? match[1].trim() : '';
+            }
+
+            function slug(value) {
+              return value.normalize('NFD')
+                .replace(/[\\u0300-\\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '');
+            }
+
+            try {
+              const disciplina = campo('Disciplina');
+              const periodo = campo('Período letivo');
+              const tipo = campo('Tipo de registro');
+              const campoPlano = campo('Plano de Ensino (PDF)');
+
+              if (!disciplina || !periodo || !tipo || !campoPlano) {
+                throw new Error('Preencha os campos e anexe o Plano de Ensino em PDF.');
+              }
+
+              if (!/^\\d{4}\\/[12]$/.test(periodo)) {
+                throw new Error('Período inválido. Use o formato AAAA/S, por exemplo 2028/1.');
+              }
+
+              if (!['Simulação', 'Plano oficial'].includes(tipo)) {
+                throw new Error('Tipo de registro inválido.');
+              }
+
+              const estrutura = JSON.parse(fs.readFileSync('dados/estrutura.json', 'utf8'));
+              const disciplinaEncontrada = estrutura.disciplinas.find(
+                d => d.nome.toLowerCase() === disciplina.toLowerCase()
+              );
+
+              if (!disciplinaEncontrada) {
+                throw new Error('Disciplina não encontrada em dados/estrutura.json.');
+              }
+
+              const anexos = [
+                ...campoPlano.matchAll(
+                  /\\[([^\\]]+\\.pdf)\\]\\((https:\\/\\/github\\.com\\/user-attachments\\/files\\/[^)\\s]+)\\)/gi
+                )
+              ];
+
+              if (anexos.length !== 1) {
+                throw new Error('Anexe exatamente um arquivo PDF.');
+              }
+
+              const ofertasPath = 'dados/ofertas.json';
+              const ofertasData = JSON.parse(fs.readFileSync(ofertasPath, 'utf8'));
+              if (!Array.isArray(ofertasData.ofertas)) {
+                throw new Error('Formato inválido em dados/ofertas.json.');
+              }
+
+              const id = `${disciplinaEncontrada.id}-${periodo.replace('/', '-')}`;
+              if (ofertasData.ofertas.some(o => o.id === id)) {
+                throw new Error('Esta oferta já está cadastrada. Não foi feita nenhuma alteração.');
+              }
+
+              const nomeOriginal = anexos[0][1].trim();
+              const url = new URL(anexos[0][2]);
+              if (url.hostname !== 'github.com' ||
+                  !url.pathname.startsWith('/user-attachments/files/')) {
+                throw new Error('Endereço do anexo não permitido.');
+              }
+
+              const response = await fetch(url.toString(), { redirect: 'follow' });
+              if (!response.ok) throw new Error('Não foi possível baixar o PDF anexado.');
+
+              const buffer = Buffer.from(await response.arrayBuffer());
+              if (buffer.length > 25 * 1024 * 1024) throw new Error('O PDF ultrapassa 25 MB.');
+              if (buffer.subarray(0, 5).toString() !== '%PDF-') {
+                throw new Error('O arquivo anexado não é um PDF válido.');
+              }
+
+              const pasta = 'documentos/planos-de-ensino';
+              fs.mkdirSync(pasta, { recursive: true });
+              const arquivo = `${pasta}/${id}.pdf`;
+              if (fs.existsSync(arquivo)) throw new Error('Já existe um arquivo para esta oferta.');
+
+              fs.writeFileSync(arquivo, buffer);
+
+              ofertasData.ofertas.push({
+                id,
+                disciplina_id: disciplinaEncontrada.id,
+                disciplina: disciplinaEncontrada.nome,
+                periodo,
+                situacao: 'em_andamento',
+                tipo_registro: tipo === 'Simulação' ? 'simulacao' : 'oficial',
+                plano_ensino: {
+                  arquivo,
+                  nome_original: nomeOriginal,
+                  versao: 1
+                }
+              });
+
+              fs.writeFileSync(ofertasPath, JSON.stringify(ofertasData, null, 2) + '\\n');
+
+              execFileSync('git', ['config', 'user.name', 'github-actions[bot]']);
+              execFileSync('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com']);
+              execFileSync('git', ['add', ofertasPath, arquivo]);
+              execFileSync('git', ['commit', '-m', `Cadastrar oferta: ${disciplinaEncontrada.nome} ${periodo}`]);
+              execFileSync('git', ['push']);
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `Oferta cadastrada: **${disciplinaEncontrada.nome} — ${periodo}**.\\n\\nPlano de Ensino salvo em \`${arquivo}\`. Tipo: **${tipo}**.`
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+            } catch (error) {
+              core.setFailed(error.message);
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `Não foi possível cadastrar a oferta: ${error.message}\\n\\nA Issue permanece aberta para correção.`
+              });
+            }
