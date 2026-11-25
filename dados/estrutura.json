@@ -146,7 +146,15 @@
       "ano": null,
       "descricao": "",
       "ordem": 7,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2013/11/DV452-DIREITO-ROMANO-1%C2%B0ano-curriculo-novo.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DV452 — Direito Romano",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "1. STATUS FAMILIAE: o status familiae e a família romana; pessoas sui iuris e alieni iuris; parentesco: agnatos e cognatos.\n2. O CASAMENTO NO DIREITO ROMANO. COMPARAÇÕES COM O DIREITO ATUAL: histórico, conceito, natureza jurídica, espécies, casamento cum manu e sine manu, esponsais, requisitos, connubio, impedimentos matrimoniais, filiação e relações entre pais e filhos.\n3. A DISSOLUÇÃO DO CASAMENTO: repúdio e divórcio.\n4. UNIÕES ESTÁVEIS: DIREITO ROMANO E DIREITO ATUAL: concubinato no Direito Romano, evolução e art. 226 e parágrafos da Constituição Federal.",
+        "procedimentos_didaticos": "Aulas expositivas; leitura de textos; discussões em pequenos grupos; seminários.",
+        "bibliografia_complementar": "Documento oficial lista bibliografia histórica e referências nacionais e estrangeiras. Consulte o PDF original para a relação completa."
+      }
     },
     {
       "id": "direito-civil-a",
@@ -519,7 +527,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 1,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DB201-INSTITUI%C3%87%C3%95ES-DE-DIREITO-P%C3%9ABLICO-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DB201 — Instituições de Direito Público",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "observacao": "O documento oficial está disponível como PDF digitalizado, sem camada de texto legível para transcrição. O conteúdo não foi preenchido para evitar reconstrução ou inferência."
+      }
     },
     {
       "id": "outro-dv042-direito-comercial",
@@ -529,7 +543,17 @@
       "ano": null,
       "descricao": "",
       "ordem": 2,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DV042-DIREITO-COMERCIAL-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DV042 — Direito Comercial",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "objetivo_geral": "Levar ao aluno a desenvolver mecanismos de análise, interpretação e apuração das normas relativas ao direito societário, cambiário e falimentar.",
+        "ementa": "História e Direito Comercial. Introdução ao Direito Comercial. Comerciante Individual. Direito Societário. Sociedades em Espécie. Desaparecimento das Sociedades. Mercado. Direito do Consumidor. Função Econômica dos Títulos de Crédito.",
+        "programa": "INTRODUÇÃO AO DIREITO COMERCIAL: noção conceitual e objeto; comércio e características; ato de comércio; comerciante individual, capacidade, matrícula, direitos e deveres.\nDIREITO SOCIETÁRIO: noção; personalidade jurídica e desconsideração; ato constitutivo; espécies societárias.\nSOCIEDADE POR QUOTAS DE RESPONSABILIDADE LIMITADA: noção, legislação aplicável, limitação de responsabilidade, deliberações, administração, contabilidade e registro.\nSOCIEDADE ANÔNIMA: noção, legislação aplicável, limitação de responsabilidade, deliberações, administração, contabilidade e registro.\nDESAPARECIMENTO DA SOCIEDADE COMERCIAL: liquidação, extinção, falência e concordata.\nMERCADO: origem, categorias, monopólio, bancos, câmbio e títulos de crédito.\nDIREITO DO CONSUMIDOR: noção, limites contratuais, publicidade e sanções.",
+        "bibliografia_basica": "ALMEIDA, A. P. Manual das Sociedades Comerciais. São Paulo: Saraiva.\nCOELHO, F. U. Manual de Direito Comercial. São Paulo: Saraiva.\nMARTINS, F. Curso de Direito Comercial. Rio de Janeiro: Forense.\nMARTINS, F. Títulos de Crédito. Vol. I e II. Rio de Janeiro: Forense.",
+        "bibliografia_complementar": "REQUIÃO, R. Curso de Direito Comercial. Vol. I e II – Código Comercial. São Paulo: Saraiva."
+      }
     },
     {
       "id": "outro-dv414-legislacao-social-b",
@@ -539,7 +563,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 3,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DV414-LEGISLA%C3%87%C3%83O-SOCIAL-B-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DV414 — Legislação Social B",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "UNIDADE I - DENOMINAÇÃO, FINALIDADES, HISTÓRICO E FUNÇÃO SOCIAL: legislação social, conceito, divisão, finalidades, natureza, política social, trabalho, história, questão social, relação com outras ciências, legislação social no Brasil, função social do Estado, Organização Internacional do Trabalho e proteção do trabalho.\nUNIDADE II - CONSOLIDAÇÃO DAS LEIS TRABALHISTAS, SUJEITOS, PROTEÇÃO, HIGIENE E LIBERDADE DE TRABALHO: CLT, sujeitos do Direito do Trabalho, empresa, liberdade profissional, racionalização, equilíbrio social, Estado de Direito Econômico e do Bem-Estar Social, higiene, segurança e nacionalização do trabalho.\nUNIDADE III - CONTRATO DE TRABALHO: teorias, contrato individual, alteração, interrupção, suspensão, cessação, rescisão, repouso, transferência, obrigações, aviso prévio, estabilidade, fraude, nulidades, carteira profissional, relação de emprego e salário.\nUNIDADE IV - INSTITUIÇÕES E PROCESSO TRABALHISTA: sindicatos, associações profissionais, dissídios individuais e coletivos, greve, convenção coletiva, infração trabalhista e Justiça do Trabalho."
+      }
     },
     {
       "id": "outro-db412-legislacao-tributaria-b",
@@ -549,7 +579,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 4,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DB412-LEGISLA%C3%87%C3%83O-TRIBUT%C3%81RIA-B-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DB412 — Legislação Tributária B",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "A. NOÇÕES GERAIS: direito privado, direito público, direito financeiro; conceito e classificação do direito tributário; direito tributário e direito fiscal; autonomia; fontes; limitações ao poder de tributar; aplicação, interpretação e integração da legislação tributária.\nB. RECEITA PÚBLICA: classificação da receita pública; receitas derivadas; tributos; impostos, taxas, contribuições de melhoria, contribuições parafiscais e empréstimos compulsórios.\nC. OBRIGAÇÃO TRIBUTÁRIA: conceito, elementos, classificação, fato gerador, sujeitos ativo e passivo, contribuinte, responsável, substituto tributário e solidariedade.\nD. CRÉDITO TRIBUTÁRIO: lançamento, natureza, efeitos, modalidades, suspensão, extinção e exclusão.\nE. GARANTIAS E PRIVILÉGIOS DO CRÉDITO TRIBUTÁRIO: garantias, preferências e administração tributária.\nF. SISTEMA TRIBUTÁRIO NACIONAL: reforma tributária, Constituição Federal, leis complementares, resoluções do Senado, leis ordinárias e Código Tributário Nacional.\nG. DISCRIMINAÇÃO DE RENDAS: competência tributária e distribuição das receitas.\nH. TRIBUTOS FEDERAIS.\nI. TRIBUTOS ESTADUAIS.\nJ. TRIBUTOS MUNICIPAIS."
+      }
     },
     {
       "id": "outro-dv411-legislacao-social-a",
@@ -559,7 +595,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 5,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DV411-LEGISLA%C3%87%C3%83O-SOCIAL-A-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DV411 — Legislação Social A",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "1. Denominação, campo de atuação, conceito e características da disciplina.\n2. Divisão do curso e relações com outros ramos do Direito e do conhecimento.\n3. Formação histórica e evolução no Brasil.\n4. Função e natureza do Direito do Trabalho.\n5. Normas jurídicas de Direito interno: modalidades, hierarquia, interpretação, integração e eficácia.\n6. Fontes e princípios do Direito do Trabalho; âmbito de aplicação da CLT.\n7. Direito Internacional do Trabalho e Organização Internacional do Trabalho.\n8. Direito individual do trabalho, contrato e relação de trabalho; empregado e tipos especiais; admissão; poder de direção; sucessão e alterações na estrutura da empresa.\n9. Alterações, suspensão, interrupção e extinção do contrato; dispensa, aviso prévio e estabilidade.\n10. Jornada, horas extraordinárias, repouso, férias, salário, FGTS e PIS.\n11. Trabalho de menores, mulheres, domésticos, bancários e rurais; segurança e higiene.\n12. Direito coletivo, sindicatos, conflitos coletivos, convenções, greve e Justiça do Trabalho.\n13. Direito de Previdência Social."
+      }
     },
     {
       "id": "outro-db415-legislacao-tributaria",
@@ -569,7 +611,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 6,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DB415-LEGISLA%C3%87%C3%83O-TRIBUT%C3%81RIA-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DB415 — Legislação Tributária",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "A. NOÇÕES GERAIS: direito privado, direito público, direito financeiro; conceito e classificação do direito tributário; direito tributário e direito fiscal; autonomia; fontes; limitações ao poder de tributar; aplicação, interpretação e integração da legislação tributária.\nB. RECEITA PÚBLICA: classificação da receita pública; receitas derivadas; tributos; impostos, taxas, contribuições de melhoria, contribuições parafiscais e empréstimos compulsórios.\nC. OBRIGAÇÃO TRIBUTÁRIA: conceito, elementos, classificação, fato gerador, sujeitos ativo e passivo, contribuinte, responsável, substituto tributário e solidariedade.\nD. CRÉDITO TRIBUTÁRIO: lançamento, natureza, efeitos, modalidades, suspensão, extinção e exclusão.\nE. GARANTIAS E PRIVILÉGIOS: garantias, preferências e administração tributária.\nF. SISTEMA TRIBUTÁRIO NACIONAL: reforma tributária, Constituição Federal, leis complementares, resoluções do Senado, leis ordinárias e Código Tributário Nacional.\nG. DISCRIMINAÇÃO DE RENDAS: competência tributária e distribuição das receitas.\nH. TRIBUTOS FEDERAIS.\nI. TRIBUTOS ESTADUAIS.\nJ. TRIBUTOS MUNICIPAIS."
+      }
     },
     {
       "id": "outro-dv413-instituicoes-de-direito-privado-a",
@@ -579,7 +627,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 7,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DV413-INSTITUI%C3%87%C3%95ES-DE-DIREITO-PRIVADO-A-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DV413 — Instituições de Direito Privado A",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "UNIDADE I - PESSOAS DE DIREITO: pessoas físicas, capacidade, personalidade, pessoas jurídicas de Direito Privado, sociedades comerciais, companhias, sociedades de economia mista, empresas públicas, sociedades de investimento e operações societárias.\nUNIDADE II - EMPRESA: estabelecimento comercial, empresa, macroempresa e empresa multinacional.\nUNIDADE III - OBJETO DE DIREITO: bens, patrimônio e propriedade imaterial e industrial.\nUNIDADE IV - FATOS E ATOS JURÍDICOS: vínculo jurídico, requisitos de validade, atos nulos e anuláveis, aquisição e perda de direito e prescrição."
+      }
     },
     {
       "id": "outro-db411-legislacao-tributaria-a",
@@ -589,7 +643,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 8,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DB411-LEGISLA%C3%87%C3%83O-TRIBUT%C3%81RIA-A-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DB411 — Legislação Tributária A",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "A. NOÇÕES GERAIS: direito privado, direito público, direito financeiro; conceito e classificação do direito tributário; direito tributário e direito fiscal; autonomia; fontes; limitações ao poder de tributar; aplicação, interpretação e integração da legislação tributária.\nB. RECEITA PÚBLICA: classificação da receita pública; receitas derivadas; tributos; impostos, taxas, contribuições de melhoria, contribuições parafiscais e empréstimos compulsórios.\nC. OBRIGAÇÃO TRIBUTÁRIA: conceito, elementos, classificação, fato gerador, sujeitos ativo e passivo, contribuinte, responsável, substituto tributário e solidariedade.\nD. CRÉDITO TRIBUTÁRIO: lançamento, natureza, efeitos, modalidades, suspensão, extinção e exclusão.\nE. GARANTIAS E PRIVILÉGIOS: garantias, preferências e administração tributária.\nF. SISTEMA TRIBUTÁRIO NACIONAL: reforma tributária, Constituição Federal, leis complementares, resoluções do Senado, leis ordinárias e Código Tributário Nacional.\nG. DISCRIMINAÇÃO DE RENDAS: competência tributária e distribuição das receitas.\nH. TRIBUTOS FEDERAIS.\nI. TRIBUTOS ESTADUAIS.\nJ. TRIBUTOS MUNICIPAIS."
+      }
     },
     {
       "id": "outro-dv201-direito-privado-a",
@@ -599,7 +659,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 9,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DV201-DIREITO-PRIVADO-A-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DV201 — Direito Privado A",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "1. PESSOAS DE DIREITO: pessoas físicas, capacidade, personalidade; pessoas jurídicas de Direito Privado; sociedades comerciais; companhias; sociedades de economia mista e empresas públicas; sociedades de investimento, crédito, financiamento, controle e transformação de sociedades.\n2. EMPRESA: estabelecimento comercial, empresa, macroempresa e empresa multinacional.\n3. OBJETO DE DIREITO: bens, patrimônio e propriedade imaterial e industrial.\n4. FATOS E ATOS JURÍDICOS: vínculo jurídico, requisitos de validade, atos nulos e anuláveis, aquisição e perda de direito e prescrição.\n5. DIREITOS REAIS: propriedade, posse, aquisição da propriedade e direitos reais de garantia."
+      }
     },
     {
       "id": "outro-dv418-direito-da-navegacao",
@@ -609,7 +675,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 10,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DV418-DIREITO-DA-NAVEGA%C3%87%C3%83O-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DV418 — Direito da Navegação",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "1. A navegação e o comércio marítimo: evolução histórica.\n2. Direito da Navegação e Direito Marítimo: conceitos, características e natureza jurídica.\n3. Normas de Direito da Navegação: legislação nacional e organismos internacionais.\n4. Navio e embarcação: conceito, características, natureza jurídica, nome, nacionalidade, classificação, armação de navio e parceria marítima.\n5. Tripulação do navio: capitão, equipagem, tripulação e contrato de ajuste.\n6. Contratos de utilização do navio, contratos marítimos, fretamento, obrigações do fretador e afretador e serviços auxiliares da navegação.\n7. Acidentes da navegação: avarias, arribada, naufrágio, encalhe e abalroação.\n8. Navegação aérea, Direito Aéreo e Direito Aeronáutico: evolução, conceitos, características, natureza jurídica e normas."
+      }
     },
     {
       "id": "outro-dv412-legislacao-comercial",
@@ -619,7 +691,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 11,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DV412-LEGISLA%C3%87%C3%83O-COMERCIAL-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DV412 — Legislação Comercial",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "DIREITO COMERCIAL: conceito, posição, fontes e divisão.\nDO COMÉRCIO EM GERAL: conceito, características e espécies.\nDOS ATOS DE COMÉRCIO: noção e classificação.\nDO COMERCIANTE: definição, capacidade, matrícula, direitos e deveres.\nSOCIEDADES COMERCIAIS: conceito, personalidade jurídica, razão social, classificação e peculiaridades.\nCONTRATOS COMERCIAIS: definição, espécies, capacidade, objeto, prova e formas; compra e venda, venda a contento, preempção, pacto comissório, contrato de trabalho, reserva de domínio, mandato e penhor mercantil.\nDISSOLUÇÃO E LIQUIDAÇÃO DAS SOCIEDADES COMERCIAIS.\nCÂMBIO: conceito, operações, instrumentos, taxas e balanço de pagamentos.\nBANCOS: conceitos, operações, espécies e classificação.\nMERCADO: origem, conceito, categorias, atomicidade, fluidez e monopólio.\nTÍTULOS DE CRÉDITO."
+      }
     },
     {
       "id": "outro-db410-instituicoes-de-direito-publico",
@@ -629,7 +707,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 12,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DB410-INSTITUI%C3%87%C3%95ES-DE-DIREITO-P%C3%9ABLICO-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DB410 — Instituições de Direito Público",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "UNIDADE I - NOÇÕES GERAIS: Direito, significado, nascimento e evolução; divisão geral do Direito; lei, espécies, características, tipos, hierarquia, vigência e revogação.\nUNIDADE II - O ESTADO: noção, fins e funções; funções típicas e atípicas do Poder Público; funções Executiva, Legislativa e Judiciária; formas de Estado, formas e sistemas de Governo.\nUNIDADE III - A CONSTITUIÇÃO: conceito, matérias, tipos, processos de revisão, organização nacional, direitos individuais, sociais e mistos e tutela dos interesses difusos.\nUNIDADE IV - O SISTEMA TRIBUTÁRIO: princípios, tipos de tributos, competências, fato gerador, base imponível, alíquota, imunidade e isenções.\nUNIDADE V - A ORDEM ECONÔMICA: princípios, fundamentos, intervenção no domínio econômico e planejamento.\nUNIDADE VI - FUNDAMENTOS DE DIREITO ADMINISTRATIVO: Administração Pública, organização, atos administrativos, serviços públicos, sociedades de economia mista, concessionárias, permissionárias e contratos com o Poder Público."
+      }
     },
     {
       "id": "outro-dv044-direito-empresarial",
@@ -639,7 +723,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 13,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DV044-DIREITO-EMPRESARIAL-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DV044 — Direito Empresarial",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "1. O DIREITO COMERCIAL COMO O DIREITO DA EMPRESA: apresentação, âmbito atual, formação histórica, teoria dos atos de comércio e teoria da empresa.\n2. O REGIME JURÍDICO COMERCIAL E A PROTEÇÃO À EMPRESA: evolução no Brasil, fontes, princípios e características do Direito Comercial Brasileiro e a empresa no Código Civil.\n3. O REGISTRO PÚBLICO DAS EMPRESAS MERCANTIS: registro, órgãos, atos, procedimentos, regimes e consequências da falta de registro.\n4. MICROEMPRESA, EMPRESA DE PEQUENO PORTE E SIMPLES.\n5. ESTABELECIMENTO COMERCIAL: conceito, natureza, elementos, proteção ao ponto, alienação e franquia.\n6. PROPRIEDADE INDUSTRIAL: direito industrial, direito autoral, patentes, registros, INPI, exploração, nome empresarial e título de estabelecimento.\n7. DEFESA DO CONSUMIDOR.\n8. ANTITRUSTE NO BRASIL.\n9. DIREITO SOCIETÁRIO.\n10. TÍTULOS DE CRÉDITO.\n11. FALÊNCIAS.\n12. CONCORDATAS."
+      }
     },
     {
       "id": "outro-dv417-legislacao-aduaneira-comparada",
@@ -649,7 +739,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 14,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DV417-LEGISLA%C3%87%C3%83O-ADUANEIRA-COMPARADA-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DV417 — Legislação Aduaneira Comparada",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "1. Introdução à Legislação Aduaneira Comparada: conceito, razões de seu estudo, competência da União, aduana, alfândega, tributos aduaneiros, Direito Aduaneiro, fontes legais e normas internacionais.\n2. Política de Comércio Exterior: política brasileira e órgãos envolvidos na formulação e execução.\n3. Sistemática de classificação de mercadorias.\n4. Normas fiscais aplicáveis à exportação.\n5. Normas fiscais aplicáveis à importação.\n6. Regimes aduaneiros especiais e atípicos.\n7. Despacho aduaneiro.\n8. Infrações e penalidades.\n9. Processo administrativo-fiscal e judicial.\n10. Normas internacionais."
+      }
     },
     {
       "id": "outro-db414-instituicoes-de-direito-publico-a",
@@ -659,7 +755,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 15,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DB414-INSTITUI%C3%87%C3%95ES-DE-DIREITO-P%C3%9ABLICO-A-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DB414 — Instituições de Direito Público A",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "GENERALIDADES: direito, significado, conceitos e divisão; direito e moral; sujeito de direito; capacidade civil, penal e política; lei, formação, irretroatividade, extraterritorialidade, hierarquia e inconstitucionalidade.\nELEMENTOS DE TEORIA GERAL DO ESTADO: Estado, origens, teorias, elementos, formas de Estado, soberania, estrutura, legitimidade do poder, regimes, formas e sistemas de Governo.\nELEMENTOS DE TEORIA GERAL DO DIREITO CONSTITUCIONAL: Constituição, conceito, forma, origem, estabilidade, Poder Constituinte e controle de constitucionalidade.\nDIREITO CONSTITUCIONAL BRASILEIRO: Constituições brasileiras e Constituição de 1988.\nPRINCÍPIOS FUNDAMENTAIS.\nDIREITOS E GARANTIAS FUNDAMENTAIS: direitos individuais, coletivos, sociais, nacionalidade e direitos políticos.\nORGANIZAÇÃO DO ESTADO: organização político-administrativa, União, Estados, Municípios, Distrito Federal, Territórios, repartição de competências e Administração Pública.\nORGANIZAÇÃO DOS PODERES: Poder Legislativo, Executivo e Judiciário."
+      }
     },
     {
       "id": "outro-db202-legislacao-tributaria",
@@ -669,7 +771,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 16,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DB202-LEGISLA%C3%87%C3%83O-TRIBUT%C3%81RIA-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DB202 — Legislação Tributária",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "A. NOÇÕES GERAIS: direito privado, direito público, direito financeiro; conceito e classificação do direito tributário; direito tributário e direito fiscal; autonomia; fontes; limitações ao poder de tributar; aplicação, interpretação e integração da legislação tributária.\nB. RECEITA PÚBLICA: classificação da receita pública; receitas derivadas; tributos; impostos, taxas, contribuições de melhoria, contribuições parafiscais e empréstimos compulsórios.\nC. OBRIGAÇÃO TRIBUTÁRIA: conceito, elementos, classificação, fato gerador, sujeito ativo, sujeito passivo, contribuinte, responsável, substituto tributário e solidariedade.\nD. CRÉDITO TRIBUTÁRIO: constituição por lançamento, natureza, efeitos, modalidades, suspensão, extinção e exclusão.\nE. GARANTIAS E PRIVILÉGIOS DO CRÉDITO TRIBUTÁRIO: garantias, preferências e administração tributária.\nF. SISTEMA TRIBUTÁRIO NACIONAL: reforma tributária, Constituição Federal, leis complementares, resoluções do Senado, leis ordinárias e Código Tributário Nacional.\nG. DISCRIMINAÇÃO DE RENDAS: competência tributária e distribuição das receitas.\nH. TRIBUTOS FEDERAIS.\nI. TRIBUTOS ESTADUAIS.\nJ. TRIBUTOS MUNICIPAIS."
+      }
     },
     {
       "id": "outro-dv043-direito-do-trabalho",
@@ -679,7 +787,16 @@
       "ano": null,
       "descricao": "",
       "ordem": 17,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DV043-DIREITO-DO-TRABALHO-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DV043 — Direito do Trabalho",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "objetivo_geral": "Proporcionar ao aluno uma visão global do direito e legislação social, com vista à sua formação jurídico-social e à sua participação na sociedade e nas atividades empresariais.",
+        "ementa": "História e Direito do Trabalho. Introdução ao Direito do Trabalho. Princípios Relativos ao Capital e Trabalho. Contrato Individual de Trabalho. Sujeitos do Contrato: empregado. Sujeitos do Contrato: empregador. Duração do Trabalho. Remuneração. Alteração, Suspensão e Interrupção do Contrato de Trabalho. Garantias de Emprego. Extinção do Contrato de Trabalho. Noções de Processo do Trabalho. Noções de Infortunística e Segurança do Trabalho.",
+        "programa": "HISTÓRIA E DIREITO DO TRABALHO: trabalho humano, da escravidão à Revolução Industrial; causas sociais e ideológicas do surgimento do Direito do Trabalho.\nINTRODUÇÃO AO DIREITO DO TRABALHO: conceito, objeto, Direito Sindical, organização sindical, fontes, negociação coletiva e aplicação no tempo e no espaço.\nPRINCÍPIOS RELATIVOS AO CAPITAL E AO TRABALHO.\nCONTRATO INDIVIDUAL DE TRABALHO: autonomia privada, relação de trabalho e emprego, requisitos, contratos afins, classificação e nulidades.\nSUJEITOS DO CONTRATO: empregado, trabalhador autônomo, eventual e temporário; empregado urbano, rural e doméstico; trabalho da mulher, do menor e do estrangeiro.\nSUJEITOS DO CONTRATO: EMPREGADOR.\nDemais tópicos programáticos constam do documento original da UFPR.",
+        "observacao": "A transcrição do programa foi limitada aos tópicos legíveis no trecho consultado; consulte o PDF original para a sequência integral."
+      }
     },
     {
       "id": "outro-dv415-instituicoes-de-direito-privado",
@@ -689,7 +806,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 18,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DV415-INSTITUI%C3%87%C3%95ES-DE-DIREITO-PRIVADO-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DV415 — Instituições de Direito Privado",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "1. PESSOAS DE DIREITO: pessoas físicas, capacidade, personalidade, pessoas jurídicas de Direito Privado, sociedades comerciais, companhias, sociedades de economia mista e empresas públicas, sociedades de investimento e operações societárias.\n2. EMPRESA: estabelecimento comercial, empresa, macroempresa e empresa multinacional.\n3. OBJETO DE DIREITO: bens, patrimônio e propriedade imaterial e industrial.\n4. FATOS E ATOS JURÍDICOS: vínculo jurídico, requisitos de validade, atos nulos e anuláveis, aquisição e perda de direito e prescrição.\n5. DIREITOS REAIS: propriedade, posse, aquisição da propriedade e direitos reais de garantia.\n6. DIREITOS OBRIGACIONAIS: obrigações, fontes, espécies, transmissão, extinção, pagamento e inexecução.\n7. CONTRATOS: formação, classificação e espécies de contratos.\n8. DECLARAÇÃO UNILATERAL DE VONTADE: títulos de crédito e suas espécies."
+      }
     },
     {
       "id": "outro-db413-direito-administrativo-a",
@@ -699,7 +822,13 @@
       "ano": null,
       "descricao": "",
       "ordem": 19,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/graduacao/wp-content/uploads/sites/6/2013/11/DB413-DIREITO-ADMINISTRATIVO-A-Sociais-aplicadas.pdf",
+        "fonte_titulo": "Programa/ementa histórica — DB413 — Direito Administrativo A",
+        "fonte_data": "Documento oficial histórico da UFPR, publicado no conjunto de disciplinas ofertadas a outros setores. Não foi identificado como ficha do Currículo 2023.",
+        "programa": "I - INTRODUÇÃO: posição do Direito Administrativo no quadro geral do Direito; relações com a Ciência da Administração; objeto, conceito e definição da Administração Pública sob os aspectos material e orgânico; história e fontes.\nII - ORGANIZAÇÃO DA ADMINISTRAÇÃO PÚBLICA: órgãos e funções; centralização e descentralização; Administração direta e indireta; autarquias; empresas públicas; sociedades de economia mista; fundações; hierarquia e fiscalização.\nIII - ATOS E CONTRATOS ADMINISTRATIVOS: conceito e elementos do ato administrativo; vícios, revogação e anulação; licitação; contratos administrativos, equilíbrio financeiro e espécies.\nIV - MODALIDADES DE AÇÃO ADMINISTRATIVA: gestão, execução direta e indireta, poder de polícia, serviço público, concessão, permissão e autorização.\nV - DOMÍNIO PÚBLICO: classificação e caracteres jurídicos dos bens públicos; domínio terrestre, hídrico e aéreo; utilização e ocupação.\nVI - ADMINISTRAÇÃO PÚBLICA E PROPRIEDADE PRIVADA: limitações administrativas, florestas, patrimônio histórico, jazidas, minas, servidões, requisição e desapropriação.\nVII - AGENTES POLÍTICOS: função pública, servidores, categorias, provimento e vacância."
+      }
     },
     {
       "id": "tcc-i",
