@@ -4,7 +4,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-DATA_RE = re.compile(r'^(\\d{2})/(0[1-9]|1[0-2])/(\\d{4})$')
+DATA_RE = re.compile(r'^(\d{2})/(0[1-9]|1[0-2])/(\d{4})$')
 ROMANOS = {'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'}
 
 
@@ -13,18 +13,18 @@ def extrair_texto(pdf_path):
         ['pdftotext', '-layout', str(pdf_path), '-'],
         check=True, capture_output=True, text=True, encoding='utf-8'
     )
-    return result.stdout.replace('\\r', '')
+    return result.stdout.replace('\r', '')
 
 
 def separar_secoes(texto):
     linhas = [linha.strip() for linha in texto.splitlines()]
     marcadores = {
-        'ementa': re.compile(r'^1\\.\\s*Ementa$', re.I),
-        'objetivos': re.compile(r'^2\\.\\s*Objetivos$', re.I),
-        'conteudo_programatico': re.compile(r'^3\\.\\s*Conteúdo programático$', re.I),
-        'cronograma': re.compile(r'^4\\.\\s*Cronograma', re.I),
-        'avaliacao': re.compile(r'^5\\.\\s*Avaliação$', re.I),
-        'bibliografia': re.compile(r'^6\\.\\s*Bibliografia$', re.I),
+        'ementa': re.compile(r'^1\.\s*Ementa$', re.I),
+        'objetivos': re.compile(r'^2\.\s*Objetivos$', re.I),
+        'conteudo_programatico': re.compile(r'^3\.\s*Conteúdo programático$', re.I),
+        'cronograma': re.compile(r'^4\.\s*Cronograma', re.I),
+        'avaliacao': re.compile(r'^5\.\s*Avaliação$', re.I),
+        'bibliografia': re.compile(r'^6\.\s*Bibliografia$', re.I),
     }
     encontrados = []
     for i, linha in enumerate(linhas):
@@ -46,7 +46,7 @@ def juntar(linhas):
 def parse_conteudos(linhas):
     itens = []
     for linha in linhas:
-        match = re.match(r'^([IVX]+)\\s{2,}(.+)$', linha)
+        match = re.match(r'^([IVX]+)\s{2,}(.+)$', linha)
         if match and match.group(1) in ROMANOS:
             itens.append({'unidade': match.group(1), 'conteudo': match.group(2).strip()})
     return itens
@@ -55,7 +55,7 @@ def parse_conteudos(linhas):
 def parse_cronograma(linhas):
     itens = []
     for linha in linhas:
-        match = re.match(r'^(\\d{2}/\\d{2}/\\d{4})\\s{2,}(.+)$', linha)
+        match = re.match(r'^(\d{2}/\d{2}/\d{4})\s{2,}(.+)$', linha)
         if match and DATA_RE.match(match.group(1)):
             itens.append({'data': match.group(1), 'atividade': match.group(2).strip()})
     return itens
@@ -81,7 +81,7 @@ if __name__ == '__main__':
     origem, destino = map(Path, sys.argv[1:3])
     dados = extrair(origem)
     destino.parent.mkdir(parents=True, exist_ok=True)
-    destino.write_text(json.dumps(dados, ensure_ascii=False, indent=2) + '\\n', encoding='utf-8')
+    destino.write_text(json.dumps(dados, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(json.dumps({
         'ementa': bool(dados['ementa']),
         'unidades': len(dados['conteudos_programaticos']),
