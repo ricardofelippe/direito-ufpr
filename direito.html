@@ -1023,6 +1023,21 @@
               return false;
             }
           }
+
+          if (filtros.revisoes === 'pendentes') {
+            const hoje = new Date();
+            const dataHoje = [hoje.getFullYear(), String(hoje.getMonth() + 1).padStart(2, '0'), String(hoje.getDate()).padStart(2, '0')].join('-');
+            const idsAssuntos = new Set((estruturaAtual.assuntos || [])
+              .filter(assunto => assunto.disciplina_id === disciplina.id)
+              .map(assunto => assunto.id));
+            const possuiRevisaoPendente = registrosProgresso.some(registro =>
+              idsAssuntos.has(registro.assunto_id) &&
+              registro.data_revisao &&
+              registro.data_revisao <= dataHoje &&
+              !['concluido', 'nao_se_aplica'].includes(registro.revisao_status)
+            );
+            if (!possuiRevisaoPendente) return false;
+          }
           return true;
         });
       }
@@ -1044,11 +1059,29 @@
           'filtro-situacao-geral'
         ];
 
+        const parametros = new URLSearchParams(window.location.search);
+        const administrativo = parametros.get('filtroAdministrativo');
+        const situacao = parametros.get('filtroSituacao');
+        const revisoes = parametros.get('filtroRevisoes');
+        filtrosDisciplinasAplicados = {
+          administrativo: ['ativa', 'inativa', 'pendente'].includes(administrativo) ? administrativo : 'todos',
+          inicio: 'todos',
+          situacao: ['em_andamento', 'concluido', 'pendente', 'nao_iniciado'].includes(situacao) ? situacao : 'todos',
+          revisoes: revisoes === 'pendentes' ? 'pendentes' : 'todos'
+        };
+
+        document.getElementById('filtro-status-administrativo').value = filtrosDisciplinasAplicados.administrativo;
+        document.getElementById('filtro-situacao-geral').value = filtrosDisciplinasAplicados.situacao;
+        if (Object.values(filtrosDisciplinasAplicados).some(valor => valor !== 'todos')) {
+          document.querySelector('.painel-filtros-disciplinas')?.setAttribute('open', '');
+        }
+
         document.getElementById('aplicar-filtros-disciplinas')?.addEventListener('click', () => {
           filtrosDisciplinasAplicados = {
             administrativo: document.getElementById('filtro-status-administrativo')?.value || 'todos',
             inicio: document.getElementById('filtro-inicio-estudos')?.value || 'todos',
-            situacao: document.getElementById('filtro-situacao-geral')?.value || 'todos'
+            situacao: document.getElementById('filtro-situacao-geral')?.value || 'todos',
+            revisoes: 'todos'
           };
           if (estruturaAtual) renderizar(estruturaAtual);
         });
@@ -1061,7 +1094,8 @@
           filtrosDisciplinasAplicados = {
             administrativo: 'todos',
             inicio: 'todos',
-            situacao: 'todos'
+            situacao: 'todos',
+            revisoes: 'todos'
           };
           if (estruturaAtual) renderizar(estruturaAtual);
         });
