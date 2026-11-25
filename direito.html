@@ -99,6 +99,32 @@
       font-size: 23px;
     }
 
+    /* Cada ano funciona como um painel expansível independente. */
+    .titulo-ano {
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .titulo-ano::-webkit-details-marker {
+      display: none;
+    }
+
+    .titulo-ano::after {
+      content: "+";
+      margin-left: auto;
+      color: var(--azul-claro);
+      font: 24px Arial, sans-serif;
+    }
+
+    .ano-curriculo[open] > .titulo-ano::after {
+      content: "−";
+    }
+
+    .titulo-ano:hover {
+      color: var(--azul-claro);
+    }
+
     .titulo-ano .numero-ano {
       display: inline-grid;
       place-items: center;
@@ -1427,8 +1453,8 @@
         anos.forEach(ano => {
           anoAtual = ano;
           const registrosAno = disciplinas.filter(item => Number(item.ano) === ano);
-          const secao = criarElemento('section', 'ano-curriculo');
-          secao.appendChild(criarElemento('h2', 'titulo-ano'));
+          const secao = criarElemento('details', 'ano-curriculo');
+          secao.appendChild(criarElemento('summary', 'titulo-ano'));
           const titulo = secao.querySelector('.titulo-ano');
           titulo.appendChild(criarElemento('span', 'numero-ano', String(ano)));
           titulo.appendChild(document.createTextNode(`${ano}º Ano`));
