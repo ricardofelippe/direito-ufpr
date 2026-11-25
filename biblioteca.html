@@ -380,35 +380,23 @@
         // LINKS PARA CADASTRO E GERENCIAMENTO
         // =====================================
 
+        // Todas as ações passam pela mesma página de gerenciamento.
+        // A etapa do GitHub só é aberta depois que o usuário confirma a operação.
         function criarLinkAssociacao(texto, doc) {
-          const parametros = new URLSearchParams({
-            template: "associar-pdf.yml",
-            title: "[Associar PDF] " + doc.titulo,
-            titulo: doc.titulo,
-            disciplina: doc.disciplina
-          });
-          const link = document.createElement("a");
-          link.href = "https://github.com/ricardofelippe/direito-ufpr/issues/new?" + parametros.toString();
-          link.textContent = texto;
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
-          return link;
+          return criarLinkGerenciamento(texto, doc, "Adicionar PDFs", "");
         }
 
         function criarLinkGerenciamento(texto, doc, operacao, arquivo) {
           const parametros = new URLSearchParams({
-            template: "gerenciar-pdfs.yml",
-            title: "[Gerenciar PDFs] " + doc.titulo,
+            modo: "gerenciar",
             titulo: doc.titulo,
             disciplina: doc.disciplina,
             operacao: operacao
           });
           if (arquivo) parametros.set("arquivo_alvo", arquivo);
           const link = document.createElement("a");
-          link.href = "https://github.com/ricardofelippe/direito-ufpr/issues/new?" + parametros.toString();
+          link.href = "cadastro.html?" + parametros.toString();
           link.textContent = texto;
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
           return link;
         }
 
@@ -568,8 +556,8 @@
               }
 
               const cadastrar = document.createElement("a");
-              cadastrar.href = "cadastro.html?" + new URLSearchParams({ disciplina: d.nome }).toString();
-              cadastrar.textContent = "Cadastrar material";
+              cadastrar.href = "cadastro.html?" + new URLSearchParams({ modo: "novo", disciplina: d.nome }).toString();
+              cadastrar.textContent = "Novo material";
               conteudo.appendChild(cadastrar);
 
               cartao.appendChild(conteudo);
