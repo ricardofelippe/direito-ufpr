@@ -187,7 +187,18 @@
       "ano": 2,
       "descricao": "",
       "ordem": 2,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DB453-Direito-Constitucional-A-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DB453 — Direito Constitucional A",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Unidade I - Constitucionalismo e teoria da constituição. Unidade II - Teoria da constituição e teoria da norma constitucional. Unidade III - Teoria dos direitos fundamentais.",
+        "programa": "UNIDADE I - Constitucionalismo e teoria da constituição: movimentos constitucionalistas; Direito Constitucional: fontes, objeto, método e relações interdisciplinares; Constituição: significados, conceito formal e material, estrutura e funções; Poder Constituinte; mudanças constitucionais formais e informais; Constituição e ordem constitucional anterior; recepção e desconstitucionalização.\nUNIDADE II - Teoria da constituição e teoria da norma constitucional: sujeitos constitucionais, identidades e diferenças; Constituição como norma e compromisso; supremacia e força normativa; norma constitucional e texto constitucional; princípios e regras; vigência, validade e eficácia; unidade normativa; interpretação e aplicação constitucional; princípios fundamentais; controle de constitucionalidade.\nUNIDADE III - Teoria dos direitos fundamentais: características, tipologias, dimensões subjetiva e objetiva, vulnerabilidades, interseccionalidade e antidiscriminação; colisão, restrições e suspensão; direitos humanos e direitos fundamentais; regime jurídico dos direitos fundamentais na Constituição de 1988; eficácia vertical e horizontal; direitos fundamentais e políticas públicas.",
+        "objetivo_geral": "Compreender a teoria da constituição, a teoria da norma constitucional, a teoria dos direitos fundamentais e os conceitos básicos instrumentais do controle de constitucionalidade.",
+        "objetivos_especificos": "Habilitar e capacitar para as reflexões críticas e contemporâneas do direito constitucional, bem como preparar a base teórica para o desenvolvimento da disciplina de Direito Constitucional B.",
+        "procedimentos_didaticos": "Aula expositiva. Seminários. Debates. Análise de casos.",
+        "formas_avaliacao": "Avaliação escrita. Participação nas discussões. Apresentação de seminários."
+      }
     },
     {
       "id": "direito-internacional-publico",
@@ -197,7 +208,18 @@
       "ano": 2,
       "descricao": "",
       "ordem": 1,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DB452-Direito-Internacional-Publico-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DB452 — Direito Internacional Público",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Introdução e História. Definição e objeto do Direito Internacional Público. A sociedade internacional. As fontes do Direito Internacional Público. O Direito Internacional dos Direitos Humanos. As relações entre o Direito Interno e Direito Internacional. O Estado. O reconhecimento de Estados e de Governos. A sucessão de Estados. A responsabilidade dos Estados e o instituto da proteção diplomática. A Teoria das organizações internacionais. Os mecanismos de solução pacífica de controvérsias internacionais. O instituto da guerra nas relações internacionais.",
+        "programa": "1. A Sociedade Internacional e o Direito Internacional: especificidade, características e perspectiva histórica do DIP.\n2. Sujeitos do Direito Internacional: Estados, Organizações Internacionais, indivíduos e a construção do Direito Internacional dos Direitos Humanos; Direito Internacional Humanitário e Direito Internacional dos Refugiados; demais sujeitos.\n3. Fontes do Direito Internacional: tratados, costume internacional, princípios gerais de Direito, atos unilaterais e relações entre direito interno e direito internacional.\n4. Responsabilidade Internacional: fato gerador e proteção diplomática.\n5. Mecanismos de Solução Pacífica das Controvérsias Internacionais: soluções não jurisdicionais e jurisdicionais; Corte Internacional de Justiça.\n6. A Guerra nas Relações Internacionais: perspectiva histórica e sistema da Carta da ONU.",
+        "objetivo_geral": "Desenvolver a capacidade de compreensão crítica e de aplicabilidade concreta dos conceitos relacionados à sociedade internacional e ao direito internacional, capacitando o aluno à identificação dos problemas do campo e propositura de soluções criativas.",
+        "objetivos_especificos": "Dominar conhecimentos básicos sobre as normas e as instituições jurídicas da sociedade internacional, assim como os princípios que a norteiam. Dispor de subsídios para a aplicação das fontes e, consequentemente, das regras do direito internacional no que diz respeito aos problemas ou litígios que transcendem o interesse exclusivo de um ordenamento jurídico estatal.",
+        "procedimentos_didaticos": "Aulas expositivas semanais, com apresentação dos conteúdos curriculares teóricos. Em caso de ensino remoto, utilização da plataforma Microsoft Teams para atividades síncronas e assíncronas, postagem de tarefas e avaliações. Para complementação da carga horária, leituras obrigatórias disponibilizadas periodicamente.",
+        "formas_avaliacao": "Provas disponibilizadas no Microsoft Teams ou provas escritas presenciais. A modalidade, o conteúdo e o tema de cada avaliação serão indicados pelo professor com antecedência mínima de 15 dias. Cada avaliação terá nota de zero a 10 e a nota final será a média das avaliações indicadas."
+      }
     },
     {
       "id": "antropologia-juridica",
@@ -207,7 +229,18 @@
       "ano": 2,
       "descricao": "",
       "ordem": 3,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DB454-Antropologia-Juridica-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DB454 — Antropologia Jurídica",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Introdução à antropologia. Introdução à antropologia jurídica. Panorama da formação das teorias antropológicas. Etnocentrismo. Cultura e culturas. Relações étnico-raciais, cultura africana e afrobrasileira. Antropologia e política. Noções de cultura jurídica. Categorias antropológicas e categorias jurídicas: relação entre antropologia e direito. Direitos humanos.",
+        "programa": "1. Antropologia como campo do conhecimento: objeto, método e critério ético; formação histórica e teorias; antropologia jurídica; campos de pesquisa do Direito perante a antropologia.\n2. Para uma crítica da(s) teoria(s) da(s) cultura(s): noções e acepções de cultura; etnocentrismo; teorias críticas do colonialismo; classe, raça/etnia e gênero; pensamento antropológico brasileiro; diálogos entre antropologia jurídica e teoria do direito.\n3. A contribuição dos clássicos da antropologia: Malinowski, Mauss, Godelier, Clastres, Geertz e Strathern.\n4. Antropologia, direitos humanos, povos e comunidades tradicionais: direitos humanos e antropologia; questões indígena, quilombola e faxinalense; direito e movimentos sociais.",
+        "objetivo_geral": "O estudante deve estar apto a conhecer o saber antropológico, ter noções sobre cultura e suas relações com o direito. Compreender as categorias básicas e sua aplicação ao saber antropológico aplicado ao direito. Adquirir competências a respeito da antropologia a partir de seus textos clássicos e relacioná-los com o direito. Conhecer a relação entre culturas e direitos humanos, bem como a realidade dos povos, comunidades tradicionais e movimentos sociais.",
+        "objetivos_especificos": "1. Estudar a formação da disciplina antropológica e suas principais correntes.\n2. Estudar a formação da antropologia jurídica e sua importância contemporânea.\n3. Problematizar o conceito de cultura, a partir de suas noções e acepções.\n4. Estudar a relação entre as categorias antropológicas e as jurídicas.\n5. Problematizar o conceito de direitos humanos, a partir do debate intercultural.\n6. Estimular o desenvolvimento e aplicação do conhecimento acadêmico, levando a cabo pesquisas e aprofundamentos teóricos.",
+        "procedimentos_didaticos": "Aulas com exposições dialogadas, debates de textos e outras formas ativas de participação dos/as estudantes.",
+        "formas_avaliacao": "1. Trabalho em sala, a partir da discussão de problemas e da leitura de textos.\n2. Prova objetiva sem consulta ou produção de texto no formato verbete.\n3. Participação em sala e entrega de questionários sobre textos-base.\n4. Entrega de relatórios e resenhas decorrentes de atividades de ensino que aliem pesquisa bibliográfica e observação de campo."
+      }
     },
     {
       "id": "direito-penal-a",
@@ -217,7 +250,18 @@
       "ano": 2,
       "descricao": "",
       "ordem": 6,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DP428-Direito-Penal-A-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DP428 — Direito Penal A",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Natureza e conteúdo do direito penal. Limites do controle social penal. Hermenêutica jurídico-penal. Fontes, norma e interpretação. Pressupostos estruturais da teoria do delito. Teorias do delito: causal-naturalismo, neokantismo, finalismo, tendências funcionalistas e direito penal e filosofia da linguagem. Tipo de ação e omissão. Ilicitude. Dolo e imprudência. Culpabilidade. Necessidade de pena. Teoria do erro. Tentativa de delito. Sujeitos do delito.",
+        "programa": "1. Natureza e conteúdo do direito penal: o que é Direito Penal; jus puniendi e modelo de Estado.\n2. Limites do controle social penal: princípios limitadores; aplicação da lei penal no espaço e no tempo; limitações pessoais.\n3. Hermenêutica jurídico-penal: fontes, norma, interpretação e sistematização dos princípios.\n4. Pressupostos estruturais da teoria do delito.\n5. Teorias do delito e evolução das gramáticas jurídico-penais: causal-naturalismo, neokantismo, finalismo, tendências funcionalistas e filosofia da linguagem.\n6. Tipo de ação e omissão: dimensões formal e material.\n7. Ilicitude: dolo, imprudência e exclusão objetivo-normativa.\n8. Culpabilidade e pretensão de reprovação.\n9. Necessidade de pena e pretensão de punibilidade.\n10. Teoria do erro.\n11. Tentativa de delito.\n12. Sujeitos do delito: autores e partícipes.",
+        "objetivo_geral": "Apresentar e debater os fundamentos de Direito Penal tanto relativos à teoria geral da norma penal quanto à teoria do delito.",
+        "objetivos_especificos": "Analisar as bases fundantes do Direito Penal a partir de sua natureza, da base normativa e sua interpretação. Apresentar e debater as várias vertentes do sistema de imputação. Desenvolver as capacidades de reconhecer a aplicação sistemática da teoria do delito aos casos concretos penais.",
+        "procedimentos_didaticos": "Aulas expositivo-dialogadas, com apresentação dos conteúdos curriculares teóricos e discussões sobre textos previamente propostos que tratem da matéria.",
+        "formas_avaliacao": "Aprovação com nota igual ou superior a 70% do total de 100 pontos em cada avaliação e frequência mínima de 75%. Os critérios (prova, trabalho, exposição, seminário etc.) serão definidos pelo professor responsável e apresentados no primeiro dia de aula."
+      }
     },
     {
       "id": "criminologia",
@@ -227,7 +271,18 @@
       "ano": 2,
       "descricao": "",
       "ordem": 7,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DP433-Criminologia-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DP433 — Criminologia",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Direito Penal como programa de política criminal. Teorias da criminalidade: teorias penais e teorias criminológicas. Criminologia etiológica individual e sócioestrutural. Teorias da aprendizagem, anomia, subculturas, white collar crime e cifra oculta da criminalidade. Criminologia da reação social, labeling approach, teorias conflituais e Criminologia Crítica. Seletividade, criminalidade e criminalização. Política criminal alternativa. Temas especiais: adolescente em conflito com a lei, criminologia e racismo, gênero e sistema penal, Estado penal, movimentos sociais, mídia, globalização, abolicionismo, garantismo, drogas, violência, segurança pública, subjetividade e prisões.",
+        "programa": "1. Direito Penal como programa de política criminal: teorias da pena e teorias criminológicas.\n2. Criminologia etiológica individual: Escola Positivista, Escola Clássica, Lombroso, Ferri e teorias constitucionais, genéticas e instintuais da agressividade.\n3. Criminologia etiológica sócioestrutural: anomia, teorias ecológicas, associação diferencial, subculturas, Durkheim, Merton, Escola de Chicago e desorganização social.\n4. Criminologia da reação social e criminologia crítica: controle social, sistema penal, labeling approach, teorias conflituais, seletividade, regras e metarregras, política criminal alternativa e criminologia radical.\n5. Temas especiais: adolescentes em conflito com a lei; racismo; gênero e sistema penal; Estado penal; criminalização dos movimentos sociais; mídia; globalização; abolicionismo; garantismo; Direito Penal do inimigo; vitimologia; drogas; violência e segurança pública; subjetividade, psicologia criminal e prisões.",
+        "objetivo_geral": "A disciplina de Criminologia destina-se à reflexão teórico-crítica sobre a questão criminal, a partir de uma abordagem metodológica antipositivista e interdisciplinar, cujo intercâmbio com os diversos saberes possibilite capacitar os acadêmicos para o desenvolvimento de estudos e pesquisas sobre o fenômeno criminal, bem como formar juristas conscientes da necessidade de uma atuação profissional democrática e cidadã.",
+        "objetivos_especificos": "Propiciar uma formação acadêmica crítica acerca do sistema de justiça criminal, notadamente no Brasil e na América Latina.",
+        "procedimentos_didaticos": "Aulas expositivas e exposições dialogadas, com participação dos alunos como relatores e debatedores de temas previamente designados, segundo bibliografia indicada pela professora. Também são previstas exibição de audiovisual, seminários e participação em eventos acadêmicos.",
+        "formas_avaliacao": "Participação pertinente em aulas, debates e/ou seminários, a partir da leitura e síntese de textos previamente designados; trabalho escrito, prova escrita e/ou prova oral; participação em atividades, pesquisas e exercícios propostos; mínimo de 75% de presença nas aulas."
+      }
     },
     {
       "id": "direito-internacional-privado",
@@ -247,7 +302,18 @@
       "ano": 2,
       "descricao": "",
       "ordem": 4,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DC439-Direito-Civil-B-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DC439 — Direito Civil B",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Introdução ao Direito das Obrigações. Teoria geral, origens e transformações. Estrutura e função da relação jurídica obrigacional. Tutela jurídica do crédito. Modalidades das obrigações. Transmissão das obrigações. Cumprimento das obrigações. Não cumprimento das obrigações. Tripartição fundamental: negócios jurídicos, responsabilidade civil e enriquecimento sem causa. Responsabilidade civil. Atos Unilaterais.",
+        "programa": "1. Introdução ao Direito das Obrigações: importância, objeto, origens e transformações; relações obrigacionais contemporâneas; teoria da relação jurídica obrigacional como processo; novos princípios, repersonalização e boa-fé objetiva.\n2. Noção, estrutura e função da obrigação: histórico, fontes, estrutura e função das obrigações; relação com responsabilidade civil e distinção entre plano real e obrigacional.\n3. Modalidades das obrigações.\n4. Cumprimento e não cumprimento das obrigações.\n5. Transmissão das obrigações: cessão de crédito, assunção de dívida, cessão legal, cessão da posição contratual e sub-rogação.\n6. Garantia das obrigações e concurso de credores: responsabilidade patrimonial, garantias especiais, privilégios, preferências e insolvência.\n7. Atos unilaterais como fontes de relações obrigacionais: promessa de recompensa, gestão de negócios, pagamento indevido e enriquecimento sem causa.\n8. Responsabilidade civil: fundamentos, responsabilidade contratual e extracontratual, danos patrimoniais e extrapatrimoniais, responsabilidade subjetiva e objetiva e hipóteses específicas.",
+        "objetivo_geral": "Apresentar e desenvolver os elementos teóricos centrais do Direito das Obrigações, destacando os aspectos particulares das relações obrigacionais e incentivando a reflexão crítica dos estudantes.",
+        "objetivos_especificos": "1. Apreender e aprofundar os conceitos e definições básicos do Direito das Obrigações.\n2. Identificar e desenvolver as questões práticas atuais que integram o campo obrigacional.\n3. Destacar as particularidades do tratamento legal das relações obrigacionais decorrentes das alterações contemporâneas do Direito.",
+        "procedimentos_didaticos": "Aulas expositivas dialogadas; intervenções e exercícios programados em sala de aula; apresentação de fichamentos, resenhas e resumos críticos; análise e discussão da jurisprudência brasileira e de outros documentos pertinentes ao Direito das Obrigações; seminários em grupo.",
+        "formas_avaliacao": "Testes periódicos; observação do desenvolvimento de tarefas em sala de aula; provas de verificação da apreensão do conteúdo apresentado."
+      }
     },
     {
       "id": "direito-processual-civil-a",
@@ -257,7 +323,18 @@
       "ano": 2,
       "descricao": "",
       "ordem": 5,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DC443-Direito-Processual-Civil-A-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DC443 — Direito Processual Civil A",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Introdução à teoria do processo, jurisdição e competência, ação e exceção, processo e pressupostos processuais; sujeitos do processo; atos processuais. Formas consensuais de solução de conflitos.",
+        "programa": "1. Introdução: conflito de interesses e lide; autodefesa e autocomposição; jurisdição, ação e processo; direito material e processual; tutela jurisdicional; direitos fundamentais e processo; princípios constitucionais e outros princípios do processo; norma processual; eficácia da lei processual no tempo e no espaço; perfil histórico.\n2. Jurisdição: conceito, características, princípios, função jurisdicional e limites.\n3. Competência.\n4. Ação e exceção: elementos, classificação e natureza jurídica.\n5. Processo: processo e procedimento; natureza jurídica; relação processual e material; tipos de processo; sujeitos, pressupostos, tramitação e tipos de procedimentos.\n6. Atos processuais: conceito, classificação, lugar, tempo, despesas, validade, nulidades, comunicação dos atos, citação e intimação.",
+        "objetivo_geral": "Proporcionar conhecimento teórico e prático ao aluno. Incentivar a reflexão crítica.",
+        "objetivos_especificos": "Proceder ao estudo dos institutos fundamentais do direito processual civil, oferecendo ao aluno um panorama básico desses elementos, em uma abordagem transdisciplinar e crítica.",
+        "procedimentos_didaticos": "Aulas expositivas e seminários.",
+        "formas_avaliacao": "Provas escritas."
+      }
     },
     {
       "id": "filosofia-do-direito",
@@ -267,7 +344,18 @@
       "ano": 2,
       "descricao": "",
       "ordem": 9,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DV460-Filosofia-do-Direito-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DV460 — Filosofia do Direito",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Introdução à Filosofia do Direito. História da Filosofia do Direito. Os grandes paradigmas da Filosofia do Direito. Ética e Teorias da Justiça. Filosofia do Direito e suas relações com a Teoria do Direito, a Filosofia Política, as Ciências Sociais, a racionalidade e a argumentação jurídica.",
+        "programa": "PARTE I: formas da filosofia nascente – origens do pensamento racional (Mito x Logos, Physis x Nomos); Justiça, Política e Conhecimento; Platão e Aristóteles.\nPARTE II: Paradigma do Sujeito na filosofia, no Direito e na Filosofia do Direito; sujeito e sujeito de Direito.\nPARTE III: Paradigma da Linguagem; da perspectiva monológica à dialógica; Habermas e razão comunicativa; Apel e pragmatismo transcendental.\nPARTE IV: Temas, problemas e conceitos: Justiça (Kant, Hegel, Habermas, Seyla Benhabib, Axel Honneth, Nancy Fraser, Derrida, Judith Butler e Achille Mbembe); Democracia e Constituição; Direito, Poder e Ética (Michel Foucault e Levinas).",
+        "objetivo_geral": "Viabilizar a compreensão da racionalidade nas formações do pensamento jurídico antigo, moderno e contemporâneo. Investigar os diferentes sentidos e fontes de justiça. Analisar problemas contemporâneos de Filosofia do Direito e as teorias que versam respostas para tais questões.",
+        "objetivos_especificos": "Expor diferentes momentos da História da Filosofia do Direito: paradigmas do ser, sujeito e linguagem. Pela abordagem cronológica situar proposições de clássicos da Filosofia do Direito. Analisar questões temáticas da Filosofia do Direito Contemporâneo, tais como Justiça, Democracia, Ética, Poder e exclusão/inclusão social. Trabalhar com diferentes correntes filosóficas que se posicionam diante dessas questões. Analisar perspectivas críticas e pós-críticas.",
+        "procedimentos_didaticos": "Aulas presenciais expositivas, realização de debates e seminários. O material bibliográfico estará disponível em drive para a turma.",
+        "formas_avaliacao": "Três provas dissertativas, um ensaio e fichamentos; cada avaliação corresponderá a um bimestre de aula."
+      }
     },
     {
       "id": "direito-constitucional-b",
@@ -969,7 +1057,18 @@
       "ano": 2,
       "descricao": "",
       "ordem": 8,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DV459-Historia-do-Direito-B-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DV459 — História do Direito B",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "O Direito no Antigo Regime. Direito e Poder no Brasil do Antigo Regime. O Direito na Modernidade. O Jusracionalismo. A Construção do Estado Moderno. O Movimento Codificador. Direito e Poder no Brasil Independente. A Construção do Estado no Brasil Imperial. O Direito no século XX. O Direito Contemporâneo.",
+        "programa": "1. Apresentação do Curso.\n2. O Direito no Antigo Regime.\n3. Direito e Poder no Brasil do Antigo Regime.\n4. O Direito na Modernidade.\n5. O Jusracionalismo.\n6. A Construção do Estado Moderno.\n7. O Movimento Codificador.\n8. Direito e Poder no Brasil Independente.\n9. A Construção do Estado no Brasil Imperial.\n10. O Direito no século XX.\n11. O Direito Contemporâneo.",
+        "objetivo_geral": "A disciplina tem por objetivo fornecer ao acadêmico os instrumentos teóricos e metodológicos necessários para a compreensão do direito como construto histórico, utilizando-se da análise historiográfica como elemento de reflexão crítica sobre o direito do presente e permitir aos estudantes o tratamento de fontes.",
+        "objetivos_especificos": "A disciplina tem por objetivo fornecer ao acadêmico os instrumentos teóricos e metodológicos necessários para a compreensão do direito como construto histórico, utilizando-se da análise historiográfica como elemento de reflexão crítica sobre o direito do presente e permitir aos estudantes o tratamento de fontes.",
+        "procedimentos_didaticos": "Aulas expositivas, complementadas por debates acadêmicos e grupos de pesquisa coordenados pelo professor.",
+        "formas_avaliacao": "1º Bimestre: Debate (peso 2,0) e Seminário 1 (peso 8,0).\n2º Bimestre: Seminário 2 (peso 2,0) e Prova Dissertativa (peso 8,0).\n3º Bimestre: Debate (peso 2,0), Seminário 3 (peso 2,0) e Prova Dissertativa (peso 6,0).\n4º Bimestre: Seminário 4 (peso 10,0)."
+      }
     },
     {
       "id": "direito-digital",
