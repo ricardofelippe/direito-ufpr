@@ -150,7 +150,8 @@
         const disciplinaInicial = parametros.get("disciplina") || "";
         if (disciplinaInicial && disciplinas.some(d => d.nome === disciplinaInicial)) {
           seletorDisciplina.value = disciplinaInicial;
-          atualizarAssuntos(parametros.get("assunto") || "");
+          vinculoDisciplina.textContent = "Material vinculado à disciplina: " + disciplinaInicial;
+          atualizarAssuntos(parametros.get("assunto_id") || parametros.get("assunto") || "");
         } else {
           atualizarAssuntos();
         }
@@ -217,8 +218,11 @@
       }
 
       seletorAssunto.disabled = false;
-      if (assuntoInicial && [...seletorAssunto.options].some(o => o.value === assuntoInicial)) {
-        seletorAssunto.value = assuntoInicial;
+      if (assuntoInicial) {
+        const opcaoInicial = [...seletorAssunto.options].find(o =>
+          o.value === assuntoInicial || o.dataset.nome === assuntoInicial
+        );
+        if (opcaoInicial) seletorAssunto.value = opcaoInicial.value;
       }
       vinculoAssunto.textContent = total
         ? total + " assunto(s) disponível(is) nesta disciplina."
