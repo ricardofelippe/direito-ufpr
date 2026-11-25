@@ -20,6 +20,15 @@ body:
       required: true
 
   - type: input
+    id: assunto
+    attributes:
+      label: Assunto vinculado
+      description: Opcional. Informe o assunto selecionado no cadastro do site.
+      placeholder: Nome do assunto
+    validations:
+      required: false
+
+  - type: input
     id: categoria
     attributes:
       label: Categoria
