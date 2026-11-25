@@ -569,12 +569,12 @@
                 const vazio = document.createElement("p");
                 vazio.textContent = "Nenhum material cadastrado para esta disciplina.";
                 conteudo.appendChild(vazio);
-
-                const cadastrar = document.createElement("a");
-                cadastrar.href = "cadastro.html?" + new URLSearchParams({ disciplina: d.nome }).toString();
-                cadastrar.textContent = "Cadastrar material";
-                conteudo.appendChild(cadastrar);
               }
+
+              const cadastrar = document.createElement("a");
+              cadastrar.href = "cadastro.html?" + new URLSearchParams({ disciplina: d.nome }).toString();
+              cadastrar.textContent = "Cadastrar material";
+              conteudo.appendChild(cadastrar);
 
               cartao.appendChild(conteudo);
               secao.appendChild(cartao);
