@@ -438,6 +438,42 @@
       gap: 14px;
     }
 
+    .acoes-cadastro-conteudo {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 16px;
+    }
+
+    .botao-cadastro-conteudo {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 13px;
+      border: 1px solid var(--azul);
+      border-radius: 8px;
+      background: linear-gradient(120deg, rgba(19, 120, 126, .2), rgba(16, 27, 41, .9));
+      color: var(--azul-claro);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: .18s ease;
+    }
+
+    .botao-cadastro-conteudo:hover {
+      border-color: var(--azul-claro);
+      background: linear-gradient(120deg, rgba(19, 160, 158, .3), rgba(23, 38, 56, .96));
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .orientacao-cadastro-conteudo {
+      margin: 0 0 16px;
+      color: var(--texto-suave);
+      font-size: 12px;
+    }
+
     .item-conteudo {
       padding: 18px;
       background: var(--superficie);
@@ -1192,21 +1228,96 @@
           : registros;
       }
 
+      function criarLinkCadastroConteudo(tipo) {
+        const assunto = assuntoSelecionado
+          ? (estrutura.assuntos || []).find(item => item.id === assuntoSelecionado)
+          : null;
+
+        if (!assunto) return null;
+
+        const unidadeId = assunto.unidade_id || '';
+        const titulo = tipo === 'resumos'
+          ? '[Novo resumo] ' + (assunto.nome || disciplinaAtual.nome)
+          : '[Nova revisão] ' + (assunto.nome || disciplinaAtual.nome);
+        const campos = [
+          '## Identificação',
+          '',
+          '<!-- DISCIPLINA_ID -->',
+          disciplinaAtual.id,
+          '',
+          '<!-- UNIDADE_ID -->',
+          unidadeId,
+          '',
+          '<!-- ASSUNTO_ID -->',
+          assunto.id,
+          '',
+          '## Dados do conteúdo',
+          '',
+          '<!-- TITULO -->',
+          'Digite o título',
+          ''
+        ];
+
+        if (tipo === 'revisoes') {
+          campos.push(
+            '<!-- REFERENCIA -->',
+            'Informe a referência bibliográfica completa',
+            '',
+            '<!-- DATA_ELABORACAO -->',
+            new Date().toISOString().slice(0, 10),
+            ''
+          );
+        }
+
+        campos.push(
+          tipo === 'resumos' ? '## Conteúdo do resumo' : '## Conteúdo da revisão',
+          '',
+          '<!-- CONTEUDO_INICIO -->',
+          'Escreva aqui o conteúdo completo.',
+          '<!-- CONTEUDO_FIM -->'
+        );
+
+        const parametros = new URLSearchParams({
+          template: tipo === 'resumos' ? 'novo-resumo.md' : 'nova-revisao.md',
+          title: titulo,
+          body: campos.join('\n')
+        });
+
+        return 'https://github.com/ricardofelippe/direito-ufpr/issues/new?' + parametros.toString();
+      }
+
+      function renderizarAcoesCadastroConteudo(tipo) {
+        if (!['resumos', 'revisoes'].includes(tipo)) return '';
+
+        const link = criarLinkCadastroConteudo(tipo);
+        if (!link) {
+          return '<p class="orientacao-cadastro-conteudo">Selecione um assunto acima para cadastrar conteúdo já vinculado à disciplina, unidade e assunto.</p>';
+        }
+
+        const rotulo = tipo === 'resumos' ? '+ Novo resumo' : '+ Nova revisão de literatura';
+        return `
+          <div class="acoes-cadastro-conteudo">
+            <a class="botao-cadastro-conteudo" href="${escapeHTML(link)}" target="_blank" rel="noopener">${rotulo}</a>
+          </div>
+        `;
+      }
+
       function renderizarListaConteudos(tipo) {
         const registros = filtrarAssunto(registrosDaAba(tipo)).sort(ordenar);
+        const acoesCadastro = renderizarAcoesCadastroConteudo(tipo);
 
         if (!registros.length) {
-          mostrarEstado(
-            painel,
-            'Nenhum conteúdo cadastrado',
-            assuntoSelecionado
-              ? 'Não há conteúdo cadastrado para este assunto nesta seção.'
-              : 'Esta seção está pronta para receber conteúdos. Nenhum registro foi cadastrado ainda.'
-          );
+          painel.innerHTML = acoesCadastro + `
+            <div class="estado-disciplina">
+              <h3>Nenhum conteúdo cadastrado</h3>
+              <p>${escapeHTML(assuntoSelecionado
+                ? 'Não há conteúdo cadastrado para este assunto nesta seção.'
+                : 'Esta seção está pronta para receber conteúdos. Nenhum registro foi cadastrado ainda.')}</p>
+            </div>`;
           return;
         }
 
-        painel.innerHTML = `
+        painel.innerHTML = acoesCadastro + `
           <div class="lista-conteudos">
             ${registros.map((item, i) => {
               const titulo = textoRegistro(item, ['titulo','nome']) ||
