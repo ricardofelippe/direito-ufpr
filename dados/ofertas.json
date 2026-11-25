@@ -1,3 +1,17 @@
 {
-  "ofertas": []
+  "ofertas": [
+    {
+      "id": "teoria-do-direito-2028-1",
+      "disciplina_id": "teoria-do-direito",
+      "disciplina": "Teoria do Direito",
+      "periodo": "2028/1",
+      "situacao": "em_andamento",
+      "tipo_registro": "simulacao",
+      "plano_ensino": {
+        "arquivo": "documentos/planos-de-ensino/teoria-do-direito-2028-1.pdf",
+        "nome_original": "plano_ensino_simulado_teoria_do_direito_2028_1.pdf",
+        "versao": 1
+      }
+    }
+  ]
 }
