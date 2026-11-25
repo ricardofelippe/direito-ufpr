@@ -242,6 +242,35 @@
       background: transparent;
     }
 
+    .cartao-topico-item > summary.cartao-topico {
+      position: relative;
+      padding-right: 28px;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .cartao-topico-item > summary.cartao-topico::-webkit-details-marker {
+      display: none;
+    }
+
+    .cartao-topico-item > summary.cartao-topico::after {
+      content: "+";
+      position: absolute;
+      right: 5px;
+      top: 3px;
+      color: var(--azul-claro);
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    .cartao-topico-item[open] > summary.cartao-topico::after {
+      content: "−";
+    }
+
+    .cartao-topico-item .controles-progresso > [data-assunto] {
+      justify-self: start;
+    }
+
     .controles-progresso {
       display: grid;
       gap: 8px;
@@ -734,15 +763,18 @@
         const iconeSituacao = situacao === 'concluido' ? '✓' : situacao === 'pendente' ? '!' : situacao === 'em_andamento' ? '●' : '○';
 
         return `
-          <article class="cartao-topico-item${classesSituacao}" data-cartao-assunto="${escapeHTML(assunto.id)}">
-            <button class="cartao-topico" type="button"
-              data-assunto="${escapeHTML(assunto.id)}" aria-pressed="false">
+          <details class="cartao-topico-item${classesSituacao}" data-cartao-assunto="${escapeHTML(assunto.id)}">
+            <summary class="cartao-topico">
               <span class="icone-topico">§</span>
               <span class="nome-topico">${escapeHTML(titulo)}</span>
               <span class="descricao-topico">${escapeHTML(descricao)}</span>
               <span class="indicador-situacao" data-indicador-situacao>${iconeSituacao} ${escapeHTML(rotuloSituacao)}</span>
-            </button>
+            </summary>
             <div class="controles-progresso" aria-label="Progresso e planejamento do assunto">
+              <button class="limpar-filtro-assuntos" type="button"
+                data-assunto="${escapeHTML(assunto.id)}" aria-pressed="false">
+                Filtrar conteúdos deste assunto
+              </button>
               ${campos}
               <label class="campo-progresso">
                 <span>Data de estudo</span>
@@ -757,7 +789,7 @@
               </button>
               <span class="mensagem-progresso" aria-live="polite"></span>
             </div>
-          </article>`;
+          </details>`;
       }
 
       function abrirFormularioProgresso(assuntoId, botao) {
