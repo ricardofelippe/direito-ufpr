@@ -1264,9 +1264,18 @@
           ordenados.forEach((disciplina, indice) => {
             const numero = String(indice + 1).padStart(2, '0');
             const total = String(ordenados.length).padStart(2, '0');
+            const unidadesDisciplina = new Set(
+              (estrutura.unidades || [])
+                .filter(unidade => unidade.disciplina_id === disciplina.id)
+                .map(unidade => unidade.id)
+            );
+            const totalAssuntos = (estrutura.assuntos || []).filter(assunto =>
+              assunto.disciplina_id === disciplina.id || unidadesDisciplina.has(assunto.unidade_id)
+            ).length;
+            const rotuloAssuntos = totalAssuntos === 1 ? 'assunto' : 'assuntos';
             indicadoresOrdemDisciplinas.set(disciplina.id, {
-              texto: numero + '/' + total,
-              ariaLabel: 'Disciplina ' + (indice + 1) + ' de ' + ordenados.length + ' na categoria ' + categoria
+              texto: numero + '/' + total + ' — ' + totalAssuntos + ' ' + rotuloAssuntos,
+              ariaLabel: 'Disciplina ' + (indice + 1) + ' de ' + ordenados.length + ' na categoria ' + categoria + ', com ' + totalAssuntos + ' ' + rotuloAssuntos
             });
           });
         });
