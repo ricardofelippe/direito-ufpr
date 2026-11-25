@@ -156,13 +156,43 @@
 
       try {
 
-        const resposta = await fetch("./documentos.json");
+        const [resposta, respostaEstrutura] = await Promise.all([
+          fetch("./documentos.json"),
+          fetch("./dados/estrutura.json")
+        ]);
 
-        if (!resposta.ok) {
-          throw new Error("Erro ao carregar documentos.json");
+        if (!resposta.ok || !respostaEstrutura.ok) {
+          throw new Error("Erro ao carregar os dados da biblioteca ou do currículo.");
         }
 
-        const documentos = await resposta.json();
+        const [todosDocumentos, estrutura] = await Promise.all([
+          resposta.json(),
+          respostaEstrutura.json()
+        ]);
+
+        // A Biblioteca geral exibe somente disciplinas obrigatórias
+        // cadastradas na estrutura curricular oficial.
+        const disciplinasObrigatorias = (estrutura.disciplinas || [])
+          .filter(d => String(d.categoria || "").toLowerCase() === "obrigatoria");
+
+        const normalizar = valor => String(valor || "")
+          .normalize("NFD")
+          .replace(/[\\u0300-\\u036f]/g, "")
+          .toLocaleLowerCase("pt-BR")
+          .trim();
+
+        const mapaDisciplinas = new Map(
+          disciplinasObrigatorias.map(d => [normalizar(d.nome), d])
+        );
+
+        const documentos = todosDocumentos.filter(doc =>
+          mapaDisciplinas.has(normalizar(doc.disciplina))
+        );
+
+        const nomeComCodigo = nome => {
+          const disciplina = mapaDisciplinas.get(normalizar(nome));
+          return disciplina ? disciplina.codigo + " — " + disciplina.nome : nome;
+        };
 
         // =====================================
         // INDICADORES DA BIBLIOTECA
@@ -243,7 +273,7 @@
 
         const disciplinas = [...new Set(
           documentos.map(doc => doc.disciplina).filter(Boolean)
-        )].sort();
+        )].sort((a, b) => nomeComCodigo(a).localeCompare(nomeComCodigo(b), "pt-BR"));
 
         const categorias = [...new Set(
           documentos.map(doc => doc.categoria).filter(Boolean)
@@ -256,7 +286,7 @@
           const opcao = document.createElement("option");
 
           opcao.value = nome;
-          opcao.textContent = nome;
+          opcao.textContent = nomeComCodigo(nome);
 
           filtroDisciplina.appendChild(opcao);
 
@@ -389,7 +419,7 @@
             const disciplinaTexto = document.createElement("p");
 
             disciplinaTexto.textContent =
-              "Disciplina: " + (doc.disciplina || "Não informada");
+              "Disciplina: " + nomeComCodigo(doc.disciplina || "Não informada");
 
             // Categoria
 
@@ -524,8 +554,8 @@
           });
 
           estado.textContent = filtrados.length
-            ? filtrados.length + " documento(s) encontrado(s)."
-            : "Nenhum documento encontrado.";
+            ? filtrados.length + " material(is) encontrado(s) em disciplinas obrigatórias."
+            : "Nenhum material encontrado nas disciplinas obrigatórias.";
 
         }
 
