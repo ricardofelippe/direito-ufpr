@@ -303,6 +303,10 @@
       padding-left: 18px;
     }
 
+    .item-historico-estudo { display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:5px; }
+    .acao-historico { padding:3px 7px; border:1px solid var(--borda); border-radius:5px; background:transparent; color:var(--azul-claro); cursor:pointer; font:inherit; font-size:10px; }
+    .acao-historico.excluir { color:#fca5a5; }
+
     .campo-progresso select {
       width: 100%;
       min-width: 0;
@@ -800,7 +804,11 @@
                   ${(registro.historico_estudos || (registro.data_estudo ? [{ data: registro.data_estudo }] : []))
                     .slice()
                     .sort((a, b) => b.data.localeCompare(a.data))
-                    .map(sessao => `<li>${escapeHTML(sessao.data.split('-').reverse().join('/'))}</li>`)
+                    .map(sessao => `<li class="item-historico-estudo">
+                      <span>${escapeHTML(sessao.data.split('-').reverse().join('/'))}</span>
+                      <button type="button" class="acao-historico" data-editar-sessao="${escapeHTML(sessao.data)}">Editar</button>
+                      <button type="button" class="acao-historico excluir" data-excluir-sessao="${escapeHTML(sessao.data)}">Excluir</button>
+                    </li>`)
                     .join('') || '<li>Nenhuma sessão registrada.</li>'}
                 </ul>
               </div>
@@ -820,50 +828,30 @@
           </details>`;
       }
 
-      function abrirFormularioProgresso(assuntoId, botao) {
+      function abrirSolicitacaoHistorico(assuntoId, acao, dataAnterior = '', novaData = '') {
         const cartao = listaTopicos.querySelector(`[data-cartao-assunto="${CSS.escape(assuntoId)}"]`);
         if (!cartao) return;
-
+        if (acao === 'excluir' && !window.confirm('Confirma a exclusão desta sessão do histórico?')) return;
         const valores = {};
-        cartao.querySelectorAll('[data-progresso-campo]').forEach(campo => {
-          valores[campo.dataset.progressoCampo] = campo.value;
-        });
-
-        // Issue Forms não preenchem de forma confiável os campos dropdown por query string.
-        // Enviamos os mesmos campos como corpo Markdown pré-preenchido, que o workflow valida.
+        cartao.querySelectorAll('[data-progresso-campo]').forEach(campo => valores[campo.dataset.progressoCampo] = campo.value);
         const corpo = [
-          '### ID do assunto',
-          assuntoId,
-          '',
-          '### Situação geral',
-          valores.situacao_geral,
-          '',
-          '### Conteúdo estudado',
-          valores.conteudo_status,
-          '',
-          '### Questões praticadas',
-          valores.questoes_status,
-          '',
-          '### Revisões realizadas',
-          valores.revisao_status,
-          '',
-          '### Nova sessão de estudo',
-          cartao.querySelector('[data-planejamento-campo="nova_sessao_estudo"]').value,
-          '',
-          '### Data de revisão',
-          cartao.querySelector('[data-planejamento-campo="data_revisao"]').value
-        ].join('\n');
+          '### ID do assunto', assuntoId, '',
+          '### Situação geral', valores.situacao_geral, '',
+          '### Conteúdo estudado', valores.conteudo_status, '',
+          '### Questões praticadas', valores.questoes_status, '',
+          '### Revisões realizadas', valores.revisao_status, '',
+          '### Ação no histórico', acao, '',
+          '### Data registrada', dataAnterior, '',
+          '### Nova sessão de estudo', novaData || cartao.querySelector('[data-planejamento-campo="nova_sessao_estudo"]').value, '',
+          '### Data de revisão', cartao.querySelector('[data-planejamento-campo="data_revisao"]').value
+        ].join('\\n');
+        const parametros = new URLSearchParams({ template:'atualizar-progresso.md', title:'[Atualizar progresso] '+assuntoId, body:corpo });
+        cartao.querySelector('.mensagem-progresso').textContent = 'Confira a operação e envie a solicitação no GitHub para confirmar a alteração.';
+        window.open('https://github.com/ricardofelippe/direito-ufpr/issues/new?'+parametros.toString(), '_blank', 'noopener');
+      }
 
-        const parametros = new URLSearchParams({
-          template: 'atualizar-progresso.md',
-          title: '[Atualizar progresso] ' + assuntoId,
-          body: corpo
-        });
-
-        const url = 'https://github.com/ricardofelippe/direito-ufpr/issues/new?' + parametros.toString();
-        const mensagem = cartao.querySelector('.mensagem-progresso');
-        mensagem.textContent = 'Confira os estados e as datas preenchidos no GitHub e envie a solicitação para salvar.';
-        window.open(url, '_blank', 'noopener');
+      function abrirFormularioProgresso(assuntoId) {
+        abrirSolicitacaoHistorico(assuntoId, 'adicionar');
       }
 
       function montarResumoProgresso() {
@@ -1041,6 +1029,25 @@
           botao.addEventListener('click', () =>
             abrirFormularioProgresso(botao.dataset.salvarProgresso, botao)
           )
+        );
+
+        listaTopicos.querySelectorAll('[data-editar-sessao]').forEach(botao =>
+          botao.addEventListener('click', () => {
+            const cartao = botao.closest('[data-cartao-assunto]');
+            const anterior = botao.dataset.editarSessao;
+            const nova = window.prompt('Informe a data correta (AAAA-MM-DD):', anterior);
+            if (nova === null) return;
+            if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(nova)) {
+              window.alert('Informe a data no formato AAAA-MM-DD.');
+              return;
+            }
+            abrirSolicitacaoHistorico(cartao.dataset.cartaoAssunto, 'editar', anterior, nova);
+          })
+        );
+        listaTopicos.querySelectorAll('[data-excluir-sessao]').forEach(botao =>
+          botao.addEventListener('click', () => abrirSolicitacaoHistorico(
+            botao.closest('[data-cartao-assunto]').dataset.cartaoAssunto, 'excluir', botao.dataset.excluirSessao
+          ))
         );
 
         listaTopicos.querySelectorAll('[data-assunto]').forEach(botao =>
