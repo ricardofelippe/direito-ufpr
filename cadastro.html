@@ -24,10 +24,9 @@
       <p>
         <label for="disciplina">Disciplina</label><br>
         <select id="disciplina" required>
-          <option value="">Selecione uma disciplina</option>
-          <option value="Teoria do Direito">Teoria do Direito</option>
-          <option value="Filosofia do Direito">Filosofia do Direito</option>
-        </select>
+          <option value="">Carregando disciplinas...</option>
+        </select><br>
+        <small id="vinculo-disciplina" aria-live="polite">A disciplina selecionada será vinculada ao material.</small>
       </p>
 
       <p>
@@ -99,6 +98,56 @@
     const seletorPDF = document.getElementById("arquivo-existente");
     const statusPDF = document.getElementById("status-pdf");
     const campoArquivo = document.getElementById("arquivo");
+    const seletorDisciplina = document.getElementById("disciplina");
+    const vinculoDisciplina = document.getElementById("vinculo-disciplina");
+
+    // Carrega as disciplinas diretamente da estrutura curricular atualizada
+    async function carregarDisciplinas() {
+      try {
+        const resposta = await fetch("./dados/estrutura.json");
+        if (!resposta.ok) throw new Error("Não foi possível acessar estrutura.json");
+
+        const estrutura = await resposta.json();
+        const disciplinas = (estrutura.disciplinas || []).slice().sort((a, b) => {
+          const anoA = a.ano == null ? 99 : Number(a.ano);
+          const anoB = b.ano == null ? 99 : Number(b.ano);
+          return anoA - anoB || Number(a.ordem || 9999) - Number(b.ordem || 9999) ||
+            String(a.nome || "").localeCompare(String(b.nome || ""), "pt-BR");
+        });
+
+        seletorDisciplina.replaceChildren(new Option("Selecione uma disciplina", ""));
+        const obrigatorias = disciplinas.filter(item => item.categoria === "obrigatoria");
+        const outrosSetores = disciplinas.filter(item => item.categoria !== "obrigatoria");
+
+        function adicionarGrupo(rotulo, registros) {
+          if (!registros.length) return;
+          const grupo = document.createElement("optgroup");
+          grupo.label = rotulo;
+          registros.forEach(disciplina => {
+            const opcao = document.createElement("option");
+            // O valor mantém o nome completo da disciplina no cadastro do material.
+            opcao.value = disciplina.nome;
+            opcao.textContent = (disciplina.codigo ? disciplina.codigo + " — " : "") + disciplina.nome;
+            grupo.appendChild(opcao);
+          });
+          seletorDisciplina.appendChild(grupo);
+        }
+
+        adicionarGrupo("Disciplinas obrigatórias", obrigatorias);
+        adicionarGrupo("Disciplinas de outros setores", outrosSetores);
+        vinculoDisciplina.textContent = disciplinas.length + " disciplinas carregadas da estrutura curricular.";
+      } catch (erro) {
+        seletorDisciplina.replaceChildren(new Option("Lista de disciplinas indisponível", ""));
+        vinculoDisciplina.textContent = "Não foi possível carregar dados/estrutura.json. Atualize a página ou verifique o arquivo.";
+      }
+    }
+
+    seletorDisciplina.addEventListener("change", function() {
+      const nome = this.value;
+      vinculoDisciplina.textContent = nome
+        ? "Material vinculado à disciplina: " + nome
+        : "A disciplina selecionada será vinculada ao material.";
+    });
 
     // Carrega os PDFs já cadastrados no catálogo
     async function carregarPDFs() {
@@ -246,6 +295,7 @@
         }
       });
 
+    carregarDisciplinas();
     carregarPDFs();
   </script>
 </body>
