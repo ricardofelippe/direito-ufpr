@@ -20,6 +20,15 @@ body:
       required: true
 
   - type: input
+    id: disciplina_id
+    attributes:
+      label: ID da disciplina
+      description: Identificador interno para vincular o material à disciplina correta.
+      placeholder: ID preenchido automaticamente pelo cadastro do site
+    validations:
+      required: false
+
+  - type: input
     id: assunto
     attributes:
       label: Assunto vinculado
