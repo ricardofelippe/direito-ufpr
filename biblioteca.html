@@ -7,84 +7,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Biblioteca de Direito</title>
   <link rel="stylesheet" href="direito.css?v=3">
+  <style>
+    body.pagina-biblioteca > header.cabecalho-biblioteca {
+      padding: 24px max(24px, calc((100% - 1120px) / 2));
+      text-align: left;
+      background: #0c1420;
+    }
+    .cabecalho-conteudo {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+    .cabecalho-biblioteca .sobretitulo {
+      margin: 0 0 5px;
+      color: #19c7ce;
+      font: 11px Arial, sans-serif;
+      letter-spacing: .13em;
+    }
+    body.pagina-biblioteca > header h1 {
+      margin: 0;
+      font: 700 25px Georgia, serif;
+      letter-spacing: 0;
+    }
+    body.pagina-biblioteca > header p:last-child {
+      margin: 5px 0 0;
+    }
+    .navegacao-biblioteca {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .navegacao-biblioteca a {
+      display: inline-block;
+      padding: 9px 12px;
+      border: 1px solid #263b50;
+      border-radius: 5px;
+      color: #e6edf5;
+      font: 13px Arial, sans-serif;
+      text-decoration: none;
+    }
+    .navegacao-biblioteca a:hover {
+      border-color: #19c7ce;
+      color: #36d9dc;
+    }
+    body.pagina-biblioteca .conteudo-principal {
+      max-width: 1120px;
+      margin: 34px auto;
+      padding: 0 24px 48px;
+    }
+    .controles-biblioteca {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .controles-biblioteca #busca {
+      flex: 1 1 340px;
+      width: auto;
+      max-width: none;
+    }
+    @media(max-width:700px) {
+      .cabecalho-conteudo { align-items:flex-start; flex-direction:column; }
+      body.pagina-biblioteca > header.cabecalho-biblioteca { padding:22px 18px; }
+      body.pagina-biblioteca .conteudo-principal { padding:0 16px 36px; margin:24px auto; }
+      .controles-biblioteca #busca { flex-basis:100%; }
+    }
+  </style>
+
 </head>
 
 <body class="pagina-biblioteca">
 
-  <header>
-    <h1>Biblioteca de Direito</h1>
-    <p>Meu espaço de materiais e estudos</p>
+  <header class="cabecalho-biblioteca">
+    <div class="cabecalho-conteudo">
+      <div>
+        <p class="sobretitulo">DIREITO · UNIVERSIDADE FEDERAL DO PARANÁ</p>
+        <h1>Biblioteca geral</h1>
+        <p>Catálogo de materiais de todas as disciplinas</p>
+      </div>
+      <nav class="navegacao-biblioteca" aria-label="Navegação principal">
+        <a href="index.html">⌂ Painel inicial</a>
+        <a href="direito.html">← Currículo</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- ESTRUTURA PRINCIPAL -->
-  <div class="layout-biblioteca">
-
-    <!-- MENU LATERAL -->
-    <aside class="menu-lateral">
-
-      <div class="menu-identidade">
-        <h2>Direito UFPR</h2>
-        <p>Biblioteca de estudos</p>
-      </div>
-
-      <nav>
-
-        <a href="#inicio"
-           id="menu-visao-geral"
-           class="ativo">
-          ⌂ Visão geral
-        </a>
-
-        <a href="#lista-documentos"
-           id="menu-todos-materiais">
-          ▣ Todos os materiais
-        </a>
-
-                <div class="menu-disciplinas">
-
-          <p class="menu-secao">DISCIPLINAS</p>
-
-          <div id="lista-menu-disciplinas"></div>
-
-        </div>
-
-        <a
-          href="https://script.google.com/macros/s/AKfycbzViwSYqEl8lgqXRbDocuEuutCIThlt1Od33Y6sI5jRQJoYXRM7s3kFIsjtnTBUidT_Cg/exec"
-          target="_blank"
-          rel="noopener noreferrer">
-          ✨ Tutor IA
-        </a>
-
-        <a href="direito.html">
-          ← Voltar ao currículo
-        </a>
-
-      </nav>
-
-    </aside>
-
-    <!-- CONTEÚDO PRINCIPAL -->
-    <section class="conteudo-biblioteca">
-
-      <main id="inicio" class="conteudo-principal">
+  <main id="inicio" class="conteudo-principal">
 
         <h2>Todos os documentos</h2>
 
         <!-- PESQUISA -->
+        <div class="controles-biblioteca">
         <input
           type="search"
           id="busca"
-          placeholder="Buscar por título ou descrição..."
+          placeholder="Buscar por título, descrição ou palavra-chave..."
+          aria-label="Buscar materiais"
         >
 
-        <!-- FILTROS -->
         <select id="filtro-disciplina">
           <option value="">Todas as disciplinas</option>
         </select>
 
-        <select id="filtro-categoria">
+        <select id="filtro-categoria" aria-label="Filtrar por categoria">
           <option value="">Todas as categorias</option>
         </select>
+        </div>
 
         <!-- INDICADORES -->
         <div
@@ -103,11 +134,7 @@
           class="lista-documentos">
         </section>
 
-      </main>
-
-    </section>
-
-  </div>
+  </main>
 
   <script>
 
@@ -245,37 +272,6 @@
           opcao.textContent = nome;
 
           filtroCategoria.appendChild(opcao);
-
-        });
-
-        // =====================================
-        // MENU DINÂMICO DE DISCIPLINAS
-        // =====================================
-
-        const menuDisciplinas = document.getElementById(
-          "lista-menu-disciplinas"
-        );
-
-        disciplinas.forEach(nome => {
-
-          const link = document.createElement("a");
-
-          link.href = "#lista-documentos";
-          link.textContent = nome;
-          link.dataset.disciplina = nome;
-
-          link.addEventListener("click", () => {
-
-            busca.value = "";
-            filtroCategoria.value = "";
-            filtroDisciplina.value = nome;
-
-            atualizarMenuAtivo(nome);
-            exibirDocumentos();
-
-          });
-
-          menuDisciplinas.appendChild(link);
 
         });
 
@@ -534,46 +530,6 @@
         }
 
         // =====================================
-        // CONTROLE DO MENU ATIVO
-        // =====================================
-
-        function atualizarMenuAtivo(
-          disciplinaSelecionada = "",
-          secao = "todos"
-        ) {
-
-          document.querySelectorAll(".menu-lateral nav a")
-            .forEach(link => {
-              link.classList.remove("ativo");
-            });
-
-          if (disciplinaSelecionada) {
-
-            const links = menuDisciplinas.querySelectorAll("a");
-
-            links.forEach(link => {
-
-              if (link.dataset.disciplina === disciplinaSelecionada) {
-                link.classList.add("ativo");
-              }
-
-            });
-
-          } else if (secao === "visao-geral") {
-
-            document.getElementById("menu-visao-geral")
-              .classList.add("ativo");
-
-          } else {
-
-            document.getElementById("menu-todos-materiais")
-              .classList.add("ativo");
-
-          }
-
-        }
-
-        // =====================================
         // LIMPAR FILTROS
         // =====================================
 
@@ -583,24 +539,9 @@
           filtroDisciplina.value = "";
           filtroCategoria.value = "";
 
-          atualizarMenuAtivo("", secao);
           exibirDocumentos();
 
         }
-
-        // =====================================
-        // EVENTOS DO MENU
-        // =====================================
-
-        document.getElementById("menu-visao-geral")
-          .addEventListener("click", () => {
-            limparFiltros("visao-geral");
-          });
-
-        document.getElementById("menu-todos-materiais")
-          .addEventListener("click", () => {
-            limparFiltros("todos");
-          });
 
         // =====================================
         // EVENTOS DOS FILTROS
@@ -608,32 +549,17 @@
 
         busca.addEventListener("input", () => {
 
-          atualizarMenuAtivo(
-            filtroDisciplina.value,
-            "todos"
-          );
-
           exibirDocumentos();
 
         });
 
         filtroDisciplina.addEventListener("change", () => {
 
-          atualizarMenuAtivo(
-            filtroDisciplina.value,
-            "todos"
-          );
-
           exibirDocumentos();
 
         });
 
         filtroCategoria.addEventListener("change", () => {
-
-          atualizarMenuAtivo(
-            filtroDisciplina.value,
-            "todos"
-          );
 
           exibirDocumentos();
 
@@ -642,8 +568,6 @@
         // =====================================
         // INICIALIZAÇÃO
         // =====================================
-
-        atualizarMenuAtivo("", "visao-geral");
 
         exibirDocumentos();
 
