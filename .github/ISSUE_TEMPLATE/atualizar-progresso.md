@@ -16,6 +16,10 @@ assignees: ricardofelippe
 
 ### Revisões realizadas
 
-### Ação no histórico\n\n### Data registrada\n\n### Nova sessão de estudo
+### Ação no histórico
+
+### Data registrada
+
+### Nova sessão de estudo
 
 ### Data de revisão
