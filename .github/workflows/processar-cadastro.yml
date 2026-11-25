@@ -45,6 +45,7 @@ jobs:
 
           titulo = campo("Título do material")
           disciplina = campo("Disciplina")
+          disciplina_id = campo("ID da disciplina")
           assunto = campo("Assunto vinculado")
           assunto_id = campo("ID do assunto")
           categoria = campo("Categoria")
@@ -74,6 +75,8 @@ jobs:
               raise SystemExit("Erro: disciplina inválida.")
 
           disciplina_registro = disciplinas_validas[disciplina]
+          if disciplina_id and disciplina_id != disciplina_registro["id"]:
+              raise SystemExit("Erro: ID da disciplina não corresponde ao nome selecionado.")
           unidades_disciplina = {
               u["id"] for u in estrutura.get("unidades", [])
               if u.get("disciplina_id") == disciplina_registro["id"]
@@ -132,6 +135,7 @@ jobs:
               "categoria": categoria,
               "descricao": descricao,
               "disciplina": disciplina,
+              "disciplina_id": disciplina_registro["id"],
               "assunto_id": assunto_id,
               "assunto": assunto,
               "arquivo": arquivo,
