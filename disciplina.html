@@ -192,6 +192,26 @@
       gap: 14px;
     }
 
+    .cartao-assunto-wrapper {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .indicador-ordem-assunto {
+      color: var(--texto-suave);
+      font-size: 10px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .5px;
+      line-height: 1.2;
+    }
+
+    .cartao-assunto-wrapper[hidden] {
+      display: none !important;
+    }
+
     .cartao-topico {
       display: flex;
       flex-direction: column;
@@ -784,8 +804,15 @@
         const rotuloSituacao = (opcoesProgresso.situacao_geral.find(opcao => opcao[0] === situacao) || [null,'Não iniciado'])[1];
         const iconeSituacao = situacao === 'concluido' ? '✓' : situacao === 'pendente' ? '!' : situacao === 'em_andamento' ? '●' : '○';
 
+        const indicador = indicadoresOrdemAssuntos.get(assunto.id);
+        const numeracao = indicador
+          ? `<span class="indicador-ordem-assunto" aria-label="${escapeHTML(indicador.ariaLabel)}">${escapeHTML(indicador.texto)}</span>`
+          : '';
+
         return `
-          <details class="cartao-topico-item${classesSituacao}" data-cartao-assunto="${escapeHTML(assunto.id)}">
+          <div class="cartao-assunto-wrapper">
+            ${numeracao}
+            <details class="cartao-topico-item${classesSituacao}" data-cartao-assunto="${escapeHTML(assunto.id)}">
             <summary class="cartao-topico">
               <span class="icone-topico">§</span>
               <span class="nome-topico">${escapeHTML(titulo)}</span>
@@ -840,7 +867,8 @@
               </button>
               <span class="mensagem-progresso" aria-live="polite"></span>
             </div>
-          </details>`;
+            </details>
+          </div>`;
       }
 
       function abrirSolicitacaoHistorico(assuntoId, acao, dataAnterior = '', novaData = '', tipo = 'estudos') {
@@ -912,7 +940,10 @@
       function aplicarFiltroSituacaoAssuntos() {
         document.querySelectorAll('[data-cartao-assunto]').forEach(cartao => {
           const situacao = registroProgresso(cartao.dataset.cartaoAssunto).situacao_geral || 'nao_iniciado';
-          cartao.hidden = filtroSituacaoAssuntos !== 'todos' && situacao !== filtroSituacaoAssuntos;
+          const ocultar = filtroSituacaoAssuntos !== 'todos' && situacao !== filtroSituacaoAssuntos;
+          cartao.hidden = ocultar;
+          const wrapper = cartao.closest('.cartao-assunto-wrapper');
+          if (wrapper) wrapper.hidden = ocultar;
         });
         document.querySelectorAll('[data-filtro-situacao]').forEach(botao => {
           botao.setAttribute('aria-pressed', String(botao.dataset.filtroSituacao === filtroSituacaoAssuntos));
@@ -937,6 +968,8 @@
         aviso.appendChild(limpar);
       }
 
+      let indicadoresOrdemAssuntos = new Map();
+
       function montarTopicos() {
         montarResumoProgresso();
         const unidades = (estrutura.unidades || [])
@@ -944,6 +977,26 @@
           .sort(ordenar);
 
         const todosAssuntos = estrutura.assuntos || [];
+
+        // Numeração sequencial dos assuntos na ordem das unidades e dos assuntos,
+        // calculada antes de qualquer filtro para permanecer estável.
+        const assuntosOrdenados = unidades.flatMap(unidade =>
+          todosAssuntos
+            .filter(assunto => assunto.unidade_id === unidade.id)
+            .sort(ordenar)
+        );
+        const assuntosDiretosOrdenados = todosAssuntos
+          .filter(assunto => assunto.disciplina_id === disciplinaId && assunto.unidade_id == null)
+          .sort(ordenar);
+        assuntosOrdenados.push(...assuntosDiretosOrdenados);
+        indicadoresOrdemAssuntos = new Map(assuntosOrdenados.map((assunto, indice) => {
+          const numero = String(indice + 1).padStart(2, '0');
+          const total = String(assuntosOrdenados.length).padStart(2, '0');
+          return [assunto.id, {
+            texto: numero + '/' + total,
+            ariaLabel: 'Assunto ' + (indice + 1) + ' de ' + assuntosOrdenados.length + ' nesta disciplina'
+          }];
+        }));
 
         const assuntosDiretos = todosAssuntos
           .filter(assunto =>
