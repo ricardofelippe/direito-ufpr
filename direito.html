@@ -736,6 +736,51 @@
       .grade-disciplinas { grid-template-columns: 1fr; }
       .titulo-ano, .titulo-sem-ano { font-size: 20px; }
     }
+
+    /* Ajustes finais dos cartões expansíveis */
+    .cartao-disciplina {
+      display: block;
+      min-height: 0;
+      padding: 0;
+      overflow: hidden;
+      cursor: default;
+    }
+    .resumo-cartao-disciplina {
+      display: block;
+      padding: 16px 18px;
+      list-style: none;
+      cursor: pointer;
+    }
+    .resumo-cartao-disciplina::-webkit-details-marker { display: none; }
+    .resumo-cartao-disciplina::after {
+      content: "+";
+      float: right;
+      margin: -27px 2px 0 10px;
+      color: var(--azul-claro);
+      font: 22px Arial, sans-serif;
+    }
+    .cartao-disciplina[open] > .resumo-cartao-disciplina::after { content: "−"; }
+    .resumo-cartao-disciplina .cartao-topo { padding-right: 24px; }
+    .descricao-disciplina {
+      margin: 9px 0 0;
+      color: var(--texto-secundario);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .conteudo-cartao-disciplina {
+      padding: 0 18px 16px;
+      border-top: 1px solid var(--borda);
+    }
+    .conteudo-cartao-disciplina .painel-progresso-disciplina { margin-top: 12px; }
+    .conteudo-cartao-disciplina .indicador-acesso {
+      display: inline-block;
+      margin-top: 12px;
+      text-decoration: none;
+    }
+    .resumo-cartao-disciplina:focus-visible {
+      outline: 2px solid var(--azul-claro);
+      outline-offset: -3px;
+    }
   </style>
 </head>
 <body class="pagina-curriculo">
