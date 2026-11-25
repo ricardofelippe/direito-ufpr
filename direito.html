@@ -1255,6 +1255,12 @@
         cartao.appendChild(criarElemento('strong', '', 'Previsão curricular'));
         cartao.appendChild(criarElemento('p', '', 'Os componentes tópicos ainda serão cadastrados. Nenhum nome ou código foi presumido.'));
 
+        const linkTopicas = criarElemento('a', 'link-informacoes-pedagogicas', 'Consultar relação oficial de disciplinas tópicas →');
+        linkTopicas.href = 'https://direito.ufpr.br/?page_id=41849';
+        linkTopicas.target = '_blank';
+        linkTopicas.rel = 'noopener noreferrer';
+        cartao.appendChild(linkTopicas);
+
         const resumo = criarElemento('div', 'resumo-topicas');
         resumo.appendChild(criarElemento('span', '', `${dados.quantidade} disciplinas previstas`));
         resumo.appendChild(criarElemento('span', '', `${dados.carga_horaria_total} horas no total`));
