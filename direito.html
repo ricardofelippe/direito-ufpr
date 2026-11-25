@@ -188,6 +188,23 @@
       line-height: 1.2;
     }
 
+    .controle-status-disciplina {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .seletor-status-disciplina {
+      max-width: 150px;
+      padding: 5px 8px;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      background: var(--fundo-secundario);
+      color: var(--texto-secundario);
+      font-size: 11px;
+    }
+
     .acao-status-disciplina {
       align-self: flex-start;
       border: 0;
@@ -198,6 +215,10 @@
       text-decoration: underline;
       text-underline-offset: 3px;
       cursor: pointer;
+    }
+
+    .acao-status-disciplina[hidden] {
+      display: none;
     }
 
     .acao-status-disciplina:hover {
@@ -1169,14 +1190,14 @@
         const cartao = criarElemento('details', 'cartao-disciplina');
 
         const resumo = criarElemento('summary', 'resumo-cartao-disciplina');
+        if (disciplina.codigo) {
+          resumo.appendChild(criarElemento('span', 'codigo-disciplina', disciplina.codigo));
+        }
+
         const topo = criarElemento('div', 'cartao-topo');
         const nome = criarElemento('h4', 'nome-disciplina', disciplina.nome || 'Disciplina sem nome');
         topo.appendChild(nome);
         resumo.appendChild(topo);
-
-        if (disciplina.codigo) {
-          resumo.appendChild(criarElemento('span', 'codigo-disciplina', disciplina.codigo));
-        }
 
         const status = String(disciplina.status || 'pendente').toLowerCase();
         if (status === 'ativa') {
@@ -1282,24 +1303,49 @@
         cartao.appendChild(conteudo);
         wrapper.appendChild(cartao);
 
-        const corpo = [
-          '### Identificador da disciplina',
-          disciplina.id,
-          '',
-          '### Novo status',
-          status
-        ].join('\n');
-        const parametros = new URLSearchParams({
-          template: 'atualizar-status-disciplina.md',
-          title: '[Atualizar status da disciplina] ' + (disciplina.codigo || disciplina.id),
-          body: corpo
+        const controleStatus = criarElemento('div', 'controle-status-disciplina');
+        const seletorStatus = criarElemento('select', 'seletor-status-disciplina');
+        seletorStatus.setAttribute('aria-label', 'Novo status administrativo de ' + (disciplina.nome || 'disciplina'));
+        seletorStatus.add(new Option('Selecionar novo status', ''));
+        [
+          ['ativa', 'Ativa'],
+          ['inativa', 'Inativa'],
+          ['pendente', 'Pendente']
+        ].forEach(([valor, rotulo]) => {
+          if (valor !== status) seletorStatus.add(new Option(rotulo, valor));
         });
-        const acao = criarElemento('a', 'acao-status-disciplina', 'Alterar status administrativo');
-        acao.href = 'https://github.com/ricardofelippe/direito-ufpr/issues/new?' + parametros.toString();
+
+        const acao = criarElemento('a', 'acao-status-disciplina', 'Solicitar alteração');
+        acao.hidden = true;
         acao.target = '_blank';
         acao.rel = 'noopener';
-        acao.setAttribute('aria-label', 'Alterar status administrativo de ' + (disciplina.nome || 'disciplina'));
-        wrapper.appendChild(acao);
+        acao.setAttribute('aria-label', 'Solicitar alteração do status administrativo de ' + (disciplina.nome || 'disciplina'));
+
+        seletorStatus.addEventListener('change', () => {
+          if (!seletorStatus.value) {
+            acao.hidden = true;
+            acao.removeAttribute('href');
+            return;
+          }
+          const corpo = [
+            '### Identificador da disciplina',
+            disciplina.id,
+            '',
+            '### Novo status',
+            seletorStatus.value
+          ].join('\n');
+          const parametros = new URLSearchParams({
+            template: 'atualizar-status-disciplina.md',
+            title: '[Atualizar status da disciplina] ' + (disciplina.codigo || disciplina.id),
+            body: corpo
+          });
+          acao.href = 'https://github.com/ricardofelippe/direito-ufpr/issues/new?' + parametros.toString();
+          acao.hidden = false;
+        });
+
+        controleStatus.appendChild(seletorStatus);
+        controleStatus.appendChild(acao);
+        wrapper.appendChild(controleStatus);
 
         return wrapper;
       }
