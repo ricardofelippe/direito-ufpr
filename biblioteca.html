@@ -8,6 +8,59 @@
   <title>Biblioteca de Direito</title>
   <link rel="stylesheet" href="direito.css?v=3">
   <style>
+
+    /* Cartões compactos e expansíveis */
+    body.pagina-biblioteca .documento {
+      padding: 0;
+      overflow: hidden;
+      align-self: start;
+    }
+    body.pagina-biblioteca .documento:hover {
+      transform: none;
+    }
+    body.pagina-biblioteca .documento-resumo {
+      position: relative;
+      display: block;
+      cursor: pointer;
+      list-style: none;
+      padding: 17px 42px 17px 18px;
+      min-height: 100px;
+    }
+    body.pagina-biblioteca .documento-resumo::-webkit-details-marker {
+      display: none;
+    }
+    body.pagina-biblioteca .documento-resumo::after {
+      content: "+";
+      position: absolute;
+      right: 18px;
+      top: 18px;
+      color: #36d9dc;
+      font: 22px Arial, sans-serif;
+    }
+    body.pagina-biblioteca details[open] > .documento-resumo::after {
+      content: "−";
+    }
+    body.pagina-biblioteca .documento-resumo h3 {
+      margin: 0 0 9px;
+      font-size: 17px;
+      line-height: 1.35;
+    }
+    body.pagina-biblioteca .documento-resumo p {
+      margin: 4px 0 0;
+      color: #a5b8ca;
+      font-size: 12px;
+    }
+    body.pagina-biblioteca .documento-categoria {
+      color: #71869b !important;
+    }
+    body.pagina-biblioteca .documento-conteudo {
+      padding: 0 18px 18px;
+      border-top: 1px solid #1b3041;
+    }
+    body.pagina-biblioteca .documento-conteudo > p:first-child {
+      margin-top: 14px;
+    }
+
     body.pagina-biblioteca > header.cabecalho-biblioteca {
       padding: 24px max(24px, calc((100% - 1120px) / 2));
       text-align: left;
@@ -185,8 +238,16 @@
           disciplinasObrigatorias.map(d => [normalizar(d.nome), d])
         );
 
+        const titulosOcultos = new Set([
+          "teste de associacao de pdf",
+          "teste",
+          "teste de integracao do formulario",
+          "trabalho 1 - google docs"
+        ]);
+
         const documentos = todosDocumentos.filter(doc =>
-          mapaDisciplinas.has(normalizar(doc.disciplina))
+          mapaDisciplinas.has(normalizar(doc.disciplina)) &&
+          !titulosOcultos.has(normalizar(doc.titulo))
         );
 
         const nomeComCodigo = nome => {
@@ -404,43 +465,34 @@
 
           filtrados.forEach(doc => {
 
-            const artigo = document.createElement("article");
+            const artigo = document.createElement("details");
             artigo.className = "documento";
 
-            // Título
+            const resumoCartao = document.createElement("summary");
+            resumoCartao.className = "documento-resumo";
 
             const titulo = document.createElement("h3");
-
-            titulo.textContent =
-              doc.titulo || "Documento sem título";
-
-            // Disciplina
+            titulo.textContent = doc.titulo || "Documento sem título";
 
             const disciplinaTexto = document.createElement("p");
-
+            disciplinaTexto.className = "documento-disciplina";
             disciplinaTexto.textContent =
-              "Disciplina: " + nomeComCodigo(doc.disciplina || "Não informada");
-
-            // Categoria
+              nomeComCodigo(doc.disciplina || "Não informada");
 
             const categoriaTexto = document.createElement("p");
-
+            categoriaTexto.className = "documento-categoria";
             categoriaTexto.textContent =
-              "Categoria: " + (doc.categoria || "Não informada");
+              doc.categoria || "Categoria não informada";
 
-            // Descrição
+            resumoCartao.append(titulo, disciplinaTexto, categoriaTexto);
+            artigo.appendChild(resumoCartao);
+
+            const conteudoCartao = document.createElement("div");
+            conteudoCartao.className = "documento-conteudo";
 
             const descricao = document.createElement("p");
-
-            descricao.textContent =
-              doc.descricao || "Sem descrição.";
-
-            artigo.append(
-              titulo,
-              disciplinaTexto,
-              categoriaTexto,
-              descricao
-            );
+            descricao.textContent = doc.descricao || "Sem descrição.";
+            conteudoCartao.appendChild(descricao);
 
             // =====================================
             // COMPATIBILIDADE COM PDFs ANTIGOS E NOVOS
@@ -462,7 +514,7 @@
                   ? "Arquivo PDF:"
                   : "Arquivos PDF (" + arquivos.length + "):";
 
-              artigo.appendChild(subtitulo);
+              conteudoCartao.appendChild(subtitulo);
 
               const listaArquivos = document.createElement("ul");
               listaArquivos.className = "lista-pdfs";
@@ -511,7 +563,7 @@
 
               });
 
-              artigo.appendChild(listaArquivos);
+              conteudoCartao.appendChild(listaArquivos);
 
             } else {
 
@@ -520,9 +572,9 @@
               aviso.textContent = "PDF ainda não anexado.";
               aviso.className = "sem-pdf";
 
-              artigo.appendChild(aviso);
+              conteudoCartao.appendChild(aviso);
 
-              artigo.appendChild(
+              conteudoCartao.appendChild(
                 criarLinkAssociacao("Associar PDF", doc)
               );
 
@@ -545,9 +597,11 @@
                 )
               );
 
-              artigo.appendChild(areaAdicionar);
+              conteudoCartao.appendChild(areaAdicionar);
 
             }
+
+            artigo.appendChild(conteudoCartao);
 
             lista.appendChild(artigo);
 
