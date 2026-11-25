@@ -180,7 +180,14 @@
         .filter(u => u.disciplina_id === disciplina.id)
         .sort((a, b) => Number(a.ordem || 9999) - Number(b.ordem || 9999));
       const assuntos = estruturaCurricular.assuntos || [];
-      let total = 0;
+      const assuntosDiretosLista = assuntos.filter(a =>
+        a.disciplina_id === disciplina.id && !a.unidade_id
+      );
+      const total = assuntos.filter(a =>
+        unidades.some(u => u.id === a.unidade_id) ||
+        (a.disciplina_id === disciplina.id && !a.unidade_id)
+      ).length;
+      let indiceAssunto = 0;
 
       unidades.forEach((unidade, indiceUnidade) => {
         const relacionados = assuntos
@@ -192,16 +199,15 @@
         relacionados.forEach(assunto => {
           const opcao = document.createElement("option");
           opcao.value = assunto.id;
-          opcao.textContent = assunto.nome;
+          indiceAssunto++;
+          opcao.textContent = String(indiceAssunto).padStart(2, "0") + "/" + String(total).padStart(2, "0") + " — " + assunto.nome;
           opcao.dataset.nome = assunto.nome;
           grupo.appendChild(opcao);
-          total++;
         });
         seletorAssunto.appendChild(grupo);
       });
 
-      const assuntosDiretos = assuntos
-        .filter(a => a.disciplina_id === disciplina.id && !a.unidade_id)
+      const assuntosDiretos = assuntosDiretosLista
         .sort((a, b) => Number(a.ordem || 9999) - Number(b.ordem || 9999));
       if (assuntosDiretos.length) {
         const grupo = document.createElement("optgroup");
@@ -209,10 +215,10 @@
         assuntosDiretos.forEach(assunto => {
           const opcao = document.createElement("option");
           opcao.value = assunto.id;
-          opcao.textContent = assunto.nome;
+          indiceAssunto++;
+          opcao.textContent = String(indiceAssunto).padStart(2, "0") + "/" + String(total).padStart(2, "0") + " — " + assunto.nome;
           opcao.dataset.nome = assunto.nome;
           grupo.appendChild(opcao);
-          total++;
         });
         seletorAssunto.appendChild(grupo);
       }
