@@ -12,9 +12,14 @@
       "situacao_geral": "em_andamento",
       "conteudo_status": "nao_iniciado",
       "questoes_status": "nao_iniciado",
-      "revisao_status": "nao_iniciado",
+      "revisao_status": "em_andamento",
       "data_revisao": "2026-12-01",
       "historico_estudos": [
+        {
+          "data": "2026-11-25"
+        }
+      ],
+      "historico_revisoes": [
         {
           "data": "2026-11-25"
         }
