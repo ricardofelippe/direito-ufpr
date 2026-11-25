@@ -136,6 +136,16 @@
       min-width: 0;
     }
 
+    .indicador-ordem-disciplina {
+      align-self: flex-start;
+      color: var(--texto-suave);
+      font-size: 10px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .5px;
+      line-height: 1.2;
+    }
+
     .acao-status-disciplina {
       align-self: flex-start;
       border: 0;
@@ -996,9 +1006,16 @@
       }
 
       let estruturaAtual = null;
+      let indicadoresOrdemDisciplinas = new Map();
 
       function criarCartao(disciplina) {
         const wrapper = criarElemento('div', 'cartao-disciplina-wrapper');
+        const indicador = indicadoresOrdemDisciplinas.get(disciplina.id);
+        if (indicador) {
+          const posicao = criarElemento('span', 'indicador-ordem-disciplina', indicador.texto);
+          posicao.setAttribute('aria-label', indicador.ariaLabel);
+          wrapper.appendChild(posicao);
+        }
         const cartao = criarElemento('details', 'cartao-disciplina');
 
         const resumo = criarElemento('summary', 'resumo-cartao-disciplina');
@@ -1226,6 +1243,33 @@
         if (!estrutura || !Array.isArray(estrutura.disciplinas)) {
           throw new Error('O arquivo não contém uma lista válida de disciplinas.');
         }
+
+        // A numeração é calculada sobre a estrutura completa, antes dos filtros,
+        // e reiniciada separadamente para cada categoria curricular.
+        const gruposNumeracao = new Map();
+        estrutura.disciplinas.forEach(disciplina => {
+          const categoria = disciplina.categoria || 'sem-categoria';
+          if (!gruposNumeracao.has(categoria)) gruposNumeracao.set(categoria, []);
+          gruposNumeracao.get(categoria).push(disciplina);
+        });
+        indicadoresOrdemDisciplinas = new Map();
+        gruposNumeracao.forEach((registros, categoria) => {
+          const ordenados = [...registros].sort((a, b) => {
+            const anoA = a.ano == null || a.ano === '' ? 99 : Number(a.ano);
+            const anoB = b.ano == null || b.ano === '' ? 99 : Number(b.ano);
+            const ordemA = Number.isFinite(Number(a.ordem)) ? Number(a.ordem) : 9999;
+            const ordemB = Number.isFinite(Number(b.ordem)) ? Number(b.ordem) : 9999;
+            return anoA - anoB || ordemA - ordemB || String(a.nome || '').localeCompare(String(b.nome || ''), 'pt-BR');
+          });
+          ordenados.forEach((disciplina, indice) => {
+            const numero = String(indice + 1).padStart(2, '0');
+            const total = String(ordenados.length).padStart(2, '0');
+            indicadoresOrdemDisciplinas.set(disciplina.id, {
+              texto: numero + '/' + total,
+              ariaLabel: 'Disciplina ' + (indice + 1) + ' de ' + ordenados.length + ' na categoria ' + categoria
+            });
+          });
+        });
 
         const disciplinas = filtrarDisciplinas(estrutura.disciplinas);
         const fragmento = document.createDocumentFragment();
