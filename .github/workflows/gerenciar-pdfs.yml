@@ -154,14 +154,18 @@ jobs:
                 throw new Error('Operação inválida.');
               }
 
-              // Valida disciplina
-              const disciplinasPermitidas = [
-                'Teoria do Direito',
-                'Filosofia do Direito'
-              ];
+              // Valida a disciplina usando a estrutura curricular completa.
+              // Assim, novos materiais de qualquer disciplina cadastrada podem
+              // ter seus PDFs gerenciados sem atualizar uma lista manual.
+              const estrutura = JSON.parse(
+                fs.readFileSync('dados/estrutura.json', 'utf8')
+              );
+              const disciplinasPermitidas = new Set(
+                (estrutura.disciplinas || []).map(item => item.nome)
+              );
 
-              if (!disciplinasPermitidas.includes(disciplina)) {
-                throw new Error('Disciplina inválida.');
+              if (!disciplinasPermitidas.has(disciplina)) {
+                throw new Error('Disciplina não encontrada na estrutura curricular.');
               }
 
               // Valida quantidade de anexos
