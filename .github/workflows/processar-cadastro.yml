@@ -62,7 +62,8 @@ jobs:
               "Exercício",
               "Mapa conceitual",
               "Bibliografia básica",
-              "Bibliografia complementar"
+              "Bibliografia complementar",
+              "Ementa"
           ]
 
           if not titulo:
