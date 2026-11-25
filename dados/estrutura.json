@@ -477,7 +477,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 10,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DIR412-Pratica-Juridica-Civel-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DIR412 — Prática Jurídica Cível",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "PRÁTICA JURÍDICA CÍVEL. ACESSO À JUSTIÇA. PRÁTICAS EXTENSIONISTAS. CLÍNICAS JURÍDICAS. A ADVOCACIA NOS NÚCLEOS DE PRÁTICA JURÍDICA. ESTRATÉGIAS DE LITIGÂNCIA. ASSESSORIA JURÍDICA GRATUITA.",
+        "programa": "1. Apresentação da disciplina.\n2. Análise de feitos judiciais patrocinados pelo Departamento de Prática Jurídica I.\n3. Análise de feitos judiciais patrocinados pelo Departamento de Prática Jurídica II.\n4. Contato com usuários e elaboração de petições I.\n5. Contato com usuários e elaboração de petições II.\n6. A prática extensionista – conceitos e fundamentos.\n7. Preparação das atividades extensionistas.\n8. Realização das atividades extensionistas.\n9. Clínicas Jurídicas I.\n10. Clínicas Jurídicas II.\n11. Assessoria Jurídica Gratuita.\n12. Entrega do relatório final da disciplina.",
+        "objetivo_geral": "Possibilitar ao discente o aprendizado de competências próprias da atividade profissional, integrando o conhecimento teórico-crítico à atuação prática, bem como propiciar ao discente o exercício da assessoria jurídica e integrá-lo em práticas de extensão universitária.",
+        "objetivos_especificos": "Dominar a técnica de elaboração das principais peças processuais. Compreender a dinâmica da prática jurídica cível nas estratégias de litígios. Exemplificar os aspectos éticos profissionais. Realizar a prática jurídica por meio de Clínicas Jurídicas.",
+        "procedimentos_didaticos": "Assessoria jurídica e extensão universitária; aulas práticas de elaboração de peças processuais; elaboração de petições e acompanhamento processual; realização de processo simulado; pesquisa de jurisprudência.",
+        "formas_avaliacao": "Ao final da disciplina os alunos deverão apresentar um relatório consolidado de todas as atividades desenvolvidas. Sistema de avaliação – média das atividades."
+      }
     },
     {
       "id": "pratica-juridica-penal",
@@ -487,7 +498,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 11,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DIR413-Pratica-Juridica-Penal-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DIR413 — Prática Jurídica Penal",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Inquérito policial. Ação. Procedimento. Medidas cautelares pessoais e reais no processo penal. Recursos ordinários. Recursos aos Tribunais Superiores. Habeas Corpus. Revisão Criminal. Execução Penal. Tópicos de Direito Penal (Parte Especial). Propedêutica da Prática Penal. Ética profissional.",
+        "programa": "1. Inquérito policial: conceito e características; indiciamento, qualificação e identificação criminal; direito de defesa; arquivamento e desarquivamento.\n2. Ação: noções gerais, condições da ação e juízo de admissibilidade, condições específicas de procedibilidade, representação do ofendido e resposta preliminar.\n3. Procedimento: processo e procedimento; procedimentos ordinário, sumário, sumaríssimo, especial do Júri e outros procedimentos especiais.\n4. Medidas cautelares no processo penal: prisão em flagrante, liberdade provisória, prisão preventiva e temporária, medidas cautelares pessoais e reais.\n5. Recursos ordinários: teoria geral, apelação, recurso em sentido estrito, agravo em execução, embargos e outros recursos.\n6. Recursos aos Tribunais Superiores: controle de constitucionalidade em âmbito criminal, admissibilidade, procedimento e julgamento, recursos especial e extraordinário.\n7. Habeas Corpus.\n8. Revisão Criminal.\n9. Execução Penal: individualização executória da pena, faltas, sanções, progressão, regressão, livramento condicional, autorizações de saída, remição, indulto e defesa na execução.",
+        "objetivo_geral": "Habilitar o acadêmico à compreensão e manejo dos principais instrumentos práticos na Prática Penal e Processual Penal.",
+        "objetivos_especificos": "Desenvolver as habilidades pontuais referentes à identificação dos problemas penais e processuais penais inerentes à prática penal nos seus vários âmbitos e preparar o estudante para a aplicação das soluções e instrumentos necessários à solução de tais problemas de forma complexa e crítica.",
+        "procedimentos_didaticos": "Aulas expositivas e/ou debates sobre os problemas centrais, complementados por leituras dirigidas e exercícios práticos orientados pelo professor. Exercícios semanais e obrigatórios. Atividades extensionistas práticas com visitas a estabelecimentos penais e atendimentos a detentos, para elaboração de relatórios e peças jurídicas; atividades complementares, acompanhamento de audiências, eventos e pesquisa.",
+        "formas_avaliacao": "Entrega de peças construídas sobre os casos e ementas trabalhadas nas aulas, acompanhamento de audiências e julgamentos on-line e participação em atividades de pesquisa e extensão. Avaliação dos relatórios de atendimento e peças produzidas na atividade prática. Entrega de relatório parcial ao final do primeiro semestre e relatório geral ao final do segundo semestre."
+      }
     },
     {
       "id": "pratica-juridica-trabalhista",
@@ -497,7 +519,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 12,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2025/04/DIR414-Pratica-Juridica-em-Direito-do-Trabalho-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DIR414 — Prática Jurídica em Direito do Trabalho",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "1. Fundamentos da prática jurídica em Direito do Trabalho. 2. Clínica jurídica e advocacia de interesse público. 3. Práticas extensionistas. 4. Relações de trabalho e direitos humanos. 5. Acesso à justiça e contencioso trabalhista na Justiça do Trabalho. 6. Relações coletivas e solução de conflitos coletivos de trabalho. 7. Advocacia na Organização Internacional do Trabalho (OIT) e nos sistemas global e regional de proteção dos direitos humanos.",
+        "programa": "1. Fundamentos da prática jurídica em Direito do Trabalho.\n2. Clínica jurídica e advocacia de interesse público.\n3. Práticas extensionistas de assessoria jurídica.\n4. Relações de trabalho e direitos humanos.\n5. Justiça do Trabalho e Ministério Público do Trabalho.\n6. Prática do processo na Justiça do Trabalho: petição inicial, respostas, provas, recursos e execução.\n7. Relações coletivas: liberdade sindical, sindicato e organização sindical; negociação coletiva; conflito de greve e dissídio coletivo.",
+        "objetivo_geral": "Compreender os fundamentos, as peculiaridades e aspectos relevantes da prática em Direito do Trabalho, desenvolvendo conhecimentos teóricos e práticos de situações envolvendo o âmbito dos direitos individuais e coletivos.",
+        "objetivos_especificos": "Desenvolver a prática jurídica, com ênfase no Direito do Trabalho. Desenvolver conhecimentos e habilidades na metodologia da Clínica Jurídica. Compreender criticamente os problemas de acesso à Justiça do Trabalho. Desenvolver habilidades do processo individual e coletivo do trabalho e a solução do conflito individual e coletivo do trabalho em tribunais brasileiros e organismos internacionais.",
+        "procedimentos_didaticos": "Aulas expositivo-dialogadas para apresentação dos conteúdos curriculares teóricos e indicação de exercícios domiciliares. Utilização da plataforma Microsoft Teams para atividades e material bibliográfico. Atividades extensionistas práticas na área trabalhista, com visitas a tribunais, instituições públicas e entidades associativas do mundo do trabalho. Atividades complementares em eventos de pesquisa.",
+        "formas_avaliacao": "Entrega de artigo, peças processuais e relatórios de participação em atividades de pesquisa e extensão nas áreas de Direito do Trabalho, Direito Processual do Trabalho e Direitos Humanos. O artigo deve resultar de pesquisa empírica de intervenção social ou prática extensionista, segundo as normas da ABNT. Entrega de dois relatórios documentados, ao final do primeiro semestre e ao final do segundo semestre."
+      }
     },
     {
       "id": "pratica-juridica-previdenciaria",
@@ -507,7 +540,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 13,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DIR415-Pratica-Juridica-em-Direito-Previdenciario-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DIR415 — Prática Jurídica em Direito Previdenciário",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Seguridade social. Previdência Social. Assistência Social. Direito à Aposentadoria. Pensão por morte. Benefícios da Previdência Social. Prestações por acidente de trabalho e doenças ocupacionais. Assistência social e seguro-desemprego. Previdência complementar. Regimes próprios de previdência. Processo administrativo previdenciário. Contencioso previdenciário.",
+        "programa": "I - OS FUNDAMENTOS JURÍDICOS DA PROTEÇÃO SOCIAL E DA SEGURIDADE SOCIAL: proteção contra riscos sociais; evolução do sistema brasileiro; seguridade social na Constituição de 1988; crise e reformas previdenciárias.\nII - O REGIME GERAL DE PREVIDÊNCIA SOCIAL – RGPS: beneficiários; normas gerais sobre prestações; acidente de trabalho e doenças; auxílios e aposentadorias; pensão por morte, salário-maternidade, salário-família, auxílio-reclusão e abono anual; tempo de serviço/contribuição; financiamento.\nIII – PREVIDÊNCIA COMPLEMENTAR: previdência privada aberta, fechada e instituída.\nIV - A PROTEÇÃO SOCIAL FORA DO RGPS: assistência social, benefício de prestação continuada (LOAS), serviços e seguro-desemprego.",
+        "objetivo_geral": "Compreender os fundamentos, as peculiaridades e aspectos relevantes da prática em Direito Previdenciário, desenvolvendo conhecimentos teóricos e práticos de situações envolvendo o âmbito dos direitos individuais e coletivos.",
+        "objetivos_especificos": "Desenvolver a prática jurídica, com ênfase no Direito Previdenciário. Desenvolver conhecimentos e habilidades na metodologia da Clínica Jurídica. Compreender criticamente os problemas de acesso à Justiça. Desenvolver habilidades do processo administrativo e judicial em âmbito nacional em tribunais brasileiros e organismos internacionais.",
+        "procedimentos_didaticos": "Aulas expositivo-dialogadas para apresentação dos conteúdos curriculares teóricos e indicação de exercícios domiciliares. Utilização da plataforma Microsoft Teams para postagem de atividades e disponibilização de material bibliográfico. Atividades extensionistas exclusivamente práticas na área previdenciária e atividades complementares em eventos de pesquisa.",
+        "formas_avaliacao": "Entrega de artigo, peças processuais e relatórios de participação em atividades de pesquisa e extensão. O artigo deve ser produzido em pesquisa empírica de intervenção social ou prática extensionista, segundo as normas da ABNT. Entrega de dois relatórios documentados, ao final do primeiro semestre e ao final do segundo semestre."
+      }
     },
     {
       "id": "pratica-juridica-em-direitos-humanos",
@@ -517,7 +561,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 14,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DIR416-Pratica-Juridica-em-Direitos-Humanos-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DIR416 — Prática Jurídica em Direitos Humanos",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Acesso à Justiça. Assessoria Jurídica em Direitos Humanos. Movimentos Sociais. Sistema de Proteção Internacional de Direitos Humanos. Sistema Nacional de Direitos Humanos. Atendimento Sociojurídico. Ética Profissional. Carreiras Jurídicas.",
+        "programa": "1. Acesso à Justiça e estratégias de exigibilidade dos Direitos Humanos: movimentos sociais e novos direitos.\n2. Justiciabilidade no Sistema de Justiça Brasileiro e litigância estratégica: estratégias jurídicas e atuação política de prevenção, proteção, reivindicação e reparação de Direitos Humanos.\n3. Sistema Internacional Global de Proteção dos Direitos Humanos: órgãos principais, mecanismos convencionais e não convencionais.\n4. Agências do sistema ONU e organizações associadas; estudos de casos.\n5. Sistema Interamericano de Direitos Humanos e o Brasil: Comissão e Corte Interamericana e casos brasileiros.\n6. Carreiras Jurídicas e Ética Profissional: advocacia particular e dativa, Defensoria Pública, Ministério Público, Magistratura e outras carreiras.\n7. Sistema Nacional de Proteção aos Direitos Humanos: Plano Nacional, comissões e conselhos.\n8. Prática em Direitos Humanos no século XXI: mediação, negociação, conciliação, audiências públicas, práticas clínicas, advocacy, compliance e políticas públicas.",
+        "objetivo_geral": "Esta disciplina visa preparar o estudante para a Prática Profissional na área de Direitos Humanos.",
+        "objetivos_especificos": "Identificar outras formas de resolução de conflitos além da demanda judicial; atuar como mediador, profissional de advocacy, compliance e árbitro em casos nacionais e internacionais; preparar Amicus Curiae, relatórios, informes ou pareceres sobre casos internacionais; trabalhar junto a organismos não-governamentais.",
+        "procedimentos_didaticos": "Aulas expositivas e/ou debates sobre os problemas centrais, complementados por leituras dirigidas e exercícios práticos realizados em casa. Utilização da plataforma Microsoft Teams para postagem de tarefas, gravação das aulas e disponibilização do material bibliográfico.",
+        "formas_avaliacao": "Cumprimento dos seguintes requisitos: 80% da nota pela participação nas atividades síncronas e assíncronas orientadas, como leituras, estudos de casos, pesquisas direcionadas e práticas simuladas, apresentadas em portfólio com data, horário e comprovantes; 20% pela participação em projeto de extensão ou prática jurídica orientada com impacto relevante para a comunidade."
+      }
     },
     {
       "id": "outro-db201-instituicoes-de-direito-publico",
@@ -934,7 +989,20 @@
       "ano": 5,
       "descricao": "",
       "ordem": 15,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DIR417-Pratica-Juridica-em-Direito-Constitucional-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DIR417 — Prática Jurídica em Direito Constitucional",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Aspectos teóricos e práticos das principais peças do direito constitucional, especialmente dos remédios constitucionais, ações do controle concentrado de constitucionalidade e recursos ligados a essa área de conhecimento, além da discussão de casos, análise jurisprudencial, estudo de procedimentos e atuações em órgãos judiciais.",
+        "programa": "1. Parte Introdutória (considerações processuais iniciais).\n2. Ação de Procedimento Comum (ou ação ordinária).\n3. Habeas Data.\n4. Habeas Corpus.\n5. Mandado de Segurança (individual e coletivo).\n6. Mandado de Injunção.\n7. Ação Popular.\n8. Ação Civil Pública.\n9. Ação Direta de Inconstitucionalidade.\n10. Ação Declaratória de Constitucionalidade.\n11. Ação Direta de Inconstitucionalidade por Omissão.\n12. Arguição de Descumprimento de Preceito Fundamental.\n13. Contestação.\n14. Recursos: visão geral, apelação, agravos, contrarrazões, embargos de declaração, recurso ordinário constitucional, recurso extraordinário e recurso especial.\n15. Reclamação.\n16. Parecer jurídico.\n17. Prática processual simulada.\n18. Análise de jurisprudência, procedimentos, atuações e casos reais em parcerias.",
+        "objetivo_geral": "Possibilitar ao discente o aprendizado das competências próprias da atividade profissional, integrando o conhecimento teórico à atuação prática, bem como integrar o discente a atividades de extensão universitária.",
+        "objetivos_especificos": "Permitir ao discente dominar a técnica para elaborar as principais peças do direito constitucional, bem como compreender a dinâmica dos principais órgãos judiciais.",
+        "procedimentos_didaticos": "Atuação em projeto de extensão universitária; aulas práticas de elaboração de peças; discussão de casos; análise jurisprudencial; prática processual simulada; análise de procedimentos e atuações em órgãos judiciais. Recursos didáticos: quadro, pincel, datashow, computador e legislação.",
+        "formas_avaliacao": "Apresentação de relatório de atividades e avaliação contínua, na forma como prevê a Portaria nº 01, de 18 de maio de 2017.",
+        "bibliografia_basica": "MARINONI, Luiz Guilherme; ARENHART, Sérgio Cruz; MITIDIERO, Daniel. Curso de Processo Civil. Volume 3: tutela dos direitos mediante procedimentos diferenciados. São Paulo: Revista dos Tribunais.\nMENDES, Gilmar Ferreira; BRANCO, Paulo Gustavo Gonet. Curso de direito constitucional. Saraiva.\nTHEODORO JÚNIOR, Humberto. Curso de Direito Processual Civil. Volume II: Procedimentos Especiais. Rio de Janeiro: Forense.",
+        "bibliografia_complementar": "BARROSO, Luís Roberto. O controle de constitucionalidade no direito brasileiro. São Paulo: Saraiva.\nDIMOULIS, Dimitri; LUNARDI, Soraya. Curso de processo constitucional. São Paulo: Atlas.\nGONÇALVES, Bernardo. Curso de Direito Constitucional. Salvador: JusPODIVM.\nMORAES, Alexandre. Direito Constitucional.\nSARLET, Ingo Wolfgang; MARINONI, Luiz Guilherme; MITIDIERO, Daniel. Curso de Direito Constitucional. São Paulo: Revista dos Tribunais."
+      }
     },
     {
       "id": "pratica-juridica-civil-turma-especial",
