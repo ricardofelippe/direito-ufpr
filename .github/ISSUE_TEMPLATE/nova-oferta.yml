@@ -1,0 +1,41 @@
+name: Cadastrar oferta de disciplina
+description: Registrar uma disciplina cursada em um período letivo e anexar seu Plano de Ensino
+title: "[Nova oferta] "
+body:
+  - type: input
+    id: disciplina
+    attributes:
+      label: Disciplina
+      description: Informe o nome da disciplina conforme aparece na estrutura do curso.
+      placeholder: Teoria do Direito
+    validations:
+      required: true
+
+  - type: input
+    id: periodo
+    attributes:
+      label: Período letivo
+      description: Use o formato AAAA/S.
+      placeholder: 2028/1
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tipo_registro
+    attributes:
+      label: Tipo de registro
+      description: Como este plano deve ser identificado?
+      options:
+        - Simulação
+        - Plano oficial
+    validations:
+      required: true
+
+  - type: upload
+    id: plano
+    attributes:
+      label: Plano de Ensino (PDF)
+      description: Anexe o PDF do Plano de Ensino. Para este primeiro teste, use o arquivo fictício gerado.
+    validations:
+      required: true
+      accept: ".pdf"
