@@ -358,6 +358,7 @@
         categoria: document.getElementById("categoria").value,
         descricao: document.getElementById("descricao").value.trim(),
         disciplina: document.getElementById("disciplina").value,
+        disciplina_id: (estruturaCurricular?.disciplinas || []).find(d => d.nome === seletorDisciplina.value)?.id || "",
         assunto_id: seletorAssunto.value,
         assunto: seletorAssunto.value ? (seletorAssunto.selectedOptions[0].dataset.nome || seletorAssunto.selectedOptions[0].textContent) : "",
         arquivo: campoArquivo.value.trim()
@@ -424,6 +425,7 @@
 
       parametros.set("titulo", documento.titulo);
       parametros.set("disciplina", documento.disciplina);
+      parametros.set("disciplina_id", documento.disciplina_id);
       parametros.set("assunto", documento.assunto);
       parametros.set("id_assunto", documento.assunto_id);
       parametros.set("categoria", documento.categoria);
