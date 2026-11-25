@@ -1290,8 +1290,8 @@
             disciplinaAtual.nome.trim().toLocaleLowerCase('pt-BR');
         });
 
-        const assuntoAtual = assuntoSelecionado && assuntoSelecionado.id
-          ? assuntoSelecionado
+        const assuntoAtual = assuntoSelecionado
+          ? (estrutura.assuntos || []).find(assunto => assunto.id === assuntoSelecionado) || null
           : null;
 
         // Ao abrir a aba a partir de um assunto, mostra materiais gerais da disciplina
