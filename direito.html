@@ -152,6 +152,70 @@
       color: #fff;
     }
 
+
+    /* Cartões de disciplinas expansíveis */
+    .cartao-disciplina {
+      display: block;
+      min-height: 0;
+      padding: 0;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .resumo-cartao-disciplina {
+      display: block;
+      padding: 16px 18px;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .resumo-cartao-disciplina::-webkit-details-marker {
+      display: none;
+    }
+
+    .resumo-cartao-disciplina::after {
+      content: "+";
+      float: right;
+      margin: -27px 2px 0 10px;
+      color: var(--azul-claro);
+      font: 22px Arial, sans-serif;
+    }
+
+    .cartao-disciplina[open] > .resumo-cartao-disciplina::after {
+      content: "−";
+    }
+
+    .resumo-cartao-disciplina .cartao-topo {
+      padding-right: 24px;
+    }
+
+    .descricao-disciplina {
+      margin: 9px 0 0;
+      color: var(--texto-secundario);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .conteudo-cartao-disciplina {
+      padding: 0 18px 16px;
+      border-top: 1px solid var(--borda);
+    }
+
+    .conteudo-cartao-disciplina .painel-progresso-disciplina {
+      margin-top: 12px;
+    }
+
+    .conteudo-cartao-disciplina .indicador-acesso {
+      display: inline-block;
+      margin-top: 12px;
+      text-decoration: none;
+    }
+
+    .resumo-cartao-disciplina:focus-visible {
+      outline: 2px solid var(--azul-claro);
+      outline-offset: -3px;
+    }
+
     .cartao-disciplina {
       position: relative;
       display: flex;
@@ -890,10 +954,9 @@
 
       function criarCartao(disciplina) {
         const wrapper = criarElemento('div', 'cartao-disciplina-wrapper');
-        const link = criarElemento('a', 'cartao-disciplina');
-        link.href = `disciplina.html?id=${encodeURIComponent(disciplina.id)}`;
-        link.setAttribute('aria-label', `Abrir ${disciplina.nome || 'disciplina'}`);
+        const cartao = criarElemento('details', 'cartao-disciplina');
 
+        const resumo = criarElemento('summary', 'resumo-cartao-disciplina');
         const topo = criarElemento('div', 'cartao-topo');
         const nome = criarElemento('h4', 'nome-disciplina', disciplina.nome || 'Disciplina sem nome');
         topo.appendChild(nome);
@@ -905,12 +968,11 @@
           pendente: 'Pendente'
         };
         const etiquetas = criarElemento('div', 'etiquetas-disciplina');
-        const etiqueta = criarElemento(
+        etiquetas.appendChild(criarElemento(
           'span',
           `situacao-disciplina ${['ativa', 'inativa'].includes(status) ? status : ''}`.trim(),
           rotulosStatus[status] || status
-        );
-        etiquetas.appendChild(etiqueta);
+        ));
 
         const progressoDisciplina = calcularProgressoDisciplina(disciplina.id);
         const inicio = progressoDisciplina.iniciados > 0;
@@ -920,12 +982,21 @@
           inicio ? 'Estudos iniciados' : 'Não iniciada'
         ));
         topo.appendChild(etiquetas);
-        link.appendChild(topo);
+        resumo.appendChild(topo);
 
-        if (disciplina.codigo) {
-          link.appendChild(criarElemento('span', 'codigo-disciplina', disciplina.codigo));
-        }
+        resumo.appendChild(criarElemento(
+          'span',
+          'codigo-disciplina',
+          disciplina.codigo ? disciplina.codigo : 'Código não informado'
+        ));
+        resumo.appendChild(criarElemento(
+          'p',
+          'descricao-disciplina',
+          disciplina.descricao || 'Descrição não cadastrada.'
+        ));
+        cartao.appendChild(resumo);
 
+        const conteudo = criarElemento('div', 'conteudo-cartao-disciplina');
         const painelProgresso = criarElemento('div', 'painel-progresso-disciplina');
         painelProgresso.appendChild(criarElemento(
           'div',
@@ -935,10 +1006,13 @@
         adicionarIndicadorPercentual(painelProgresso, 'Conteúdo estudado', progressoDisciplina.conteudo);
         adicionarIndicadorPercentual(painelProgresso, 'Questões praticadas', progressoDisciplina.questoes);
         adicionarIndicadorPercentual(painelProgresso, 'Revisões realizadas', progressoDisciplina.revisoes);
-        link.appendChild(painelProgresso);
+        conteudo.appendChild(painelProgresso);
 
-        link.appendChild(criarElemento('span', 'indicador-acesso', 'Acessar disciplina →'));
-        wrapper.appendChild(link);
+        const linkAcesso = criarElemento('a', 'indicador-acesso', 'Acessar disciplina →');
+        linkAcesso.href = `disciplina.html?id=${encodeURIComponent(disciplina.id)}`;
+        conteudo.appendChild(linkAcesso);
+        cartao.appendChild(conteudo);
+        wrapper.appendChild(cartao);
 
         const corpo = [
           '### Identificador da disciplina',
@@ -946,7 +1020,7 @@
           '',
           '### Novo status',
           status
-        ].join('\n');
+        ].join('\\n');
         const parametros = new URLSearchParams({
           template: 'atualizar-status-disciplina.md',
           title: '[Atualizar status da disciplina] ' + (disciplina.codigo || disciplina.id),
