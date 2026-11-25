@@ -446,6 +446,13 @@
           descricao.textContent = doc.descricao || "Sem descrição.";
           cartao.appendChild(descricao);
 
+          if (doc.assunto) {
+            const assunto = document.createElement("p");
+            assunto.className = "material-assunto";
+            assunto.textContent = "Assunto: " + doc.assunto;
+            cartao.appendChild(assunto);
+          }
+
           const arquivos = arquivosDoDocumento(doc);
           if (arquivos.length) {
             const listaArquivos = document.createElement("ul");
@@ -564,7 +571,7 @@
                 conteudo.appendChild(vazio);
 
                 const cadastrar = document.createElement("a");
-                cadastrar.href = "cadastro.html";
+                cadastrar.href = "cadastro.html?" + new URLSearchParams({ disciplina: d.nome }).toString();
                 cadastrar.textContent = "Cadastrar material";
                 conteudo.appendChild(cadastrar);
               }
