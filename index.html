@@ -6,24 +6,24 @@
   <meta name="description" content="Painel inicial da Plataforma de Estudos de Direito — UFPR.">
   <title>Plataforma de Estudos | Direito UFPR</title>
   <style>
-    :root{--navy:#17365d;--navy2:#244a73;--ink:#263445;--muted:#657487;--line:#dce3eb;--paper:#f5f7fa;--white:#fff;--blue-soft:#eaf0f6;--gold:#9a752d}
+    :root{--navy:#0c1420;--navy2:#172638;--ink:#e6edf5;--muted:#a5b8ca;--line:#1b3041;--paper:#070b12;--white:#101b29;--blue-soft:#10343d;--gold:#19c7ce}
     *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 Georgia,"Times New Roman",serif}
-    a{color:inherit}.topbar{background:var(--navy);color:#fff;border-bottom:4px solid #b79a5b}
+    a{color:inherit}.topbar{background:var(--navy);color:#fff;border-bottom:1px solid var(--line)}
     .topinner{max-width:1120px;margin:auto;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-    .brand{display:flex;align-items:center;gap:14px}.seal{width:46px;height:46px;border:1px solid #c8d3df;border-radius:50%;display:grid;place-items:center;font:700 19px Georgia,serif;color:#fff}
-    .brand strong{display:block;font-size:17px;letter-spacing:.04em}.brand span{display:block;color:#d6dfeb;font:11px Arial,sans-serif;letter-spacing:.13em;margin-top:3px}
-    .toplink{font:13px Arial,sans-serif;color:#fff;text-decoration:none;border:1px solid #8397ad;padding:8px 12px;border-radius:3px}
+    .brand{display:flex;align-items:center;gap:14px}.seal{width:46px;height:46px;border:1px solid #36d9dc;border-radius:50%;display:grid;place-items:center;font:700 19px Georgia,serif;color:#fff}
+    .brand strong{display:block;font-size:17px;letter-spacing:.04em}.brand span{display:block;color:#a5b8ca;font:11px Arial,sans-serif;letter-spacing:.13em;margin-top:3px}
+    .toplink{font:13px Arial,sans-serif;color:#fff;text-decoration:none;border:1px solid #1b3041;padding:8px 12px;border-radius:3px}
     main{max-width:1120px;margin:34px auto;padding:0 24px 48px}.eyebrow{font:11px Arial,sans-serif;letter-spacing:.14em;color:var(--gold);font-weight:bold;text-transform:uppercase}
-    h1{font-size:30px;line-height:1.2;color:var(--navy);font-weight:normal;margin:8px 0 8px}.intro{color:var(--muted);margin:0 0 28px}
+    h1{font-size:30px;line-height:1.2;color:var(--ink);font-weight:normal;margin:8px 0 8px}.intro{color:var(--muted);margin:0 0 28px}
     h2{font-size:19px;color:var(--navy);font-weight:normal;margin:0 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
     .section{margin-top:30px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
     .metric,.panel,.shortcut{background:var(--white);border:1px solid var(--line);border-radius:4px}
-    .metric{display:block;padding:17px 18px;border-top:3px solid var(--navy2);color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}.metric[href]:hover{border-color:var(--gold);transform:translateY(-2px)}.metric[href]:focus-visible{outline:2px solid var(--navy2);outline-offset:3px}.metric .number{font:30px Georgia,serif;color:var(--navy);display:block}.metric .label{font:12px Arial,sans-serif;color:var(--muted)}
+    .metric{display:block;padding:17px 18px;border-top:3px solid var(--azul, #19c7ce);color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}.metric[href]:hover{border-color:var(--gold);transform:translateY(-2px)}.metric[href]:focus-visible{outline:2px solid var(--navy2);outline-offset:3px}.metric .number{font:30px Georgia,serif;color:var(--gold);display:block}.metric .label{font:12px Arial,sans-serif;color:var(--muted)}
     .columns{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.panel{padding:19px}.panel h3{font-size:16px;font-weight:normal;color:var(--navy);margin:0 0 12px}
-    .agenda-item{display:block;padding:11px 0;border-top:1px solid var(--line);color:inherit;text-decoration:none}.agenda-item:first-of-type{border-top:0}.agenda-item[href]:hover strong{color:var(--navy2);text-decoration:underline}.agenda-item[href]:focus-visible{outline:2px solid var(--navy2);outline-offset:3px}.tag{display:inline-block;font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:.07em;color:var(--navy);background:var(--blue-soft);padding:3px 7px;margin-right:7px}
+    .agenda-item{display:block;padding:11px 0;border-top:1px solid var(--line);color:inherit;text-decoration:none}.agenda-item:first-of-type{border-top:0}.agenda-item[href]:hover strong{color:var(--gold);text-decoration:underline}.agenda-item[href]:focus-visible{outline:2px solid var(--navy2);outline-offset:3px}.tag{display:inline-block;font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:.07em;color:var(--navy);background:var(--blue-soft);padding:3px 7px;margin-right:7px}
     .muted{color:var(--muted);font-size:13px}.shortcuts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
     .shortcut{padding:18px;text-decoration:none;transition:border-color .15s,transform .15s}.shortcut:hover{border-color:var(--navy2);transform:translateY(-2px)}
-    .shortcut .symbol{font:22px Georgia,serif;color:var(--gold)}.shortcut strong{display:block;color:var(--navy);font-size:17px;font-weight:normal;margin:7px 0 3px}.shortcut span:last-child{font:12px Arial,sans-serif;color:var(--muted)}
+    .shortcut .symbol{font:22px Georgia,serif;color:var(--gold)}.shortcut strong{display:block;color:var(--ink);font-size:17px;font-weight:normal;margin:7px 0 3px}.shortcut span:last-child{font:12px Arial,sans-serif;color:var(--muted)}
     .disabled{opacity:.65;background:#fafbfc}.disabled:hover{transform:none;border-color:var(--line)}
     footer{border-top:1px solid var(--line);padding:18px 24px;text-align:center;color:var(--muted);font:11px Arial,sans-serif}
     .error{color:#8b3d32;font-size:13px}
