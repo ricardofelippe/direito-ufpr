@@ -1162,7 +1162,7 @@
               painelFicha.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             });
           }
-          painelFicha.appendChild(criarElemento('summary', '', 'Informações pedagógicas · Ficha UFPR'));
+          painelFicha.appendChild(criarElemento('summary', '', ficha.fonte_titulo ? 'Informações pedagógicas · UFPR' : 'Informações pedagógicas'));
           const corpoFicha = criarElemento('div', 'ficha-pedagogica-conteudo');
           const camposFicha = [
             ['ementa', 'Ementa'],
@@ -1172,7 +1172,8 @@
             ['procedimentos_didaticos', 'Procedimentos didáticos'],
             ['formas_avaliacao', 'Formas de avaliação'],
             ['bibliografia_basica', 'Bibliografia básica'],
-            ['bibliografia_complementar', 'Bibliografia complementar']
+            ['bibliografia_complementar', 'Bibliografia complementar'],
+            ['observacao', 'Observação sobre o documento']
           ];
           camposFicha.forEach(([chave, rotulo]) => {
             if (!ficha[chave]) return;
