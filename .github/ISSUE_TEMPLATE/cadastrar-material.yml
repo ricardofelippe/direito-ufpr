@@ -29,6 +29,15 @@ body:
       required: false
 
   - type: input
+    id: id_assunto
+    attributes:
+      label: ID do assunto
+      description: Identificador interno para vincular o material ao assunto correto.
+      placeholder: ID preenchido automaticamente pelo cadastro do site
+    validations:
+      required: false
+
+  - type: input
     id: categoria
     attributes:
       label: Categoria
