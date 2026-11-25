@@ -63,7 +63,8 @@ jobs:
               "Mapa conceitual",
               "Bibliografia básica",
               "Bibliografia complementar",
-              "Ementa"
+              "Ementa",
+              "Anotações próprias"
           ]
 
           if not titulo:
