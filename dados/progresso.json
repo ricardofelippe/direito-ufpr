@@ -14,7 +14,15 @@
       "questoes_status": "nao_iniciado",
       "revisao_status": "nao_iniciado",
       "data_estudo": "2026-11-24",
-      "data_revisao": "2026-12-01"
+      "data_revisao": "2026-12-01",
+      "historico_estudos": [
+        {
+          "data": "2026-11-24"
+        },
+        {
+          "data": "2026-11-25"
+        }
+      ]
     }
   ]
 }
