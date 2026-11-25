@@ -16,10 +16,14 @@ assignees: ricardofelippe
 
 ### Revisões realizadas
 
+### Tipo de histórico
+
 ### Ação no histórico
 
 ### Data registrada
 
 ### Nova sessão de estudo
+
+### Nova sessão de revisão
 
 ### Data de revisão
