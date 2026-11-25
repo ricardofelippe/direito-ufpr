@@ -187,7 +187,8 @@ jobs:
                 categoria,
                 descricao,
                 arquivo: caminhos[0],
-                arquivos: caminhos
+                arquivos: caminhos,
+                visivel_biblioteca: true
               });
 
               fs.writeFileSync(
