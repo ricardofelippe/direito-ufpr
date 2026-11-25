@@ -855,11 +855,13 @@
           '### Conteúdo estudado', valores.conteudo_status, '',
           '### Questões praticadas', valores.questoes_status, '',
           '### Revisões realizadas', valores.revisao_status, '',
-          '### Tipo de histórico', tipo, '',\n          '### Ação no histórico', acao, '',
+          '### Tipo de histórico', tipo, '',
+          '### Ação no histórico', acao, '',
           '### Data registrada', dataAnterior, '',
-          '### Nova sessão de estudo', tipo === 'estudos' ? (novaData || cartao.querySelector('[data-planejamento-campo="nova_sessao_estudo"]').value) : cartao.querySelector('[data-planejamento-campo="nova_sessao_estudo"]').value, '',\n          '### Nova sessão de revisão', tipo === 'revisoes' ? (novaData || cartao.querySelector('[data-planejamento-campo="nova_sessao_revisao"]').value) : cartao.querySelector('[data-planejamento-campo="nova_sessao_revisao"]').value, '',
+          '### Nova sessão de estudo', tipo === 'estudos' ? (novaData || cartao.querySelector('[data-planejamento-campo="nova_sessao_estudo"]').value) : cartao.querySelector('[data-planejamento-campo="nova_sessao_estudo"]').value, '',
+          '### Nova sessão de revisão', tipo === 'revisoes' ? (novaData || cartao.querySelector('[data-planejamento-campo="nova_sessao_revisao"]').value) : cartao.querySelector('[data-planejamento-campo="nova_sessao_revisao"]').value, '',
           '### Data de revisão', cartao.querySelector('[data-planejamento-campo="data_revisao"]').value
-        ].join('\\n');
+        ].join('\n');
         const parametros = new URLSearchParams({ template:'atualizar-progresso.md', title:'[Atualizar progresso] '+assuntoId, body:corpo });
         cartao.querySelector('.mensagem-progresso').textContent = 'Confira a operação e envie a solicitação no GitHub para confirmar a alteração.';
         window.open('https://github.com/ricardofelippe/direito-ufpr/issues/new?'+parametros.toString(), '_blank', 'noopener');
