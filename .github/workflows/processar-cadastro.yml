@@ -45,14 +45,15 @@ jobs:
 
           titulo = campo("Título do material")
           disciplina = campo("Disciplina")
+          assunto = campo("Assunto vinculado")
           categoria = campo("Categoria")
           descricao = campo("Descrição")
           arquivo = campo("Caminho do PDF")
 
-          disciplinas_validas = [
-              "Teoria do Direito",
-              "Filosofia do Direito"
-          ]
+          with open("dados/estrutura.json", "r", encoding="utf-8") as f:
+              estrutura = json.load(f)
+
+          disciplinas_validas = {d["nome"]: d for d in estrutura.get("disciplinas", [])}
 
           categorias_validas = [
               "Texto de estudo",
@@ -66,6 +67,20 @@ jobs:
 
           if disciplina not in disciplinas_validas:
               raise SystemExit("Erro: disciplina inválida.")
+
+          disciplina_registro = disciplinas_validas[disciplina]
+          unidades_disciplina = {
+              u["id"] for u in estrutura.get("unidades", [])
+              if u.get("disciplina_id") == disciplina_registro["id"]
+          }
+          assuntos_validos = {
+              a["nome"]: a for a in estrutura.get("assuntos", [])
+              if a.get("unidade_id") in unidades_disciplina
+              or (a.get("disciplina_id") == disciplina_registro["id"] and not a.get("unidade_id"))
+          }
+
+          if assunto and assunto not in assuntos_validos:
+              raise SystemExit("Erro: assunto não pertence à disciplina selecionada.")
 
           if categoria not in categorias_validas:
               raise SystemExit("Erro: categoria inválida.")
@@ -104,6 +119,8 @@ jobs:
               "categoria": categoria,
               "descricao": descricao,
               "disciplina": disciplina,
+              "assunto_id": assuntos_validos[assunto]["id"] if assunto else "",
+              "assunto": assunto,
               "arquivo": arquivo
           }
 
