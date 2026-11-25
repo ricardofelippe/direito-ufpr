@@ -559,6 +559,16 @@
       font-size: 12px;
     }
 
+    .grupo-materiais-disciplina {
+      margin: 18px 0 24px;
+    }
+
+    .grupo-materiais-disciplina > h3 {
+      margin: 0 0 10px;
+      color: var(--azul-claro);
+      font-size: 14px;
+    }
+
     .carregando {
       color: var(--texto-secundario);
     }
@@ -1272,45 +1282,80 @@
       }
 
       function renderizarMateriais() {
-        const materiais = documentos.filter(doc =>
-          String(doc.disciplina || '').trim().toLocaleLowerCase('pt-BR') ===
-          disciplinaAtual.nome.trim().toLocaleLowerCase('pt-BR')
-        );
+        // Prefere o vínculo por ID; mantém compatibilidade com os cadastros antigos
+        // que armazenavam apenas o nome da disciplina.
+        const materiaisDisciplina = documentos.filter(doc => {
+          if (doc.disciplina_id) return doc.disciplina_id === disciplinaAtual.id;
+          return String(doc.disciplina || '').trim().toLocaleLowerCase('pt-BR') ===
+            disciplinaAtual.nome.trim().toLocaleLowerCase('pt-BR');
+        });
+
+        const assuntoAtual = assuntoSelecionado && assuntoSelecionado.id
+          ? assuntoSelecionado
+          : null;
+
+        // Ao abrir a aba a partir de um assunto, mostra materiais gerais da disciplina
+        // e os materiais especificamente vinculados ao assunto selecionado.
+        const materiais = materiaisDisciplina.filter(doc => {
+          if (!assuntoAtual) return true;
+          const idVinculado = String(doc.assunto_id || '').trim();
+          const nomeVinculado = String(doc.assunto || '').trim();
+          if (!idVinculado && !nomeVinculado) return true;
+          if (idVinculado) return idVinculado === assuntoAtual.id;
+          return nomeVinculado.toLocaleLowerCase('pt-BR') ===
+            String(assuntoAtual.nome || '').trim().toLocaleLowerCase('pt-BR');
+        });
 
         if (!materiais.length) {
           mostrarEstado(
             painel,
             'Nenhum material cadastrado',
-            'Os documentos associados a esta disciplina em documentos.json aparecerão aqui.'
+            assuntoAtual
+              ? 'Não há materiais gerais da disciplina nem materiais vinculados a este assunto.'
+              : 'Os materiais cadastrados na biblioteca geral para esta disciplina aparecerão aqui.'
           );
           return;
         }
 
+        const categorias = [...new Set(materiais.map(doc => doc.categoria || 'Outros materiais'))]
+          .sort((a, b) => a.localeCompare(b, 'pt-BR'));
+
         painel.innerHTML = `
-          <div class="lista-conteudos">
-            ${materiais.map(doc => {
-              const titulo = doc.titulo || 'Material sem título';
-
-              const arquivos = Array.isArray(doc.arquivos) && doc.arquivos.length
-                ? doc.arquivos
-                : (doc.arquivo ? [doc.arquivo] : []);
-
-              const links = arquivos.map((arquivo, i) => `
-                <a class="material-link"
-                  href="${escapeHTML(arquivo)}"
-                  target="_blank"
-                  rel="noopener">
-                  ${arquivos.length > 1 ? `Abrir arquivo ${i+1}` : 'Abrir material'}
-                </a>
-              `).join('<br>');
-
+          <div class="materiais-disciplina">
+            <p class="aviso-filtro">${assuntoAtual
+              ? 'Exibindo materiais gerais da disciplina e materiais vinculados a: ' + escapeHTML(assuntoAtual.nome)
+              : 'Materiais consultados diretamente na biblioteca geral.'}
+            </p>
+            ${categorias.map(categoria => {
+              const itens = materiais.filter(doc => (doc.categoria || 'Outros materiais') === categoria);
               return `
-                <article class="item-conteudo">
-                  <h3>${escapeHTML(titulo)}</h3>
-                  ${doc.categoria ? `<p>Categoria: ${escapeHTML(doc.categoria)}</p>` : ''}
-                  ${doc.descricao ? `<p>${escapeHTML(doc.descricao)}</p>` : ''}
-                  ${links || '<p>Arquivo ainda não associado.</p>'}
-                </article>`;
+                <section class="grupo-materiais-disciplina">
+                  <h3>${escapeHTML(categoria)}</h3>
+                  <div class="lista-conteudos">
+                    ${itens.map(doc => {
+                      const titulo = doc.titulo || 'Material sem título';
+                      const arquivos = Array.isArray(doc.arquivos) && doc.arquivos.length
+                        ? doc.arquivos
+                        : (doc.arquivo ? [doc.arquivo] : []);
+                      const links = arquivos.map((arquivo, i) => `
+                        <a class="material-link"
+                          href="${escapeHTML(arquivo)}"
+                          target="_blank"
+                          rel="noopener">
+                          ${arquivos.length > 1 ? `Abrir arquivo ${i+1}` : 'Abrir material'}
+                        </a>
+                      `).join('<br>');
+                      const assunto = doc.assunto || '';
+                      return `
+                        <article class="item-conteudo">
+                          <h3>${escapeHTML(titulo)}</h3>
+                          ${assunto ? `<p>Assunto: ${escapeHTML(assunto)}</p>` : '<p>Material geral da disciplina</p>'}
+                          ${doc.descricao ? `<p>${escapeHTML(doc.descricao)}</p>` : ''}
+                          ${links || '<p>Arquivo ainda não associado.</p>'}
+                        </article>`;
+                    }).join('')}
+                  </div>
+                </section>`;
             }).join('')}
           </div>`;
       }
