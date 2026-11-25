@@ -913,6 +913,26 @@
       outline: 2px solid var(--azul-claro);
       outline-offset: -3px;
     }
+
+    /* Destaque visual das disciplinas administrativamente ativas. */
+    .cartao-disciplina.disciplina-ativa {
+      border: 1px solid #16c7bd;
+      border-left: 4px solid #22e0cf;
+      background: linear-gradient(125deg, rgba(12, 75, 78, .58), rgba(17, 31, 47, .98) 72%);
+      box-shadow: 0 0 0 1px rgba(34, 224, 207, .12),
+                  0 5px 18px rgba(0, 190, 180, .10);
+    }
+
+    .cartao-disciplina.disciplina-ativa > .resumo-cartao-disciplina {
+      background: linear-gradient(100deg, rgba(21, 125, 125, .13), transparent 78%);
+    }
+
+    .cartao-disciplina.disciplina-ativa:hover {
+      border-color: #45f1df;
+      background: linear-gradient(125deg, rgba(13, 91, 91, .72), rgba(17, 31, 47, .98) 72%);
+      box-shadow: 0 0 0 1px rgba(69, 241, 223, .22),
+                  0 7px 22px rgba(0, 210, 195, .16);
+    }
   </style>
 </head>
 <body class="pagina-curriculo">
@@ -1142,6 +1162,9 @@
         topo.appendChild(nome);
 
         const status = String(disciplina.status || 'pendente').toLowerCase();
+        if (status === 'ativa') {
+          cartao.classList.add('disciplina-ativa');
+        }
         const rotulosStatus = {
           ativa: 'Ativa',
           inativa: 'Inativa',
