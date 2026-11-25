@@ -61,6 +61,34 @@
       margin-top: 14px;
     }
 
+    body.pagina-biblioteca .grupo-ano-biblioteca { margin: 26px 0; }
+    body.pagina-biblioteca .grupo-ano-biblioteca > h3 {
+      color: #19c7ce; font-size: 18px; margin: 0 0 12px;
+    }
+    body.pagina-biblioteca .disciplina-catalogo {
+      background: #101b29; border: 1px solid #263b50; border-radius: 8px;
+      margin: 9px 0; overflow: hidden;
+    }
+    body.pagina-biblioteca .disciplina-catalogo-resumo {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 14px; padding: 16px 18px; cursor: pointer; list-style: none;
+    }
+    body.pagina-biblioteca .disciplina-catalogo-resumo::-webkit-details-marker { display:none; }
+    body.pagina-biblioteca .disciplina-catalogo-resumo strong { color:#e6edf5; font-size:14px; }
+    body.pagina-biblioteca .quantidade-materiais { color:#91a8bb; font-size:12px; white-space:nowrap; }
+    body.pagina-biblioteca .disciplina-catalogo-conteudo {
+      padding: 4px 18px 16px; border-top:1px solid #263b50;
+    }
+    body.pagina-biblioteca .material-catalogo {
+      padding: 13px 0; border-bottom:1px solid #263b50;
+    }
+    body.pagina-biblioteca .material-catalogo:last-child { border-bottom:0; }
+    body.pagina-biblioteca .material-catalogo h4 { margin:5px 0 7px; color:#e6edf5; }
+    body.pagina-biblioteca .material-catalogo p { color:#a5b8ca; }
+    @media(max-width:600px) {
+      body.pagina-biblioteca .disciplina-catalogo-resumo { align-items:flex-start; flex-direction:column; gap:5px; }
+    }
+
     body.pagina-biblioteca > header.cabecalho-biblioteca {
       padding: 24px max(24px, calc((100% - 1120px) / 2));
       text-align: left;
@@ -338,81 +366,53 @@
         atualizarResumo();
 
         // =====================================
-        // IDENTIFICA DISCIPLINAS E CATEGORIAS
+        // FILTROS E CATÁLOGO DE DISCIPLINAS
         // =====================================
 
-        const disciplinas = [...new Set(
-          documentos.map(doc => doc.disciplina).filter(Boolean)
-        )].sort((a, b) => nomeComCodigo(a).localeCompare(nomeComCodigo(b), "pt-BR"));
+        const disciplinas = [...disciplinasObrigatorias].sort((a, b) =>
+          (Number(a.ano) || 99) - (Number(b.ano) || 99) ||
+          (Number(a.ordem) || 99) - (Number(b.ordem) || 99) ||
+          a.nome.localeCompare(b.nome, "pt-BR")
+        );
 
         const categorias = [...new Set(
           documentos.map(doc => doc.categoria).filter(Boolean)
         )].sort();
 
-        // Preenche o filtro de disciplinas
-
-        disciplinas.forEach(nome => {
-
+        disciplinas.forEach(d => {
           const opcao = document.createElement("option");
-
-          opcao.value = nome;
-          opcao.textContent = nomeComCodigo(nome);
-
+          opcao.value = d.nome;
+          opcao.textContent = d.codigo + " — " + d.nome;
           filtroDisciplina.appendChild(opcao);
-
         });
 
-        // Preenche o filtro de categorias
-
         categorias.forEach(nome => {
-
           const opcao = document.createElement("option");
-
           opcao.value = nome;
           opcao.textContent = nome;
-
           filtroCategoria.appendChild(opcao);
-
         });
 
         // =====================================
-        // LINK PARA ASSOCIAR PDF
+        // LINKS PARA CADASTRO E GERENCIAMENTO
         // =====================================
 
         function criarLinkAssociacao(texto, doc) {
-
-          const link = document.createElement("a");
-
           const parametros = new URLSearchParams({
             template: "associar-pdf.yml",
             title: "[Associar PDF] " + doc.titulo,
             titulo: doc.titulo,
             disciplina: doc.disciplina
           });
-
-          link.href =
-            "https://github.com/ricardofelippe/direito-ufpr/issues/new?" +
-            parametros.toString();
-
+          const link = document.createElement("a");
+          link.href = "https://github.com/ricardofelippe/direito-ufpr/issues/new?" + parametros.toString();
           link.textContent = texto;
           link.target = "_blank";
           link.rel = "noopener noreferrer";
-
           return link;
-
         }
 
-        // =====================================
-        // LINKS PARA GERENCIAR PDFs
-        // =====================================
-
-        function criarLinkGerenciamento(
-          texto,
-          doc,
-          operacao,
-          arquivo
-        ) {
-
+        function criarLinkGerenciamento(texto, doc, operacao, arquivo) {
           const parametros = new URLSearchParams({
             template: "gerenciar-pdfs.yml",
             title: "[Gerenciar PDFs] " + doc.titulo,
@@ -420,206 +420,171 @@
             disciplina: doc.disciplina,
             operacao: operacao
           });
-
-          if (arquivo) {
-            parametros.set("arquivo_alvo", arquivo);
-          }
-
+          if (arquivo) parametros.set("arquivo_alvo", arquivo);
           const link = document.createElement("a");
-
-          link.href =
-            "https://github.com/ricardofelippe/direito-ufpr/issues/new?" +
-            parametros.toString();
-
+          link.href = "https://github.com/ricardofelippe/direito-ufpr/issues/new?" + parametros.toString();
           link.textContent = texto;
           link.target = "_blank";
           link.rel = "noopener noreferrer";
-
           return link;
+        }
 
+        function arquivosDoDocumento(doc) {
+          return [...new Set([
+            ...(Array.isArray(doc.arquivos) ? doc.arquivos : []),
+            doc.arquivo
+          ].filter(Boolean))];
+        }
+
+        function criarCartaoMaterial(doc) {
+          const cartao = document.createElement("article");
+          cartao.className = "material-catalogo";
+
+          const titulo = document.createElement("h4");
+          titulo.textContent = doc.titulo || "Documento sem título";
+          cartao.appendChild(titulo);
+
+          const descricao = document.createElement("p");
+          descricao.textContent = doc.descricao || "Sem descrição.";
+          cartao.appendChild(descricao);
+
+          const arquivos = arquivosDoDocumento(doc);
+          if (arquivos.length) {
+            const listaArquivos = document.createElement("ul");
+            listaArquivos.className = "lista-pdfs";
+
+            arquivos.forEach((caminho, indice) => {
+              const item = document.createElement("li");
+              const abrir = document.createElement("a");
+              abrir.href = caminho;
+              abrir.textContent = decodeURIComponent(caminho.split("/").pop()) || "PDF " + (indice + 1);
+              abrir.target = "_blank";
+              abrir.rel = "noopener noreferrer";
+              item.appendChild(abrir);
+
+              const acoes = document.createElement("p");
+              acoes.className = "acoes-pdf";
+              acoes.append(
+                criarLinkGerenciamento("Substituir", doc, "Substituir PDF", caminho),
+                criarLinkGerenciamento("Remover", doc, "Remover PDF", caminho)
+              );
+              item.appendChild(acoes);
+              listaArquivos.appendChild(item);
+            });
+            cartao.appendChild(listaArquivos);
+
+            const adicionar = document.createElement("p");
+            adicionar.appendChild(criarLinkGerenciamento("Adicionar PDFs", doc, "Adicionar PDFs", ""));
+            cartao.appendChild(adicionar);
+          } else {
+            const aviso = document.createElement("p");
+            aviso.className = "sem-pdf";
+            aviso.textContent = "PDF ainda não anexado.";
+            cartao.append(aviso, criarLinkAssociacao("Associar PDF", doc));
+          }
+
+          return cartao;
         }
 
         // =====================================
-        // EXIBE OS DOCUMENTOS
+        // EXIBE TODAS AS DISCIPLINAS OBRIGATÓRIAS
         // =====================================
 
         function exibirDocumentos() {
-
-          const termo = busca.value
-            .trim()
-            .toLocaleLowerCase("pt-BR");
-
-          const disciplina = filtroDisciplina.value;
-          const categoria = filtroCategoria.value;
-
-          const filtrados = documentos.filter(doc => {
-
-            const texto = [
-              doc.titulo,
-              doc.descricao,
-              doc.disciplina,
-              doc.categoria
-            ]
-              .filter(Boolean)
-              .join(" ")
-              .toLocaleLowerCase("pt-BR");
-
-            return texto.includes(termo) &&
-              (!disciplina || doc.disciplina === disciplina) &&
-              (!categoria || doc.categoria === categoria);
-
-          });
-
+          const termo = normalizar(busca.value);
+          const disciplinaSelecionada = filtroDisciplina.value;
+          const categoriaSelecionada = filtroCategoria.value;
           lista.replaceChildren();
 
-          filtrados.forEach(doc => {
+          const grupos = new Map();
 
-            const artigo = document.createElement("details");
-            artigo.className = "documento";
+          disciplinas.forEach(d => {
+            const docsDaDisciplina = documentos.filter(doc =>
+              normalizar(doc.disciplina) === normalizar(d.nome)
+            );
 
-            const resumoCartao = document.createElement("summary");
-            resumoCartao.className = "documento-resumo";
+            const docsFiltrados = docsDaDisciplina.filter(doc =>
+              !categoriaSelecionada || doc.categoria === categoriaSelecionada
+            );
 
-            const titulo = document.createElement("h3");
-            titulo.textContent = doc.titulo || "Documento sem título";
+            const textoDisciplina = normalizar([d.codigo, d.nome, d.descricao].join(" "));
+            const docsCorrespondem = docsFiltrados.filter(doc =>
+              normalizar([doc.titulo, doc.descricao, doc.categoria].join(" ")).includes(termo)
+            );
 
-            const disciplinaTexto = document.createElement("p");
-            disciplinaTexto.className = "documento-disciplina";
-            disciplinaTexto.textContent =
-              nomeComCodigo(doc.disciplina || "Não informada");
+            const correspondeBusca = !termo ||
+              textoDisciplina.includes(termo) ||
+              docsCorrespondem.length > 0;
 
-            const categoriaTexto = document.createElement("p");
-            categoriaTexto.className = "documento-categoria";
-            categoriaTexto.textContent =
-              doc.categoria || "Categoria não informada";
+            if (disciplinaSelecionada && d.nome !== disciplinaSelecionada) return;
+            if (categoriaSelecionada && docsFiltrados.length === 0) return;
+            if (!correspondeBusca) return;
 
-            resumoCartao.append(titulo, disciplinaTexto, categoriaTexto);
-            artigo.appendChild(resumoCartao);
-
-            const conteudoCartao = document.createElement("div");
-            conteudoCartao.className = "documento-conteudo";
-
-            const descricao = document.createElement("p");
-            descricao.textContent = doc.descricao || "Sem descrição.";
-            conteudoCartao.appendChild(descricao);
-
-            // =====================================
-            // COMPATIBILIDADE COM PDFs ANTIGOS E NOVOS
-            // =====================================
-
-            const arquivos = [
-              ...new Set([
-                ...(Array.isArray(doc.arquivos) ? doc.arquivos : []),
-                doc.arquivo
-              ].filter(Boolean))
-            ];
-
-            if (arquivos.length > 0) {
-
-              const subtitulo = document.createElement("h4");
-
-              subtitulo.textContent =
-                arquivos.length === 1
-                  ? "Arquivo PDF:"
-                  : "Arquivos PDF (" + arquivos.length + "):";
-
-              conteudoCartao.appendChild(subtitulo);
-
-              const listaArquivos = document.createElement("ul");
-              listaArquivos.className = "lista-pdfs";
-
-              arquivos.forEach((caminho, indice) => {
-
-                const item = document.createElement("li");
-
-                const linkAbrir = document.createElement("a");
-
-                linkAbrir.href = caminho;
-
-                linkAbrir.textContent =
-                  decodeURIComponent(caminho.split("/").pop()) ||
-                  "PDF " + (indice + 1);
-
-                linkAbrir.target = "_blank";
-                linkAbrir.rel = "noopener noreferrer";
-
-                item.appendChild(linkAbrir);
-
-                // Ações de gerenciamento
-
-                const acoes = document.createElement("p");
-                acoes.className = "acoes-pdf";
-
-                const substituir = criarLinkGerenciamento(
-                  "Substituir",
-                  doc,
-                  "Substituir PDF",
-                  caminho
-                );
-
-                const remover = criarLinkGerenciamento(
-                  "Remover",
-                  doc,
-                  "Remover PDF",
-                  caminho
-                );
-
-                acoes.append(substituir, remover);
-
-                item.appendChild(acoes);
-
-                listaArquivos.appendChild(item);
-
-              });
-
-              conteudoCartao.appendChild(listaArquivos);
-
-            } else {
-
-              const aviso = document.createElement("p");
-
-              aviso.textContent = "PDF ainda não anexado.";
-              aviso.className = "sem-pdf";
-
-              conteudoCartao.appendChild(aviso);
-
-              conteudoCartao.appendChild(
-                criarLinkAssociacao("Associar PDF", doc)
-              );
-
-            }
-
-            // =====================================
-            // ADICIONAR PDFs
-            // =====================================
-
-            if (arquivos.length > 0) {
-
-              const areaAdicionar = document.createElement("p");
-
-              areaAdicionar.appendChild(
-                criarLinkGerenciamento(
-                  "Adicionar PDFs",
-                  doc,
-                  "Adicionar PDFs",
-                  ""
-                )
-              );
-
-              conteudoCartao.appendChild(areaAdicionar);
-
-            }
-
-            artigo.appendChild(conteudoCartao);
-
-            lista.appendChild(artigo);
-
+            const ano = d.ano ? String(d.ano) + "º ano" : "Ano não informado";
+            if (!grupos.has(ano)) grupos.set(ano, []);
+            grupos.get(ano).push({
+              disciplina: d,
+              documentos: termo && !textoDisciplina.includes(termo)
+                ? docsCorrespondem
+                : docsFiltrados
+            });
           });
 
-          estado.textContent = filtrados.length
-            ? filtrados.length + " material(is) encontrado(s) em disciplinas obrigatórias."
-            : "Nenhum material encontrado nas disciplinas obrigatórias.";
+          grupos.forEach((itens, ano) => {
+            const secao = document.createElement("section");
+            secao.className = "grupo-ano-biblioteca";
 
+            const tituloAno = document.createElement("h3");
+            tituloAno.textContent = ano;
+            secao.appendChild(tituloAno);
+
+            itens.forEach(({ disciplina: d, documentos: docs }) => {
+              const cartao = document.createElement("details");
+              cartao.className = "disciplina-catalogo";
+
+              const resumo = document.createElement("summary");
+              resumo.className = "disciplina-catalogo-resumo";
+
+              const nome = document.createElement("strong");
+              nome.textContent = d.codigo + " — " + d.nome;
+
+              const quantidade = document.createElement("span");
+              quantidade.className = "quantidade-materiais";
+              quantidade.textContent = docs.length + (docs.length === 1 ? " material" : " materiais");
+
+              resumo.append(nome, quantidade);
+              cartao.appendChild(resumo);
+
+              const conteudo = document.createElement("div");
+              conteudo.className = "disciplina-catalogo-conteudo";
+
+              if (docs.length) {
+                docs.forEach(doc => conteudo.appendChild(criarCartaoMaterial(doc)));
+              } else {
+                const vazio = document.createElement("p");
+                vazio.textContent = "Nenhum material cadastrado para esta disciplina.";
+                conteudo.appendChild(vazio);
+
+                const cadastrar = document.createElement("a");
+                cadastrar.href = "cadastro.html";
+                cadastrar.textContent = "Cadastrar material";
+                conteudo.appendChild(cadastrar);
+              }
+
+              cartao.appendChild(conteudo);
+              secao.appendChild(cartao);
+            });
+
+            lista.appendChild(secao);
+          });
+
+          const totalDisciplinasExibidas = [...grupos.values()].reduce((total, itens) => total + itens.length, 0);
+          const totalMateriaisExibidos = [...grupos.values()].reduce((total, itens) =>
+            total + itens.reduce((soma, item) => soma + item.documentos.length, 0), 0);
+
+          estado.textContent = totalDisciplinasExibidas
+            ? totalDisciplinasExibidas + " disciplina(s) exibida(s), com " + totalMateriaisExibidos + " material(is) correspondente(s)."
+            : "Nenhuma disciplina encontrada com esses filtros.";
         }
 
         // =====================================
