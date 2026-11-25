@@ -6,17 +6,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cadastro de materiais</title>
   <link rel="stylesheet" href="direito.css">
+  <style>
+    .modos-gerenciamento { display:flex; gap:10px; flex-wrap:wrap; margin:20px 0; }
+    .modos-gerenciamento button[aria-pressed="true"] { border-color:#19c7ce; color:#19c7ce; }
+    #painel-novo, #painel-existente { max-width:850px; }
+    #painel-existente select { width:100%; max-width:680px; }
+    [hidden] { display:none !important; }
+  </style>
 </head>
 
 <body>
   <header>
-    <h1>Cadastro de materiais</h1>
-    <p>Adicionar materiais à minha biblioteca de estudos</p>
+    <h1>Gerenciar materiais</h1>
+    <p>Cadastre materiais e organize os arquivos PDF em um único lugar</p>
   </header>
 
   <main>
     <p><a href="biblioteca.html">← Voltar à biblioteca</a></p>
 
+    <nav class="modos-gerenciamento" aria-label="Ações de materiais">
+      <button type="button" id="modo-novo" aria-pressed="true">Novo material</button>
+      <button type="button" id="modo-existente" aria-pressed="false">Material existente</button>
+    </nav>
+
+    <section id="painel-novo">
     <h2>Novo material</h2>
 
     <form id="form-cadastro">
@@ -99,6 +112,40 @@
         <button type="button" id="copiar">Copiar JSON</button>
       </p>
       <p id="mensagem" role="status"></p>
+    </section>
+    </section>
+
+    <section id="painel-existente" hidden>
+      <h2>Gerenciar material existente</h2>
+      <p>Selecione o material e escolha o que deseja fazer com seus PDFs.</p>
+
+      <p>
+        <label for="material-existente">Material</label><br>
+        <select id="material-existente" required>
+          <option value="">Carregando materiais...</option>
+        </select>
+      </p>
+
+      <p>
+        <label for="operacao-material">O que deseja fazer?</label><br>
+        <select id="operacao-material" required>
+          <option value="Adicionar PDFs">Adicionar PDFs</option>
+          <option value="Substituir PDF">Substituir PDF</option>
+          <option value="Remover PDF">Remover PDF</option>
+        </select>
+      </p>
+
+      <p id="campo-pdf-alvo" hidden>
+        <label for="pdf-alvo">PDF que será substituído ou removido</label><br>
+        <select id="pdf-alvo"></select>
+      </p>
+
+      <p id="orientacao-operacao" aria-live="polite">
+        Ao continuar, você poderá anexar um ou mais PDFs na etapa seguinte.
+      </p>
+
+      <p><button type="button" id="continuar-gerenciamento">Continuar</button></p>
+      <p id="status-gerenciamento" role="status"></p>
     </section>
   </main>
 
@@ -403,8 +450,134 @@
         }
       });
 
+    // Alterna entre cadastro de novo material e gerenciamento de material existente.
+    const painelNovo = document.getElementById("painel-novo");
+    const painelExistente = document.getElementById("painel-existente");
+    const botaoModoNovo = document.getElementById("modo-novo");
+    const botaoModoExistente = document.getElementById("modo-existente");
+    const seletorMaterial = document.getElementById("material-existente");
+    const seletorOperacao = document.getElementById("operacao-material");
+    const campoPdfAlvo = document.getElementById("campo-pdf-alvo");
+    const seletorPdfAlvo = document.getElementById("pdf-alvo");
+    const orientacaoOperacao = document.getElementById("orientacao-operacao");
+    let documentosCadastrados = [];
+
+    function definirModo(modo) {
+      const existente = modo === "existente";
+      painelNovo.hidden = existente;
+      painelExistente.hidden = !existente;
+      botaoModoNovo.setAttribute("aria-pressed", String(!existente));
+      botaoModoExistente.setAttribute("aria-pressed", String(existente));
+    }
+
+    botaoModoNovo.addEventListener("click", () => definirModo("novo"));
+    botaoModoExistente.addEventListener("click", () => definirModo("existente"));
+
+    function arquivosDoMaterial(doc) {
+      return [...new Set([
+        ...(Array.isArray(doc.arquivos) ? doc.arquivos : []),
+        doc.arquivo
+      ].filter(Boolean))];
+    }
+
+    async function carregarMateriaisExistentes() {
+      try {
+        const resposta = await fetch("./documentos.json");
+        if (!resposta.ok) throw new Error("Não foi possível carregar documentos.json.");
+        documentosCadastrados = await resposta.json();
+
+        seletorMaterial.replaceChildren(new Option("Selecione um material", ""));
+        documentosCadastrados
+          .filter(doc => doc.visivel_biblioteca !== false)
+          .sort((a, b) =>
+            String(a.disciplina || "").localeCompare(String(b.disciplina || ""), "pt-BR") ||
+            String(a.titulo || "").localeCompare(String(b.titulo || ""), "pt-BR")
+          )
+          .forEach(doc => {
+            const opcao = document.createElement("option");
+            opcao.value = JSON.stringify({ titulo: doc.titulo, disciplina: doc.disciplina });
+            opcao.textContent = (doc.disciplina || "Sem disciplina") + " — " + (doc.titulo || "Sem título");
+            seletorMaterial.appendChild(opcao);
+          });
+
+        const params = new URLSearchParams(window.location.search);
+        const tituloInicial = params.get("titulo");
+        const disciplinaInicial = params.get("disciplina");
+        const encontrado = [...seletorMaterial.options].find(opcao => {
+          if (!opcao.value) return false;
+          const item = JSON.parse(opcao.value);
+          return item.titulo === tituloInicial && item.disciplina === disciplinaInicial;
+        });
+        if (encontrado) seletorMaterial.value = encontrado.value;
+        if (params.get("operacao")) seletorOperacao.value = params.get("operacao");
+        atualizarOpcoesPDF();
+        if (params.get("modo") === "gerenciar") definirModo("existente");
+      } catch (erro) {
+        seletorMaterial.replaceChildren(new Option("Lista de materiais indisponível", ""));
+        document.getElementById("status-gerenciamento").textContent = erro.message;
+      }
+    }
+
+    function atualizarOpcoesPDF() {
+      const valor = seletorMaterial.value;
+      const doc = valor ? documentosCadastrados.find(item => {
+        const selecionado = JSON.parse(valor);
+        return item.titulo === selecionado.titulo && item.disciplina === selecionado.disciplina;
+      }) : null;
+      const arquivos = doc ? arquivosDoMaterial(doc) : [];
+      const precisaPDF = seletorOperacao.value !== "Adicionar PDFs";
+      campoPdfAlvo.hidden = !precisaPDF;
+      seletorPdfAlvo.replaceChildren(new Option(
+        arquivos.length ? "Selecione um PDF" : "Este material não possui PDFs",
+        ""
+      ));
+      arquivos.forEach(arquivo => seletorPdfAlvo.add(new Option(arquivo, arquivo)));
+      seletorPdfAlvo.disabled = !arquivos.length;
+      if (precisaPDF && !arquivos.length) {
+        orientacaoOperacao.textContent = "Este material ainda não possui PDFs. Escolha Adicionar PDFs.";
+      } else if (seletorOperacao.value === "Adicionar PDFs") {
+        orientacaoOperacao.textContent = "Na próxima etapa, você poderá anexar um ou mais PDFs.";
+      } else if (seletorOperacao.value === "Substituir PDF") {
+        orientacaoOperacao.textContent = "Selecione o PDF que será substituído e anexe o novo arquivo na próxima etapa.";
+      } else {
+        orientacaoOperacao.textContent = "Selecione o PDF que deseja remover. Essa ação também removerá o arquivo do repositório se ele não estiver vinculado a outro material.";
+      }
+    }
+
+    seletorMaterial.addEventListener("change", atualizarOpcoesPDF);
+    seletorOperacao.addEventListener("change", atualizarOpcoesPDF);
+
+    document.getElementById("continuar-gerenciamento").addEventListener("click", () => {
+      if (!seletorMaterial.value) {
+        document.getElementById("status-gerenciamento").textContent = "Selecione um material.";
+        return;
+      }
+      const selecionado = JSON.parse(seletorMaterial.value);
+      const operacao = seletorOperacao.value;
+      const arquivoAlvo = seletorPdfAlvo.value;
+
+      if (operacao !== "Adicionar PDFs" && !arquivoAlvo) {
+        document.getElementById("status-gerenciamento").textContent = "Selecione o PDF que deseja substituir ou remover.";
+        return;
+      }
+
+      const params = new URLSearchParams({
+        template: "gerenciar-pdfs.yml",
+        title: "[Gerenciar PDFs] " + selecionado.titulo,
+        operacao,
+        titulo: selecionado.titulo,
+        disciplina: selecionado.disciplina
+      });
+      if (arquivoAlvo) params.set("arquivo_alvo", arquivoAlvo);
+      window.location.href = "https://github.com/ricardofelippe/direito-ufpr/issues/new?" + params.toString();
+    });
+
+    const parametrosPagina = new URLSearchParams(window.location.search);
+    if (parametrosPagina.get("modo") === "gerenciar") definirModo("existente");
+
     carregarDisciplinas();
     carregarPDFs();
+    carregarMateriaisExistentes();
   </script>
 </body>
 </html>
