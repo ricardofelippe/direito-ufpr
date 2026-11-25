@@ -34,13 +34,6 @@
     "disciplina": "Teoria do Direito"
   },
   {
-    "titulo": "Introdução à Filosofia",
-    "categoria": "Texto de estudo",
-    "descricao": "Exemplo de cadastro de material de outra disciplina.",
-    "disciplina": "Filosofia do Direito",
-    "arquivo": ""
-  },
-  {
     "titulo": "Introdução aos conceitos jurídicos",
     "categoria": "Resumo",
     "descricao": "Resumo de teste para verificar o cadastro automático.",
