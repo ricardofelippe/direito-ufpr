@@ -777,7 +777,19 @@
     }
 
     .acoes-filtros-disciplinas {
+      display: flex;
       align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .acoes-filtros-disciplinas .botao-aplicar-curriculo,
+    .acoes-filtros-disciplinas .botao-limpar-filtros {
+      min-height: 36px;
+      padding: 7px 11px;
+      font-size: 12px;
     }
 
     .botao-limpar-filtros {
@@ -978,10 +990,6 @@
     <details class="painel-filtros-disciplinas">
       <summary class="gatilho-painel-curriculo">⚙️ Filtrar disciplinas</summary>
       <div class="conteudo-painel-curriculo">
-      <div class="cabecalho-filtros-disciplinas">
-        <span></span>
-        <button id="limpar-filtros-disciplinas" class="botao-limpar-filtros" type="button">Limpar filtros</button>
-      </div>
       <div class="grade-filtros-disciplinas">
         <label>
           <span>Status administrativo</span>
