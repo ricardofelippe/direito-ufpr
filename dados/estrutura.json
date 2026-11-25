@@ -292,7 +292,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 7,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2025/04/DV466-Direito-Internacional-Privado-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DV466 — Direito Internacional Privado",
+        "fonte_data": "Ficha curricular oficial atualizada em 2025.",
+        "ementa": "Estudo crítico do Direito Internacional Contemporâneo, em abordagem interseccional, sobre solução dos conflitos de leis no espaço, definição da lei aplicável e do foro competente em casos conectados a ordenamentos de mais de um país. Estudo da parte geral e especial do Direito Civil Internacional, circulação internacional de pessoas, nacionalidade, condição jurídica do migrante, interculturalidade, bens e direitos culturais, mundo digital e cooperação judiciária internacional e meios não judiciais de solução de controvérsias.",
+        "programa": "1. Natureza, importância, objeto, denominação e definição do Direito Internacional Privado; autonomia e relações com outras disciplinas.\n2. Fontes do Direito Internacional Privado: lei, tratados, doutrina, jurisprudência e regulamentação do Mercosul.\n3. Fontes históricas, situação do estrangeiro na Antiguidade, Direito Romano, personalidade e territorialidade das leis, escolas estatutárias e doutrinas contemporâneas.\n4. Aplicação das normas de Direito Internacional Privado, conflito de leis e competência jurisdicional.\n5. Circulação internacional de pessoas, nacionalidade, condição jurídica do migrante e interculturalidade.\n6. Direito Civil Internacional: pessoas, família, bens, propriedade intelectual, obrigações, contratos internacionais e sucessões.\n7. Processo civil internacional: competência, litispendência e cooperação judiciária internacional.\n8. Meios não judiciais de solução de controvérsias internacionais: mediação e arbitragem.\n9. Repercussões internacionais em outras disciplinas, cinema, Lex Sportiva e Law Fare.",
+        "objetivo_geral": "Ao final dos estudos o aluno deverá ser capaz de resolver questões jurídicas privadas envolvendo vários países, indicando qual a lei aplicável e o foro competente; analisar criticamente questões regulamentadas por normas materiais de DIPRI, além dos temas sobre circulação de pessoas, propriedade intelectual e demais questões internacionais contemporâneas, contextualizadas no âmbito brasileiro, do Sul Global e dos países periféricos em geral.",
+        "objetivos_especificos": "Compreender amplamente o Direito Internacional Privado em sua parte geral e especial, incluindo institutos do Direito Constitucional, Civil, Empresarial e Processual Civil com repercussões internacionais privadas. Estudar as normas materiais do DIPRI e as relações da disciplina com outras, a partir de uma visão crítica e engajada.",
+        "procedimentos_didaticos": "Aulas expositivas e dialogadas, metodologias ativas de aprendizagem e atividades acadêmico-pedagógicas diversificadas e flexíveis, com aulas presenciais e inovação acadêmica conforme Graduação Ativa.",
+        "formas_avaliacao": "Observação da frequência e pontualidade; participação construtiva; discussão fundamentada individual e em equipe; trabalhos sistematizados e produções individuais e coletivas, apresentações, fichamentos, resenhas, painéis e avaliação escrita."
+      }
     },
     {
       "id": "direito-civil-b",
@@ -658,7 +669,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 1,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DB459-Direito-Tributario-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DB459 — Direito Tributário",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Direito Tributário. Tributo. Sistema Constitucional Tributário Brasileiro. Espécies Tributárias. Legislação Tributária. Norma Jurídica Tributária. Hipótese de Incidência Tributária. Relação Jurídica Tributária. Crédito Tributário. Administração Tributária.",
+        "programa": "1. Direito Tributário: conceito de Direito Financeiro, receita pública, conceito e autonomia didática do Direito Tributário.\n2. Tributo: conceito constitucional, definição legal, natureza jurídica, classificação e espécies.\n3. Sistema Constitucional Tributário: sistema jurídico, princípios e Sistema Constitucional Tributário Brasileiro.\n4. Competência Tributária: conceito, espécies e características.\n5. Princípios Constitucionais Tributários: segurança jurídica, República, Federação, autonomia municipal, legalidade, anterioridade, irretroatividade, igualdade, capacidade contributiva, uniformidade, progressividade, não cumulatividade e seletividade.\n6. Imunidades: conceito, imunidades genéricas e específicas.\n7. Imposto: hipótese de incidência e classificações.\n8. Taxa: hipótese de incidência, atividade de polícia e serviços públicos.\n9. Contribuição de melhoria.\n10. Outras figuras tributárias: contribuições especiais e empréstimo compulsório.\n11. Instrumentos legislativos introdutórios de normas tributárias e hierarquia da legislação.\n12. Vigência, aplicação e interpretação da legislação tributária.\n13. Norma jurídica tributária e regra-matriz de incidência.\n14. Hipótese de incidência tributária.\n15. Consequência tributária e relação jurídica tributária.\n16. Hipótese de incidência no CTN.\n17. Obrigação tributária, deveres instrumentais, sujeitos e responsabilidade tributária.\n18. Crédito tributário e lançamento.\n19. Suspensão da exigibilidade.\n20. Extinção do crédito tributário.\n21. Exclusão do crédito tributário.\n22. Garantias e privilégios do crédito tributário.\n23. Administração tributária: fiscalização, dívida ativa e certidão negativa.",
+        "objetivo_geral": "O aluno será capaz de compreender satisfatoriamente o âmbito tanto constitucional quanto infraconstitucional do Direito Tributário, dominando razoavelmente o traçado do seu respectivo campo, da figura do tributo, das suas espécies, da respectiva legislação, da norma jurídica tributária, do crédito tributário e da administração tributária.",
+        "objetivos_especificos": "1. Identificar o campo do Direito Tributário e suas interações com as demais disciplinas jurídicas.\n2. Identificar a figura do tributo, distinguindo-a de quaisquer outras similares.\n3. Identificar as espécies tributárias, suas características e disciplina jurídica.\n4. Identificar a legislação tributária e suas espécies legislativas, alcances e possibilidades.\n5. Conhecer as normas jurídicas tributárias, especialmente a norma de incidência tributária.\n6. Conhecer o lançamento tributário e sua disciplina.\n7. Conhecer a extinção, exclusão e suspensão da exigibilidade do crédito tributário, suas garantias e privilégios.\n8. Conhecer a Administração Tributária e sua legislação.",
+        "procedimentos_didaticos": "Aulas expositivas; debates e diálogos; leituras prévias de textos; atividades de interpretação dos textos; atividades de fixação e leituras de aprofundamento.",
+        "formas_avaliacao": "Atividades de interpretação de textos e de fixação, correspondentes em conjunto a 30% da avaliação; provas escritas periódicas, correspondentes a 70% da avaliação."
+      }
     },
     {
       "id": "direito-ambiental",
@@ -668,7 +690,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 2,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DB460-Direito-Ambiental-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DB460 — Direito Ambiental",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Conhecer o campo do Direito Ambiental a partir de uma abordagem que perpassa as dimensões epistêmica, legislativa e jurídico-analítica. Refletir acerca da efetividade do direito fundamental ao ambiente ecologicamente equilibrado em conexão às questões da transição ecológica e às abordagens do desenvolvimento.",
+        "programa": "MÓDULO 1 - EPISTEMOLOGIA AMBIENTAL: concepções de meio ambiente e natureza; história ambiental; modernidade, natureza e culturas; pensamento ambientalista; correntes antropocêntricas e biocêntricas; natureza na América Latina; autonomia, fontes e interdisciplinaridade do Direito Ambiental e princípios estruturantes.\nMÓDULO 2 - O DIREITO AO AMBIENTE ECOLOGICAMENTE EQUILIBRADO: história constitucional; direitos e deveres do Poder Público e da sociedade; desenvolvimento, sustentabilidade e conflitos socioambientais; proteção constitucional ambiental; competências; proteção internacional; Sistema Nacional do Meio Ambiente; Política Nacional do Meio Ambiente; licenciamento, avaliação de impacto, consulta e participação.\nMÓDULO 3 - BENS AMBIENTAIS: natureza como bem comum; áreas protegidas; recursos hídricos; proteção das florestas, fauna e biodiversidade; conhecimentos tradicionais; zoneamento; energia, resíduos, mudanças climáticas e desastres ambientais.\nMÓDULO 4 - TRÍPLICE RESPONSABILIDADE PELO DANO AMBIENTAL: dano ambiental; tutela administrativa, civil e penal; instrumentos processuais, ação civil pública, ação popular e litigância climática.",
+        "objetivo_geral": "Compreender a estrutura normativa nacional e internacional do Direito Ambiental, suas teorias, instrumentos e princípios vinculados à garantia de efetividade ao direito fundamental ao ambiente ecologicamente equilibrado.",
+        "objetivos_especificos": "Compreender a trajetória da questão ambiental em sua inter-relação global-local, principais correntes e teorias, considerando a historicidade dos usos e concepções da natureza, a diversidade da formação social e os conflitos socioambientais no contexto latino-americano. Estudar o conjunto normativo multinível de proteção aos bens ambientais, convenções e tratados, legislação, princípios, diretrizes, gestão, fiscalização e instrumentos jurídicos. Analisar a complexidade do dano ambiental e sua tríplice responsabilidade. Avaliar a proteção jurídica ambiental e a tutela coletiva por meio de atividades que articulam ensino, pesquisa e extensão.",
+        "procedimentos_didaticos": "Aulas dialogadas, seminários e encontros com convidados(as), análise de casos emblemáticos, análise de legislação, pesquisa jurisprudencial e práticas extensionistas.",
+        "formas_avaliacao": "Provas e trabalhos individuais ou em grupos, estudos de caso, problematizações, mapas conceituais, elaboração de trabalhos, relatórios técnicos e pareceres."
+      }
     },
     {
       "id": "direito-economico",
@@ -678,7 +711,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 3,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DB461-Direito-Economico-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DB461 — Direito Econômico",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Introdução: Direito e Economia, Economia e Direito. Autonomia do Direito Econômico. Constituição Econômica. Constituição Econômica de 1988. Emendas Constitucionais e modificações na Ordem Econômica. Administração econômica. Estado como produtor e regulador da economia. Planejamento estatal. Fomento econômico. Direito da Concorrência.",
+        "programa": "1. Introdução: Direito e Economia, Economia e Direito.\n2. Autonomia do Direito Econômico: origem, desenvolvimento histórico, natureza, objeto e fontes.\n3. Constituição Econômica: noção, ordem jurídica da economia e história das Constituições Econômicas brasileiras.\n4. Constituição Econômica de 1988: modelo econômico, princípios fundamentais, organização econômica, órgãos de política econômica e emendas constitucionais.\n5. Administração econômica: características e organização direta e indireta; agências reguladoras.\n6. Estado como produtor de bens e serviços: atividade empresarial pública, Lei das Estatais, privatizações, serviços públicos, concessões e parcerias público-privadas.\n7. Estado como regulador da economia: âmbito, tipos e procedimento da regulação.\n8. Planejamento estatal da economia e Lei da Liberdade Econômica.\n9. Fomento econômico.\n10. Direito da Concorrência: livre concorrência, controle de estruturas e condutas, CADE e regulação concorrencial.",
+        "objetivo_geral": "Compreender as formas de atuação estatal na economia e sua disciplina jurídica.",
+        "objetivos_especificos": "Compreender as relações entre Direito e Economia e identificar as principais referências normativas que organizam a atuação estatal na economia.",
+        "procedimentos_didaticos": "Aulas expositivas; leituras de textos selecionados e debates; seminários.",
+        "formas_avaliacao": "Provas presenciais escritas e trabalhos escritos."
+      }
     },
     {
       "id": "direito-processual-penal-b",
@@ -688,7 +732,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 5,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DP432-Direito-Processual-Penal-B-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DP432 — Direito Processual Penal B",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Processo penal: conceito, natureza, tipos e fases. Atos processuais e nulidades processuais. Procedimentos. Teoria da prova. Sentença penal. Recursos e remédios. Coisa julgada.",
+        "programa": "Processo penal: conceito, natureza, tipos e fases. Atos processuais e nulidades processuais. Procedimentos. Teoria da prova. Sentença penal. Recursos e remédios. Coisa julgada.",
+        "objetivo_geral": "Proporcionar ao aluno formação no campo jurídico-penal, do qual o Processo Penal é parte fundamental.",
+        "objetivos_especificos": "Ministrar conhecimentos aos alunos sobre o processo penal nos seus aspectos conceitual e funcional, contemplando os institutos do seu início até o seu final.",
+        "procedimentos_didaticos": "Aulas expositivas e seminários.",
+        "formas_avaliacao": "Provas e trabalhos."
+      }
     },
     {
       "id": "direito-processual-do-trabalho",
@@ -698,7 +753,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 6,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DV465-Direito-Processual-do-Trabalho-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DV465 — Direito Processual do Trabalho",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Princípios do Direito Processual do Trabalho. Características e competência da Justiça do Trabalho. Processo de conhecimento e procedimentos. Tutela antecipada e tutelas de urgência. Recursos. Execução e cumprimento de sentença. Dissídio coletivo, ação rescisória e outros procedimentos.",
+        "programa": "A ficha organiza o conteúdo em 24 tópicos: princípios do Processo do Trabalho; características do processo e da Justiça do Trabalho; competência material, territorial e funcional; partes; petição inicial; audiência; respostas; provas; sentença; recursos; execução e cumprimento de sentença; dissídios coletivos; ação rescisória e outros procedimentos.",
+        "objetivo_geral": "O estudante deve estar apto a definir em termos disciplinares os aspectos relevantes do Direito Processual do Trabalho e, com orientação de dogmática crítica, aplicar os preceitos jurídicos para concretização de Direitos Trabalhistas Fundamentais por meio dos institutos processuais examinados.",
+        "objetivos_especificos": "Municiar o estudante para a prática forense trabalhista com método, dispondo de todos os instrumentos para atuação proba na representação dos jurisdicionados.",
+        "procedimentos_didaticos": "Aulas expositivas. Seminários. Leitura de textos e fichamentos.",
+        "formas_avaliacao": "Provas dissertativas. Seminários."
+      }
     },
     {
       "id": "direito-civil-e",
@@ -708,7 +774,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 4,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DC442-Direito-Civil-E-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DC442 — Direito Civil E",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Família e Direito de Família. Noções introdutórias. Família sem casamento. Casamento e sociedade conjugal. Habilitação, impedimentos e celebração do casamento. Casamento nulo, anulável, inexistente e putativo. Efeitos jurídicos, direitos e deveres dos cônjuges, regime de bens e dissolução. Direito parental, parentesco, filiação, poder parental, adoção e alimentos. Direito protetivo. Direito das Sucessões: sucessão legítima e testamentária, testamentos, legados, herdeiros necessários, substituições, deserdação, revogação, inventário e partilha.",
+        "programa": "1ª PARTE - DIREITO DE FAMÍLIA: noções introdutórias; família e sociedade; regulamentação das relações familiares; união estável; casamento, conceito, natureza, habilitação, impedimentos, celebração, nulidade, anulabilidade, efeitos, direitos e deveres dos cônjuges e regimes de bens; dissolução do casamento e da sociedade conjugal; relações de parentesco, filiação, poder parental, adoção e alimentos.\n2ª PARTE - DIREITO DAS SUCESSÕES: noções gerais; sucessão legítima; sucessão testamentária; formas ordinárias e especiais de testamento; capacidade testamentária; interpretação e nulidade; legados; direito de acrescer; herdeiros necessários; substituição e fideicomisso; deserdação; revogação; testamenteiro; inventário, sonegados, colação e partilha.",
+        "objetivo_geral": "Proporcionar conhecimento teórico e prático ao aluno a respeito dos temas de Direito de Família e de Direito das Sucessões.",
+        "objetivos_especificos": "Compreensão crítica do sistema posto e das possibilidades de transformações baseadas nos princípios contemporâneos do Direito de Família e Sucessões, mediante estudo de precedentes e doutrina.",
+        "procedimentos_didaticos": "Aulas expositivas dialogadas, análise de textos e decisões.",
+        "formas_avaliacao": "Quatro avaliações, que poderão consistir em provas e trabalho. A nota final será a média aritmética das quatro avaliações, cada qual valendo 10 pontos."
+      }
     },
     {
       "id": "pratica-juridica-civil",
@@ -1155,7 +1232,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 8,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DV468-TCCII-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DV468 — TCC II",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Execução do cronograma de atividades do Projeto de Pesquisa. Redações provisórias e final do TCC. Defesa do TCC em banca.",
+        "programa": "Execução do cronograma de atividades. Contribuição original e inédita de pesquisa no TCC. Autonomia do pesquisador. Fenômeno do plágio e cuidados metodológicos para não incorrer nessa prática. Redações provisórias e final do TCC. Defesa do TCC em banca.",
+        "objetivo_geral": "Redigir e defender em banca o trabalho de conclusão de curso.",
+        "objetivos_especificos": "Executar o cronograma de atividades do projeto de pesquisa. Desenvolver as competências e habilidades da pesquisa jurídica.",
+        "procedimentos_didaticos": "Leitura da bibliografia especializada. Construção de textos acadêmicos e especialmente do TCC. Reunião e debates com professor orientador.",
+        "formas_avaliacao": "Entregas bimestrais de trabalhos e especialmente do TCC."
+      }
     },
     {
       "id": "estagio-supervisionado",
@@ -1165,7 +1253,18 @@
       "ano": 5,
       "descricao": "",
       "ordem": 9,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DIR411-Estagio-Supervisionado-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DIR411 — Estágio Supervisionado",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Acesso à Justiça. Assessoria Jurídica em Direitos Humanos. Atendimento Sociojurídico. Doutrina e prática nos Direitos Humanos. Peticionamento em diferentes órgãos. Competência jurisdicional e Direitos Humanos. Ética Profissional. Carreiras Jurídicas.",
+        "programa": "Acompanhar e supervisionar o estudante na realização do estágio em Direito em órgãos ou departamentos, públicos ou privados, escritórios de advocacia, empresas ou organizações não governamentais, em matéria de direitos humanos, observadas as normas indicadas na ficha.",
+        "objetivo_geral": "Capacitar o corpo discente para o exercício profissional da atividade jurídica na área dos Direitos Humanos, compreendendo as esferas judicial e extrajudicial, em âmbito nacional e internacional.",
+        "objetivos_especificos": "Orientar a compreensão do Direito como mediação para afirmação de condições necessárias à vida digna, por atividades de ensino, pesquisa e extensão; favorecer práxis jurídica interdisciplinar; defender a efetividade dos direitos humanos e a construção da cidadania; integrar saber técnico-jurídico e prático com fundamentos éticos, teóricos e metodológicos; supervisionar atividades do estudante no estágio externo.",
+        "procedimentos_didaticos": "Estágio supervisionado na própria instituição, Núcleo de Prática Jurídica ou por convênios; orientação jurídica à comunidade; conciliações e mediações; pesquisa orientada; elaboração de peças processuais e acompanhamento de ações, audiências e sessões de julgamento.",
+        "formas_avaliacao": "Apresentação de relatórios parciais e relatório final, considerando complexidade dos casos, relevância e impacto para a comunidade, nota atribuída pelo orientador direto e, em determinados casos, entrevista."
+      }
     },
     {
       "id": "vivencias-em-direitos-humanos",
@@ -1286,7 +1385,13 @@
       "ano": 5,
       "descricao": "",
       "ordem": 16,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/?page_id=3638",
+        "fonte_titulo": "Referência do Departamento de Prática Jurídica — DIR418",
+        "fonte_data": "Página institucional consultada; não foi localizada uma Ficha 2 específica para a turma especial nas fontes curriculares consultadas.",
+        "observacao": "A ficha curricular específica desta turma especial não foi localizada nas páginas oficiais consultadas. Por isso, os campos pedagógicos não foram preenchidos. Consulte o Departamento de Prática Jurídica para obter a versão correspondente."
+      }
     },
     {
       "id": "pratica-juridica-penal-turma-especial",
@@ -1296,7 +1401,13 @@
       "ano": 5,
       "descricao": "",
       "ordem": 17,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/?page_id=3638",
+        "fonte_titulo": "Referência do Departamento de Prática Jurídica — DIR419",
+        "fonte_data": "Página institucional consultada; não foi localizada uma Ficha 2 específica para a turma especial nas fontes curriculares consultadas.",
+        "observacao": "A ficha curricular específica desta turma especial não foi localizada nas páginas oficiais consultadas. Por isso, os campos pedagógicos não foram preenchidos. Consulte o Departamento de Prática Jurídica para obter a versão correspondente."
+      }
     }
   ],
   "unidades": [
