@@ -311,9 +311,7 @@
 
           }, 0);
 
-          const totalDisciplinas = new Set(
-            documentos.map(doc => doc.disciplina).filter(Boolean)
-          ).size;
+          const totalDisciplinas = disciplinasObrigatorias.length;
 
           const resumo =
             document.getElementById("resumo-biblioteca");
