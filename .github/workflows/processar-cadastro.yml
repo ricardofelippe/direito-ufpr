@@ -134,7 +134,8 @@ jobs:
               "disciplina": disciplina,
               "assunto_id": assunto_id,
               "assunto": assunto,
-              "arquivo": arquivo
+              "arquivo": arquivo,
+              "visivel_biblioteca": True
           }
 
           documentos.append(novo)
