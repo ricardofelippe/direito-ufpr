@@ -511,7 +511,18 @@
       "ano": 4,
       "descricao": "",
       "ordem": 1,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DB458-Direito-Administrativo-B-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DB458 — Direito Administrativo B",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Agentes públicos. Licitações. Contratos Administrativos. Limitações e restrições administrativas. Domínio Público. Controle da Administração Pública. Responsabilidade civil extracontratual do Estado.",
+        "programa": "1. Agentes Públicos: classificação, cargo, emprego e função, regime constitucional, acessibilidade, nomeação, posse, exercício, provimento, estágio probatório, estabilidade, direitos, deveres, responsabilidade, infrações, sanções e vacância.\n2. Licitações: história, natureza jurídica, competência, obrigatoriedade, dispensa, inexigibilidade, modalidades, tipos e princípios.\n3. Contratos Administrativos: natureza jurídica, conceito, legislação, características, tipos, parcerias, extinção e consensualidade.\n4. Limitações e Restrições Administrativas: limitações, tombamento, requisição, servidão, ocupação temporária, desapropriação e instrumentos da política urbana.\n5. Domínio Público: natureza jurídica, conceito, classificação, espécies, afetação, aquisição, alienação e utilização por particulares.\n6. Controle da Administração Pública: jurisdição administrativa, controle interno e externo, classificações e controle de atos administrativos, LINDB.\n7. Responsabilidade Patrimonial Extracontratual do Estado: fundamentos, casos comissivos e omissivos, pessoas jurídicas privadas, excludentes, denunciação da lide, regresso, dano e atos judiciais e legislativos.",
+        "objetivo_geral": "Conhecer as noções básicas e preliminares da Disciplina de Direito Administrativo.",
+        "objetivos_especificos": "Conhecer os conteúdos fundamentais da Disciplina com reflexão e crítica, tomando por referências a doutrina, a legislação e a jurisprudência.",
+        "procedimentos_didaticos": "Aulas expositivas e práticas, relacionando a teoria com a prática, com participação dos alunos; indicação de fontes de informação; acompanhamento e controle de atividades; atendimento individual para orientação; definição de critérios para atividades individuais e coletivas; incentivo à pesquisa científica.",
+        "formas_avaliacao": "Provas escritas, atividades online e em sala de aula, estudos de casos e seminários."
+      }
     },
     {
       "id": "direito-penal-c",
@@ -521,7 +532,18 @@
       "ano": 4,
       "descricao": "",
       "ordem": 4,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DP430-Direito-Penal-C-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DP430 — Direito Penal C",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Crimes contra o patrimônio; propriedade imaterial; organização do trabalho; sentimento religioso e respeito aos mortos; dignidade sexual; família; incolumidade pública; paz pública; fé pública; administração pública; Estado Democrático de Direito.",
+        "programa": "1. Crimes contra o patrimônio: furto, roubo, extorsão, usurpação, dano, apropriação indébita, estelionato, fraudes e receptação.\n2. Crimes contra a propriedade imaterial.\n3. Crimes contra a organização do trabalho.\n4. Crimes contra o sentimento religioso e o respeito aos mortos.\n5. Crimes contra a dignidade sexual.\n6. Crimes contra a família.\n7. Crimes contra a incolumidade pública.\n8. Crimes contra a paz pública.\n9. Crimes contra a fé pública.\n10. Crimes contra a Administração Pública: crimes praticados por funcionário público e por particular, crimes em licitações e contratos administrativos, contra a Administração da Justiça e contra as finanças públicas.\n11. Crimes contra o Estado Democrático de Direito.",
+        "objetivo_geral": "Apresentar e debater os dispositivos incriminadores dos títulos do Código Penal a partir dos crimes contra o patrimônio até o final do Código.",
+        "objetivos_especificos": "Aplicar as bases do sistema de imputação à casuística da parte especial do Código Penal. Explorar casos práticos da parte especial do Código Penal à luz do sistema de imputação.",
+        "procedimentos_didaticos": "Aulas expositivo-dialogadas, com apresentação dos conteúdos curriculares teóricos e discussões sobre textos previamente propostos que tratem da matéria.",
+        "formas_avaliacao": "Aprovação com nota igual ou superior a 70% do total de 100 pontos em cada avaliação e frequência mínima de 75%. Os critérios (prova, trabalho, exposição, seminário etc.) serão definidos pelo professor e apresentados no primeiro dia de aula."
+      }
     },
     {
       "id": "direito-processual-penal-a",
@@ -531,7 +553,18 @@
       "ano": 4,
       "descricao": "",
       "ordem": 5,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DP431-Direito-Processual-Penal-A-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DP431 — Direito Processual Penal A",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Introdução crítica ao Direito Processual Penal. Órgãos e sujeitos da persecução penal. Jurisdição e competência. Investigação criminal. Ação penal. Tutela de urgência.",
+        "programa": "Introdução crítica ao Direito Processual Penal. Órgãos e sujeitos da persecução penal. Jurisdição e competência. Investigação criminal. Ação penal. Tutela de urgência.",
+        "objetivo_geral": "Proporcionar ao aluno formação no campo jurídico-penal, do qual o Processo Penal é parte fundamental.",
+        "objetivos_especificos": "Ministrar conhecimentos aos alunos sobre conceito, fundamentos, sujeitos e institutos do Processo Penal brasileiro, sob uma perspectiva crítica.",
+        "procedimentos_didaticos": "Aulas expositivas, com o uso eventual de ferramentas tecnológicas, à escolha dos professores.",
+        "formas_avaliacao": "Provas e trabalhos."
+      }
     },
     {
       "id": "direito-empresarial-b",
@@ -541,7 +574,18 @@
       "ano": 4,
       "descricao": "",
       "ordem": 6,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DV463-Direito-Empresarial-B-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DV463 — Direito Empresarial B",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Sociedades Anônimas. Falências e Recuperação da Empresa: conceitos gerais e prévios, fase pré-falimentar, fase de informação, fase de liquidação, extinção. Recuperação judicial, procedimento, plano de recuperação, extinção. Recuperação extrajudicial. Contratos empresariais. Ética e interpretação.",
+        "programa": "1. Sociedades Anônimas: características, constituição, valores mobiliários, operações com ações próprias, assembleias, Conselho Fiscal, administração, movimentos societários e extinção.\n2. Recuperação Judicial: noções gerais, questões processuais, processamento, procedimento, plano e efeitos sobre direitos dos credores, bens, empresário e contratos; recuperação extrajudicial.\n3. Falências: aspectos gerais, caracterização, impontualidade, autofalência, questões processuais, procedimento, sentenças, efeitos sobre credores, pessoa e bens do falido, contratos, administrador judicial, arrecadação, verificação e classificação de créditos, crimes, realização do ativo, liquidação do passivo e extinção das obrigações.\n4. Liquidação extrajudicial.\n5. Contratos empresariais: noção, interpretação, ética e comportamento empresarial.",
+        "objetivo_geral": "A partir das leituras, debates e exposições o aluno deverá estar apto a conhecer e aplicar as normas constitucionais e de direito empresarial relacionadas às sociedades anônimas, recuperação ou falência da empresa e contratos empresariais.",
+        "objetivos_especificos": "O aluno deve, além do conhecimento dogmático, ser dotado do instrumental necessário à análise e aplicação crítica da Lei societária, normas contratuais e da Lei de Recuperação e Falência.",
+        "procedimentos_didaticos": "Indicação de textos para leitura mínima; arguição e debates; aulas expositivas dialogadas; participação dos monitores de pós-graduação; pesquisa, fichamentos, elaboração de trabalhos e análise de material.",
+        "formas_avaliacao": "Elaboração e participação em papers e debates, provas escritas e orais e exposição e debate em aula."
+      }
     },
     {
       "id": "direito-do-trabalho",
@@ -551,7 +595,18 @@
       "ano": 4,
       "descricao": "",
       "ordem": 7,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DV464-Direito-do-Trabalho-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DV464 — Direito do Trabalho",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Evolução histórica da sujeição ao trabalho e do Direito do Trabalho. Fontes, princípios e hermenêutica. Contrato individual de trabalho. Empregado e empregador. Duração do trabalho. Repousos. Férias. Remuneração e proteção do salário. Alterações, interrupção e suspensão do contrato. Garantia de emprego e estabilidade. FGTS. Extinção do contrato. Prescrição. Trabalho das mulheres, infantil, da criança e do adolescente. Valor do trabalho das pessoas negras. Discriminação no trabalho. Direito Previdenciário. Estrutura constitucional da Seguridade Social e princípios.",
+        "programa": "A ficha organiza o conteúdo em 26 tópicos, abrangendo: trabalho humano e sua evolução histórica; formação e fontes do Direito do Trabalho; princípios e hermenêutica; contrato individual; empregado e empregador; duração do trabalho, repousos e férias; remuneração; alterações, suspensão e interrupção contratual; garantias de emprego e estabilidade; FGTS; extinção e prescrição; trabalho de mulheres, crianças e adolescentes; discriminação no trabalho; introdução ao Direito Previdenciário, estrutura constitucional da Seguridade Social, segurados, dependentes, benefícios, carência, tempo de contribuição e processo previdenciário.",
+        "objetivo_geral": "Prover formação técnica e crítica robustas para a inserção do estudante nas relações de trabalho de que venha a participar ou sobre as quais incida como profissional, nas atividades de representação, defesa ou tutela dos interesses de trabalhadores ou de empresas, com capacidade de compreensão densa das implicações do atuar na conformação das relações sociais.",
+        "objetivos_especificos": "Desenvolver o programa da disciplina com solidez dogmática e visão crítica, permitindo a formação profissional dos estudantes para a atuação responsável no Direito do Trabalho.",
+        "procedimentos_didaticos": "Método dialógico; aulas expositivas; discussão de textos; debates interinstitucionais com professores convidados; relatos de atores sociais; atividades de extensão para contato com as realidades do mundo do trabalho.",
+        "formas_avaliacao": "Provas dissertativas e objetivas. Seminários."
+      }
     },
     {
       "id": "direito-civil-d",
@@ -561,7 +616,18 @@
       "ano": 4,
       "descricao": "",
       "ordem": 2,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DC441-Direito-Civil-D-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DC441 — Direito Civil D",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "O estatuto jurídico das coisas, bens e direitos. Tipologia e classificação. A disciplina jurídica e a matéria na formação da codificação civil. Regulação jurídica da posse. Novas modalidades de configuração do direito real de propriedade. Propriedade e domínio coletivo: terras indígenas e territórios quilombolas. A função social da propriedade. Proteção possessória. Usucapião. Os direitos reais limitados. Os direitos reais de garantia.",
+        "programa": "1. O estatuto jurídico das coisas, bens e direitos: noções introdutórias; direitos reais como situações jurídicas subjetivas; direitos reais e pessoais; características, princípios, tipologia e classificação.\n2. Propriedade: disciplina jurídica, estrutura, limitações, propriedade plena e limitada, tutela, função social, domínio coletivo, aquisição e perda, usucapião e registro imobiliário.\n3. Posse: definição, natureza, teorias, classificação, aquisição, perda, efeitos e proteção possessória.\n4. Usucapião: definição, natureza, requisitos, espécies, efeitos e usucapião extrajudicial.\n5. Relações de vizinhança: uso nocivo, árvores limítrofes, limites, direito de construir, passagem forçada e regime das águas.\n6. Condomínio e condomínio edilício: definição, natureza, regime, constituição, convenção, direitos, deveres, administração, extinção e multipropriedade.\n7. Direitos reais de uso sobre coisa alheia: superfície, servidão, usufruto, uso, habitação, concessões e laje.\n8. Direitos reais de garantia: penhor, anticrese, hipoteca e alienação fiduciária.\n9. Direito real de aquisição: direito real do promitente comprador.",
+        "objetivo_geral": "Proporcionar conhecimento teórico e prático ao aluno e incentivar a reflexão crítica.",
+        "objetivos_especificos": "Conhecer as novas tendências do direito dos contratos na doutrina e jurisprudência brasileiras; refletir criticamente acerca das transformações dos contratos e sua passagem da teoria contratual clássica para a teoria contratual contemporânea.",
+        "procedimentos_didaticos": "Aulas expositivo-dialogadas; exercícios domiciliares; leitura de textos e acórdãos indicados, mediante resolução de questionário; exercícios de fixação com questões objetivas, problemas e estudos de caso.",
+        "formas_avaliacao": "Leitura de textos e resolução de questionários; utilização de problemas e acórdãos; quatro avaliações escritas, individuais e sem consulta à bibliografia."
+      }
     },
     {
       "id": "direito-processual-civil-c",
@@ -571,7 +637,18 @@
       "ano": 4,
       "descricao": "",
       "ordem": 3,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DC445-Direito-Processual-Civil-C-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DC445 — Direito Processual Civil C",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Preclusão e coisa julgada. Tutela provisória. Cumprimento de títulos judiciais e processo de execução. Execução para entrega de coisa. Execução das obrigações de fazer e de não fazer. Execução por quantia certa. Embargos do devedor. Processo cautelar. Tutela de aparência. Tutela cautelar e medidas cautelares. Procedimento cautelar.",
+        "programa": "1. Preclusão e coisa julgada: conceito, características, efeitos, limites objetivos e subjetivos e meios de impugnação.\n2. Tutela provisória: tutela de aparência e de evidência, conceitos, fundamentos, espécies, requisitos, efetivação e fungibilidade.\n3. Cumprimento de títulos judiciais e processo de execução: execução, tutela dos direitos, espécies, princípios, títulos executivos, requisitos, inadimplemento, responsabilidade patrimonial, impenhorabilidade, fraude, legitimidade e competência.\n4. Execução e cumprimento de prestações para entrega de coisa.\n5. Execução e cumprimento das obrigações de fazer e não fazer.\n6. Cumprimento de sentenças que impõem pagamento de soma em dinheiro: penhora, avaliação, impugnação, expropriação, alienação e pagamento; execução contra Fazenda Pública, alimentos e execução fiscal.",
+        "objetivo_geral": "Proporcionar conhecimento teórico e prático ao aluno. Incentivar a reflexão crítica.",
+        "objetivos_especificos": "Apresentar ao aluno os conceitos básicos no campo da preclusão e da coisa julgada; descrever os mecanismos de tutela provisória disciplinados pela lei processual civil; oferecer panorama geral sobre mecanismos de cumprimento de títulos judiciais e execução de títulos extrajudiciais no direito brasileiro.",
+        "procedimentos_didaticos": "Aulas expositivas e seminários.",
+        "formas_avaliacao": "Provas escritas."
+      }
     },
     {
       "id": "direito-tributario",
@@ -1057,7 +1134,18 @@
       "ano": 4,
       "descricao": "",
       "ordem": 8,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DV467-TCCI-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DV467 — TCC I",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Modalidades de Trabalho de Conclusão de Curso: Monografia, Relatório de Atividade de Extensão e Artigo Científico. Eleição da modalidade de TCC. Escolha e delimitação do tema. Construção do problema de pesquisa. Levantamento e análise da bibliografia especializada. Metodologia a ser desenvolvida. Elaboração do projeto de pesquisa com plano provisório e cronograma.",
+        "programa": "Pesquisa Jurídica e Atividade de Extensão. Modalidades de Trabalho de Conclusão de Curso. Delimitação do Tema. Construção do Problema. Forma de Tratamento da Bibliografia Especializada. Métodos de Pesquisa. Elementos do Projeto de Pesquisa.",
+        "objetivo_geral": "Elaborar o projeto de pesquisa do trabalho de conclusão de curso.",
+        "objetivos_especificos": "Compreender as características e as estruturas da monografia, do relatório de atividade de extensão e do artigo científico. Delimitar o tema e a metodologia a ser desenvolvida. Construir o problema de pesquisa, o plano provisório e o cronograma de atividades. Levantar e analisar a bibliografia especializada.",
+        "procedimentos_didaticos": "Leitura da bibliografia especializada. Construção de textos acadêmicos. Reunião e debates com professor orientador.",
+        "formas_avaliacao": "Entregas bimestrais de trabalhos e, especialmente, do Projeto de Pesquisa do TCC."
+      }
     },
     {
       "id": "tcc-ii",
