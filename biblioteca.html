@@ -536,6 +536,17 @@
           });
 
           grupos.forEach((itens, ano) => {
+            // Prioriza disciplinas com mais materiais correspondentes aos filtros atuais.
+            // Em caso de empate, utiliza a ordem natural do código da disciplina.
+            itens.sort((a, b) =>
+              b.documentos.length - a.documentos.length ||
+              String(a.disciplina.codigo || "").localeCompare(
+                String(b.disciplina.codigo || ""),
+                "pt-BR",
+                { numeric: true, sensitivity: "base" }
+              )
+            );
+
             const secao = document.createElement("section");
             secao.className = "grupo-ano-biblioteca";
 
