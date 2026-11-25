@@ -1169,13 +1169,14 @@
         const cartao = criarElemento('details', 'cartao-disciplina');
 
         const resumo = criarElemento('summary', 'resumo-cartao-disciplina');
-        if (disciplina.codigo) {
-          resumo.appendChild(criarElemento('span', 'codigo-disciplina', disciplina.codigo));
-        }
-
         const topo = criarElemento('div', 'cartao-topo');
         const nome = criarElemento('h4', 'nome-disciplina', disciplina.nome || 'Disciplina sem nome');
         topo.appendChild(nome);
+        resumo.appendChild(topo);
+
+        if (disciplina.codigo) {
+          resumo.appendChild(criarElemento('span', 'codigo-disciplina', disciplina.codigo));
+        }
 
         const status = String(disciplina.status || 'pendente').toLowerCase();
         if (status === 'ativa') {
@@ -1201,7 +1202,6 @@
           inicio ? 'Estudos iniciados' : 'Não iniciada'
         ));
         topo.appendChild(etiquetas);
-        resumo.appendChild(topo);
 
         const ficha = disciplina.informacoes_pedagogicas;
         const possuiFicha = ficha && Object.keys(ficha).some(chave =>
