@@ -245,10 +245,19 @@
           "trabalho 1 - google docs"
         ]);
 
-        const documentos = todosDocumentos.filter(doc =>
-          mapaDisciplinas.has(normalizar(doc.disciplina)) &&
-          !titulosOcultos.has(normalizar(doc.titulo))
-        );
+        const documentos = todosDocumentos.filter(doc => {
+          const titulo = normalizar(doc.titulo);
+          const categoria = normalizar(doc.categoria);
+
+          // Oculta o cadastro duplicado classificado incorretamente como exercício.
+          const resumoDuplicadoComCategoriaIncorreta =
+            titulo === "resumo sobre introducao a teoria do direito" &&
+            categoria === "exercicio";
+
+          return mapaDisciplinas.has(normalizar(doc.disciplina)) &&
+            !titulosOcultos.has(titulo) &&
+            !resumoDuplicadoComCategoriaIncorreta;
+        });
 
         const nomeComCodigo = nome => {
           const disciplina = mapaDisciplinas.get(normalizar(nome));
