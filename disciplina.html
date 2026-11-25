@@ -38,15 +38,21 @@
       margin: 0 auto;
     }
 
-    .voltar-curriculo {
-      display: inline-block;
+    .navegacao-disciplina {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
       margin-bottom: 15px;
+    }
+
+    .navegacao-disciplina a {
+      display: inline-block;
       color: var(--azul-claro);
       text-decoration: none;
       font-size: 13px;
     }
 
-    .voltar-curriculo:hover {
+    .navegacao-disciplina a:hover {
       text-decoration: underline;
     }
 
@@ -518,7 +524,10 @@
 <body class="pagina-disciplina">
   <header>
     <div class="cabecalho-disciplina">
-      <a class="voltar-curriculo" href="direito.html">← Voltar ao currículo</a>
+      <nav class="navegacao-disciplina" aria-label="Navegação principal">
+        <a href="index.html">⌂ Painel inicial</a>
+        <a href="direito.html">← Voltar ao currículo</a>
+      </nav>
       <h1 id="nome-disciplina">Carregando disciplina...</h1>
       <div class="metadados-disciplina" id="metadados-disciplina"></div>
       <p class="descricao-disciplina" id="descricao-disciplina"></p>
