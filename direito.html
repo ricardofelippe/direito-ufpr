@@ -1327,8 +1327,14 @@
         adicionarIndicadorPercentual(painelProgresso, 'Revisões realizadas', progressoDisciplina.revisoes);
         conteudo.appendChild(painelProgresso);
 
-        const linkAcesso = criarElemento('a', 'indicador-acesso', 'Acessar disciplina →');
-        linkAcesso.href = `disciplina.html?id=${encodeURIComponent(disciplina.id)}`;
+        // Todas as categorias curriculares usam o mesmo ambiente de estudos.
+        // A identificação da disciplina é feita exclusivamente pelo ID estável.
+        const linkAcesso = criarElemento('a', 'indicador-acesso', 'Abrir ambiente de estudos →');
+        const parametrosAcesso = new URLSearchParams({ id: disciplina.id });
+        linkAcesso.href = 'disciplina.html?' + parametrosAcesso.toString();
+        linkAcesso.setAttribute('aria-label', 'Abrir ambiente de estudos da disciplina ' +
+          (disciplina.codigo ? disciplina.codigo + ' — ' : '') + (disciplina.nome || ''));
+        linkAcesso.title = 'Abre a página de estudos com as seções de resumos, revisões, questões, flashcards, fluxogramas e materiais.';
         conteudo.appendChild(linkAcesso);
         cartao.appendChild(conteudo);
         wrapper.appendChild(cartao);
