@@ -365,7 +365,18 @@
       "ano": 3,
       "descricao": "",
       "ordem": 1,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DB455-Direito-Constitucional-B-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DB455 — Direito Constitucional B",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Unidade I - Direitos fundamentais em espécie. Unidade II - Federação brasileira. Unidade III - Organização dos Poderes - Poder Legislativo e Executivo. Unidade IV - Defesa do Estado e das instituições democráticas. Unidade V - Organização dos Poderes - Poder Judiciário e jurisdição constitucional. Unidade VI - Aspectos da ordem social na CF/88.",
+        "programa": "UNIDADE I - DIREITOS FUNDAMENTAIS EM ESPÉCIE: direitos fundamentais na Constituição de 1988; direitos à vida, liberdade, segurança, propriedade e igualdade; proteção contramajoritária das vulnerabilidades, interseccionalidades e direito antidiscriminatório; direitos fundamentais sociais; garantias e remédios constitucionais; nacionalidade e direitos políticos.\nUNIDADE II - FEDERAÇÃO BRASILEIRA: Estado Federal, repartição de competências, União, Estados-Membros, Municípios, Distrito Federal e intervenção.\nUNIDADE III - ORGANIZAÇÃO DOS PODERES - PODER LEGISLATIVO E EXECUTIVO: freios e contrapesos; funções típicas e atípicas; Congresso Nacional, Câmara e Senado; comissões parlamentares; estatuto dos congressistas; processo legislativo; Poder Executivo, poder regulamentar e crimes de responsabilidade.\nUNIDADE IV - DEFESA DO ESTADO E DAS INSTITUIÇÕES DEMOCRÁTICAS: Estado de Defesa, Estado de Sítio, Forças Armadas e Segurança Pública.\nUNIDADE V - PODER JUDICIÁRIO E JURISDIÇÃO CONSTITUCIONAL: estrutura do Poder Judiciário, STF, STJ, CNJ, controle de constitucionalidade e funções essenciais à Justiça.\nUNIDADE VI - ASPECTOS DA ORDEM SOCIAL NA CF/88: saúde, educação, cultura, desporto, ciência, tecnologia, inovação, comunicação social, organização familiar, proteção à criança, ao adolescente, ao idoso e direitos dos índios.",
+        "objetivo_geral": "Analisar sistematicamente a Constituição Federal Brasileira de 1988, de forma que o aluno tenha condições de estudar autonomamente a matéria, com viés crítico, sendo capaz de vencer adequadamente problemas jurídico-constitucionais.",
+        "objetivos_especificos": "Concluir o estudo do direito constitucional e habilitar os alunos e as alunas nos conteúdos do direito constitucional de modo crítico e contextualizado.",
+        "procedimentos_didaticos": "Aulas expositivas e dialogadas; trabalhos em grupo; leituras dirigidas; seminários; estudos de caso.",
+        "formas_avaliacao": "Provas dissertativas e objetivas; fichamentos; trabalhos de pesquisa; provas orais; debates e seminários."
+      }
     },
     {
       "id": "direito-financeiro-e-politicas-publicas",
@@ -375,7 +386,18 @@
       "ano": 3,
       "descricao": "",
       "ordem": 2,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DB456-Direito-Financeiro-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DB456 — Direito Financeiro",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Direito Financeiro. Regime normativo. Atividade financeira. Receitas e despesas. Orçamento público. Execução. Dívida pública. Precatórios. Controle.",
+        "programa": "1. Direito Financeiro: histórico, ciência das finanças, finanças públicas e privadas, atividade financeira, autonomia, relações com outros ramos, Estado, políticas públicas, necessidades e interesses, atividades da Administração Pública, política fiscal e monetária.\n2. Regime normativo do Direito Financeiro: normas, competências constitucionais e normas gerais.\n3. Atividade financeira do Estado – receitas: deveres fundamentais, entrada e receita, classificações, receitas originárias e derivadas, taxas, impostos, contribuições, multas, penalidades, fundos, renúncia de receita e Lei de Responsabilidade Fiscal.\n4. Atividade financeira do Estado – despesas: conceito, elementos, evolução, classificação, efeitos, despesas públicas e nacionais, legalidade, políticas públicas, corrupção e controle.\n5. Patrimônio público: noção, conteúdo, utilização, funções, administração, controle e inventário.\n6. Sistema orçamentário: planejamento, orçamento, princípios, orçamento-programa, PPA, LDO, LOA, processo legislativo, execução orçamentária e créditos adicionais.\n7. Dívida pública e responsabilidade fiscal: conceito, natureza, princípios, classificação, empréstimos, operações internas e externas, títulos da dívida pública e precatórios.\n8. Controle da execução orçamentária: modalidades, controle legislativo, jurisdicional, político, popular, interno e externo.\n9. Políticas públicas e Direito Financeiro.",
+        "objetivo_geral": "Proporcionar ao estudante conhecimento de Finanças Públicas e Direito Financeiro.",
+        "objetivos_especificos": "Proporcionar o conhecimento das finanças públicas do Estado – captação de recursos, gestão de recursos escassos e dispêndio – com a finalidade de permitir a compreensão de que a efetividade dos direitos fundamentais somente se alcança com a boa administração dos recursos disponíveis. Compreender a relação entre direitos e responsabilidade na utilização de bens econômicos escassos e o papel do orçamento público na transformação da estrutura social, econômica e política.",
+        "procedimentos_didaticos": "Aulas expositivas e seminários.",
+        "formas_avaliacao": "Avaliações escritas."
+      }
     },
     {
       "id": "direito-administrativo-a",
@@ -385,7 +407,18 @@
       "ano": 3,
       "descricao": "",
       "ordem": 3,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DB457-Direito-Administrativo-A-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DB457 — Direito Administrativo A",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Fundamentos de Direito Administrativo. Regime jurídico administrativo. Atos Administrativos. Organização da Administração Pública. Atividades do Estado e Serviços Públicos. Processo Administrativo.",
+        "programa": "1. Fundamentos de Direito Administrativo: Direito Administrativo como ciência, função administrativa, história, evolução e poderes da Administração Pública; Lei Brasileira de Governo Digital.\n2. Regime Jurídico Administrativo: conceito, supremacia e indisponibilidade do interesse público, legalidade, publicidade, impessoalidade, moralidade, eficiência e princípios constitucionais implícitos.\n3. Atos Administrativos: conceito, classificações, elementos, categorias, atributos, anulação, revogação, convalidação e ato administrativo digital.\n4. Organização da Administração Pública: descentralização, desconcentração, entes e órgãos, Administração direta e indireta, terceiro setor e Administração burocrática e gerencial.\n5. Atividades do Estado e Serviços Públicos: natureza, conceito, atividade econômica, princípios, concessões, permissões, proteção do usuário e fomento.\n6. Processo Administrativo: histórico, competência, conceito, espécies, princípios e legislação federal e estadual do Paraná; processo administrativo eletrônico.",
+        "objetivo_geral": "Conhecer as noções básicas e preliminares da Disciplina de Direito Administrativo.",
+        "objetivos_especificos": "Conhecer os conteúdos fundamentais da Disciplina com reflexão e crítica, tomando por referências a doutrina, a legislação e a jurisprudência.",
+        "procedimentos_didaticos": "Aulas expositivas e práticas, relacionando a teoria com a prática, com a participação dos alunos; indicação de fontes de informação; acompanhamento e controle de atividades; atendimento individual para orientação; definição de critérios para atividades individuais e coletivas; incentivo à pesquisa.",
+        "formas_avaliacao": "Provas escritas, atividades online e em sala de aula, estudos de casos e seminários."
+      }
     },
     {
       "id": "direito-penal-b",
@@ -395,7 +428,18 @@
       "ano": 3,
       "descricao": "",
       "ordem": 6,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DP429-Direito-Penal-B-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DP429 — Direito Penal B",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Autoria e participação. Tentativa e consumação. Unidade e pluralidade de fatos puníveis. Pluralidade aparente de leis. Sistema de medidas anticriminais. Penas privativas de liberdade. Penas restritivas de direito. Penas de multa. Medidas de segurança. Aplicação da pena. Efeitos da condenação e reabilitação. Substitutivos penais. Ação penal. Causas de extinção da punibilidade. Crimes contra a pessoa.",
+        "programa": "1. Autoria e participação: conceitos de autor, autoria direta, mediata e coletiva, instigação, cumplicidade e comunicabilidade das circunstâncias.\n2. Tentativa e consumação: teorias, tentativa inidônea, desistência voluntária, arrependimento eficaz e posterior.\n3. Unidade e pluralidade de fatos puníveis: concurso formal, concurso material, crime continuado e pluralidade aparente de leis.\n4. Sistema de medidas anticriminais: teorias da pena, penas privativas de liberdade, regimes de execução, penas restritivas de direito, multa e medidas de segurança.\n5. Aplicação da pena: circunstâncias judiciais, legais, atenuantes, agravantes e causas de aumento e diminuição.\n6. Efeitos da condenação e reabilitação.\n7. Substitutivos penais: suspensão condicional da pena e do processo, livramento condicional e transação penal.\n8. Ação penal pública e privada.\n9. Causas de extinção da punibilidade.\n10. Crimes contra a pessoa: vida, lesões corporais, periclitação da vida e saúde, rixa, honra e liberdade individual.",
+        "objetivo_geral": "Capacitar o aluno à compreensão dos conceitos avançados da Teoria do Direito Penal e do sistema de penas brasileiro, podendo aplicá-los à solução de casos práticos que representem a violação de bens jurídicos penalmente protegidos, sempre com capacidade de análise crítica dos institutos dogmáticos aplicados e dos problemas sociais decorrentes do manejo do poder punitivo.",
+        "objetivos_especificos": "Habilitar o acadêmico ao reconhecimento dos temas complementares à Teoria do Delito e essenciais à casuística prática; ao reconhecimento e aplicação das sanções penais e medidas de segurança existentes no Direito Penal brasileiro, complementadas pela compreensão dos fundamentos da execução penal nacional; e à compreensão crítica dos institutos apresentados.",
+        "procedimentos_didaticos": "Aulas expositivas duas vezes por semana, com apresentação e discussão dos problemas centrais e questões específicas. Leituras prévias dirigidas e trabalho sobre temas contemporâneos indicados pelo professor.",
+        "formas_avaliacao": "Provas e/ou trabalhos sobre as temáticas discutidas em cada bimestre. Modalidade, conteúdo e tema serão indicados pelo professor com antecedência mínima de 15 dias. Cada avaliação terá nota de zero a 10; a nota final será a média das avaliações."
+      }
     },
     {
       "id": "direito-empresarial-a",
@@ -405,7 +449,17 @@
       "ano": 3,
       "descricao": "",
       "ordem": 8,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DV462-Direito-Empresarial-A-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DV462 — Direito Empresarial A",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Direito Empresarial. Empresa e Empresário. Estabelecimento. Registro Público de Empresas Mercantis. Propriedade Industrial. Teoria Geral dos Títulos de Crédito. Direito Societário Geral. Direito Societário Especial: Sociedades do Código Civil.",
+        "objetivo_geral": "Apresentar os temas de Direito Empresarial A à luz da legislação, doutrina e jurisprudência, buscando combinar noções da teoria e da prática, fomentando a pesquisa e a reflexão sobre as matérias vinculadas ao programa da disciplina.",
+        "objetivos_especificos": "Permitir aos alunos a compreensão dos conceitos e dos institutos jurídicos vinculados aos temas de Direito Empresarial A à luz da legislação, doutrina e jurisprudência, buscando fomentar a pesquisa e a reflexão, de forma a que os alunos possam ter uma visão crítica a respeito da matéria.",
+        "procedimentos_didaticos": "Aulas expositivas, leituras complementares, fichas e resumos de temas vinculados ao programa da disciplina, resolução de casos concretos e problemas relacionados à matéria de Direito Empresarial A.",
+        "formas_avaliacao": "Três avaliações, sendo duas provas e um trabalho."
+      }
     },
     {
       "id": "direito-civil-c",
@@ -415,7 +469,18 @@
       "ano": 3,
       "descricao": "",
       "ordem": 4,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DC440-Direito-Civil-C-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DC440 — Direito Civil C",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Teoria geral do contrato. Noção de contrato. Contrato e operação econômica. O Código Civil e o Código de Defesa do Consumidor. Princípios do direito dos contratos. Classificações dos contratos. Contrato de adesão. Redes contratuais e contratos coligados. Responsabilidade civil pré e pós-contratual. Interpretação e integração. Formação dos contratos. Contratos e terceiros. Vícios redibitórios. Evicção. Contratos aleatórios. Contrato preliminar. Revisão e extinção. Espécies contratuais. Atos unilaterais. Preferências creditórias.",
+        "programa": "1. Teoria geral do contrato: noção, contrato e negócio jurídico, elementos e requisitos, operação econômica, teoria clássica e contemporânea, Código Civil e Código de Defesa do Consumidor.\n2. Princípios do direito dos contratos: autonomia da vontade, liberdade contratual, consensualismo, força obrigatória, relatividade dos efeitos, função social, boa-fé e justiça contratual.\n3. Formação dos contratos: fases, tempo, lugar, responsabilidade pré e pós-contratual e contratos eletrônicos.\n4. Classificações dos contratos: unilaterais e bilaterais, onerosos e gratuitos, comutativos e aleatórios, solenes e não solenes, consensuais e reais, típicos e atípicos, redes contratuais e contratos coligados.\n5. Revisão e extinção do contrato: resolução, rescisão, resilição, distrato, denúncia e onerosidade excessiva.\n6. Espécies contratuais: compra e venda, compromisso, permuta, doação, locação, prestação de serviços, empreitada, transporte, empréstimo, depósito, mandato, corretagem, seguro e fiança.\n7. Atos unilaterais e preferências creditórias.",
+        "objetivo_geral": "Proporcionar conhecimento teórico e prático ao aluno e incentivar a reflexão crítica.",
+        "objetivos_especificos": "Conhecer as novas tendências do direito dos contratos na doutrina e jurisprudência brasileiras; refletir criticamente acerca das transformações dos contratos e sua passagem da teoria contratual clássica para a teoria contratual contemporânea.",
+        "procedimentos_didaticos": "Aulas expositivo-dialogadas; exercícios domiciliares; leitura de textos e acórdãos indicados, mediante resolução de questionário; exercícios de fixação com questões objetivas, problemas e estudos de caso.",
+        "formas_avaliacao": "Exercícios de fixação, leitura de textos e questionários, utilização de problemas e acórdãos e quatro avaliações escritas, individuais e sem consulta à bibliografia."
+      }
     },
     {
       "id": "direito-processual-civil-b",
@@ -425,7 +490,18 @@
       "ano": 3,
       "descricao": "",
       "ordem": 5,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DC444-Direito-Processual-Civil-B-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DC444 — Direito Processual Civil B",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Processo de conhecimento; teoria da prova e provas em espécies; audiência de instrução e julgamento e sentença. Teoria geral dos recursos. Recursos em espécie. Incidentes perante os tribunais. Precedentes.",
+        "programa": "1. Processo de conhecimento: petição inicial, pedido, audiência preliminar, resposta, contestação, revelia, reconvenção, providências preliminares, julgamento conforme o estado do processo, julgamento parcial do mérito e saneamento.\n2. Teoria geral da prova: conceito, objeto, ônus, procedimento probatório, apreciação e convencimento judicial.\n3. Provas em espécies.\n4. Audiência de instrução e julgamento e sentença.\n5. Teoria geral dos recursos: princípios, pressupostos, efeitos, extinção e procedimento.\n6. Recursos em espécie: apelação, agravo, embargos de declaração, agravo interno, recurso especial, recurso extraordinário e embargos de divergência.\n7. Incidentes perante os tribunais: correição parcial, reclamação, declaração de inconstitucionalidade, assunção de competência, resolução de demandas repetitivas e homologação de sentença estrangeira.\n8. Precedentes.",
+        "objetivo_geral": "Proporcionar conhecimento teórico e prático ao aluno. Incentivar a reflexão crítica.",
+        "objetivos_especificos": "Transmitir aos alunos o conhecimento fundamental dos elementos mais importantes do processo de conhecimento no sistema jurídico brasileiro.",
+        "procedimentos_didaticos": "Aulas expositivas e seminários.",
+        "formas_avaliacao": "Provas escritas."
+      }
     },
     {
       "id": "direito-administrativo-b",
@@ -1078,7 +1154,18 @@
       "ano": 3,
       "descricao": "",
       "ordem": 7,
-      "status": "pendente"
+      "status": "pendente",
+      "informacoes_pedagogicas": {
+        "fonte": "https://direito.ufpr.br/wp-content/uploads/2023/03/DV461-Direito-Digital-ficha-2.pdf",
+        "fonte_titulo": "Ficha 2 — DV461 — Direito Digital",
+        "fonte_data": "Ficha curricular oficial do Currículo 2023, disponibilizada pela UFPR.",
+        "ementa": "Estudo sobre o desenvolvimento da Sociedade Informacional e Direito das Novas Tecnologias da Informação e Comunicação. Análise dos aspectos e relações jurídicas na Sociedade Informacional. Estudo das principais manifestações do Direito Digital nos ramos do Direito da Propriedade Intelectual.",
+        "programa": "UNIDADE I – A Sociedade Informacional: revolução da tecnologia da informação, evolução da Internet, Estado e Direito no ciberespaço, neutralidade da rede, liberdade de acesso e circulação da informação.\nUNIDADE II – Liberdade de Informação e Princípios Constitucionais: sociedade informacional, governo eletrônico, inclusão tecnológica, acesso à informação, direito ao esquecimento e desinformação.\nUNIDADE III – Marco Civil da Internet: responsabilidade civil dos provedores, direitos e garantias dos usuários, proteção de registros, dados pessoais e comunicações privadas, responsabilidade por conteúdo de terceiros e atuação do Poder Público.\nUNIDADE IV – Privacidade e Proteção de Dados Pessoais: tratamento de dados, direitos fundamentais, requisitos de tratamento, dados sensíveis, direitos do titular e tratamento pelo Poder Público.\nUNIDADE V – Direito da Propriedade Intelectual: sistema internacional, direitos industriais e autorais, marcos regulatórios e organismos internacionais.\nUNIDADE VI – Direito da Propriedade Industrial: fundamentos, marco regulatório nacional, INPI, patentes, inovação e Direito Concorrencial.\nUNIDADE VII – Direito Autoral: bens imateriais digitais, direitos exclusivos, acesso, interesse público e gestão coletiva.\nUNIDADE VIII – Direitos Intelectuais e Cultura Digital: diversidade cultural, direito fundamental à cultura, limites do Direito Autoral, políticas públicas e indústrias criativas.",
+        "objetivo_geral": "Estudar a Sociedade Informacional e os impactos da Revolução da Tecnologia da Informação para compreensão do aluno do que é o Direito Digital, a fim de formar competências para solucionar problemas e conflitos emergentes das relações jurídicas intermediadas pelas novas tecnologias, analisando a aplicação das normas e as omissões legislativas.",
+        "objetivos_especificos": "Aprofundar temas atuais e relevantes ligados ao Direito Digital no ciberespaço; analisar privacidade e proteção de dados pessoais; compreender os fundamentos constitucionais relacionados às novas tecnologias; desenvolver compreensão crítica da Sociedade Informacional; compreender contratos e relações digitais; analisar a tutela de novos bens intelectuais, inovação, inclusão tecnológica, cultura digital e Direito Autoral.",
+        "procedimentos_didaticos": "Aulas expositivo-dialogadas; seminários; leituras indicadas; análise de filmes e obras de arte selecionadas no programa; leitura, fichamento e problematização de textos; debates guiados e trabalhos acadêmicos jurídicos.",
+        "formas_avaliacao": "Entregas bimestrais de trabalhos acadêmicos, seminários, oficinas ou provas escritas. A modalidade, conteúdo e tema serão indicados pelo professor em prazo compatível. Cada avaliação terá nota de zero a 10; a nota final será a média das avaliações."
+      }
     },
     {
       "id": "pratica-juridica-constitucional",
