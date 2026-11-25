@@ -206,6 +206,17 @@
       line-height: 1.5;
     }
 
+    .link-informacoes-pedagogicas {
+      color: var(--azul-claro);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+
+    .link-informacoes-pedagogicas:hover {
+      color: var(--destaque);
+    }
+
     .conteudo-cartao-disciplina {
       padding: 0 18px 16px;
       border-top: 1px solid var(--borda);
@@ -1120,18 +1131,37 @@
           'codigo-disciplina',
           disciplina.codigo ? disciplina.codigo : 'Código não informado'
         ));
-        resumo.appendChild(criarElemento(
-          'p',
-          'descricao-disciplina',
-          disciplina.descricao || 'Descrição não cadastrada.'
-        ));
+        const ficha = disciplina.informacoes_pedagogicas;
+        const possuiFicha = ficha && Object.keys(ficha).some(chave =>
+          !['fonte', 'fonte_titulo', 'fonte_data'].includes(chave) && ficha[chave]
+        );
+        const descricao = criarElemento('p', 'descricao-disciplina');
+        if (possuiFicha) {
+          const linkFicha = criarElemento('a', 'link-informacoes-pedagogicas', 'Informações pedagógicas →');
+          linkFicha.href = '#informacoes-pedagogicas';
+          descricao.appendChild(linkFicha);
+        } else {
+          descricao.textContent = disciplina.descricao || 'Informações pedagógicas não cadastradas.';
+        }
+        resumo.appendChild(descricao);
         cartao.appendChild(resumo);
 
         const conteudo = criarElemento('div', 'conteudo-cartao-disciplina');
 
-        const ficha = disciplina.informacoes_pedagogicas;
+        
         if (ficha && Object.keys(ficha).some(chave => chave !== 'fonte' && chave !== 'fonte_titulo' && chave !== 'fonte_data' && ficha[chave])) {
           const painelFicha = criarElemento('details', 'ficha-pedagogica');
+          painelFicha.id = 'informacoes-pedagogicas';
+          const linkFicha = descricao.querySelector('.link-informacoes-pedagogicas');
+          if (linkFicha) {
+            linkFicha.addEventListener('click', evento => {
+              evento.preventDefault();
+              evento.stopPropagation();
+              cartao.open = true;
+              painelFicha.open = true;
+              painelFicha.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+          }
           painelFicha.appendChild(criarElemento('summary', '', 'Informações pedagógicas · Ficha UFPR'));
           const corpoFicha = criarElemento('div', 'ficha-pedagogica-conteudo');
           const camposFicha = [
