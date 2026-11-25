@@ -60,11 +60,11 @@ jobs:
                 conteudo_status: obterCampo('Conteúdo estudado'),
                 questoes_status: obterCampo('Questões praticadas'),
                 revisao_status: obterCampo('Revisões realizadas'),
-                data_estudo: obterCampo('Data de estudo') || '',
+                nova_sessao_estudo: obterCampo('Nova sessão de estudo') || '',
                 data_revisao: obterCampo('Data de revisão') || ''
               };
 
-              for (const campo of ['data_estudo', 'data_revisao']) {
+              for (const campo of ['nova_sessao_estudo', 'data_revisao']) {
                 const valor = registroNovo[campo];
                 if (valor && (!/^\d{4}-\d{2}-\d{2}$/.test(valor) || Number.isNaN(Date.parse(valor + 'T00:00:00Z')) || new Date(valor + 'T00:00:00Z').toISOString().slice(0, 10) !== valor)) {
                   throw new Error('Data inválida no campo: ' + campo);
@@ -100,13 +100,38 @@ jobs:
                 throw new Error('Há registros duplicados para este assunto. Corrija o arquivo antes de atualizar.');
               }
 
+              const dataSessao = registroNovo.nova_sessao_estudo;
+              delete registroNovo.nova_sessao_estudo;
+              delete registroNovo.data_estudo;
+
+              let registro;
               if (encontrados.length === 1) {
-                const existente = encontrados[0];
-                // Atualiza progresso e planejamento, preservando outros dados do registro.
-                Object.assign(existente, registroNovo);
+                registro = encontrados[0];
+                // Atualiza os indicadores sem apagar o histórico acumulado.
+                Object.assign(registro, registroNovo);
               } else {
-                dados.progresso.push(registroNovo);
+                registro = { ...registroNovo, historico_estudos: [] };
+                dados.progresso.push(registro);
               }
+
+              if (!Array.isArray(registro.historico_estudos)) {
+                registro.historico_estudos = [];
+              }
+
+              // Migra a data antiga para o histórico antes de registrar novas sessões.
+              if (registro.data_estudo && !registro.historico_estudos.some(x => x.data === registro.data_estudo)) {
+                registro.historico_estudos.push({ data: registro.data_estudo });
+              }
+
+              if (dataSessao) {
+                if (!registro.historico_estudos.some(x => x.data === dataSessao)) {
+                  registro.historico_estudos.push({ data: dataSessao });
+                } else {
+                  throw new Error('Essa data já consta no histórico de estudos.');
+                }
+              }
+
+              registro.historico_estudos.sort((a, b) => a.data.localeCompare(b.data));
 
               fs.writeFileSync(progressoPath, JSON.stringify(dados, null, 2) + '\n', 'utf8');
 
