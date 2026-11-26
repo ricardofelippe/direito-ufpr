@@ -504,6 +504,18 @@
       transform: translateY(-1px);
     }
 
+    .botao-selecionar-assunto {
+      margin: 0 0 12px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .botao-selecionar-assunto[aria-pressed="true"] {
+      border-color: #3a9b70;
+      color: #8ee0b4;
+      background: rgba(35, 120, 82, .16);
+    }
+
     .orientacao-cadastro-conteudo {
       margin: 0 0 16px;
       color: var(--texto-suave);
@@ -941,6 +953,13 @@
               <span class="indicador-situacao" data-indicador-situacao>${iconeSituacao} ${escapeHTML(rotuloSituacao)}</span>
             </summary>
             <div class="controles-progresso" aria-label="Progresso do assunto">
+              <button
+                class="botao-cadastro-conteudo botao-selecionar-assunto"
+                type="button"
+                data-selecionar-assunto="${escapeHTML(assunto.id)}"
+                aria-pressed="${assuntoSelecionado === assunto.id}">
+                ${assuntoSelecionado === assunto.id ? '✓ Assunto selecionado' : 'Usar este assunto para cadastrar conteúdo'}
+              </button>
               ${campos}
               <button class="botao-salvar-progresso" type="button" data-salvar-progresso="${escapeHTML(assunto.id)}">
                 Salvar progresso
@@ -1177,7 +1196,13 @@
           )
         );
 
-
+        listaTopicos.querySelectorAll('[data-selecionar-assunto]').forEach(botao =>
+          botao.addEventListener('click', () => {
+            assuntoSelecionado = botao.dataset.selecionarAssunto;
+            renderizarAba();
+            painel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          })
+        );
       }
 
       function registrosDaAba(tipo) {
