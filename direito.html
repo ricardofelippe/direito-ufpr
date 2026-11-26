@@ -354,14 +354,24 @@
     }
 
     .botao-validar-cronograma {
-      margin-top: 8px;
-      padding: 8px 12px;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 9px;
+      padding: 9px 12px;
       border: 0;
       border-radius: 7px;
       background: var(--azul);
       color: #061116;
       font-weight: 700;
+      text-align: center;
       cursor: pointer;
+    }
+
+    .botao-validar-cronograma + .botao-validar-cronograma {
+      background: transparent;
+      border: 1px solid var(--azul);
+      color: var(--azul-claro);
     }
 
     .resultado-validacao-cronograma {
@@ -1358,7 +1368,6 @@
           const botaoEnviar = criarElemento('button', 'botao-validar-cronograma', 'Continuar para salvar no GitHub');
           botaoEnviar.type = 'button';
           botaoEnviar.hidden = true;
-          botaoEnviar.style.marginLeft = '8px';
           const resultadoValidacao = criarElemento('div', 'resultado-validacao-cronograma');
           resultadoValidacao.setAttribute('aria-live', 'polite');
           let dadosValidados = null;
