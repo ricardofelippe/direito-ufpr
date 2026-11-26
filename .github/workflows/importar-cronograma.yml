@@ -97,7 +97,34 @@ jobs:
               if (!Array.isArray(arquivo.ofertas)) throw new Error('Formato inválido em dados/ofertas.json.');
               const correspondentes = arquivo.ofertas.filter(item => item.id === ofertaId);
               if (correspondentes.length !== 1) throw new Error('Oferta não encontrada ou duplicada: ' + ofertaId);
-              const oferta = correspondentes[0];
+              let oferta;
+              if (correspondentes.length === 1) {
+                oferta = correspondentes[0];
+              } else if (correspondentes.length === 0) {
+                const disciplinaId = campo('Disciplina ID');
+                const disciplinaNome = campo('Disciplina');
+                const periodo = campo('Período letivo');
+                if (!disciplinaId || !disciplinaNome || !/^\\d{4}\\/[12]$/.test(periodo)) {
+                  throw new Error('Oferta inexistente. Não foi possível identificar disciplina e período para criá-la.');
+                }
+                if (String(dados.disciplina || '').trim().toLowerCase() !== disciplinaNome.trim().toLowerCase() || dados.periodo !== periodo) {
+                  throw new Error('A disciplina ou o período do JSON não corresponde aos dados da nova oferta.');
+                }
+                if (arquivo.ofertas.some(item => item.disciplina_id === disciplinaId && item.periodo === periodo)) {
+                  throw new Error('Já existe uma oferta para esta disciplina e período, mas com outro identificador. Atualize a página e tente novamente.');
+                }
+                oferta = {
+                  id: ofertaId,
+                  disciplina_id: disciplinaId,
+                  disciplina: disciplinaNome,
+                  periodo,
+                  situacao: 'em_andamento',
+                  tipo_registro: 'cronograma'
+                };
+                arquivo.ofertas.push(oferta);
+              } else {
+                throw new Error('Oferta duplicada: ' + ofertaId);
+              }
 
               if (String(dados.disciplina || '').trim().toLowerCase() !== String(oferta.disciplina || '').trim().toLowerCase()) {
                 throw new Error('A disciplina do JSON não corresponde à oferta.');
