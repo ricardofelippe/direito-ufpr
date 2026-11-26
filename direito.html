@@ -1141,10 +1141,6 @@
 
         let conteudoFeito = 0;
         let assuntosIniciados = 0;
-        let questoesAplicaveis = 0;
-        let questoesFeitas = 0;
-        let revisoesAplicaveis = 0;
-        let revisoesFeitas = 0;
 
         assuntos.forEach(assunto => {
           const registro = porAssunto.get(assunto.id) || {};
@@ -1159,20 +1155,8 @@
 
           const estudoIniciado =
             ['em_andamento', 'concluido'].includes(registro.situacao_geral) ||
-            ['em_andamento', 'estudado'].includes(registro.conteudo_status) ||
-            ['em_andamento', 'concluido'].includes(registro.questoes_status) ||
-            ['em_andamento', 'concluido'].includes(registro.revisao_status);
+            ['em_andamento', 'estudado'].includes(registro.conteudo_status);
           if (estudoIniciado) assuntosIniciados++;
-
-          if (registro.questoes_status !== 'nao_se_aplica') {
-            questoesAplicaveis++;
-            if (registro.questoes_status === 'concluido') questoesFeitas++;
-          }
-
-          if (registro.revisao_status !== 'nao_se_aplica') {
-            revisoesAplicaveis++;
-            if (registro.revisao_status === 'concluido') revisoesFeitas++;
-          }
         });
 
         const percentual = (feito, total) => total
@@ -1183,9 +1167,7 @@
           total: assuntos.length,
           situacoes,
           iniciados: assuntosIniciados,
-          conteudo: percentual(conteudoFeito, assuntos.length),
-          questoes: percentual(questoesFeitas, questoesAplicaveis),
-          revisoes: percentual(revisoesFeitas, revisoesAplicaveis)
+          conteudo: percentual(conteudoFeito, assuntos.length)
         };
       }
 
@@ -1323,8 +1305,6 @@
           `Assuntos: ${progressoDisciplina.total} · Não iniciados: ${progressoDisciplina.situacoes.nao_iniciado} · Em andamento: ${progressoDisciplina.situacoes.em_andamento} · Concluídos: ${progressoDisciplina.situacoes.concluido} · Pendentes: ${progressoDisciplina.situacoes.pendente}`
         ));
         adicionarIndicadorPercentual(painelProgresso, 'Conteúdo estudado', progressoDisciplina.conteudo);
-        adicionarIndicadorPercentual(painelProgresso, 'Questões praticadas', progressoDisciplina.questoes);
-        adicionarIndicadorPercentual(painelProgresso, 'Revisões realizadas', progressoDisciplina.revisoes);
         conteudo.appendChild(painelProgresso);
 
         // Todas as categorias curriculares usam o mesmo ambiente de estudos.
