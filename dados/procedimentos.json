@@ -5,18 +5,66 @@
       "procedimentos": [
         {
           "titulo": "Como atualizar informações pedagógicas",
-          "objetivo": "Atualizar as informações oficiais da disciplina com base na ficha curricular da UFPR.",
+          "objetivo": "Atualizar a ficha pedagógica exibida no cartão de uma disciplina, usando como fonte a documentação curricular oficial da UFPR. A ficha é armazenada no objeto da disciplina em dados/estrutura.json e exibida automaticamente em direito.html. Esta operação atualiza dados curriculares permanentes; não altera o cronograma específico de uma oferta letiva.",
           "passos": [
-            "Localize a disciplina na página do currículo.",
-            "Consulte a ficha oficial da UFPR e identifique os campos que precisam de atualização.",
-            "Confirme o arquivo e o fluxo de cadastro vigentes antes de editar.",
-            "Atualize somente informações confirmadas na fonte oficial, preservando os demais dados.",
-            "Publique e confira as informações no cartão da disciplina."
+            "1. Identifique a disciplina no site: abra a página do currículo (direito.html), localize o cartão e anote o nome e o código curricular. O código é a chave prática para evitar alterar a disciplina errada.",
+            "2. Abra o arquivo de dados no GitHub: entre em https://github.com/ricardofelippe/Direito-UFPR, confirme que está na branch main e navegue até dados/estrutura.json. Este é o arquivo que guarda os dados curriculares; não altere direito.html para mudar o texto de uma ficha.",
+            "3. Localize o objeto correto dentro do array 'disciplinas'. Use a busca do navegador (Ctrl+F) pelo código exato, por exemplo \"DB449\". Confirme no mesmo objeto os campos 'id', 'codigo' e 'nome'. Não edite um objeto apenas porque o nome parece semelhante.",
+            "4. Antes de alterar, leia o objeto inteiro da disciplina e preserve todos os campos que não fazem parte da atualização: id, codigo, nome, categoria, ano, descricao, ordem, status, unidades, assuntos e quaisquer outros dados existentes. Não substitua o objeto inteiro por um modelo reduzido.",
+            "5. Dentro do objeto, localize a propriedade 'informacoes_pedagogicas'. Ela reúne os dados da ficha curricular que o site apresenta quando o usuário expande 'Informações pedagógicas · UFPR'. Se a propriedade já existir, atualize somente os campos que a fonte oficial efetivamente alterou. Se não existir, crie-a seguindo o formato descrito abaixo.",
+            "6. Abra a fonte oficial e confira se ela corresponde ao código e ao nome da disciplina. Verifique também se é a versão curricular aplicável. Não use ementas encontradas em sites de terceiros, planos de ensino de professores ou documentos de outra disciplina como se fossem a ficha curricular oficial.",
+            "7. Registre a identificação da fonte em 'fonte': URL direta e funcional do PDF ou página oficial da UFPR. Em 'fonte_titulo', informe um título claro, preferencialmente com tipo de documento, código e nome da disciplina (ex.: 'Ficha 2 — DB449 — Economia Política'). Em 'fonte_data', descreva a referência temporal/versão que consta no documento ou a informação de atualização disponível. Não invente data de publicação.",
+            "8. Transcreva a 'ementa' como aparece no documento oficial, mantendo o conteúdo e o sentido. Não resuma, reescreva ou acrescente explicações pessoais nesse campo. Preserve acentuação e pontuação.",
+            "9. Transcreva o 'programa' integralmente, preservando a sequência, a numeração e a hierarquia dos tópicos. Se o documento usar itens numerados ou subitens, mantenha-os em texto com quebras de linha (\\n). Não transforme o programa em uma lista diferente nem reorganize os assuntos.",
+            "10. Preencha 'objetivo_geral' e 'objetivos_especificos' com o texto correspondente do documento. Preserve a distinção entre objetivo geral e objetivos específicos. Se um campo não constar na fonte, deixe-o como string vazia ou omita-o; não crie objetivos por inferência.",
+            "11. Preencha 'procedimentos_didaticos' com a descrição oficial das estratégias de ensino, como aulas, debates, leituras e atividades, somente quando constarem no documento.",
+            "12. Preencha 'formas_avaliacao' com os critérios e instrumentos de avaliação que constarem na ficha. Não transforme referências genéricas a avaliações em datas. Datas e prazos específicos de uma turma pertencem ao cronograma da oferta, não à ficha curricular permanente.",
+            "13. Transcreva 'bibliografia_basica' e 'bibliografia_complementar' separadamente. Preserve autores, títulos, edição, local, editora e ano conforme a fonte. Não complete referências incompletas por pesquisa externa sem confirmar que a complementação corresponde ao documento oficial.",
+            "14. Use 'observacao' somente para registrar uma ressalva necessária sobre a fonte, por exemplo: documento parcialmente ilegível, campo ausente, divergência entre versões ou informação que exige confirmação. Não use esse campo para substituir ou reinterpretar o texto oficial.",
+            "15. Não confunda a propriedade 'descricao' da disciplina, que fica fora de 'informacoes_pedagogicas', com a ementa oficial. Não preencha 'descricao' com cópia da ementa sem uma decisão específica sobre o uso desse campo.",
+            "16. Preserve exatamente os nomes das propriedades JSON. O site reconhece e exibe estes campos: ementa, programa, objetivo_geral, objetivos_especificos, procedimentos_didaticos, formas_avaliacao, bibliografia_basica, bibliografia_complementar e observacao. Também usa fonte, fonte_titulo e fonte_data para identificar a referência.",
+            "17. Faça a edição no GitHub sem apagar chaves, disciplinas ou registros vizinhos. Se estiver usando o editor web, clique em Edit (ícone de lápis), altere somente o objeto da disciplina e revise cuidadosamente as linhas próximas antes de confirmar o commit.",
+            "18. Valide a sintaxe do JSON antes de publicar. O arquivo deve continuar sendo um JSON válido: aspas duplas em nomes e textos, vírgulas entre propriedades e itens, sem vírgula sobrando no último item. Quebras de linha dentro de valores devem ser representadas como \\n. Se estiver trabalhando localmente, execute: python -m json.tool dados/estrutura.json > /dev/null. Se o comando apontar erro, não faça o commit até corrigir.",
+            "19. Revise o diff: confirme que somente a disciplina pretendida e os campos necessários foram alterados; confira se nenhum id, código, status, ordem, unidade, assunto ou outro registro foi removido ou modificado por acidente.",
+            "20. Registre um commit com mensagem objetiva, por exemplo 'Atualiza ficha pedagógica DB449 — Economia Política'. Não há, no fluxo atualmente verificado, um formulário ou GitHub Actions específico para editar informações pedagógicas; a alteração é feita diretamente em dados/estrutura.json no GitHub.",
+            "21. Aguarde a publicação do GitHub Pages. Abra https://ricardofelippe.github.io/Direito-UFPR/direito.html, atualize com Ctrl+F5, localize a mesma disciplina e expanda 'Informações pedagógicas · UFPR'. Confira se os campos aparecem corretamente e se o link 'Consultar ficha original da UFPR' abre a fonte oficial.",
+            "22. Se a ficha não aparecer, verifique primeiro se 'informacoes_pedagogicas' contém ao menos um campo preenchido além de fonte, fonte_titulo e fonte_data. O site não exibe o painel quando só existem os metadados da fonte. Depois confira se os nomes das chaves estão exatamente como os reconhecidos pelo código e se o JSON foi publicado.",
+            "23. Se a fonte oficial estiver indisponível, incompleta ou contraditória, não complete os campos por suposição. Mantenha o conteúdo confirmado, registre a limitação em 'observacao' e deixe a atualização pendente até obter documento confiável."
           ],
           "arquivos": [
-            "dados/estrutura.json",
-            "direito.html"
-          ]
+            "dados/estrutura.json — arquivo de dados a editar; objeto da disciplina dentro de 'disciplinas'.",
+            "direito.html — apenas leitura/visualização; contém os nomes dos campos reconhecidos e o comportamento de exibição da ficha.",
+            "Fonte oficial da UFPR — URL registrada em informacoes_pedagogicas.fonte ou documento curricular oficial atualizado."
+          ],
+          "pre_requisitos": [
+            "Acesso de edição ao repositório GitHub ricardofelippe/Direito-UFPR, na branch main.",
+            "Identificação inequívoca da disciplina pelo nome e, principalmente, pelo código curricular (por exemplo, DB449). Não localizar apenas pelo nome, pois podem existir nomes semelhantes.",
+            "Documento oficial da UFPR correspondente à disciplina e à versão curricular aplicável. Preferir a Ficha 2 / ficha curricular disponibilizada pela Coordenação ou pelo curso de Direito da UFPR.",
+            "Ter clareza sobre o escopo: esta rotina atualiza ementa, programa, objetivos, procedimentos didáticos, avaliação e bibliografia da ficha curricular. Datas de provas, trabalhos e entregas pertencem ao cronograma da oferta e devem ser atualizadas pelo procedimento 'Como cadastrar ou atualizar o cronograma previsto'."
+          ],
+          "erros": [
+            {
+              "problema": "A ficha não aparece no cartão.",
+              "solucao": "Confirme que informacoes_pedagogicas existe e contém pelo menos um campo preenchido além de fonte, fonte_titulo e fonte_data. Confira também se a disciplina e o JSON foram publicados."
+            },
+            {
+              "problema": "O link da ficha original não abre.",
+              "solucao": "Teste a URL diretamente. Se o endereço mudou, localize a versão oficial atual na UFPR e atualize fonte e fonte_titulo. Não substitua por uma cópia de terceiros sem verificar autenticidade."
+            },
+            {
+              "problema": "O JSON deixou de carregar ou o commit apresenta erro.",
+              "solucao": "Revise aspas, vírgulas, colchetes e chaves. Restaure qualquer trecho removido por engano. Valide com python -m json.tool dados/estrutura.json antes de publicar novamente."
+            },
+            {
+              "problema": "A ficha oficial não contém algum campo exibido pelo site.",
+              "solucao": "Deixe o campo ausente ou vazio. Não invente informação. O site simplesmente não apresenta os campos sem conteúdo."
+            },
+            {
+              "problema": "A informação encontrada é de uma turma ou professor específico.",
+              "solucao": "Não a grave como ficha curricular permanente. Se for atividade com data ou prazo, use o cronograma da oferta; se for plano de ensino específico, mantenha-o associado à oferta correspondente."
+            }
+          ],
+          "observacao": "Importante: a rotina foi conferida no código atual. direito.html lê dados/estrutura.json e exibe os campos de informacoes_pedagogicas. Não foi identificado workflow/Issue Template específico para editar essa ficha; portanto, não seguir instruções antigas que mencionem formulário ou GitHub Actions para esta operação. A ficha curricular é permanente e distinta do plano de ensino/cronograma de uma oferta. Preserve a fonte oficial e registre somente o que ela sustenta."
         },
         {
           "titulo": "Como adicionar, editar ou excluir assuntos da disciplina",
@@ -196,7 +244,7 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.1",
+    "versao": "2.2",
     "atualizado_em": "26/11/2026",
     "resumo": "Registro mestre de decisões e transição técnica. Consolida entendimentos de todas as etapas, decisões vigentes, decisões substituídas, arquitetura, fluxos, estado verificado e instruções para outra conversa ou IA.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
@@ -210,7 +258,8 @@
       "A simplificação da Visão geral foi aprovada, mas index.html ainda contém quatro indicadores e o painel Atividades de hoje; implementação pendente.",
       "A regra permanente exige atualizar a Central e o PDC em toda funcionalidade nova, alteração relevante ou descontinuação.",
       "O PDF integral v2.0 deve estar disponível em docs/PDC_Direito_UFPR_v2.0.pdf.",
-      "A versão 2.1 consolida entendimentos históricos recuperados das etapas anteriores e diferencia decisões vigentes de propostas antigas ou substituídas."
+      "A versão 2.1 consolida entendimentos históricos recuperados das etapas anteriores e diferencia decisões vigentes de propostas antigas ou substituídas.",
+      "O procedimento 'Como atualizar informações pedagógicas' foi detalhado na versão 2.2 após conferir direito.html e dados/estrutura.json. A rotina atual é edição direta do JSON; não foi identificado workflow/Issue Template específico para essa operação."
     ],
     "proximos_passos": [
       "Validar a Central publicada, sua versão e o link para o PDF integral.",
@@ -223,7 +272,8 @@
       "v1.0 — 26/11/2026: criação da estrutura inicial da Central de Documentação, com manual operacional e resumo do PDC.",
       "v1.1 — 26/11/2026: inclusão da regra permanente de atualização da Central de Documentação para funcionalidades novas, alteradas ou descontinuadas.",
       "v2.0 — 26/11/2026: PDC ampliado para documento de transição técnica e operacional, com arquitetura, decisões, fluxos, limitações, estado e instruções de retomada.",
-      "v2.1 — 26/11/2026: consolidação de entendimentos históricos das etapas anteriores, registro de decisões substituídas, regras de trabalho com IA e orientação para seleção/cópia integral do PDC na página."
+      "v2.1 — 26/11/2026: consolidação de entendimentos históricos das etapas anteriores, registro de decisões substituídas, regras de trabalho com IA e orientação para seleção/cópia integral do PDC na página.",
+      "v2.2 — 26/11/2026: procedimento de atualização das informações pedagógicas reescrito com base na estrutura JSON e no código de exibição atuais; documentado que a edição é direta em dados/estrutura.json, sem workflow específico."
     ],
     "pdf_url": "docs/PDC_Direito_UFPR_v2.1.pdf",
     "conteudo_completo": [
@@ -473,6 +523,15 @@
           "Manter no início de cada seção a regra vigente. O histórico deve ficar em seção própria para não confundir uma decisão antiga com uma instrução atual.",
           "Se não for possível determinar se uma decisão ainda está vigente, identificá-la como 'a confirmar' e consultar o usuário antes de alterar comportamento. Nunca resolver lacunas inventando uma decisão.",
           "Antes de encerrar cada etapa, comparar o que foi pedido, o que foi implementado e o que foi testado; atualizar o estado do projeto e gerar novamente o PDF a partir deste mesmo conteúdo estruturado."
+        ]
+      },
+      {
+        "titulo": "17. Procedimento detalhado — atualização das informações pedagógicas",
+        "paragrafos": [
+          "A ficha pedagógica permanente da disciplina é armazenada em dados/estrutura.json, dentro do objeto correspondente no array disciplinas, na propriedade informacoes_pedagogicas. direito.html lê esses dados e os apresenta no cartão da disciplina, no painel expansível 'Informações pedagógicas · UFPR'.",
+          "A rotina foi conferida no código atual: não foi identificado workflow de GitHub Actions nem formulário de Issue específico para editar essa ficha. Portanto, a atualização é feita diretamente em dados/estrutura.json no GitHub, preservando o restante do objeto e do arquivo.",
+          "Campos reconhecidos pelo site: fonte, fonte_titulo, fonte_data, ementa, programa, objetivo_geral, objetivos_especificos, procedimentos_didaticos, formas_avaliacao, bibliografia_basica, bibliografia_complementar e observacao. Os três primeiros identificam a fonte; os demais são exibidos quando contêm informação.",
+          "Esta ficha não deve ser confundida com o plano de ensino de uma turma/oferta. Datas de prova, trabalho, seminário e entrega pertencem ao cronograma da oferta, não à ficha curricular permanente. O procedimento completo está no Manual Operacional, em 'Como atualizar informações pedagógicas'."
         ]
       }
     ]
