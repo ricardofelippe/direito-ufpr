@@ -260,7 +260,7 @@
       "v2.1 — 26/11/2026: consolidação de entendimentos históricos das etapas anteriores, registro de decisões substituídas, regras de trabalho com IA e orientação para seleção/cópia integral do PDC na página.",
       "v2.2 — 26/11/2026: procedimento de atualização das informações pedagógicas reescrito com base na estrutura JSON e no código de exibição atuais; documentado que a edição é direta em dados/estrutura.json, sem workflow específico."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.1.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.2.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
