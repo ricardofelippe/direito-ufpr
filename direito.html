@@ -106,19 +106,36 @@
       user-select: none;
     }
 
-    .titulo-ano::-webkit-details-marker {
+    .titulo-ano::-webkit-details-marker,
+    .titulo-sem-ano::-webkit-details-marker {
       display: none;
     }
 
-    .titulo-ano::after {
+    .titulo-ano::after,
+    .titulo-sem-ano::after {
       content: "+";
       margin-left: auto;
       color: var(--azul-claro);
       font: 24px Arial, sans-serif;
     }
 
-    .ano-curriculo[open] > .titulo-ano::after {
+    .ano-curriculo[open] > .titulo-ano::after,
+    .secao-sem-ano[open] > .titulo-sem-ano::after {
       content: "−";
+    }
+
+    .titulo-sem-ano {
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .titulo-sem-ano:hover {
+      color: var(--azul-claro);
+    }
+
+    .conteudo-secao-sem-ano {
+      padding-top: 1px;
     }
 
     .titulo-ano:hover {
@@ -1862,30 +1879,34 @@
 
         const semAno = disciplinas.filter(item => item.ano === null || item.ano === undefined || item.ano === '');
         if (semAno.length) {
-          const secao = criarElemento('section', 'secao-sem-ano');
-          secao.appendChild(criarElemento('h2', 'titulo-sem-ano', 'Atividades e disciplinas sem ano definido'));
+          const secao = criarElemento('details', 'secao-sem-ano');
+          secao.appendChild(criarElemento('summary', 'titulo-sem-ano', 'Atividades e disciplinas sem ano definido'));
+          const conteudoSecao = criarElemento('div', 'conteudo-secao-sem-ano');
           ordemCategorias.forEach(categoria => {
             const registros = semAno.filter(item => item.categoria === categoria);
             const grupo = criarGrupo(categorias[categoria] || categoria, registros);
-            if (grupo) secao.appendChild(grupo);
+            if (grupo) conteudoSecao.appendChild(grupo);
           });
 
           const categoriasDesconhecidas = [...new Set(semAno.map(item => item.categoria).filter(cat => !ordemCategorias.includes(cat)))];
           categoriasDesconhecidas.forEach(categoria => {
             const grupo = criarGrupo(categorias[categoria] || categoria, semAno.filter(item => item.categoria === categoria));
-            if (grupo) secao.appendChild(grupo);
+            if (grupo) conteudoSecao.appendChild(grupo);
           });
+          secao.appendChild(conteudoSecao);
           fragmento.appendChild(secao);
         }
 
         const anosExtras = disciplinas.filter(item => item.ano != null && !anos.includes(Number(item.ano)));
         if (anosExtras.length) {
-          const secao = criarElemento('section', 'secao-sem-ano');
-          secao.appendChild(criarElemento('h2', 'titulo-sem-ano', 'Outros registros curriculares'));
+          const secao = criarElemento('details', 'secao-sem-ano');
+          secao.appendChild(criarElemento('summary', 'titulo-sem-ano', 'Outros registros curriculares'));
+          const conteudoSecao = criarElemento('div', 'conteudo-secao-sem-ano');
           ordemCategorias.forEach(categoria => {
             const grupo = criarGrupo(categorias[categoria] || categoria, anosExtras.filter(item => item.categoria === categoria));
-            if (grupo) secao.appendChild(grupo);
+            if (grupo) conteudoSecao.appendChild(grupo);
           });
+          secao.appendChild(conteudoSecao);
           fragmento.appendChild(secao);
         }
 
