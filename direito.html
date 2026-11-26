@@ -1356,9 +1356,17 @@
       }
 
       function ordenarRegistros(registros) {
-        // A ordem visual deve acompanhar a numeração curricular fixa.
-        // Alterações de status nunca reorganizam os cartões.
+        // Prioridade visual: disciplinas ativas aparecem primeiro em cada
+        // categoria/ano. As demais preservam a ordem curricular original.
+        // A numeração fixa (NN/total) é calculada separadamente sobre a
+        // estrutura completa e jamais acompanha esta reorganização visual.
         return [...registros].sort((a, b) => {
+          const statusA = String(a.status || 'pendente').toLowerCase();
+          const statusB = String(b.status || 'pendente').toLowerCase();
+          const prioridadeA = statusA === 'ativa' ? 0 : 1;
+          const prioridadeB = statusB === 'ativa' ? 0 : 1;
+          if (prioridadeA !== prioridadeB) return prioridadeA - prioridadeB;
+
           const anoA = a.ano == null || a.ano === '' ? 99 : Number(a.ano);
           const anoB = b.ano == null || b.ano === '' ? 99 : Number(b.ano);
           const ordemA = Number.isFinite(Number(a.ordem)) ? Number(a.ordem) : 9999;
