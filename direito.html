@@ -1398,204 +1398,135 @@
 
         const conteudo = criarElemento('div', 'conteudo-cartao-disciplina');
 
-        const oferta = ofertas.find(item => item.disciplina_id === disciplina.id) || null;
-        const painelCronograma = criarElemento('details', 'ficha-pedagogica cronograma-previsto');
-        const tituloCronograma = oferta
-          ? 'Cronograma previsto de atividades · ' + oferta.periodo
-          : 'Cronograma previsto de atividades';
-        painelCronograma.appendChild(criarElemento('summary', '', tituloCronograma));
-        const corpoCronograma = criarElemento('div', 'ficha-pedagogica-conteudo');
-        const atividades = oferta && Array.isArray(oferta.cronograma_previsto)
-          ? oferta.cronograma_previsto
-          : [];
+        if (status === 'ativa') {
+          const oferta = ofertas.find(item => item.disciplina_id === disciplina.id) || null;
+          const painelCronograma = criarElemento('details', 'ficha-pedagogica cronograma-previsto');
+          const tituloCronograma = oferta
+            ? 'Cronograma previsto de atividades · ' + oferta.periodo
+            : 'Cronograma previsto de atividades';
+          painelCronograma.appendChild(criarElemento('summary', '', tituloCronograma));
+          const corpoCronograma = criarElemento('div', 'ficha-pedagogica-conteudo');
+          const atividades = oferta && Array.isArray(oferta.cronograma_previsto)
+            ? oferta.cronograma_previsto
+            : [];
 
-        if (atividades.length) {
-          const atividadesOrdenadas = [...atividades].sort((a, b) => {
-            if (!a.data) return 1;
-            if (!b.data) return -1;
-            return a.data.localeCompare(b.data);
-          });
-          atividadesOrdenadas.forEach((atividade, indice) => {
-            const item = criarElemento('article', 'atividade-cronograma');
-            const cabecalho = criarElemento('div', 'atividade-cronograma-cabecalho');
-            const tipo = String(atividade.tipo || 'outro');
-            const tiposRotulo = {
-              prova: 'Prova',
-              trabalho: 'Trabalho',
-              seminario: 'Seminário',
-              entrega: 'Entrega',
-              outro: 'Outra atividade'
-            };
-            cabecalho.appendChild(criarElemento(
-              'span',
-              'atividade-cronograma-tipo',
-              tiposRotulo[tipo] || 'Outra atividade'
-            ));
-            const data = atividade.data
-              ? atividade.data.split('-').reverse().join('/')
-              : 'Data a definir';
-            cabecalho.appendChild(criarElemento('span', 'atividade-cronograma-data', data));
-            item.appendChild(cabecalho);
+          if (atividades.length) {
+            const atividadesOrdenadas = [...atividades].sort((a, b) => {
+              if (!a.data) return 1;
+              if (!b.data) return -1;
+              return a.data.localeCompare(b.data);
+            });
+            atividadesOrdenadas.forEach((atividade, indice) => {
+              const item = criarElemento('article', 'atividade-cronograma');
+              const cabecalho = criarElemento('div', 'atividade-cronograma-cabecalho');
+              const tipo = String(atividade.tipo || 'outro');
+              const tiposRotulo = {prova:'Prova',trabalho:'Trabalho',seminario:'Seminário',entrega:'Entrega',outro:'Outra atividade'};
+              cabecalho.appendChild(criarElemento('span','atividade-cronograma-tipo',tiposRotulo[tipo] || 'Outra atividade'));
+              const data = atividade.data ? atividade.data.split('-').reverse().join('/') : 'Data a definir';
+              cabecalho.appendChild(criarElemento('span','atividade-cronograma-data',data));
+              item.appendChild(cabecalho);
+              const observacaoOriginal = String(atividade.observacao || '');
+              const pesoEncontrado = observacaoOriginal.match(/peso\s*(?:de\s*)?(\d+(?:[.,]\d+)?)\s*%/i);
+              const linhaTitulo = criarElemento('div','atividade-cronograma-linha-titulo');
+              linhaTitulo.appendChild(criarElemento('h4','atividade-cronograma-titulo',(indice+1)+') '+(atividade.titulo||'Atividade sem título')));
+              if(pesoEncontrado) linhaTitulo.appendChild(criarElemento('span','atividade-cronograma-peso','Peso '+pesoEncontrado[1].replace(',','.')+'%'));
+              item.appendChild(linhaTitulo);
+              const observacaoLimpa = observacaoOriginal
+                .replace(/[,;]?\s*peso\s*(?:de\s*)?\d+(?:[.,]\d+)?\s*%(?:\s*(?:na|da)\s+nota\s+final)?/i,'')
+                .replace(/^\s*[,;:.]\s*|[,;:.]\s*$/g,'').trim();
+              if(observacaoLimpa) item.appendChild(criarElemento('p','atividade-cronograma-observacao',observacaoLimpa));
+              corpoCronograma.appendChild(item);
+            });
+          } else {
+            corpoCronograma.appendChild(criarElemento('p','estado-cronograma-vazio',
+              oferta ? 'Ainda não há atividades cadastradas para esta oferta. Importe a síntese do NotebookLM.' : 'Informe o período letivo para iniciar o cronograma desta disciplina.'));
+          }
 
-            const observacaoOriginal = String(atividade.observacao || '');
-            const pesoEncontrado = observacaoOriginal.match(/peso\s*(?:de\s*)?(\d+(?:[.,]\d+)?)\s*%/i);
-            const linhaTitulo = criarElemento('div', 'atividade-cronograma-linha-titulo');
-            const tituloNumerado = criarElemento(
-              'h4',
-              'atividade-cronograma-titulo',
-              (indice + 1) + ') ' + (atividade.titulo || 'Atividade sem título')
-            );
-            linhaTitulo.appendChild(tituloNumerado);
-            if (pesoEncontrado) {
-              linhaTitulo.appendChild(criarElemento(
-                'span',
-                'atividade-cronograma-peso',
-                'Peso ' + pesoEncontrado[1].replace(',', '.') + '%'
-              ));
-            }
-            item.appendChild(linhaTitulo);
-
-            const observacaoLimpa = observacaoOriginal
-              .replace(/[,;]?\s*peso\s*(?:de\s*)?\d+(?:[.,]\d+)?\s*%(?:\s*(?:na|da)\s+nota\s+final)?/i, '')
-              .replace(/^\s*[,;:.]\s*|[,;:.]\s*$/g, '')
-              .trim();
-            if (observacaoLimpa) {
-              item.appendChild(criarElemento('p', 'atividade-cronograma-observacao', observacaoLimpa));
-            }
-            corpoCronograma.appendChild(item);
-          });
-        } else {
-          const mensagem = oferta
-            ? 'Ainda não há atividades cadastradas para esta oferta. Consulte o Plano de Ensino ou importe a síntese do NotebookLM.'
-            : 'Nenhuma oferta cadastrada para esta disciplina.';
-          corpoCronograma.appendChild(criarElemento('p', 'estado-cronograma-vazio', mensagem));
-        }
-        painelCronograma.appendChild(corpoCronograma);
-
-        if (oferta) {
-          const importacao = criarElemento('div', 'importacao-cronograma');
-          const rotuloJson = criarElemento('label', '', 'Importar síntese JSON do NotebookLM');
+          const importacao = criarElemento('div','importacao-cronograma');
+          const rotuloPeriodo = criarElemento('label','','Período letivo da oferta (AAAA/S)');
+          const campoPeriodo = criarElemento('input');
+          campoPeriodo.type = 'text';
+          campoPeriodo.placeholder = 'Ex.: 2028/1';
+          campoPeriodo.value = oferta ? oferta.periodo : '';
+          campoPeriodo.id = 'periodo-cronograma-' + disciplina.id;
+          campoPeriodo.setAttribute('aria-label','Período letivo da oferta');
+          const rotuloJson = criarElemento('label','','Importar síntese JSON do NotebookLM');
           const campoJson = criarElemento('textarea');
-          campoJson.id = 'json-cronograma-' + oferta.id;
+          campoJson.id = 'json-cronograma-' + disciplina.id;
           campoJson.placeholder = 'Cole aqui o JSON produzido pelo NotebookLM.';
-          campoJson.setAttribute('aria-label', 'JSON do cronograma previsto');
-          const botaoValidar = criarElemento('button', 'botao-validar-cronograma', 'Validar JSON');
-          botaoValidar.type = 'button';
-          const botaoEnviar = criarElemento('button', 'botao-validar-cronograma', 'Continuar para salvar no GitHub');
-          botaoEnviar.type = 'button';
-          botaoEnviar.hidden = true;
-          const resultadoValidacao = criarElemento('div', 'resultado-validacao-cronograma');
-          resultadoValidacao.setAttribute('aria-live', 'polite');
-          let dadosValidados = null;
+          campoJson.setAttribute('aria-label','JSON do cronograma previsto');
+          const botaoValidar = criarElemento('button','botao-validar-cronograma','Validar JSON');
+          botaoValidar.type='button';
+          const botaoEnviar = criarElemento('button','botao-validar-cronograma','Continuar para salvar no GitHub');
+          botaoEnviar.type='button';
+          botaoEnviar.hidden=true;
+          const resultadoValidacao = criarElemento('div','resultado-validacao-cronograma');
+          resultadoValidacao.setAttribute('aria-live','polite');
+          let dadosValidados=null;
+          let ofertaAlvo=null;
 
-          botaoValidar.addEventListener('click', () => {
-            dadosValidados = null;
-            botaoEnviar.hidden = true;
-            resultadoValidacao.className = 'resultado-validacao-cronograma';
-            resultadoValidacao.textContent = '';
-            try {
-              const dados = JSON.parse(campoJson.value);
-              if (!dados || typeof dados !== 'object' || Array.isArray(dados)) {
-                throw new Error('O conteúdo precisa ser um objeto JSON.');
-              }
-              if (String(dados.disciplina || '').trim().toLowerCase() !==
-                  String(oferta.disciplina || '').trim().toLowerCase()) {
-                throw new Error('A disciplina do JSON não corresponde a esta oferta.');
-              }
-              if (dados.periodo !== oferta.periodo) {
-                throw new Error('O período do JSON não corresponde a esta oferta (' + oferta.periodo + ').');
-              }
-              if (!['atividades_encontradas', 'nenhuma_atividade_identificada', 'informacoes_insuficientes'].includes(dados.status_extracao)) {
-                throw new Error('status_extracao possui um valor não reconhecido.');
-              }
-              if (!Array.isArray(dados.atividades)) {
-                throw new Error('O campo atividades precisa ser uma lista.');
-              }
-              if (dados.status_extracao === 'atividades_encontradas' && dados.atividades.length === 0) {
-                throw new Error('O status indica atividades encontradas, mas a lista está vazia.');
-              }
-              if (dados.status_extracao === 'nenhuma_atividade_identificada' && dados.atividades.length !== 0) {
-                throw new Error('Quando nenhuma atividade for identificada, a lista atividades deve estar vazia.');
-              }
-              const tiposPermitidos = ['prova', 'trabalho', 'seminario', 'entrega', 'outro'];
-              dados.atividades.forEach((atividade, indice) => {
-                if (!atividade || typeof atividade !== 'object' || Array.isArray(atividade)) {
-                  throw new Error('Atividade ' + (indice + 1) + ' inválida.');
-                }
-                if (!tiposPermitidos.includes(atividade.tipo)) {
-                  throw new Error('Tipo inválido na atividade ' + (indice + 1) + '.');
-                }
-                if (!String(atividade.titulo || '').trim()) {
-                  throw new Error('Informe o título da atividade ' + (indice + 1) + '.');
-                }
-                if (atividade.data !== null &&
-                    (typeof atividade.data !== 'string' ||
-                     !/^\d{4}-\d{2}-\d{2}$/.test(atividade.data) ||
-                     Number.isNaN(Date.parse(atividade.data + 'T00:00:00')))) {
-                  throw new Error('Data inválida na atividade ' + (indice + 1) + '. Use AAAA-MM-DD ou null.');
-                }
-              });
-              if (dados.status_extracao === 'informacoes_insuficientes') {
-                throw new Error('As fontes não forneceram informações suficientes. O cronograma atual não será substituído por uma extração inconclusiva.');
-              }
-
-              dadosValidados = {
-                disciplina: oferta.disciplina,
-                periodo: oferta.periodo,
-                status_extracao: dados.status_extracao,
-                atividades: dados.atividades.map(atividade => ({
-                  tipo: atividade.tipo,
-                  titulo: String(atividade.titulo).trim(),
-                  data: atividade.data,
-                  observacao: String(atividade.observacao || '').trim()
-                })),
-                observacoes_gerais: String(dados.observacoes_gerais || '').trim()
+          botaoValidar.addEventListener('click',()=>{
+            dadosValidados=null; ofertaAlvo=null; botaoEnviar.hidden=true;
+            resultadoValidacao.className='resultado-validacao-cronograma'; resultadoValidacao.textContent='';
+            try{
+              const periodo=campoPeriodo.value.trim();
+              if(!/^\d{4}\/[12]$/.test(periodo)) throw new Error('Informe o período no formato AAAA/S, por exemplo 2028/1.');
+              const idOferta=disciplina.id+'-'+periodo.replace('/','-');
+              const existentes=ofertas.filter(item=>item.id===idOferta);
+              if(existentes.length>1) throw new Error('Há ofertas duplicadas para esta disciplina e período.');
+              ofertaAlvo=existentes[0]||{
+                id:idOferta,disciplina_id:disciplina.id,disciplina:disciplina.nome,periodo,
+                situacao:'em_andamento',tipo_registro:'cronograma'
               };
-
-              const resumoStatus = {
-                atividades_encontradas: 'Atividades identificadas',
-                nenhuma_atividade_identificada: 'Nenhuma atividade identificada nas fontes'
+              const dados=JSON.parse(campoJson.value);
+              if(!dados||typeof dados!=='object'||Array.isArray(dados)) throw new Error('O conteúdo precisa ser um objeto JSON.');
+              if(String(dados.disciplina||'').trim().toLowerCase()!==String(disciplina.nome||'').trim().toLowerCase()) throw new Error('A disciplina do JSON não corresponde a este cartão.');
+              if(dados.periodo!==periodo) throw new Error('O período do JSON não corresponde ao período informado ('+periodo+').');
+              if(!['atividades_encontradas','nenhuma_atividade_identificada','informacoes_insuficientes'].includes(dados.status_extracao)) throw new Error('status_extracao possui um valor não reconhecido.');
+              if(!Array.isArray(dados.atividades)) throw new Error('O campo atividades precisa ser uma lista.');
+              if(dados.status_extracao==='atividades_encontradas'&&dados.atividades.length===0) throw new Error('O status indica atividades encontradas, mas a lista está vazia.');
+              if(dados.status_extracao==='nenhuma_atividade_identificada'&&dados.atividades.length!==0) throw new Error('Quando nenhuma atividade for identificada, a lista atividades deve estar vazia.');
+              const tiposPermitidos=['prova','trabalho','seminario','entrega','outro'];
+              dados.atividades.forEach((atividade,indice)=>{
+                if(!atividade||typeof atividade!=='object'||Array.isArray(atividade)) throw new Error('Atividade '+(indice+1)+' inválida.');
+                if(!tiposPermitidos.includes(atividade.tipo)) throw new Error('Tipo inválido na atividade '+(indice+1)+'.');
+                if(!String(atividade.titulo||'').trim()) throw new Error('Informe o título da atividade '+(indice+1)+'.');
+                if(atividade.data!==null&&(typeof atividade.data!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(atividade.data)||Number.isNaN(Date.parse(atividade.data+'T00:00:00')))) throw new Error('Data inválida na atividade '+(indice+1)+'. Use AAAA-MM-DD ou null.');
+              });
+              if(dados.status_extracao==='informacoes_insuficientes') throw new Error('As fontes não forneceram informações suficientes. O cronograma não será gravado.');
+              dadosValidados={
+                disciplina:disciplina.nome,periodo,
+                status_extracao:dados.status_extracao,
+                atividades:dados.atividades.map(atividade=>({tipo:atividade.tipo,titulo:String(atividade.titulo).trim(),data:atividade.data,observacao:String(atividade.observacao||'').trim()})),
+                observacoes_gerais:String(dados.observacoes_gerais||'').trim()
               };
               resultadoValidacao.classList.add('sucesso');
-              resultadoValidacao.textContent =
-                'JSON válido. ' + resumoStatus[dados.status_extracao] +
-                '. ' + dados.atividades.length + ' atividade(s).' +
-                (dados.observacoes_gerais ? '\nObservações: ' + dados.observacoes_gerais : '') +
-                '\nConfira os dados antes de continuar. A gravação ocorrerá após confirmar a solicitação no GitHub.';
-              botaoEnviar.hidden = false;
-            } catch (erro) {
-              resultadoValidacao.classList.add('erro');
-              resultadoValidacao.textContent = 'Não foi possível validar: ' + erro.message;
-            }
+              resultadoValidacao.textContent='JSON válido. '+dados.atividades.length+' atividade(s) identificada(s) para '+disciplina.nome+' — '+periodo+'. Confira os dados antes de continuar.';
+              botaoEnviar.hidden=false;
+            }catch(erro){resultadoValidacao.classList.add('erro');resultadoValidacao.textContent='Não foi possível validar: '+erro.message;}
           });
 
-          botaoEnviar.addEventListener('click', () => {
-            if (!dadosValidados) return;
-            const corpo = [
-              '### Oferta',
-              oferta.id,
-              '',
-              '### JSON do cronograma',
-              '```json',
-              JSON.stringify(dadosValidados, null, 2),
-              '```'
+          botaoEnviar.addEventListener('click',()=>{
+            if(!dadosValidados||!ofertaAlvo)return;
+            const corpo=[
+              '### Oferta',ofertaAlvo.id,'',
+              '### Disciplina ID',disciplina.id,'',
+              '### Disciplina',disciplina.nome,'',
+              '### Período letivo',ofertaAlvo.periodo,'',
+              '### JSON do cronograma','```json',
+              JSON.stringify(dadosValidados,null,2),'```'
             ].join('\n');
-            const url = new URL('https://github.com/ricardofelippe/Direito-UFPR/issues/new');
-            url.searchParams.set('template', 'importar-cronograma.md');
-            url.searchParams.set('title', '[Importar cronograma] ' + oferta.disciplina + ' — ' + oferta.periodo);
-            url.searchParams.set('body', corpo);
-            window.open(url.toString(), '_blank', 'noopener');
+            const url=new URL('https://github.com/ricardofelippe/Direito-UFPR/issues/new');
+            url.searchParams.set('template','importar-cronograma.md');
+            url.searchParams.set('title','[Importar cronograma] '+disciplina.nome+' — '+ofertaAlvo.periodo);
+            url.searchParams.set('body',corpo);
+            window.open(url.toString(),'_blank','noopener');
           });
-
-          importacao.appendChild(rotuloJson);
-          importacao.appendChild(campoJson);
-          importacao.appendChild(botaoValidar);
-          importacao.appendChild(botaoEnviar);
-          importacao.appendChild(resultadoValidacao);
+          importacao.append(rotuloPeriodo,campoPeriodo,rotuloJson,campoJson,botaoValidar,botaoEnviar,resultadoValidacao);
           corpoCronograma.appendChild(importacao);
+          painelCronograma.appendChild(corpoCronograma);
+          conteudo.appendChild(painelCronograma);
         }
-
-        conteudo.appendChild(painelCronograma);
 
         if (possuiFicha) {
           const painelFicha = criarElemento('details', 'ficha-pedagogica');
