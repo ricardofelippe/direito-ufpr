@@ -42,7 +42,7 @@ jobs:
                 throw new Error('O campo "' + titulo + '" deve aparecer exatamente uma vez.');
               }
               const restante = body.split(marcador)[1];
-              const valor = restante.replace(/^\\r?\\n+/, '').split(/\\r?\\n### /, 1)[0].trim();
+              const valor = restante.replace(/^\r?\n+/, '').split(/\r?\n### /, 1)[0].trim();
               if (!valor) throw new Error('Informe um valor para "' + titulo + '".');
               return valor;
             }
@@ -96,7 +96,7 @@ jobs:
                 }
 
                 disciplina.status = novoStatus;
-                fs.writeFileSync(caminho, JSON.stringify(estrutura, null, 2) + '\\n', 'utf8');
+                fs.writeFileSync(caminho, JSON.stringify(estrutura, null, 2) + '\n', 'utf8');
                 execFileSync('git', ['add', caminho]);
                 execFileSync('git', ['commit', '-m', 'Atualiza status da disciplina: ' + disciplinaId]);
 
