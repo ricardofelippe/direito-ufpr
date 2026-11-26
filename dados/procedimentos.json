@@ -8,7 +8,7 @@
           "objetivo": "Atualizar a ficha pedagógica exibida no cartão de uma disciplina, usando como fonte a documentação curricular oficial da UFPR. A ficha é armazenada no objeto da disciplina em dados/estrutura.json e exibida automaticamente em direito.html. Esta operação atualiza dados curriculares permanentes; não altera o cronograma específico de uma oferta letiva.",
           "passos": [
             "Identifique a disciplina no site: abra a página do currículo (direito.html), localize o cartão e anote o nome e o código curricular. O código é a chave prática para evitar alterar a disciplina errada.",
-            "Abra o arquivo de dados no GitHub: entre em https://github.com/ricardofelippe/Direito-UFPR, confirme que está na branch main e navegue até dados/estrutura.json. Este é o arquivo que guarda os dados curriculares; não altere direito.html para mudar o texto de uma ficha.",
+            "Abra o arquivo de dados no GitHub: entre em https://github.com/ricardofelippe/direito-ufpr, confirme que está na branch main e navegue até dados/estrutura.json. Este é o arquivo que guarda os dados curriculares; não altere direito.html para mudar o texto de uma ficha.",
             "Localize o objeto correto dentro do array 'disciplinas'. Use a busca do navegador (Ctrl+F) pelo código exato, por exemplo \"DB449\". Confirme no mesmo objeto os campos 'id', 'codigo' e 'nome'. Não edite um objeto apenas porque o nome parece semelhante.",
             "Antes de alterar, leia o objeto inteiro da disciplina e preserve todos os campos que não fazem parte da atualização: id, codigo, nome, categoria, ano, descricao, ordem, status, unidades, assuntos e quaisquer outros dados existentes. Não substitua o objeto inteiro por um modelo reduzido.",
             "Dentro do objeto, localize a propriedade 'informacoes_pedagogicas'. Ela reúne os dados da ficha curricular que o site apresenta quando o usuário expande 'Informações pedagógicas · UFPR'. Se a propriedade já existir, atualize somente os campos que a fonte oficial efetivamente alterou. Se não existir, crie-a seguindo o formato descrito abaixo.",
@@ -27,7 +27,7 @@
             "Valide a sintaxe do JSON antes de publicar. O arquivo deve continuar sendo um JSON válido: aspas duplas em nomes e textos, vírgulas entre propriedades e itens, sem vírgula sobrando no último item. Quebras de linha dentro de valores devem ser representadas como \\n. Se estiver trabalhando localmente, execute: python -m json.tool dados/estrutura.json > /dev/null. Se o comando apontar erro, não faça o commit até corrigir.",
             "Revise o diff: confirme que somente a disciplina pretendida e os campos necessários foram alterados; confira se nenhum id, código, status, ordem, unidade, assunto ou outro registro foi removido ou modificado por acidente.",
             "Registre um commit com mensagem objetiva, por exemplo 'Atualiza ficha pedagógica DB449 — Economia Política'. Não há, no fluxo atualmente verificado, um formulário ou GitHub Actions específico para editar informações pedagógicas; a alteração é feita diretamente em dados/estrutura.json no GitHub.",
-            "Aguarde a publicação do GitHub Pages. Abra https://ricardofelippe.github.io/Direito-UFPR/direito.html, atualize com Ctrl+F5, localize a mesma disciplina e expanda 'Informações pedagógicas · UFPR'. Confira se os campos aparecem corretamente e se o link 'Consultar ficha original da UFPR' abre a fonte oficial.",
+            "Aguarde a publicação do GitHub Pages. Abra https://ricardofelippe.github.io/direito-ufpr/direito.html, atualize com Ctrl+F5, localize a mesma disciplina e expanda 'Informações pedagógicas · UFPR'. Confira se os campos aparecem corretamente e se o link 'Consultar ficha original da UFPR' abre a fonte oficial.",
             "Se a ficha não aparecer, verifique primeiro se 'informacoes_pedagogicas' contém ao menos um campo preenchido além de fonte, fonte_titulo e fonte_data. O site não exibe o painel quando só existem os metadados da fonte. Depois confira se os nomes das chaves estão exatamente como os reconhecidos pelo código e se o JSON foi publicado.",
             "Se a fonte oficial estiver indisponível, incompleta ou contraditória, não complete os campos por suposição. Mantenha o conteúdo confirmado, registre a limitação em 'observacao' e deixe a atualização pendente até obter documento confiável."
           ],
@@ -37,7 +37,7 @@
             "Fonte oficial da UFPR — URL registrada em informacoes_pedagogicas.fonte ou documento curricular oficial atualizado."
           ],
           "pre_requisitos": [
-            "Acesso de edição ao repositório GitHub ricardofelippe/Direito-UFPR, na branch main.",
+            "Acesso de edição ao repositório GitHub ricardofelippe/direito-ufpr, na branch main.",
             "Identificação inequívoca da disciplina pelo nome e, principalmente, pelo código curricular (por exemplo, DB449). Não localizar apenas pelo nome, pois podem existir nomes semelhantes.",
             "Documento oficial da UFPR correspondente à disciplina e à versão curricular aplicável. Preferir a Ficha 2 / ficha curricular disponibilizada pela Coordenação ou pelo curso de Direito da UFPR.",
             "Ter clareza sobre o escopo: esta rotina atualiza ementa, programa, objetivos, procedimentos didáticos, avaliação e bibliografia da ficha curricular. Datas de provas, trabalhos e entregas pertencem ao cronograma da oferta e devem ser atualizadas pelo procedimento 'Como cadastrar ou atualizar o cronograma previsto'."
@@ -63,7 +63,7 @@
           "titulo": "Como criar ou editar assuntos da disciplina",
           "objetivo": "Criar um novo assunto curricular ou editar os dados de um assunto existente. O workflow atualmente implementado aceita as operações criar e editar; não existe operação de exclusão nesse workflow. A exclusão não deve ser simulada por edição manual nem executada sem uma rotina própria que preserve conteúdos e progresso vinculados.",
           "passos": [
-            "Abra o repositório GitHub ricardofelippe/Direito-UFPR e confirme que está na branch main. Navegue até dados/estrutura.json. As coleções disciplinas, unidades e assuntos são independentes; procure cada registro na coleção correspondente.",
+            "Abra o repositório GitHub ricardofelippe/direito-ufpr e confirme que está na branch main. Navegue até dados/estrutura.json. As coleções disciplinas, unidades e assuntos são independentes; procure cada registro na coleção correspondente.",
             "Copie os identificadores exatos: disciplina.id; unidade.id, se houver vínculo; e assunto.id, somente para edição. Confirme que a unidade selecionada possui disciplina_id igual ao ID da disciplina.",
             "Abra uma nova Issue no repositório. Como não há um arquivo de formulário em .github/ISSUE_TEMPLATE para gerenciar assuntos, não escolha um formulário semelhante. Use o título iniciado exatamente por [Gerenciar assunto].",
             "No corpo da Issue, inclua cada marcador abaixo exatamente uma vez e coloque seu valor na linha imediatamente seguinte: <!-- OPERACAO --> (criar ou editar); <!-- ASSUNTO_ID --> (ID existente para editar; deixe a linha seguinte vazia ao criar); <!-- DISCIPLINA_ID --> (ID da disciplina); <!-- UNIDADE_ID --> (ID da unidade ou null para vínculo direto); <!-- NOME --> (nome do assunto); <!-- DESCRICAO --> (descrição, pode ficar vazia); <!-- ORDEM --> (inteiro positivo que define a posição). Não altere a grafia dos marcadores.",
@@ -82,7 +82,7 @@
           ],
           "observacao": "Limitação confirmada no código: gerenciar-assuntos.yml implementa somente criar e editar. Não há formulário próprio nem rotina de exclusão. A exclusão de assuntos permanece indisponível e exige projeto específico que trate os vínculos em dados/conteudos.json e dados/progresso.json.",
           "pre_requisitos": [
-            "Acesso ao repositório ricardofelippe/Direito-UFPR e permissão para abrir Issues.",
+            "Acesso ao repositório ricardofelippe/direito-ufpr e permissão para abrir Issues.",
             "Identificadores exatos da disciplina e, quando aplicável, da unidade temática. Consulte dados/estrutura.json; não use apenas o nome como identificador.",
             "Para editar, copie o ID exato do assunto existente. Para criar, defina nome, descrição e ordem.",
             "Confirme se o assunto ficará vinculado a uma unidade existente ou diretamente à disciplina. Para vínculo direto, o campo UNIDADE_ID deve receber null.",
@@ -108,7 +108,7 @@
           "titulo": "Como alterar o status de uma disciplina",
           "objetivo": "Atualizar a situação administrativa da disciplina.",
           "passos": [
-            "Abra https://ricardofelippe.github.io/Direito-UFPR/direito.html e localize o cartão da disciplina. Confirme nome e código antes de alterar.",
+            "Abra https://ricardofelippe.github.io/direito-ufpr/direito.html e localize o cartão da disciplina. Confirme nome e código antes de alterar.",
             "No controle de status administrativo do cartão, selecione o novo valor. O seletor disponibiliza ativa, inativa, pendente e finalizada.",
             "Após selecionar, use o link de ação que aparece junto ao seletor. O site monta uma Issue com o título [Atualizar status da disciplina] e preenche o identificador da disciplina e o novo status.",
             "No GitHub, confira se o título e o corpo da Issue correspondem à disciplina correta. O formulário .github/ISSUE_TEMPLATE/atualizar-status-disciplina.md exige os campos Identificador da disciplina e Novo status. Não troque o ID por código ou nome.",
@@ -246,7 +246,7 @@
           "titulo": "Como cadastrar ou substituir um PDF",
           "objetivo": "Adicionar um documento à biblioteca ou associá-lo a uma disciplina.",
           "passos": [
-            "Abra https://ricardofelippe.github.io/Direito-UFPR/cadastro.html. A página oferece modos para gerenciar materiais; escolha se está criando um material novo ou administrando arquivos de um material existente.",
+            "Abra https://ricardofelippe.github.io/direito-ufpr/cadastro.html. A página oferece modos para gerenciar materiais; escolha se está criando um material novo ou administrando arquivos de um material existente.",
             "Para cadastrar um material sem anexar PDF por upload, use o modo de novo material e preencha título, disciplina, categoria, descrição e, se aplicável, o caminho do arquivo. A solicitação utiliza o formulário Cadastrar material e o workflow processar-cadastro.yml.",
             "Para cadastrar material enviando o PDF diretamente, utilize o formulário Enviar material com PDF. Preencha título, disciplina, categoria e descrição, anexe o PDF e envie. A Issue começa com [Novo material] e é processada por processar-envio-material.yml.",
             "Para adicionar ou substituir PDFs de um material já cadastrado, use a área de material existente e o formulário Gerenciar PDFs de um material. Escolha a operação, informe título e disciplina exatos e, para substituição, informe o caminho do PDF existente e anexe o novo arquivo.",
@@ -380,25 +380,26 @@
         },
         {
           "titulo": "Como cadastrar ou atualizar resumos e conteúdos",
-          "objetivo": "Adicionar ou corrigir conteúdos associados a um assunto.",
+          "objetivo": "Adicionar ou corrigir resumos e outros conteúdos associados a um assunto. Para resumos individuais, a página disciplina.html agora oferece formulário direto com título e conteúdo; os identificadores da disciplina, unidade e assunto são preenchidos automaticamente a partir do assunto selecionado. O envio ainda é confirmado no GitHub e gravado pelo workflow processar-resumo.yml.",
           "passos": [
-            "Localize em dados/estrutura.json os IDs da disciplina, unidade e assunto. Os três identificadores devem corresponder à mesma cadeia curricular.",
-            "Para cadastrar um resumo individual, use o modelo .github/ISSUE_TEMPLATE/novo-resumo.md. Preencha os marcadores DISCIPLINA_ID, UNIDADE_ID, ASSUNTO_ID e TITULO; insira o texto completo entre CONTEUDO_INICIO e CONTEUDO_FIM.",
-            "Envie a Issue com o título iniciado por [Novo resumo]. O workflow processar-resumo.yml valida os marcadores, extrai o conteúdo e grava o registro na coleção resumos de dados/conteudos.json.",
-            "Para cadastrar uma revisão de literatura, use .github/ISSUE_TEMPLATE/nova-revisao.md. Preencha IDs, título, referência bibliográfica e data de elaboração; insira o texto entre os marcadores de início e fim. O workflow processar-revisao.yml grava na coleção revisões.",
-            "Para importar conteúdos gerados no NotebookLM em lote, use o painel administrativo que prepara o payload e aciona o workflow_dispatch importar-notebooklm.yml. O input payload recebe JSON; o workflow aceita os tipos resumos, questoes ou flashcards, valida o lote e os IDs e grava os registros em dados/conteudos.json.",
-            "Não confunda os fluxos: as Issues individuais são para resumo e revisão; a importação NotebookLM é o fluxo em lote para resumos, questões ou flashcards. Use o procedimento e o formato correspondentes ao tipo de conteúdo.",
-            "Antes de enviar, revise ortografia, integridade do texto, IDs e duplicidade. Não inclua conteúdo de outra disciplina/assunto apenas porque o título é semelhante.",
-            "Acompanhe o workflow correspondente em Actions. Em sucesso, confira o comentário/resultado e a atualização do arquivo. Em falha, leia a mensagem e corrija o payload ou os marcadores antes de tentar novamente.",
-            "Após a publicação, abra disciplina.html, selecione o assunto e confira o conteúdo na seção correspondente. Atualize com Ctrl+F5 se necessário."
+            "Abra a página da disciplina no site publicado e localize o cartão do assunto ao qual o resumo pertence. Expanda o cartão e clique em 'Usar este assunto para cadastrar conteúdo'. O sistema marca o assunto selecionado e leva à área de conteúdos.",
+            "Na página da disciplina, abra a seção Resumos. Confirme o aviso de filtro ativo para verificar se o assunto correto está selecionado.",
+            "Preencha diretamente na página os campos 'Título do resumo' e 'Conteúdo do resumo'. Disciplina, unidade e assunto são identificados automaticamente; não é necessário copiar ou digitar os IDs.",
+            "Clique em 'Enviar para o GitHub'. O site abre uma nova Issue usando o modelo novo-resumo.md e preenche título, conteúdo e marcadores de identificação com os dados digitados.",
+            "Na página do GitHub, confira o título, o texto integral e os IDs preenchidos. O envio ainda depende da confirmação explícita do usuário no GitHub; fechar a janela sem enviar não grava o resumo.",
+            "Envie a Issue. O workflow .github/workflows/processar-resumo.yml valida a disciplina, a unidade, o assunto, o título e o conteúdo, e grava o novo registro na coleção resumos de dados/conteudos.json.",
+            "Acompanhe a execução Processar novo resumo na aba Actions e leia o comentário publicado na Issue. Em sucesso, o workflow informa o identificador do registro e fecha a Issue; em falha, leia a mensagem e corrija os dados antes de abrir nova solicitação.",
+            "Após a publicação, atualize a página da disciplina com Ctrl+F5, mantenha o mesmo assunto selecionado e confira se o resumo aparece na seção Resumos.",
+            "Para cadastrar uma revisão de literatura, o fluxo continua separado: use o botão 'Nova revisão de literatura', confira a Issue preenchida e informe referência bibliográfica e data de elaboração. O workflow processar-revisao.yml grava o registro na coleção revisoes.",
+            "Para importar conteúdos gerados no NotebookLM em lote, use o painel administrativo e o workflow importar-notebooklm.yml. Esse fluxo é diferente do formulário individual de resumo e aceita payload JSON dos tipos previstos no workflow."
           ],
           "arquivos": [
-            "dados/estrutura.json — fonte dos IDs da disciplina, unidade e assunto.",
-            ".github/ISSUE_TEMPLATE/novo-resumo.md e .github/workflows/processar-resumo.yml — resumo individual.",
-            ".github/ISSUE_TEMPLATE/nova-revisao.md e .github/workflows/processar-revisao.yml — revisão individual.",
+            "disciplina.html — seleção do assunto e formulário direto de título e conteúdo para resumos.",
+            ".github/ISSUE_TEMPLATE/novo-resumo.md e .github/workflows/processar-resumo.yml — modelo da Issue e gravação do resumo individual.",
+            ".github/ISSUE_TEMPLATE/nova-revisao.md e .github/workflows/processar-revisao.yml — cadastro individual de revisão de literatura.",
             "painel administrativo e .github/workflows/importar-notebooklm.yml — importação em lote a partir de payload JSON.",
-            "dados/conteudos.json — coleções resumos, revisões, questões e flashcards.",
-            "disciplina.html — consulta dos conteúdos associados ao assunto."
+            "dados/estrutura.json — fonte dos IDs da disciplina, unidade e assunto.",
+            "dados/conteudos.json — armazenamento das coleções resumos, revisoes, questoes e flashcards."
           ],
           "pre_requisitos": [
             "ID exato da disciplina, unidade e assunto obtido em dados/estrutura.json.",
@@ -432,7 +433,7 @@
           "titulo": "Como verificar uma execução do GitHub Actions",
           "objetivo": "Confirmar se uma solicitação enviada pelo site foi processada.",
           "passos": [
-            "Abra https://github.com/ricardofelippe/Direito-UFPR e confirme que está no repositório correto.",
+            "Abra https://github.com/ricardofelippe/direito-ufpr e confirme que está no repositório correto.",
             "Clique na aba Actions. A lista mostra execuções recentes; use o horário aproximado do envio e o nome do workflow para localizar a execução correspondente.",
             "Selecione a execução e confira o status geral: sucesso (verde), falha (vermelho), em andamento (amarelo) ou cancelada. Não considere uma execução em andamento como concluída.",
             "Abra o job e expanda as etapas. Se houve falha, identifique a primeira etapa marcada com erro e leia a mensagem completa. Copie o texto integral antes de solicitar ajuda.",
@@ -442,7 +443,7 @@
             "Se houver falha, não crie várias Issues repetidas sem entender o erro. Corrija os dados ou o formulário e abra uma nova solicitação, preservando a execução e a Issue anteriores como histórico."
           ],
           "pre_requisitos": [
-            "Issue ou execução manual enviada ao repositório ricardofelippe/Direito-UFPR.",
+            "Issue ou execução manual enviada ao repositório ricardofelippe/direito-ufpr.",
             "Saber aproximadamente quando a solicitação foi enviada e qual operação foi executada.",
             "Acesso à aba Actions e, quando aplicável, à Issue que originou o workflow."
           ],
@@ -520,13 +521,16 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.20",
+    "versao": "2.21",
     "atualizado_em": "26/11/2026",
-    "resumo": "Registro mestre de decisões, arquitetura, fluxos e continuidade. Esta versão reorganiza a Visão geral do painel inicial para apresentar exclusivamente a situação administrativa das disciplinas: finalizadas, ativas e pendentes, com indicadores clicáveis e filtros correspondentes no currículo.",
+    "resumo": "Atualização da documentação operacional do cadastro simplificado de resumos e definição do próximo ciclo prioritário: estruturar o Laboratório de Argumentação Jurídica como área exclusiva, vinculada às disciplinas.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
-      "Repositório: ricardofelippe/Direito-UFPR; publicação: https://ricardofelippe.github.io/Direito-UFPR/; branch principal conhecida: main.",
-      "Arquivos centrais: index.html, direito.html, disciplina.html, biblioteca.html, cadastro.html, procedimentos.html, dados/estrutura.json, dados/progresso.json, dados/conteudos.json, dados/ofertas.json, dados/procedimentos.json e documentos.json.",
+      "Repositório vigente: ricardofelippe/direito-ufpr (nome em minúsculas); branch principal: main; publicação: https://ricardofelippe.github.io/direito-ufpr/. Referências antigas com 'Direito-UFPR' maiúsculo foram substituídas nesta documentação.",
+      "Última alteração em disciplina.html: seleção explícita de assunto por botão no cartão; ao selecionar, a aba de conteúdos filtra pelo assunto.",
+      "Cadastro individual de resumos: formulário direto em disciplina.html com campos Título do resumo e Conteúdo do resumo. Disciplina, unidade e assunto são preenchidos automaticamente. O botão Enviar para o GitHub abre uma Issue pré-preenchida; o usuário ainda precisa conferir e enviar. O workflow processar-resumo.yml grava em dados/conteudos.json. A alteração foi gravada, mas o teste visual/funcional em navegador ainda depende de confirmação do usuário.",
+      "Decisão aprovada para o próximo ciclo: o Laboratório de Argumentação Jurídica será estruturado como área/página exclusiva, separada das áreas de Resumos, Revisões e Materiais, mas vinculada a cada disciplina e ao assunto selecionado. A aba/estrutura visual inicial criada anteriormente em disciplina.html é provisória e deverá ser reavaliada ao implementar a página exclusiva. O Laboratório é a prioridade principal da próxima etapa.",
+      "Escopo ainda a definir antes da implementação do Laboratório: arquitetura da página exclusiva, fluxo por assunto e por disciplina inteira, modalidades oral/escrita/debate, integração NotebookLM/Gemini, método de avaliação e registro resumido de evolução. Não presumir que integração, gravação ou histórico persistente já estejam implementados.",
       "Dados curriculares verificados: 71 disciplinas, 75 unidades e 310 assuntos; 51 disciplinas obrigatórias e 20 classificadas como outros_setores. Não tratar outros_setores automaticamente como eletivas.",
       "Oferta teoria-do-direito-2028-1 está marcada como simulação; não é Plano de Ensino oficial.",
       "O workflow importar-cronograma.yml valida e substitui a lista cronograma_previsto da oferta; correções devem enviar a lista completa que deve permanecer.",
@@ -538,20 +542,19 @@
       "Última alteração visual nesta etapa: campo de busca de direito.html mantém borda turquesa e realce sutil permanentes, sem mudança de aparência ao receber/perder foco; botões Buscar, Limpar e Filtros continuam alinhados ao lado."
     ],
     "proximos_passos": [
-      "Validar no navegador, com Ctrl+F5, a busca curricular e confirmar que o destaque permanente está discreto e que os botões continuam alinhados; testar pesquisa, Enter, filtros por tipo e Limpar.",
-      "Revisar e consolidar a regra de ordenação/numeração dos cartões: disciplinas ativas primeiro; sequência NN/total acompanha a ordem visual; filtros recalculam numeradores visíveis e mantêm denominador total da categoria. Corrigir qualquer texto/documentação que ainda descreva regra antiga.",
-      "Auditar os procedimentos do Manual Operacional contra os workflows, templates e páginas atuais; completar os que ainda não expliquem o fluxo integral e marcar limitações reais.",
-      "Fazer auditoria funcional de ponta a ponta dos fluxos mais importantes: status da disciplina, cadastro/associação de PDFs, progresso, resumos/conteúdos e importação de cronograma.",
-      "Revisar a experiência de index.html: calendário, indicadores, Acesso rápido recolhível e responsividade em telas menores; implementar somente ajustes aprovados, um por vez.",
-      "Revisar dados/ofertas.json e distinguir dados simulados de ofertas reais; não apresentar atividades de simulação como calendário oficial.",
-      "Depois da auditoria funcional, priorizar melhorias de acessibilidade, mensagens de erro, validação de formulários e prevenção de gravações concorrentes."
+      "Prioridade principal da próxima etapa: desenhar e estruturar o Laboratório de Argumentação Jurídica como área/página exclusiva, acessível a partir de cada disciplina e recebendo automaticamente disciplina e assunto selecionado.",
+      "Antes de programar o Laboratório, fechar o modelo funcional: objetivos, fluxo de uma sessão, modalidades oral/escrita/debate, treinamento por assunto ou disciplina inteira, método socrático, critérios de avaliação e registro da evolução.",
+      "Definir a divisão de responsabilidades entre NotebookLM (fontes e preparação de conteúdo), treinador por IA (interação oral, escrita e debate) e site (organização, entrada no Laboratório e histórico resumido). Não criar APIs, workflows ou gravações internas sem necessidade e aprovação.",
+      "Testar no navegador o formulário direto de novo resumo: seleção do assunto, preenchimento de título/conteúdo, abertura da Issue pré-preenchida, envio e gravação pelo processar-resumo.yml. Não considerar o fluxo validado antes desse teste.",
+      "Depois do teste, revisar a experiência de cadastro de revisões para avaliar se merece formulário direto semelhante, sem alterar o fluxo atual antes de decisão.",
+      "Manter documentação, PDC e PDF sincronizados com alterações efetivamente implementadas; verificar Actions e publicação antes de declarar conclusão."
     ],
     "historico": [
-      "v2.16 — 26/11/2026: numeração NN/total passa a acompanhar a ordem visual dos cartões (anos em sequência e ativos primeiro dentro de cada ano/categoria); filtros recalculam a sequência visível, mantendo o total completo no denominador.",
       "v2.17 — 26/11/2026: campo de busca passa a manter borda e destaque turquesa permanentes, sem depender do foco; alinhamento dos botões laterais preservado.",
       "v2.18 — 26/11/2026: encerramento da etapa; atualizada a sequência de melhorias, corrigidas regras documentais conflitantes de ordenação/numeração e registrada avaliação qualitativa de maturidade 7,0/10.",
       "v2.19 — 26/11/2026: reforçado o destaque dos cartões de assuntos por situação geral; 'Em andamento' recebe tom turquesa e pulsação suave, 'Concluído' recebe tom verde estável e 'Pendente' mantém âmbar, respeitando movimento reduzido.",
-      "v2.20 — 26/11/2026: Visão geral do painel inicial passa a focar nos totais de disciplinas finalizadas, ativas e pendentes, com cartões clicáveis e filtro de finalizadas habilitado no currículo."
+      "v2.20 — 26/11/2026: Visão geral do painel inicial passa a focar nos totais de disciplinas finalizadas, ativas e pendentes, com cartões clicáveis e filtro de finalizadas habilitado no currículo.",
+      "v2.21 — 26/11/2026: documentação atualizada para o cadastro direto de resumos em disciplina.html (título e conteúdo; IDs automáticos; confirmação final via Issue/GitHub); repositório e URLs normalizados para ricardofelippe/direito-ufpr; Laboratório de Argumentação definido como principal prioridade futura, em área/página exclusiva vinculada a cada disciplina."
     ],
     "pdf_url": "docs/PDC_Direito_UFPR_v2.20.pdf",
     "conteudo_completo": [
@@ -584,7 +587,7 @@
       {
         "titulo": "3. Arquitetura e repositório",
         "paragrafos": [
-          "Repositório GitHub: ricardofelippe/Direito-UFPR. Publicação GitHub Pages: https://ricardofelippe.github.io/Direito-UFPR/. Branch principal conhecida: main."
+          "Repositório GitHub: ricardofelippe/direito-ufpr. Publicação GitHub Pages: https://ricardofelippe.github.io/direito-ufpr/. Branch principal conhecida: main."
         ],
         "tabela": [
           [
@@ -736,7 +739,7 @@
         "titulo": "10. Procedimento para retomar o projeto em outra IA",
         "itens": [
           "Leia integralmente este PDC antes de propor mudanças.",
-          "Abra o repositório ricardofelippe/Direito-UFPR e confira a branch main e os arquivos atuais. Este documento é orientação de continuidade, não substitui a leitura do código.",
+          "Abra o repositório ricardofelippe/direito-ufpr e confira a branch main e os arquivos atuais. Este documento é orientação de continuidade, não substitui a leitura do código.",
           "Leia especialmente dados/procedimentos.json, procedimentos.html, index.html, direito.html, dados/estrutura.json, dados/progresso.json, dados/conteudos.json, dados/ofertas.json e os workflows relacionados à tarefa.",
           "Compare o estado real do código com as seções Estado verificado e Pendências. Atualize o diagnóstico se o repositório tiver avançado.",
           "Apresente ao usuário uma única próxima ação pequena, explicando objetivo e arquivos envolvidos. Não execute várias mudanças em lote.",
@@ -893,6 +896,21 @@
           "Prioridade 3 — Qualidade da interface: revisar responsividade, acessibilidade, consistência visual e mensagens de carregamento/vazio/erro.",
           "Prioridade 4 — Governança: completar auditoria dos procedimentos e manter Manual, PDC e PDF sincronizados com cada alteração relevante.",
           "Prioridade 5 — Evolução: só então considerar novas funções, priorizando valor acadêmico e simplicidade de manutenção."
+        ]
+      },
+      {
+        "titulo": "20. Encerramento da etapa — cadastro simplificado de resumos e prioridade do Laboratório de Argumentação",
+        "paragrafos": [
+          "Em 26/11/2026 foi implementada em disciplina.html uma forma simplificada de cadastrar resumos individuais. Depois de selecionar um assunto pelo botão disponível no cartão, a seção Resumos apresenta formulário com somente dois campos a preencher: título e conteúdo. O sistema inclui automaticamente os identificadores da disciplina, unidade e assunto.",
+          "O botão 'Enviar para o GitHub' abre uma Issue já preenchida com os dados e os marcadores exigidos pelo modelo novo-resumo.md. O usuário ainda precisa conferir e confirmar o envio no GitHub. O workflow processar-resumo.yml continua responsável por validar e gravar o resumo em dados/conteudos.json. A alteração de código foi confirmada no repositório; o teste ponta a ponta no navegador ainda está pendente de confirmação do usuário.",
+          "Foi aprovada a orientação de que o Laboratório de Argumentação Jurídica seja uma área/página exclusiva, separada das áreas de conteúdos da disciplina, mas acessível a partir de cada disciplina e vinculada ao assunto selecionado. A estrutura visual provisória criada na aba Laboratório de disciplina.html não deve ser tratada como solução final; deverá ser revista quando a página exclusiva for desenhada.",
+          "O Laboratório passa a ser o foco principal da próxima etapa. A próxima sessão deve começar pelo desenho funcional e pela arquitetura, sem programar prematuramente: definir como iniciar treinamentos por assunto ou pela disciplina inteira; como funcionarão treinamento oral, escrita argumentativa e debate jurídico; como será aplicado o método socrático; como NotebookLM fornecerá base documental; qual ferramenta de IA atuará como treinador; quais critérios comuns avaliarão o desempenho; e qual histórico resumido o site guardará.",
+          "A prioridade é construir uma ferramenta acadêmica de uso recorrente que desenvolva domínio dos conteúdos, capacidade de formular teses, fundamentação, coerência, persuasão, clareza e expressão oral e escrita. A simplicidade operacional permanece requisito: evitar formulários longos, Issues para cada sessão, APIs ou workflows desnecessários."
+        ],
+        "itens": [
+          "Estado do cadastro de resumos: implementado no código; teste visual e ponta a ponta pendente.",
+          "Estado do Laboratório: decisão de arquitetura aprovada; planejamento funcional pendente; página exclusiva ainda não implementada.",
+          "Próxima ação: iniciar pela definição da experiência do Laboratório, seus fluxos e dados mínimos, antes de alterar arquivos."
         ]
       }
     ]
