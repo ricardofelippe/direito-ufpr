@@ -143,16 +143,6 @@
       font-size: 12px;
     }
 
-    .limpar-filtro-assuntos {
-      padding: 5px 9px;
-      border: 1px solid var(--borda);
-      border-radius: 6px;
-      background: transparent;
-      color: var(--azul-claro);
-      cursor: pointer;
-      font: inherit;
-    }
-
     .cartao-topico-item[hidden] { display: none !important; }
 
     .lista-unidades {
@@ -285,10 +275,6 @@
 
     .cartao-topico-item[open] > summary.cartao-topico::after {
       content: "−";
-    }
-
-    .cartao-topico-item .controles-progresso > [data-assunto] {
-      justify-self: start;
     }
 
     .controles-progresso {
@@ -850,10 +836,6 @@
               <span class="indicador-situacao" data-indicador-situacao>${iconeSituacao} ${escapeHTML(rotuloSituacao)}</span>
             </summary>
             <div class="controles-progresso" aria-label="Progresso do assunto">
-              <button class="limpar-filtro-assuntos" type="button"
-                data-assunto="${escapeHTML(assunto.id)}" aria-pressed="false">
-                Filtrar conteúdos deste assunto
-              </button>
               ${campos}
               <button class="botao-salvar-progresso" type="button" data-salvar-progresso="${escapeHTML(assunto.id)}">
                 Salvar progresso
@@ -1036,7 +1018,7 @@
                     `Assunto ${assuntoIndice + 1}`;
 
                   const descricao = textoRegistro(assunto, ['descricao','ementa']) ||
-                    'Selecione para filtrar os conteúdos deste assunto.';
+                    'Acompanhe o progresso deste assunto.';
 
                   return montarCartaoAssunto(assunto, assuntoIndice);
                 }).join('')}
@@ -1070,13 +1052,6 @@
         listaTopicos.innerHTML = htmlUnidades + htmlAssuntosDiretos;
         aplicarFiltroSituacaoAssuntos();
 
-        listaTopicos.querySelectorAll('[data-assunto]').forEach(botao =>
-          botao.setAttribute(
-            'aria-pressed',
-            String(botao.dataset.assunto === assuntoSelecionado)
-          )
-        );
-
         listaTopicos.querySelectorAll('[data-progresso-campo="situacao_geral"]').forEach(campo => {
           campo.addEventListener('change', () => {
             const cartao = campo.closest('[data-cartao-assunto]');
@@ -1098,22 +1073,6 @@
         );
 
 
-        listaTopicos.querySelectorAll('[data-assunto]').forEach(botao =>
-          botao.addEventListener('click', () => {
-            const id = botao.dataset.assunto;
-
-            assuntoSelecionado = assuntoSelecionado === id ? null : id;
-
-            listaTopicos.querySelectorAll('[data-assunto]').forEach(el =>
-              el.setAttribute(
-                'aria-pressed',
-                String(el.dataset.assunto === assuntoSelecionado)
-              )
-            );
-
-            renderizarAba();
-          })
-        );
       }
 
       function registrosDaAba(tipo) {
@@ -1437,10 +1396,6 @@
           document.getElementById('limpar-filtro').addEventListener('click', event => {
             event.preventDefault();
             assuntoSelecionado = null;
-
-            listaTopicos.querySelectorAll('[data-assunto]').forEach(el =>
-              el.setAttribute('aria-pressed','false')
-            );
 
             renderizarAba();
           });
