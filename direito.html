@@ -1191,6 +1191,9 @@
       background: rgba(12, 20, 32, .42);
     }
     .busca-inline { display:flex; align-items:center; min-width:0; gap:7px; }
+    .busca-inline > button { box-sizing:border-box; height:36px; margin:0; flex:0 0 auto; }
+    .busca-inline .campo-busca-curriculo { box-sizing:border-box; align-self:center; }
+
     .rotulo-visualmente-oculto {
       position:absolute; width:1px; height:1px; padding:0; margin:-1px;
       overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
@@ -1208,25 +1211,27 @@
       box-shadow:0 0 0 1px rgba(25,199,206,.10);
     }
     .botao-busca-compacto {
-      flex:0 0 auto; height:34px; padding:0 13px;
+      flex:0 0 auto; height:36px; padding:0 13px;
       border:1px solid rgba(25,199,206,.55); border-radius:6px;
       background:rgba(16,52,61,.45); color:var(--azul-claro);
       font:12px Arial,sans-serif; cursor:pointer;
     }
     .botao-busca-compacto:hover { background:var(--azul-fundo); border-color:var(--azul); }
-    .busca-inline .botao-limpar-busca { height:34px; padding:0 10px; font:12px Arial,sans-serif; }
+    .busca-inline .botao-limpar-busca { height:36px; padding:0 10px; font:12px Arial,sans-serif; }
     .ferramentas-curriculo > .ajuda-busca-curriculo {
       grid-column:1; margin:1px 0 0 3px; font-size:10px;
     }
     .ferramentas-curriculo > .filtros-busca-curriculo,
     .ferramentas-curriculo > .resultados-busca-curriculo { grid-column:1 / -1; }
     .ferramentas-curriculo > .painel-filtros-disciplinas {
-      grid-column:2; grid-row:1 / span 2; align-self:center;
-      margin:0; border:0; border-radius:6px; background:transparent; overflow:visible;
+      grid-column:2; grid-row:1; align-self:start;
+      margin:0; padding-top:0; border:0; border-radius:6px; background:transparent; overflow:visible;
     }
     .ferramentas-curriculo .gatilho-painel-curriculo {
-      gap:7px; padding:7px 10px; border:1px solid var(--borda);
-      border-radius:6px; background:rgba(7,11,18,.42);
+      display:flex; align-items:center; justify-content:center;
+      box-sizing:border-box; min-height:36px; gap:7px; padding:0 10px;
+      border:1px solid var(--borda); border-radius:6px;
+      background:rgba(7,11,18,.42);
       color:var(--texto-secundario); font:12px Arial,sans-serif; font-weight:600;
     }
     .ferramentas-curriculo .gatilho-painel-curriculo::before { content:none; }
