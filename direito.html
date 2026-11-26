@@ -1908,8 +1908,11 @@
             disciplina => (disciplina.categoria || 'sem-categoria') === categoria
           ).length;
           const ordenados = [...registros].sort((a, b) => {
-            const comparacaoAno = compararOrdemCurricular(a, b);
-            if (comparacaoAno && (Number(a.ano) !== Number(b.ano))) return comparacaoAno;
+            const anoA = a.ano == null || a.ano === '' ? 6 :
+              (Number(a.ano) >= 1 && Number(a.ano) <= 5 ? Number(a.ano) : 7 + Number(a.ano || 0));
+            const anoB = b.ano == null || b.ano === '' ? 6 :
+              (Number(b.ano) >= 1 && Number(b.ano) <= 5 ? Number(b.ano) : 7 + Number(b.ano || 0));
+            if (anoA !== anoB) return anoA - anoB;
             const prioridadeA = String(a.status || 'pendente').toLowerCase() === 'ativa' ? 0 : 1;
             const prioridadeB = String(b.status || 'pendente').toLowerCase() === 'ativa' ? 0 : 1;
             return prioridadeA - prioridadeB || compararOrdemCurricular(a, b);
