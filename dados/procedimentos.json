@@ -520,9 +520,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.6",
+    "versao": "2.7",
     "atualizado_em": "26/11/2026",
-    "resumo": "Registro mestre de decisões e transição técnica. Consolida arquitetura, decisões vigentes, fluxos e estado verificado. Esta versão registra a expansão/recolhimento das seções de disciplinas sem ano definido e de outros registros curriculares.",
+    "resumo": "Registro mestre de decisões e transição técnica. Consolida arquitetura, decisões vigentes, fluxos e estado verificado. Esta versão registra a reorganização da navegação inicial, com atalhos separados para Currículo e Biblioteca geral e indicação visual de funcionalidades ainda indisponíveis.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Repositório: ricardofelippe/Direito-UFPR; publicação: https://ricardofelippe.github.io/Direito-UFPR/; branch principal conhecida: main.",
@@ -545,13 +545,13 @@
       "Auditar fluxos restantes e atualizar Manual/PDC após cada mudança."
     ],
     "historico": [
-      "v2.2 — 26/11/2026: procedimento de atualização das informações pedagógicas reescrito com base na estrutura JSON e no código de exibição atuais; documentado que a edição é direta em dados/estrutura.json, sem workflow específico.",
       "v2.3 — 26/11/2026: padronização dos procedimentos do Manual Operacional com fluxo resumido visual, detalhamento por etapas, validações e tratamento de erros; correção de escopo: gerenciamento de assuntos permite criar/editar, sem exclusão; gerenciamento de PDFs remove associações/arquivos, não o cadastro do material.",
       "v2.4 — 26/11/2026: implementação da simplificação da Visão geral, remoção do painel Atividades de hoje e ampliação do calendário acadêmico.",
       "v2.5 — 26/11/2026: correção do carregamento da página do currículo; estrutura, progresso e ofertas passam a ser requisitados em paralelo, com limite de 15 segundos para evitar carregamento indefinido.",
-      "v2.6 — 26/11/2026: seções 'Atividades e disciplinas sem ano definido' e 'Outros registros curriculares' tornadas expansíveis, seguindo o padrão dos anos do currículo."
+      "v2.6 — 26/11/2026: seções 'Atividades e disciplinas sem ano definido' e 'Outros registros curriculares' tornadas expansíveis, seguindo o padrão dos anos do currículo.",
+      "v2.7 — 26/11/2026: painel inicial reorganizado; cabeçalho com links independentes para Currículo e Biblioteca geral; Central de documentação priorizada; Planejamento e Portfólio identificados visualmente como indisponíveis."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.6.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.7.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -701,7 +701,8 @@
           "Cartões de disciplina podem expandir para mostrar descrição, código e status; manter o código da disciplina visível.",
           "Biblioteca geral deve mostrar materiais obrigatórios conforme regra já definida, e a navegação a partir de uma disciplina deve preservar o contexto.",
           "Evitar reintroduzir rotinas de datas de estudo/revisão ou métricas removidas sem decisão explícita.",
-          "As seções curriculares fora dos cinco anos — 'Atividades e disciplinas sem ano definido' e 'Outros registros curriculares' — devem seguir o padrão expansível dos painéis anuais. A implementação atual usa details/summary e inicia recolhida."
+          "As seções curriculares fora dos cinco anos — 'Atividades e disciplinas sem ano definido' e 'Outros registros curriculares' — devem seguir o padrão expansível dos painéis anuais. A implementação atual usa details/summary e inicia recolhida.",
+          "No painel inicial, o cabeçalho oferece dois acessos independentes: Currículo (direito.html) e Biblioteca geral (biblioteca.html). Na seção Acesso rápido, priorizar as áreas disponíveis — Currículo, Biblioteca geral e Central de documentação — e manter Planejamento e Portfólio visualmente esmaecidos, sem link e com indicação de indisponibilidade até que sejam implementados."
         ]
       },
       {
@@ -709,7 +710,7 @@
         "subtitulos": [
           {
             "titulo": "Implementado/identificado",
-            "texto": "GitHub Pages; arquivos JSON centrais; workflows/Issues para operações; estrutura de ofertas e cronograma; importação de cronograma por NotebookLM → JSON → site → Issue → GitHub Actions; calendário que agrega atividades com data; Central de Documentação com Manual e PDC; atalho da Central no painel inicial. Simplificação da Visão geral publicada no código: dois indicadores e calendário acadêmico em largura ampliada. Carregamento da página direito.html atualizado para buscar estrutura, progresso e ofertas em paralelo, com limite de espera de 15 segundos. Seções 'Atividades e disciplinas sem ano definido' e 'Outros registros curriculares' também usam painéis expansíveis, com o mesmo comportamento visual dos anos."
+            "texto": "GitHub Pages; arquivos JSON centrais; workflows/Issues para operações; estrutura de ofertas e cronograma; importação de cronograma por NotebookLM → JSON → site → Issue → GitHub Actions; calendário que agrega atividades com data; Central de Documentação com Manual e PDC; atalho da Central no painel inicial. Simplificação da Visão geral publicada no código: dois indicadores e calendário acadêmico em largura ampliada. Carregamento da página direito.html atualizado para buscar estrutura, progresso e ofertas em paralelo, com limite de espera de 15 segundos. Seções 'Atividades e disciplinas sem ano definido' e 'Outros registros curriculares' também usam painéis expansíveis, com o mesmo comportamento visual dos anos. Navegação inicial reorganizada: cabeçalho com atalhos para Currículo e Biblioteca geral; Acesso rápido prioriza Currículo, Biblioteca geral e Central; Planejamento e Portfólio aparecem esmaecidos e sem link."
           },
           {
             "titulo": "Pendente ou exige validação",
