@@ -224,6 +224,204 @@
       "v1.1 — 26/11/2026: inclusão da regra permanente de atualização da Central de Documentação para funcionalidades novas, alteradas ou descontinuadas.",
       "v2.0 — 26/11/2026: PDC ampliado para documento de transição técnica e operacional, com arquitetura, decisões, fluxos, limitações, estado e instruções de retomada."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.0.pdf"
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.0.pdf",
+    "conteudo_completo": [
+      {
+        "titulo": "Finalidade e regra de leitura",
+        "paragrafos": [
+          "Este documento é a referência principal para compreender e continuar o projeto. Ele consolida decisões do usuário, arquitetura conhecida, fluxos implementados, limitações, pendências e regras de trabalho. Distingue fatos verificados no repositório de decisões aprovadas e itens ainda pendentes. Não presume que uma funcionalidade esteja concluída apenas porque foi planejada."
+        ]
+      },
+      {
+        "titulo": "1. Objetivo do sistema",
+        "paragrafos": [
+          "Construir uma plataforma pessoal, simples e sustentável para acompanhar o percurso no currículo de Direito da UFPR: consultar disciplinas, unidades e assuntos; registrar progresso; organizar materiais; manter conteúdos de estudo; e acompanhar atividades acadêmicas previstas em cada oferta de disciplina.",
+          "O sistema deve reduzir o trabalho administrativo do estudante. O indicador de progresso deve ser simples e útil; evitar cadastros redundantes, rotinas complexas ou funcionalidades que exijam manutenção constante sem benefício claro."
+        ]
+      },
+      {
+        "titulo": "2. Princípios obrigatórios de continuidade",
+        "itens": [
+          "Trabalhar em etapas pequenas, uma alteração por vez. Aguardar o usuário testar e confirmar antes de avançar.",
+          "Preservar os dados existentes. Nunca substituir arquivos JSON inteiros por exemplos ou dados de teste.",
+          "Antes de editar arquivo existente no GitHub, buscar a versão atual e seu SHA. Atualizações sucessivas do mesmo arquivo devem ser sequenciais.",
+          "Não presumir nomes de workflows, formulários, campos ou comportamentos: conferir os arquivos reais do repositório.",
+          "Após publicar, testar o site com Ctrl+F5 e verificar também o GitHub Actions aplicável.",
+          "Separar dados reais, dados simulados e hipóteses. A oferta Teoria do Direito 2028/1 é explicitamente simulada.",
+          "Manter interface simples, institucional e coerente com o tema escuro já utilizado.",
+          "Não remover nem migrar funcionalidades/dados sem explicar impacto e obter concordância do usuário."
+        ]
+      },
+      {
+        "titulo": "3. Arquitetura e repositório",
+        "paragrafos": [
+          "Repositório GitHub: ricardofelippe/Direito-UFPR. Publicação GitHub Pages: https://ricardofelippe.github.io/Direito-UFPR/. Branch principal conhecida: main."
+        ],
+        "tabela": [
+          [
+            "Arquivo",
+            "Responsabilidade"
+          ],
+          [
+            "index.html",
+            "Painel inicial: indicadores, agenda/calendário e atalhos."
+          ],
+          [
+            "direito.html",
+            "Visão do currículo: disciplinas, filtros, cartões, status, unidades/assuntos e importação do cronograma para disciplina ativa."
+          ],
+          [
+            "disciplina.html",
+            "Ambiente de estudo de uma disciplina/assunto; consultar a implementação atual antes de orientar operações."
+          ],
+          [
+            "biblioteca.html / cadastro.html",
+            "Consulta e cadastro de materiais da biblioteca."
+          ],
+          [
+            "procedimentos.html",
+            "Central de Documentação: Manual Operacional e PDC, alimentada por JSON."
+          ],
+          [
+            "dados/estrutura.json",
+            "Estrutura curricular: disciplinas, unidades e assuntos; fonte de identificadores e metadados do currículo."
+          ],
+          [
+            "dados/progresso.json",
+            "Estado de progresso por assunto e históricos existentes."
+          ],
+          [
+            "dados/conteudos.json",
+            "Conteúdos associados aos assuntos: resumos, revisões, questões e flashcards."
+          ],
+          [
+            "dados/ofertas.json",
+            "Ofertas por disciplina e período letivo; inclui cronograma previsto e dados da oferta."
+          ],
+          [
+            "dados/procedimentos.json",
+            "Catálogo do Manual Operacional e conteúdo estruturado do PDC."
+          ],
+          [
+            "documentos.json",
+            "Índice de materiais/documentos da biblioteca."
+          ],
+          [
+            ".github/workflows/",
+            "Automação de solicitações recebidas por Issues e operações do repositório."
+          ],
+          [
+            ".github/ISSUE_TEMPLATE/",
+            "Modelos de Issues usados como formulários de entrada."
+          ]
+        ]
+      },
+      {
+        "titulo": "4. Modelo acadêmico e regras de negócio",
+        "paragrafos": [
+          "A estrutura curricular representa o curso e seus assuntos. A oferta representa a execução de uma disciplina em um período letivo específico. Uma disciplina pode ter ofertas diferentes ao longo dos anos; cada oferta deve manter seu próprio plano de ensino, cronograma e histórico. Não sobrescrever informações de uma oferta anterior ao criar uma nova.",
+          "O período letivo usa o formato AAAA/S, por exemplo 2028/1. O identificador da oferta deve ser estável e único. O cronograma pertence à oferta, não diretamente à disciplina genérica.",
+          "A importação do cronograma deve ser exibida somente para disciplinas com status Ativa. Disciplinas pendentes, finalizadas ou inativas não devem apresentar o campo de importação. A oferta deve ser identificada pela combinação disciplina + período e por seu ID.",
+          "Dados curriculares conhecidos na verificação desta versão: 71 disciplinas, 75 unidades e 310 assuntos; 51 disciplinas categorizadas como obrigatórias e 20 como outros setores. Não interpretar automaticamente 'outros setores' como eletivas."
+        ]
+      },
+      {
+        "titulo": "5. Fluxo do cronograma acadêmico",
+        "paragrafos": [
+          "A fonte preferencial é o Plano de Ensino/Plano de Aula oficial disponibilizado para a disciplina. NotebookLM é utilizado para extrair as atividades a partir das fontes carregadas; o site organiza e acompanha o resultado. O JSON é validado no site e enviado ao GitHub por Issue, sendo processado por GitHub Actions."
+        ],
+        "subtitulos": [
+          {
+            "titulo": "Formato conceitual do JSON",
+            "texto": "Campos: disciplina, periodo, status_extracao, atividades (tipo, titulo, data, observacao) e observacoes_gerais. Tipos permitidos: prova, trabalho, seminario, entrega, outro. Datas no formato AAAA-MM-DD ou null. Não inventar datas, pesos ou atividades."
+          },
+          {
+            "titulo": "Status de extração",
+            "texto": "atividades_encontradas; nenhuma_atividade_identificada; informacoes_insuficientes. O workflow atualmente aceita para gravação os dois primeiros estados; informacoes_insuficientes não é gravado e exige revisão humana."
+          }
+        ],
+        "paragrafos_finais": [
+          "O workflow verificado é .github/workflows/importar-cronograma.yml. Ele valida JSON, tipo, título, data, correspondência de disciplina/período e unicidade da oferta; grava cronograma_previsto em dados/ofertas.json; comenta e fecha a Issue em caso de sucesso. Em caso de erro, falha a execução e comenta que nenhuma atualização foi publicada.",
+          "Atenção: a importação substitui a lista cronograma_previsto da oferta pela lista enviada. Para corrigir uma atividade, enviar o conjunto completo de atividades que devem permanecer; não enviar lista parcial sem entender o efeito. Limite atual validado pelo workflow: até 100 atividades.",
+          "A oferta teoria-do-direito-2028-1 atualmente existente está marcada como tipo_registro 'simulacao'; seu plano e suas três atividades são dados de teste. Não apresentar como Plano de Ensino oficial nem como calendário acadêmico real."
+        ]
+      },
+      {
+        "titulo": "6. Progresso e conteúdos de estudo",
+        "paragrafos": [
+          "dados/progresso.json mantém registros associados ao assunto por assunto_id. Na amostra atual existem campos de situação geral, conteúdo, questões e revisão, além de históricos de estudos e revisões em alguns registros. Preservar esses dados mesmo que a interface seja simplificada. Não presumir que todos os assuntos tenham todos os campos ou históricos.",
+          "dados/conteudos.json possui coleções separadas de resumos, revisões, questões e flashcards. O modelo híbrido aprovado concentra a geração de questões e flashcards no NotebookLM, enquanto o site organiza, armazena e acompanha os estudos. Não duplicar no site a geração de conteúdo que já é feita no NotebookLM sem uma decisão explícita.",
+          "A simplificação de acompanhamento foi discutida para reduzir a carga administrativa. A decisão mais recente sobre a Visão geral foi retirar os indicadores 'Em andamento' e 'Revisões pendentes', mantendo 'Assuntos concluídos' e 'Disciplinas ativas', e ampliar o calendário. O index.html consultado ainda contém quatro indicadores e o painel 'Atividades de hoje'; portanto, essa simplificação ainda não está implementada/verificada."
+        ]
+      },
+      {
+        "titulo": "7. Central de Documentação e governança",
+        "paragrafos": [
+          "procedimentos.html apresenta duas áreas: Manual Operacional e Plano de Continuidade. dados/procedimentos.json alimenta os procedimentos e o PDC. O manual deve conter instruções exatas, com pré-requisitos, passos, arquivos envolvidos e tratamento de erros quando conhecido. Instruções genéricas devem ser marcadas para validação, não tratadas como fluxo confirmado."
+        ],
+        "destaque": "Regra permanente: toda funcionalidade nova, alteração relevante ou descontinuação deve ser refletida na Central de Documentação. Atualizar os procedimentos afetados, remover ou marcar como descontinuadas as instruções obsoletas e atualizar o PDC com decisão, impacto, arquivos envolvidos, estado de implementação e próximos passos.",
+        "paragrafos_finais": [
+          "Uma mudança só deve ser considerada documentalmente concluída quando o manual e o PDC estiverem coerentes com o comportamento publicado."
+        ]
+      },
+      {
+        "titulo": "8. Interface e preferências de implementação",
+        "itens": [
+          "Estilo acadêmico/institucional, tema escuro, paleta azul-marinho/ciano e tipografia coerente entre páginas.",
+          "Cartões objetivos, sem excesso de informação ou duplicação de materiais.",
+          "Filtros e painéis devem ser acionados quando necessários, evitando sobrecarregar a tela.",
+          "Cartões de disciplina podem expandir para mostrar descrição, código e status; manter o código da disciplina visível.",
+          "Biblioteca geral deve mostrar materiais obrigatórios conforme regra já definida, e a navegação a partir de uma disciplina deve preservar o contexto.",
+          "Evitar reintroduzir rotinas de datas de estudo/revisão ou métricas removidas sem decisão explícita."
+        ]
+      },
+      {
+        "titulo": "9. Estado verificado nesta versão",
+        "subtitulos": [
+          {
+            "titulo": "Implementado/identificado",
+            "texto": "GitHub Pages; arquivos JSON centrais; workflows/Issues para operações; estrutura de ofertas e cronograma; importação de cronograma por NotebookLM → JSON → site → Issue → GitHub Actions; calendário que agrega atividades com data; Central de Documentação com Manual e PDC; atalho da Central no painel inicial."
+          },
+          {
+            "titulo": "Pendente ou exige validação",
+            "texto": "Simplificação da Visão geral; ampliar o calendário conforme decisão; revisar procedimentos genéricos para refletir os workflows reais; completar rotinas de cadastro/edição/exclusão; validar o comportamento completo da Central publicada; disponibilizar o PDF vigente do PDC em URL do próprio site/repositório."
+          }
+        ],
+        "paragrafos": [
+          "A página da Central consultada ainda apresentava 'Versão 1.0' na captura do usuário, embora dados/procedimentos.json já contivesse versão 1.1. Verificar cache/publicação e garantir que procedimentos.html renderize a versão carregada do JSON, sem texto fixo antigo."
+        ]
+      },
+      {
+        "titulo": "10. Procedimento para retomar o projeto em outra IA",
+        "itens": [
+          "Leia integralmente este PDC antes de propor mudanças.",
+          "Abra o repositório ricardofelippe/Direito-UFPR e confira a branch main e os arquivos atuais. Este documento é orientação de continuidade, não substitui a leitura do código.",
+          "Leia especialmente dados/procedimentos.json, procedimentos.html, index.html, direito.html, dados/estrutura.json, dados/progresso.json, dados/conteudos.json, dados/ofertas.json e os workflows relacionados à tarefa.",
+          "Compare o estado real do código com as seções Estado verificado e Pendências. Atualize o diagnóstico se o repositório tiver avançado.",
+          "Apresente ao usuário uma única próxima ação pequena, explicando objetivo e arquivos envolvidos. Não execute várias mudanças em lote.",
+          "Antes de editar, faça fetch da versão atual e SHA. Preserve registros e identificadores existentes.",
+          "Após a alteração, confira diff, JSON/HTML, execução de workflow e publicação. Oriente o usuário a testar com Ctrl+F5.",
+          "Depois de aprovada, atualize o Manual Operacional e este PDC, gere nova versão PDF e registre histórico."
+        ]
+      },
+      {
+        "titulo": "11. Próxima sequência recomendada",
+        "itens": [
+          "Validar a Central de Documentação publicada e corrigir a exibição da versão/PDF.",
+          "Finalizar os procedimentos operacionais com base nos formulários e workflows efetivamente existentes.",
+          "Implementar a simplificação aprovada da Visão geral e ampliar o calendário, em uma alteração controlada.",
+          "Auditar as demais páginas e fluxos, atualizando o manual a cada mudança."
+        ]
+      },
+      {
+        "titulo": "12. Histórico e controle do documento",
+        "paragrafos": [
+          "v1.0 — 26/11/2026: estrutura inicial da Central de Documentação e resumo do PDC.",
+          "v1.1 — 26/11/2026: regra permanente de governança documental.",
+          "v2.0 — 26/11/2026: consolidação do PDC como documento completo de transição, com arquitetura, decisões, fluxos verificados, limites, estado e instruções de retomada.",
+          "Este documento deve ser atualizado sempre que o sistema, suas regras ou sua arquitetura mudarem."
+        ]
+      }
+    ]
   }
 }
