@@ -545,7 +545,6 @@
       "Auditar fluxos restantes e atualizar Manual/PDC após cada mudança."
     ],
     "historico": [
-      "v1.0 — 26/11/2026: criação da estrutura inicial da Central de Documentação, com manual operacional e resumo do PDC.",
       "v1.1 — 26/11/2026: inclusão da regra permanente de atualização da Central de Documentação para funcionalidades novas, alteradas ou descontinuadas.",
       "v2.0 — 26/11/2026: PDC ampliado para documento de transição técnica e operacional, com arquitetura, decisões, fluxos, limitações, estado e instruções de retomada.",
       "v2.1 — 26/11/2026: consolidação de entendimentos históricos das etapas anteriores, registro de decisões substituídas, regras de trabalho com IA e orientação para seleção/cópia integral do PDC na página.",
