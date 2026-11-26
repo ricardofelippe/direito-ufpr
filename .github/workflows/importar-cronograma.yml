@@ -104,7 +104,7 @@ jobs:
                 const disciplinaId = campo('Disciplina ID');
                 const disciplinaNome = campo('Disciplina');
                 const periodo = campo('Período letivo');
-                if (!disciplinaId || !disciplinaNome || !/^\\d{4}\\/[12]$/.test(periodo)) {
+                if (!disciplinaId || !disciplinaNome || !/^\d{4}\/[12]$/.test(periodo)) {
                   throw new Error('Oferta inexistente. Não foi possível identificar disciplina e período para criá-la.');
                 }
                 if (String(dados.disciplina || '').trim().toLowerCase() !== disciplinaNome.trim().toLowerCase() || dados.periodo !== periodo) {
