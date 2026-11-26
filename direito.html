@@ -1095,6 +1095,7 @@
       const URL_ESTRUTURA = './dados/estrutura.json';
       const elementoCurriculo = document.getElementById('curriculo');
       let registrosProgresso = [];
+      let ofertas = [];
 
       const categorias = {
         obrigatoria: 'Disciplinas obrigatórias',
@@ -1240,33 +1241,59 @@
         const possuiFicha = ficha && Object.keys(ficha).some(chave =>
           !['fonte', 'fonte_titulo', 'fonte_data'].includes(chave) && ficha[chave]
         );
-        const descricao = criarElemento('p', 'descricao-disciplina');
-        if (possuiFicha) {
-          const linkFicha = criarElemento('a', 'link-informacoes-pedagogicas', 'Informações pedagógicas →');
-          linkFicha.href = '#informacoes-pedagogicas';
-          descricao.appendChild(linkFicha);
-        } else {
-          descricao.textContent = disciplina.descricao || 'Informações pedagógicas não cadastradas.';
-        }
-        resumo.appendChild(descricao);
+        resumo.appendChild(criarElemento(
+          'p',
+          'descricao-disciplina',
+          disciplina.descricao || ''
+        ));
         cartao.appendChild(resumo);
 
         const conteudo = criarElemento('div', 'conteudo-cartao-disciplina');
 
-        
-        if (ficha && Object.keys(ficha).some(chave => chave !== 'fonte' && chave !== 'fonte_titulo' && chave !== 'fonte_data' && ficha[chave])) {
+        const oferta = ofertas.find(item => item.disciplina_id === disciplina.id) || null;
+        const painelCronograma = criarElemento('details', 'ficha-pedagogica cronograma-previsto');
+        const tituloCronograma = oferta
+          ? 'Cronograma previsto de atividades · ' + oferta.periodo
+          : 'Cronograma previsto de atividades';
+        painelCronograma.appendChild(criarElemento('summary', '', tituloCronograma));
+        const corpoCronograma = criarElemento('div', 'ficha-pedagogica-conteudo');
+        const atividades = oferta && Array.isArray(oferta.cronograma_previsto)
+          ? oferta.cronograma_previsto
+          : [];
+
+        if (atividades.length) {
+          const atividadesOrdenadas = [...atividades].sort((a, b) => {
+            if (!a.data) return 1;
+            if (!b.data) return -1;
+            return a.data.localeCompare(b.data);
+          });
+          atividadesOrdenadas.forEach(atividade => {
+            const item = criarElemento('div', 'atividade-cronograma');
+            const data = atividade.data
+              ? atividade.data.split('-').reverse().join('/')
+              : 'Data a definir';
+            item.appendChild(criarElemento('strong', '', atividade.titulo || 'Atividade sem título'));
+            item.appendChild(criarElemento(
+              'p',
+              '',
+              (atividade.tipo || 'outro') + ' · ' + data
+            ));
+            if (atividade.observacao) {
+              item.appendChild(criarElemento('p', '', atividade.observacao));
+            }
+            corpoCronograma.appendChild(item);
+          });
+        } else {
+          const mensagem = oferta
+            ? 'Ainda não há atividades cadastradas para esta oferta. Consulte o Plano de Ensino ou importe a síntese do NotebookLM.'
+            : 'Nenhuma oferta cadastrada para esta disciplina.';
+          corpoCronograma.appendChild(criarElemento('p', 'estado-cronograma-vazio', mensagem));
+        }
+        painelCronograma.appendChild(corpoCronograma);
+        conteudo.appendChild(painelCronograma);
+
+        if (possuiFicha) {
           const painelFicha = criarElemento('details', 'ficha-pedagogica');
-          painelFicha.id = 'informacoes-pedagogicas';
-          const linkFicha = descricao.querySelector('.link-informacoes-pedagogicas');
-          if (linkFicha) {
-            linkFicha.addEventListener('click', evento => {
-              evento.preventDefault();
-              evento.stopPropagation();
-              cartao.open = true;
-              painelFicha.open = true;
-              painelFicha.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            });
-          }
           painelFicha.appendChild(criarElemento('summary', '', ficha.fonte_titulo ? 'Informações pedagógicas · UFPR' : 'Informações pedagógicas'));
           const corpoFicha = criarElemento('div', 'ficha-pedagogica-conteudo');
           const camposFicha = [
@@ -1803,6 +1830,13 @@
             registrosProgresso = Array.isArray(dadosProgresso.progresso) ? dadosProgresso.progresso : [];
           } else {
             registrosProgresso = [];
+          }
+          const respostaOfertas = await fetch('./dados/ofertas.json', { cache: 'no-cache' });
+          if (respostaOfertas.ok) {
+            const dadosOfertas = await respostaOfertas.json();
+            ofertas = Array.isArray(dadosOfertas.ofertas) ? dadosOfertas.ofertas : [];
+          } else {
+            ofertas = [];
           }
           configurarBusca(estrutura);
           configurarFiltrosDisciplinas();
