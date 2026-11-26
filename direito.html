@@ -2055,19 +2055,27 @@
       async function carregarEstrutura() {
         elementoCurriculo.replaceChildren(criarElemento('p', 'estado-carregamento', 'Carregando estrutura curricular...'));
         try {
-          const resposta = await fetch(URL_ESTRUTURA, { cache: 'no-cache' });
+          // Carrega os três arquivos em paralelo e limita o tempo de espera.
+          // Assim, uma requisição pendente não deixa a página presa indefinidamente.
+          const opcoesFetch = { cache: 'no-store', signal: AbortSignal.timeout(15000) };
+          const [resposta, respostaProgresso, respostaOfertas] = await Promise.all([
+            fetch(URL_ESTRUTURA, opcoesFetch),
+            fetch('./dados/progresso.json', opcoesFetch),
+            fetch('./dados/ofertas.json', opcoesFetch)
+          ]);
+
           if (!resposta.ok) {
-            throw new Error(`Não foi possível carregar a estrutura (HTTP ${resposta.status}).`);
+            throw new Error(`Não foi possível carregar dados/estrutura.json (HTTP ${resposta.status}).`);
           }
           const estrutura = await resposta.json();
-          const respostaProgresso = await fetch('./dados/progresso.json', { cache: 'no-cache' });
+
           if (respostaProgresso.ok) {
             const dadosProgresso = await respostaProgresso.json();
             registrosProgresso = Array.isArray(dadosProgresso.progresso) ? dadosProgresso.progresso : [];
           } else {
             registrosProgresso = [];
           }
-          const respostaOfertas = await fetch('./dados/ofertas.json', { cache: 'no-cache' });
+
           if (respostaOfertas.ok) {
             const dadosOfertas = await respostaOfertas.json();
             ofertas = Array.isArray(dadosOfertas.ofertas) ? dadosOfertas.ofertas : [];
