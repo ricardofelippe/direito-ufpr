@@ -797,25 +797,11 @@
           ['em_andamento', 'Em andamento'],
           ['estudado', 'Estudado']
         ],
-        questoes_status: [
-          ['nao_iniciado', 'Não iniciado'],
-          ['em_andamento', 'Em andamento'],
-          ['concluido', 'Concluído'],
-          ['nao_se_aplica', 'Não se aplica']
-        ],
-        revisao_status: [
-          ['nao_iniciado', 'Não iniciado'],
-          ['em_andamento', 'Em andamento'],
-          ['concluido', 'Concluído'],
-          ['nao_se_aplica', 'Não se aplica']
-        ]
       };
 
       const rotulosProgresso = {
         situacao_geral: 'Situação geral',
         conteudo_status: 'Conteúdo estudado',
-        questoes_status: 'Questões praticadas',
-        revisao_status: 'Revisões realizadas'
       };
 
       function registroProgresso(assuntoId) {
@@ -823,8 +809,6 @@
           assunto_id: assuntoId,
           situacao_geral: 'nao_iniciado',
           conteudo_status: 'nao_iniciado',
-          questoes_status: 'nao_iniciado',
-          revisao_status: 'nao_iniciado'
         };
       }
 
@@ -865,49 +849,12 @@
               <span class="descricao-topico">${escapeHTML(descricao)}</span>
               <span class="indicador-situacao" data-indicador-situacao>${iconeSituacao} ${escapeHTML(rotuloSituacao)}</span>
             </summary>
-            <div class="controles-progresso" aria-label="Progresso e planejamento do assunto">
+            <div class="controles-progresso" aria-label="Progresso do assunto">
               <button class="limpar-filtro-assuntos" type="button"
                 data-assunto="${escapeHTML(assunto.id)}" aria-pressed="false">
                 Filtrar conteúdos deste assunto
               </button>
               ${campos}
-              <div class="historico-estudos">
-                <strong>Histórico de estudos</strong>
-                <ul class="lista-historico-estudos">
-                  ${(registro.historico_estudos || (registro.data_estudo ? [{ data: registro.data_estudo }] : []))
-                    .slice()
-                    .sort((a, b) => b.data.localeCompare(a.data))
-                    .map(sessao => `<li class="item-historico-estudo">
-                      <span>${escapeHTML(sessao.data.split('-').reverse().join('/'))}</span>
-                      <button type="button" class="acao-historico" data-editar-sessao="${escapeHTML(sessao.data)}">Editar</button>
-                      <button type="button" class="acao-historico excluir" data-excluir-sessao="${escapeHTML(sessao.data)}">Excluir</button>
-                    </li>`)
-                    .join('') || '<li>Nenhuma sessão registrada.</li>'}
-                </ul>
-              </div>
-              <label class="campo-progresso">
-                <span>Registrar nova sessão de estudo</span>
-                <input type="date" data-planejamento-campo="nova_sessao_estudo" value="">
-              </label>
-              <div class="historico-estudos">
-                <strong>Histórico de revisões realizadas</strong>
-                <ul class="lista-historico-estudos">
-                  ${(registro.historico_revisoes || []).slice().sort((a,b) => b.data.localeCompare(a.data))
-                    .map(sessao => `<li class="item-historico-estudo">
-                      <span>${escapeHTML(sessao.data.split('-').reverse().join('/'))}</span>
-                      <button type="button" class="acao-historico" data-editar-revisao="${escapeHTML(sessao.data)}">Editar</button>
-                      <button type="button" class="acao-historico excluir" data-excluir-revisao="${escapeHTML(sessao.data)}">Excluir</button>
-                    </li>`).join('') || '<li>Nenhuma revisão registrada.</li>'}
-                </ul>
-              </div>
-              <label class="campo-progresso">
-                <span>Registrar revisão realizada</span>
-                <input type="date" data-planejamento-campo="nova_sessao_revisao" value="">
-              </label>
-              <label class="campo-progresso">
-                <span>Próxima revisão programada</span>
-                <input type="date" data-planejamento-campo="data_revisao" value="${escapeHTML(registro.data_revisao || '')}">
-              </label>
               <button class="botao-salvar-progresso" type="button" data-salvar-progresso="${escapeHTML(assunto.id)}">
                 Salvar progresso
               </button>
@@ -917,32 +864,35 @@
           </div>`;
       }
 
-      function abrirSolicitacaoHistorico(assuntoId, acao, dataAnterior = '', novaData = '', tipo = 'estudos') {
+      function abrirFormularioProgresso(assuntoId) {
         const cartao = listaTopicos.querySelector(`[data-cartao-assunto="${CSS.escape(assuntoId)}"]`);
         if (!cartao) return;
-        if (acao === 'excluir' && !window.confirm('Confirma a exclusão deste registro do histórico?')) return;
+
         const valores = {};
-        cartao.querySelectorAll('[data-progresso-campo]').forEach(campo => valores[campo.dataset.progressoCampo] = campo.value);
+        cartao.querySelectorAll('[data-progresso-campo]').forEach(campo => {
+          valores[campo.dataset.progressoCampo] = campo.value;
+        });
+
         const corpo = [
           '### ID do assunto', assuntoId, '',
           '### Situação geral', valores.situacao_geral, '',
-          '### Conteúdo estudado', valores.conteudo_status, '',
-          '### Questões praticadas', valores.questoes_status, '',
-          '### Revisões realizadas', valores.revisao_status, '',
-          '### Tipo de histórico', tipo, '',
-          '### Ação no histórico', acao, '',
-          '### Data registrada', dataAnterior, '',
-          '### Nova sessão de estudo', tipo === 'estudos' ? (novaData || cartao.querySelector('[data-planejamento-campo="nova_sessao_estudo"]').value) : cartao.querySelector('[data-planejamento-campo="nova_sessao_estudo"]').value, '',
-          '### Nova sessão de revisão', tipo === 'revisoes' ? (novaData || cartao.querySelector('[data-planejamento-campo="nova_sessao_revisao"]').value) : cartao.querySelector('[data-planejamento-campo="nova_sessao_revisao"]').value, '',
-          '### Data de revisão', cartao.querySelector('[data-planejamento-campo="data_revisao"]').value
-        ].join('\n');
-        const parametros = new URLSearchParams({ template:'atualizar-progresso.md', title:'[Atualizar progresso] '+assuntoId, body:corpo });
-        cartao.querySelector('.mensagem-progresso').textContent = 'Confira a operação e envie a solicitação no GitHub para confirmar a alteração.';
-        window.open('https://github.com/ricardofelippe/direito-ufpr/issues/new?'+parametros.toString(), '_blank', 'noopener');
-      }
+          '### Conteúdo estudado', valores.conteudo_status
+        ].join('\\n');
 
-      function abrirFormularioProgresso(assuntoId) {
-        abrirSolicitacaoHistorico(assuntoId, 'adicionar');
+        const parametros = new URLSearchParams({
+          template: 'atualizar-progresso.md',
+          title: '[Atualizar progresso] ' + assuntoId,
+          body: corpo
+        });
+
+        cartao.querySelector('.mensagem-progresso').textContent =
+          'Confira os indicadores e envie a solicitação no GitHub para confirmar a alteração.';
+
+        window.open(
+          'https://github.com/ricardofelippe/direito-ufpr/issues/new?' + parametros.toString(),
+          '_blank',
+          'noopener'
+        );
       }
 
       function montarResumoProgresso() {
@@ -1147,40 +1097,6 @@
           )
         );
 
-        listaTopicos.querySelectorAll('[data-editar-sessao]').forEach(botao =>
-          botao.addEventListener('click', () => {
-            const cartao = botao.closest('[data-cartao-assunto]');
-            const anterior = botao.dataset.editarSessao;
-            const nova = window.prompt('Informe a data correta (AAAA-MM-DD):', anterior);
-            if (nova === null) return;
-            if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(nova)) {
-              window.alert('Informe a data no formato AAAA-MM-DD.');
-              return;
-            }
-            abrirSolicitacaoHistorico(cartao.dataset.cartaoAssunto, 'editar', anterior, nova);
-          })
-        );
-        listaTopicos.querySelectorAll('[data-excluir-sessao]').forEach(botao =>
-          botao.addEventListener('click', () => abrirSolicitacaoHistorico(
-            botao.closest('[data-cartao-assunto]').dataset.cartaoAssunto, 'excluir', botao.dataset.excluirSessao, '', 'estudos'
-          ))
-        );
-
-        listaTopicos.querySelectorAll('[data-editar-revisao]').forEach(botao =>
-          botao.addEventListener('click', () => {
-            const cartao = botao.closest('[data-cartao-assunto]');
-            const anterior = botao.dataset.editarRevisao;
-            const nova = window.prompt('Informe a data correta (AAAA-MM-DD):', anterior);
-            if (nova === null) return;
-            if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(nova)) { window.alert('Informe a data no formato AAAA-MM-DD.'); return; }
-            abrirSolicitacaoHistorico(cartao.dataset.cartaoAssunto, 'editar', anterior, nova, 'revisoes');
-          })
-        );
-        listaTopicos.querySelectorAll('[data-excluir-revisao]').forEach(botao =>
-          botao.addEventListener('click', () => abrirSolicitacaoHistorico(
-            botao.closest('[data-cartao-assunto]').dataset.cartaoAssunto, 'excluir', botao.dataset.excluirRevisao, '', 'revisoes'
-          ))
-        );
 
         listaTopicos.querySelectorAll('[data-assunto]').forEach(botao =>
           botao.addEventListener('click', () => {
