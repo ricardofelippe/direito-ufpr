@@ -407,33 +407,41 @@
     }
 
     .navegacao-abas {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding: 0 0 10px;
-      border-bottom: 1px solid var(--borda);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 0 0 26px;
+      padding: 0;
     }
 
     .aba-disciplina {
-      flex: 0 0 auto;
-      padding: 10px 14px;
-      color: var(--texto-secundario);
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: 8px;
+      min-height: 58px;
+      padding: 14px 12px;
+      color: var(--texto);
+      background: var(--superficie);
+      border: 1px solid var(--borda);
+      border-radius: 10px;
       cursor: pointer;
-      font: 600 13px Arial,sans-serif;
+      font: 700 14px Arial,sans-serif;
+      transition: border-color .18s ease, background .18s ease, transform .18s ease;
     }
 
     .aba-disciplina:hover {
-      color: var(--texto);
-      background: var(--superficie);
+      color: var(--azul-claro);
+      background: var(--superficie-hover);
+      border-color: var(--azul);
+      transform: translateY(-1px);
     }
 
     .aba-disciplina[aria-selected="true"] {
       color: var(--azul-claro);
       background: var(--azul-fundo);
-      border-color: #28515a;
+      border: 1px solid var(--azul-claro);
+      box-shadow: inset 0 0 0 1px rgba(25,199,206,.18), 0 3px 12px rgba(0,0,0,.16);
+    }
+
+    @media(max-width:700px) {
+      .navegacao-abas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     .painel-aba {
@@ -736,6 +744,13 @@
   </header>
 
   <main class="conteudo-disciplina">
+    <nav class="navegacao-abas" aria-label="Seções da disciplina" role="tablist">
+      <button class="aba-disciplina" id="aba-resumos" role="tab" aria-selected="true" aria-controls="painel-disciplina" data-aba="resumos">Resumos</button>
+      <button class="aba-disciplina" id="aba-revisoes" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="revisoes">Revisões de literatura</button>
+      <button class="aba-disciplina" id="aba-materiais" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="materiais">Materiais</button>
+      <button class="aba-disciplina" id="aba-laboratorio" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="laboratorio">Laboratório de Argumentação</button>
+    </nav>
+
     <section class="topicos-disciplina" aria-labelledby="titulo-topicos">
       <h2 id="titulo-topicos">Assuntos da disciplina</h2>
       <div id="resumo-progresso-disciplina" class="resumo-progresso-disciplina" aria-label="Resumo do progresso da disciplina"></div>
@@ -744,16 +759,6 @@
         <p class="carregando">Carregando assuntos...</p>
       </div>
     </section>
-
-    <nav class="navegacao-abas" aria-label="Seções da disciplina" role="tablist">
-      <button class="aba-disciplina" id="aba-resumos" role="tab" aria-selected="true" aria-controls="painel-disciplina" data-aba="resumos">Resumos</button>
-      <button class="aba-disciplina" id="aba-revisoes" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="revisoes">Revisões de literatura</button>
-      <button class="aba-disciplina" id="aba-questoes" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="questoes">Questões</button>
-      <button class="aba-disciplina" id="aba-flashcards" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="flashcards">Flashcards</button>
-      <button class="aba-disciplina" id="aba-fluxogramas" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="fluxogramas">Fluxogramas</button>
-      <button class="aba-disciplina" id="aba-materiais" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="materiais">Materiais</button>
-      <button class="aba-disciplina" id="aba-laboratorio" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="laboratorio">Laboratório</button>
-    </nav>
 
     <section id="painel-disciplina" class="painel-aba" role="tabpanel" aria-labelledby="aba-resumos" tabindex="0">
       <p class="carregando">Preparando conteúdo...</p>
@@ -1480,16 +1485,6 @@
       }
 
       function renderizarAba() {
-        const nomes = {
-          resumos: 'Resumos',
-          revisoes: 'Revisões de literatura',
-          questoes: 'Questões',
-          flashcards: 'Flashcards',
-          fluxogramas: 'Fluxogramas',
-          materiais: 'Materiais',
-          laboratorio: 'Laboratório'
-        };
-
         document.querySelectorAll('.aba-disciplina').forEach(botao => {
           if (!botao.dataset.aba) return;
 
@@ -1501,18 +1496,12 @@
 
         painel.setAttribute('aria-labelledby', `aba-${abaAtual}`);
 
-        if (['resumos','revisoes','questoes','flashcards'].includes(abaAtual)) {
+        if (['resumos','revisoes'].includes(abaAtual)) {
           renderizarListaConteudos(abaAtual);
         } else if (abaAtual === 'materiais') {
           renderizarMateriais();
         } else if (abaAtual === 'laboratorio') {
           renderizarLaboratorio();
-        } else {
-          mostrarEstado(
-            painel,
-            'Fluxogramas ainda não cadastrados',
-            'Os fluxogramas vinculados à disciplina poderão ser adicionados futuramente como imagens ou arquivos estáticos.'
-          );
         }
 
         if (assuntoSelecionado) {
