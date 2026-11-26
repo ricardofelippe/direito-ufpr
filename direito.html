@@ -1355,10 +1355,17 @@
           campoJson.setAttribute('aria-label', 'JSON do cronograma previsto');
           const botaoValidar = criarElemento('button', 'botao-validar-cronograma', 'Validar JSON');
           botaoValidar.type = 'button';
+          const botaoEnviar = criarElemento('button', 'botao-validar-cronograma', 'Continuar para salvar no GitHub');
+          botaoEnviar.type = 'button';
+          botaoEnviar.hidden = true;
+          botaoEnviar.style.marginLeft = '8px';
           const resultadoValidacao = criarElemento('div', 'resultado-validacao-cronograma');
           resultadoValidacao.setAttribute('aria-live', 'polite');
+          let dadosValidados = null;
 
           botaoValidar.addEventListener('click', () => {
+            dadosValidados = null;
+            botaoEnviar.hidden = true;
             resultadoValidacao.className = 'resultado-validacao-cronograma';
             resultadoValidacao.textContent = '';
             try {
@@ -1379,9 +1386,15 @@
               if (!Array.isArray(dados.atividades)) {
                 throw new Error('O campo atividades precisa ser uma lista.');
               }
+              if (dados.status_extracao === 'atividades_encontradas' && dados.atividades.length === 0) {
+                throw new Error('O status indica atividades encontradas, mas a lista está vazia.');
+              }
+              if (dados.status_extracao === 'nenhuma_atividade_identificada' && dados.atividades.length !== 0) {
+                throw new Error('Quando nenhuma atividade for identificada, a lista atividades deve estar vazia.');
+              }
               const tiposPermitidos = ['prova', 'trabalho', 'seminario', 'entrega', 'outro'];
               dados.atividades.forEach((atividade, indice) => {
-                if (!atividade || typeof atividade !== 'object') {
+                if (!atividade || typeof atividade !== 'object' || Array.isArray(atividade)) {
                   throw new Error('Atividade ' + (indice + 1) + ' inválida.');
                 }
                 if (!tiposPermitidos.includes(atividade.tipo)) {
@@ -1392,32 +1405,67 @@
                 }
                 if (atividade.data !== null &&
                     (typeof atividade.data !== 'string' ||
-                     !/^\d{4}-\d{2}-\d{2}$/.test(atividade.data) ||
+                     !/^\\d{4}-\\d{2}-\\d{2}$/.test(atividade.data) ||
                      Number.isNaN(Date.parse(atividade.data + 'T00:00:00')))) {
                   throw new Error('Data inválida na atividade ' + (indice + 1) + '. Use AAAA-MM-DD ou null.');
                 }
               });
+              if (dados.status_extracao === 'informacoes_insuficientes') {
+                throw new Error('As fontes não forneceram informações suficientes. O cronograma atual não será substituído por uma extração inconclusiva.');
+              }
 
-              resultadoValidacao.classList.add('sucesso');
+              dadosValidados = {
+                disciplina: oferta.disciplina,
+                periodo: oferta.periodo,
+                status_extracao: dados.status_extracao,
+                atividades: dados.atividades.map(atividade => ({
+                  tipo: atividade.tipo,
+                  titulo: String(atividade.titulo).trim(),
+                  data: atividade.data,
+                  observacao: String(atividade.observacao || '').trim()
+                })),
+                observacoes_gerais: String(dados.observacoes_gerais || '').trim()
+              };
+
               const resumoStatus = {
                 atividades_encontradas: 'Atividades identificadas',
-                nenhuma_atividade_identificada: 'Nenhuma atividade identificada nas fontes',
-                informacoes_insuficientes: 'Informações insuficientes nas fontes'
+                nenhuma_atividade_identificada: 'Nenhuma atividade identificada nas fontes'
               };
+              resultadoValidacao.classList.add('sucesso');
               resultadoValidacao.textContent =
                 'JSON válido. ' + resumoStatus[dados.status_extracao] +
-                '. ' + dados.atividades.length + ' atividade(s) encontrada(s).' +
-                (dados.observacoes_gerais ? '\nObservações: ' + dados.observacoes_gerais : '') +
-                '\nValidação concluída. O envio ao GitHub será habilitado em uma próxima etapa.';
+                '. ' + dados.atividades.length + ' atividade(s).' +
+                (dados.observacoes_gerais ? '\\nObservações: ' + dados.observacoes_gerais : '') +
+                '\\nConfira os dados antes de continuar. A gravação ocorrerá após confirmar a solicitação no GitHub.';
+              botaoEnviar.hidden = false;
             } catch (erro) {
               resultadoValidacao.classList.add('erro');
               resultadoValidacao.textContent = 'Não foi possível validar: ' + erro.message;
             }
           });
 
+          botaoEnviar.addEventListener('click', () => {
+            if (!dadosValidados) return;
+            const corpo = [
+              '### Oferta',
+              oferta.id,
+              '',
+              '### JSON do cronograma',
+              '```json',
+              JSON.stringify(dadosValidados, null, 2),
+              '```'
+            ].join('\\n');
+            const url = new URL('https://github.com/ricardofelippe/Direito-UFPR/issues/new');
+            url.searchParams.set('template', 'importar-cronograma.md');
+            url.searchParams.set('title', '[Importar cronograma] ' + oferta.disciplina + ' — ' + oferta.periodo);
+            url.searchParams.set('body', corpo);
+            window.open(url.toString(), '_blank', 'noopener');
+          });
+
           importacao.appendChild(rotuloJson);
           importacao.appendChild(campoJson);
           importacao.appendChild(botaoValidar);
+          importacao.appendChild(botaoEnviar);
           importacao.appendChild(resultadoValidacao);
           corpoCronograma.appendChild(importacao);
         }
