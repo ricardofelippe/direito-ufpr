@@ -609,6 +609,63 @@
       margin: 16px 0;
     }
 
+    /* Laboratório de Argumentação Jurídica */
+    .laboratorio-introducao {
+      margin: 0 0 18px;
+      padding: 18px;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(25,199,206,.10), var(--superficie));
+    }
+    .laboratorio-introducao h2 {
+      margin: 0 0 8px;
+      color: var(--texto);
+      font-size: 19px;
+    }
+    .laboratorio-introducao p {
+      margin: 6px 0;
+      color: var(--texto-secundario);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .laboratorio-assunto {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 10px;
+      border: 1px solid rgba(25,199,206,.45);
+      border-radius: 7px;
+      color: var(--azul-claro);
+      background: rgba(25,199,206,.08);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .grade-laboratorio {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 14px;
+    }
+    .cartao-laboratorio {
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      background: var(--superficie);
+    }
+    .cartao-laboratorio h3 {
+      margin: 0 0 8px;
+      color: var(--azul-claro);
+      font-size: 15px;
+    }
+    .cartao-laboratorio p {
+      margin: 0;
+      color: var(--texto-secundario);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    @media(max-width:600px) {
+      .grade-laboratorio { grid-template-columns: 1fr; }
+    }
+
     .material-link {
       display: inline-block;
       margin-top: 10px;
@@ -695,6 +752,7 @@
       <button class="aba-disciplina" id="aba-flashcards" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="flashcards">Flashcards</button>
       <button class="aba-disciplina" id="aba-fluxogramas" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="fluxogramas">Fluxogramas</button>
       <button class="aba-disciplina" id="aba-materiais" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="materiais">Materiais</button>
+      <button class="aba-disciplina" id="aba-laboratorio" role="tab" aria-selected="false" aria-controls="painel-disciplina" data-aba="laboratorio">Laboratório</button>
     </nav>
 
     <section id="painel-disciplina" class="painel-aba" role="tabpanel" aria-labelledby="aba-resumos" tabindex="0">
@@ -1387,6 +1445,40 @@
           </div>`;
       }
 
+      function renderizarLaboratorio() {
+        const assuntoAtual = assuntoSelecionado
+          ? (estrutura.assuntos || []).find(item => item.id === assuntoSelecionado) || null
+          : null;
+
+        painel.innerHTML = `
+          <section class="laboratorio-introducao">
+            <h2>Laboratório de Argumentação Jurídica</h2>
+            <p>Espaço de treinamento para desenvolver domínio dos conteúdos, construção de teses, fundamentação, clareza, escrita e expressão oral.</p>
+            <p>Os exercícios serão organizados a partir dos assuntos desta disciplina. O treinamento deverá exigir que você formule seus próprios argumentos, enfrente objeções e aperfeiçoe sua resposta antes de receber uma avaliação.</p>
+            ${assuntoAtual
+              ? `<span class="laboratorio-assunto">Assunto selecionado: ${escapeHTML(assuntoAtual.nome || assuntoAtual.titulo || 'Assunto')}</span>`
+              : '<span class="laboratorio-assunto">Nenhum assunto selecionado — escolha um cartão de assunto acima para direcionar o treinamento.</span>'}
+          </section>
+          <div class="grade-laboratorio">
+            <article class="cartao-laboratorio">
+              <h3>Treinamento oral</h3>
+              <p>Exposição de uma tese em voz alta, organização do raciocínio, resposta a perguntas e aprimoramento da clareza e da segurança argumentativa.</p>
+            </article>
+            <article class="cartao-laboratorio">
+              <h3>Escrita argumentativa</h3>
+              <p>Construção de textos jurídicos com tese, fundamentos, desenvolvimento lógico, enfrentamento de objeções e conclusão.</p>
+            </article>
+            <article class="cartao-laboratorio">
+              <h3>Debate jurídico</h3>
+              <p>Defesa de posições, identificação de premissas, contraposição de argumentos e resposta a críticas em rodadas sucessivas.</p>
+            </article>
+            <article class="cartao-laboratorio">
+              <h3>Minha evolução</h3>
+              <p>Acompanhamento das sessões e dos resultados, com avaliação de domínio jurídico, fundamentação, coerência, persuasão, clareza e expressão.</p>
+            </article>
+          </div>`;
+      }
+
       function renderizarAba() {
         const nomes = {
           resumos: 'Resumos',
@@ -1394,7 +1486,8 @@
           questoes: 'Questões',
           flashcards: 'Flashcards',
           fluxogramas: 'Fluxogramas',
-          materiais: 'Materiais'
+          materiais: 'Materiais',
+          laboratorio: 'Laboratório'
         };
 
         document.querySelectorAll('.aba-disciplina').forEach(botao => {
@@ -1412,6 +1505,8 @@
           renderizarListaConteudos(abaAtual);
         } else if (abaAtual === 'materiais') {
           renderizarMateriais();
+        } else if (abaAtual === 'laboratorio') {
+          renderizarLaboratorio();
         } else {
           mostrarEstado(
             painel,
