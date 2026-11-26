@@ -28,21 +28,21 @@ jobs:
             const fs = require('fs');
             const { execFileSync } = require('child_process');
             const issue = context.payload.issue;
-            const body = (issue.body || '').replace(/\\r/g, '');
+            const body = (issue.body || '').replace(/\r/g, '');
 
             function campo(nome) {
-              const marcador = '### ' + nome + '\\n';
+              const marcador = '### ' + nome + '\n';
               const inicio = body.indexOf(marcador);
               if (inicio < 0) throw new Error('Campo ausente: ' + nome);
               const restante = body.slice(inicio + marcador.length);
-              const fim = restante.indexOf('\\n### ');
+              const fim = restante.indexOf('\n### ');
               return (fim < 0 ? restante : restante.slice(0, fim)).trim();
             }
 
             try {
               const ofertaId = campo('Oferta');
               const jsonCampo = campo('JSON do cronograma');
-              const bloco = jsonCampo.match(/^```(?:json)?\\s*([\\s\\S]*?)\\s*```$/i);
+              const bloco = jsonCampo.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);
               if (!bloco) throw new Error('Não foi encontrado um bloco JSON válido na solicitação.');
 
               const dados = JSON.parse(bloco[1]);
@@ -111,7 +111,7 @@ jobs:
               oferta.observacoes_gerais = String(dados.observacoes_gerais || '').trim();
               oferta.cronograma_atualizado_em = new Date().toISOString();
 
-              fs.writeFileSync(ofertasPath, JSON.stringify(arquivo, null, 2) + '\\n', 'utf8');
+              fs.writeFileSync(ofertasPath, JSON.stringify(arquivo, null, 2) + '\n', 'utf8');
               execFileSync('git', ['config', 'user.name', 'github-actions[bot]']);
               execFileSync('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com']);
               execFileSync('git', ['add', ofertasPath]);
