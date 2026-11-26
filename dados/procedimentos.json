@@ -49,7 +49,15 @@
             "Problema: a ficha oficial não contém algum campo exibido pelo site. Solução: deixe o campo ausente ou vazio. Não invente informação. O site simplesmente não apresenta os campos sem conteúdo.",
             "Problema: a informação encontrada é de uma turma ou professor específico. Solução: não a grave como ficha curricular permanente. Se for atividade com data ou prazo, use o cronograma da oferta; se for plano de ensino específico, mantenha-o associado à oferta correspondente."
           ],
-          "observacao": "Importante: a rotina foi conferida no código atual. direito.html lê dados/estrutura.json e exibe os campos de informacoes_pedagogicas. Não foi identificado workflow/Issue Template específico para editar essa ficha; portanto, não seguir instruções antigas que mencionem formulário ou GitHub Actions para esta operação. A ficha curricular é permanente e distinta do plano de ensino/cronograma de uma oferta. Preserve a fonte oficial e registre somente o que ela sustenta."
+          "observacao": "Importante: a rotina foi conferida no código atual. direito.html lê dados/estrutura.json e exibe os campos de informacoes_pedagogicas. Não foi identificado workflow/Issue Template específico para editar essa ficha; portanto, não seguir instruções antigas que mencionem formulário ou GitHub Actions para esta operação. A ficha curricular é permanente e distinta do plano de ensino/cronograma de uma oferta. Preserve a fonte oficial e registre somente o que ela sustenta.",
+          "fluxo": [
+            "Consultar ficha curricular oficial da UFPR",
+            "Identificar a disciplina pelo código",
+            "Editar informacoes_pedagogicas em dados/estrutura.json",
+            "Validar JSON e revisar o diff",
+            "Commit na branch main",
+            "Aguardar GitHub Pages e conferir direito.html"
+          ]
         },
         {
           "titulo": "Como criar ou editar assuntos da disciplina",
