@@ -1907,7 +1907,13 @@
           const totalCategoria = estrutura.disciplinas.filter(
             disciplina => (disciplina.categoria || 'sem-categoria') === categoria
           ).length;
-          const ordenados = ordenarRegistros(registros);
+          const ordenados = [...registros].sort((a, b) => {
+            const comparacaoAno = compararOrdemCurricular(a, b);
+            if (comparacaoAno && (Number(a.ano) !== Number(b.ano))) return comparacaoAno;
+            const prioridadeA = String(a.status || 'pendente').toLowerCase() === 'ativa' ? 0 : 1;
+            const prioridadeB = String(b.status || 'pendente').toLowerCase() === 'ativa' ? 0 : 1;
+            return prioridadeA - prioridadeB || compararOrdemCurricular(a, b);
+          });
           ordenados.forEach((disciplina, indice) => {
             const numero = String(indice + 1).padStart(2, '0');
             const total = String(totalCategoria).padStart(2, '0');
@@ -1927,7 +1933,6 @@
           });
         });
 
-        const disciplinas = filtrarDisciplinas(estrutura.disciplinas);
         const fragmento = document.createDocumentFragment();
         const anos = [1, 2, 3, 4, 5];
 
