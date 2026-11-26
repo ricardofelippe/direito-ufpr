@@ -522,6 +522,54 @@
       font-size: 12px;
     }
 
+    .formulario-resumo {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 18px;
+      padding: 16px;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      background: var(--superficie);
+    }
+
+    .formulario-resumo label {
+      display: grid;
+      gap: 6px;
+      color: var(--texto);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .formulario-resumo input,
+    .formulario-resumo textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 11px;
+      border: 1px solid var(--borda);
+      border-radius: 7px;
+      color: var(--texto);
+      background: var(--fundo);
+      font: 13px Arial,sans-serif;
+    }
+
+    .formulario-resumo textarea {
+      min-height: 190px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .formulario-resumo .botao-cadastro-conteudo {
+      justify-self: start;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .contexto-resumo {
+      color: var(--texto-suave);
+      font-size: 12px;
+      font-weight: 400;
+    }
+
     .item-conteudo {
       padding: 18px;
       background: var(--superficie);
@@ -1233,7 +1281,7 @@
           : registros;
       }
 
-      function criarLinkCadastroConteudo(tipo) {
+      function criarLinkCadastroConteudo(tipo, dadosFormulario = {}) {
         const assunto = assuntoSelecionado
           ? (estrutura.assuntos || []).find(item => item.id === assuntoSelecionado)
           : null;
@@ -1259,7 +1307,7 @@
           '## Dados do conteúdo',
           '',
           '<!-- TITULO -->',
-          'Digite o título',
+          dadosFormulario.titulo || 'Digite o título',
           ''
         ];
 
@@ -1278,7 +1326,7 @@
           tipo === 'resumos' ? '## Conteúdo do resumo' : '## Conteúdo da revisão',
           '',
           '<!-- CONTEUDO_INICIO -->',
-          'Escreva aqui o conteúdo completo.',
+          dadosFormulario.conteudo || 'Escreva aqui o conteúdo completo.',
           '<!-- CONTEUDO_FIM -->'
         );
 
@@ -1299,7 +1347,27 @@
           return '<p class="orientacao-cadastro-conteudo">Selecione um assunto acima para cadastrar conteúdo já vinculado à disciplina, unidade e assunto.</p>';
         }
 
-        const rotulo = tipo === 'resumos' ? '+ Novo resumo' : '+ Nova revisão de literatura';
+        if (tipo === 'resumos') {
+          const assunto = (estrutura.assuntos || []).find(item => item.id === assuntoSelecionado);
+          return `
+            <form class="formulario-resumo" id="formulario-novo-resumo">
+              <div class="contexto-resumo">
+                Disciplina: ${escapeHTML(disciplinaAtual.nome)} · Assunto: ${escapeHTML(assunto?.nome || 'Selecionado')}
+              </div>
+              <label>
+                Título do resumo
+                <input type="text" name="titulo" maxlength="180" placeholder="Ex.: Conceito e funções do Direito" required>
+              </label>
+              <label>
+                Conteúdo do resumo
+                <textarea name="conteudo" placeholder="Escreva ou cole aqui o conteúdo completo do resumo..." required></textarea>
+              </label>
+              <button class="botao-cadastro-conteudo" type="submit">Enviar para o GitHub</button>
+            </form>
+          `;
+        }
+
+        const rotulo = '+ Nova revisão de literatura';
         return `
           <div class="acoes-cadastro-conteudo">
             <a class="botao-cadastro-conteudo" href="${escapeHTML(link)}" target="_blank" rel="noopener">${rotulo}</a>
@@ -1319,6 +1387,7 @@
                 ? 'Não há conteúdo cadastrado para este assunto nesta seção.'
                 : 'Esta seção está pronta para receber conteúdos. Nenhum registro foi cadastrado ainda.')}</p>
             </div>`;
+          vincularFormularioResumo(tipo);
           return;
         }
 
@@ -1395,6 +1464,28 @@
                 </article>`;
             }).join('')}
           </div>`;
+        vincularFormularioResumo(tipo);
+      }
+
+      function vincularFormularioResumo(tipo) {
+        if (tipo !== 'resumos') return;
+        const formulario = document.getElementById('formulario-novo-resumo');
+        if (!formulario) return;
+
+        formulario.addEventListener('submit', event => {
+          event.preventDefault();
+          const dados = new FormData(formulario);
+          const titulo = String(dados.get('titulo') || '').trim();
+          const conteudo = String(dados.get('conteudo') || '').trim();
+          if (!titulo || !conteudo) return;
+
+          const link = criarLinkCadastroConteudo('resumos', { titulo, conteudo });
+          if (!link) {
+            alert('Selecione um assunto antes de cadastrar o resumo.');
+            return;
+          }
+          window.open(link, '_blank', 'noopener');
+        });
       }
 
       function renderizarMateriais() {
