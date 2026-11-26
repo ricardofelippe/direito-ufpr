@@ -521,11 +521,12 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.26",
+    "versao": "2.27",
     "atualizado_em": "26/11/2026",
-    "resumo": "Refina o posicionamento do troféu dos cartões de disciplinas finalizadas, usando seletor CSS específico para fixá-lo no canto superior direito, no topo do cartão.",
+    "resumo": "Reforça as regras CSS dos ícones vetoriais dos cartões da Visão geral para garantir exibição, tamanho, cor e posicionamento acima dos estilos-base dos cartões.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
+      "Correção adicional em index.html após captura do usuário indicar que as três ilustrações ainda não apareciam na Visão geral. O markup SVG já estava presente no arquivo; foram adicionadas regras CSS mais específicas para `a.metric > span.metric-illustration`, com posicionamento absoluto, display flex, dimensões explícitas, z-index e cores por categoria, inclusive regra específica para o corredor. A publicação visual ainda depende de validação no navegador após atualização forçada.",
       "Ajuste complementar em direito.html: o troféu das disciplinas finalizadas agora usa seletor CSS específico do cartão e posicionamento absoluto no topo direito da área de resumo, com espaçamento em relação ao ícone de expandir. A primeira tentativa de posicionamento não ficou visualmente correta na captura do usuário; esta correção reforça a especificidade CSS.",
       "Barra de busca do currículo em direito.html: alinhamento vertical corrigido. Campo de busca, botões Buscar e Limpar e acionador Filtros padronizados com altura de 36px; painel Filtros alinhado ao topo da linha de controles, evitando a aparência de deslocamento vertical observada na captura enviada.",
       "Identidade visual da Visão geral atualizada em index.html: cartões de disciplinas finalizadas, ativas e pendentes receberam ilustrações vetoriais discretas (troféu dourado, corredor turquesa e calendário âmbar), posicionadas no canto superior direito. Em direito.html, o troféu das disciplinas finalizadas também foi reposicionado no canto superior direito do cartão.",
@@ -546,6 +547,7 @@
       "Última alteração visual nesta etapa: campo de busca de direito.html mantém borda turquesa e realce sutil permanentes, sem mudança de aparência ao receber/perder foco; botões Buscar, Limpar e Filtros continuam alinhados ao lado."
     ],
     "proximos_passos": [
+      "Validar novamente os ícones da Visão geral em index.html após Ctrl+F5. Se ainda não aparecerem, inspecionar no navegador se a versão publicada corresponde ao commit 706a4a38ffeddca9d62d41c2db03a028f7f6d8ca e verificar estilos computados/console antes de novas alterações.",
       "Validar no navegador a posição do troféu no topo direito do cartão finalizado após Ctrl+F5. Confirmar que não se sobrepõe ao ícone de expandir (+) nem ao código/nome.",
       "Validar visualmente a barra de busca em direito.html após Ctrl+F5, especialmente o alinhamento entre campo, Buscar, Limpar e Filtros em desktop e telas estreitas.",
       "Validar visualmente no navegador os três ícones da Visão geral e o troféu no canto superior direito dos cartões de disciplinas finalizadas; conferir responsividade em tela estreita.",
@@ -563,11 +565,11 @@
       "Manter documentação, PDC e PDF sincronizados com alterações efetivamente implementadas; verificar Actions e publicação antes de declarar conclusão."
     ],
     "historico": [
-      "v2.22 — 26/11/2026: incluído no roadmap um mini simulado integrado após a conclusão do Laboratório. Cenário fictício em 2028; seleção aleatória de 80% a 100% das disciplinas/assuntos do período; geração de Planos de Aula simulados com datas de provas e trabalhos; uma disciplina sem PDF para testar ausência documental; execução ponta a ponta dos fluxos do sistema, com dados isolados e identificação de simulação.",
       "v2.23 — 26/11/2026 às 19:27:54 (America/Sao_Paulo, UTC−03:00): PDC passa a registrar data, hora e fuso horário da última atualização; regra incluída para todas as atualizações futuras.",
       "v2.24 — 26/11/2026 às 19:30:06 (America/Sao_Paulo, UTC−03:00): adicionadas ilustrações vetoriais aos cartões da Visão geral (troféu, corredor e calendário) e troféu reposicionado no canto superior direito dos cartões finalizados.",
       "v2.25 — 26/11/2026 às 19:30:54 (America/Sao_Paulo, UTC−03:00): alinhamento vertical da barra de busca do currículo corrigido, com controles padronizados em 36px.",
-      "v2.26 — 26/11/2026 às 19:31:55 (America/Sao_Paulo, UTC−03:00): corrigida a posição do troféu no cartão de disciplina finalizada com seletor CSS específico e posicionamento absoluto no topo direito."
+      "v2.26 — 26/11/2026 às 19:31:55 (America/Sao_Paulo, UTC−03:00): corrigida a posição do troféu no cartão de disciplina finalizada com seletor CSS específico e posicionamento absoluto no topo direito.",
+      "v2.27 — 26/11/2026 às 19:33:21 (America/Sao_Paulo, UTC−03:00): reforçadas regras CSS dos ícones SVG da Visão geral após captura mostrar ausência visual; validação de publicação pendente."
     ],
     "pdf_url": "docs/PDC_Direito_UFPR_v2.20.pdf",
     "conteudo_completo": [
@@ -1003,9 +1005,24 @@
           "Posição: topo 12px; direita 42px.",
           "Validação visual pelo usuário ainda pendente."
         ]
+      },
+      {
+        "titulo": "26. Reforço de exibição dos ícones da Visão geral",
+        "paragrafos": [
+          "Após a captura do usuário mostrar que os ícones de troféu, corredor e calendário não apareciam nos cartões da Visão geral, foi inspecionado o arquivo index.html no branch main. O HTML continha os três SVGs e as classes de ilustração.",
+          "Foi aplicada uma camada adicional de CSS com seletor mais específico `a.metric > span.metric-illustration`, usando `!important` para propriedades essenciais de posição e display, dimensões explícitas, z-index e cores próprias para cada categoria. O corredor recebeu dimensões e posição específicas.",
+          "A alteração foi gravada no GitHub. Não considerar o problema resolvido até que o usuário atualize a página publicada com Ctrl+F5 e confirme visualmente a presença dos três ícones. Se persistir, comparar o commit publicado com o commit de origem e inspecionar estilos computados e eventuais erros de carregamento."
+        ],
+        "itens": [
+          "Troféu dourado — disciplinas finalizadas.",
+          "Corredor turquesa — disciplinas ativas.",
+          "Calendário âmbar — disciplinas pendentes.",
+          "SVGs incorporados no próprio HTML; não dependem de arquivos de imagem externos.",
+          "Status: CSS reforçado no repositório; validação visual ainda pendente."
+        ]
       }
     ],
-    "atualizado_as": "19:31:55",
+    "atualizado_as": "19:33:21",
     "fuso_horario": "America/Sao_Paulo (UTC−03:00)"
   }
 }
