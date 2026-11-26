@@ -446,6 +446,7 @@
 
     .painel-aba {
       padding-top: 22px;
+      scroll-margin-top: 20px;
     }
 
     .estado-disciplina {
@@ -1533,6 +1534,10 @@
         botao.addEventListener('click', () => {
           abaAtual = botao.dataset.aba;
           renderizarAba();
+
+          if (abaAtual === 'laboratorio') {
+            painel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         })
       );
 
