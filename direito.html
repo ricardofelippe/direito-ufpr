@@ -1355,24 +1355,25 @@
         return elemento;
       }
 
-      function ordenarRegistros(registros) {
-        // Prioridade visual: disciplinas ativas aparecem primeiro em cada
-        // categoria/ano. As demais preservam a ordem curricular original.
-        // A numeração fixa (NN/total) é calculada separadamente sobre a
-        // estrutura completa e jamais acompanha esta reorganização visual.
-        return [...registros].sort((a, b) => {
-          const statusA = String(a.status || 'pendente').toLowerCase();
-          const statusB = String(b.status || 'pendente').toLowerCase();
-          const prioridadeA = statusA === 'ativa' ? 0 : 1;
-          const prioridadeB = statusB === 'ativa' ? 0 : 1;
-          if (prioridadeA !== prioridadeB) return prioridadeA - prioridadeB;
+      function compararOrdemCurricular(a, b) {
+        const anoA = a.ano == null || a.ano === '' ? 6 :
+          (Number(a.ano) >= 1 && Number(a.ano) <= 5 ? Number(a.ano) : 7 + Number(a.ano || 0));
+        const anoB = b.ano == null || b.ano === '' ? 6 :
+          (Number(b.ano) >= 1 && Number(b.ano) <= 5 ? Number(b.ano) : 7 + Number(b.ano || 0));
+        const ordemA = Number.isFinite(Number(a.ordem)) ? Number(a.ordem) : 9999;
+        const ordemB = Number.isFinite(Number(b.ordem)) ? Number(b.ordem) : 9999;
+        return anoA - anoB || ordemA - ordemB ||
+          String(a.nome || '').localeCompare(String(b.nome || ''), 'pt-BR');
+      }
 
-          const anoA = a.ano == null || a.ano === '' ? 99 : Number(a.ano);
-          const anoB = b.ano == null || b.ano === '' ? 99 : Number(b.ano);
-          const ordemA = Number.isFinite(Number(a.ordem)) ? Number(a.ordem) : 9999;
-          const ordemB = Number.isFinite(Number(b.ordem)) ? Number(b.ordem) : 9999;
-          return anoA - anoB || ordemA - ordemB ||
-            String(a.nome || '').localeCompare(String(b.nome || ''), 'pt-BR');
+      function ordenarRegistros(registros) {
+        // A ordem dos cartões e a numeração seguem o mesmo critério:
+        // ativos primeiro dentro de cada ano/categoria; depois os demais,
+        // preservando a ordem curricular entre os registros de cada grupo.
+        return [...registros].sort((a, b) => {
+          const prioridadeA = String(a.status || 'pendente').toLowerCase() === 'ativa' ? 0 : 1;
+          const prioridadeB = String(b.status || 'pendente').toLowerCase() === 'ativa' ? 0 : 1;
+          return prioridadeA - prioridadeB || compararOrdemCurricular(a, b);
         });
       }
 
@@ -1890,26 +1891,26 @@
           throw new Error('O arquivo não contém uma lista válida de disciplinas.');
         }
 
-        // A numeração é calculada sobre a estrutura completa, antes dos filtros,
-        // e reiniciada separadamente para cada categoria curricular.
+        const disciplinas = filtrarDisciplinas(estrutura.disciplinas);
+
+        // A numeração acompanha a posição visual efetiva dos cartões.
+        // O numerador é sequencial entre os registros exibidos; o denominador
+        // continua sendo o total completo da categoria (ex.: 01/51).
         const gruposNumeracao = new Map();
-        estrutura.disciplinas.forEach(disciplina => {
+        disciplinas.forEach(disciplina => {
           const categoria = disciplina.categoria || 'sem-categoria';
           if (!gruposNumeracao.has(categoria)) gruposNumeracao.set(categoria, []);
           gruposNumeracao.get(categoria).push(disciplina);
         });
         indicadoresOrdemDisciplinas = new Map();
         gruposNumeracao.forEach((registros, categoria) => {
-          const ordenados = [...registros].sort((a, b) => {
-            const anoA = a.ano == null || a.ano === '' ? 99 : Number(a.ano);
-            const anoB = b.ano == null || b.ano === '' ? 99 : Number(b.ano);
-            const ordemA = Number.isFinite(Number(a.ordem)) ? Number(a.ordem) : 9999;
-            const ordemB = Number.isFinite(Number(b.ordem)) ? Number(b.ordem) : 9999;
-            return anoA - anoB || ordemA - ordemB || String(a.nome || '').localeCompare(String(b.nome || ''), 'pt-BR');
-          });
+          const totalCategoria = estrutura.disciplinas.filter(
+            disciplina => (disciplina.categoria || 'sem-categoria') === categoria
+          ).length;
+          const ordenados = ordenarRegistros(registros);
           ordenados.forEach((disciplina, indice) => {
             const numero = String(indice + 1).padStart(2, '0');
-            const total = String(ordenados.length).padStart(2, '0');
+            const total = String(totalCategoria).padStart(2, '0');
             const unidadesDisciplina = new Set(
               (estrutura.unidades || [])
                 .filter(unidade => unidade.disciplina_id === disciplina.id)
@@ -1921,7 +1922,7 @@
             const rotuloAssuntos = totalAssuntos === 1 ? 'assunto' : 'assuntos';
             indicadoresOrdemDisciplinas.set(disciplina.id, {
               texto: numero + '/' + total + ' — ' + totalAssuntos + ' ' + rotuloAssuntos,
-              ariaLabel: 'Disciplina ' + (indice + 1) + ' de ' + ordenados.length + ' na categoria ' + categoria + ', com ' + totalAssuntos + ' ' + rotuloAssuntos
+              ariaLabel: 'Posição visual ' + (indice + 1) + ' de ' + totalCategoria + ' na categoria ' + categoria + ', com ' + totalAssuntos + ' ' + rotuloAssuntos
             });
           });
         });
