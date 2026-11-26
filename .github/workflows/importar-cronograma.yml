@@ -118,7 +118,9 @@ jobs:
               const alteracoes = execFileSync('git', ['diff', '--cached', '--name-only'], { encoding: 'utf8' }).trim();
               if (alteracoes) {
                 execFileSync('git', ['commit', '-m', 'Importar cronograma: ' + oferta.disciplina + ' ' + oferta.periodo]);
-                execFileSync('git', ['push']);
+                // Sincroniza commits publicados por outros workflows antes de enviar.
+                execFileSync('git', ['pull', '--rebase', 'origin', 'main']);
+                execFileSync('git', ['push', 'origin', 'HEAD:main']);
               }
 
               await github.rest.issues.createComment({
