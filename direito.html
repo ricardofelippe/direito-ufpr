@@ -1809,10 +1809,16 @@
         const resumo = document.getElementById('resumo-filtros-disciplinas');
         if (!resumo) return;
         const filtros = obterFiltrosDisciplinas();
-        const ativos = Object.values(filtros).some(valor => valor !== 'todos');
+        const quantidadeAtivos = Object.values(filtros).filter(valor => valor !== 'todos').length;
+        const ativos = quantidadeAtivos > 0;
         resumo.textContent = ativos
           ? `Exibindo ${total} disciplina(s) conforme os filtros selecionados.`
           : 'Exibindo todas as disciplinas.';
+        const indicador = document.getElementById('indicador-filtros-ativos');
+        if (indicador) {
+          indicador.hidden = !ativos;
+          indicador.textContent = ativos ? (quantidadeAtivos + (quantidadeAtivos === 1 ? ' ativo' : ' ativos')) : '';
+        }
       }
 
       function configurarFiltrosDisciplinas() {
