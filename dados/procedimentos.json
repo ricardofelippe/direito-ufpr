@@ -196,7 +196,7 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "1.0",
+    "versao": "1.1",
     "atualizado_em": "26/11/2026",
     "resumo": "O projeto utiliza GitHub Pages para publicação, arquivos JSON para dados e GitHub Actions para processar operações enviadas pelo site. A Central de Documentação separa o manual de uso cotidiano do registro técnico e plano de retomada.",
     "aviso_pdf": "PDF do PDC: será vinculado aqui após a publicação do arquivo no repositório. Enquanto isso, esta seção apresenta o resumo estruturado do PDC.",
@@ -205,9 +205,11 @@
       "O cronograma é vinculado à oferta da disciplina e ao período letivo. A importação deve aparecer apenas para disciplinas Ativas.",
       "O fluxo do cronograma utiliza NotebookLM, JSON, validação no site e GitHub Actions.",
       "Teoria do Direito 2028/1 contém dados simulados usados nos testes; não tratar como Plano de Ensino oficial.",
-      "A simplificação da Visão geral (retirar Atividades de hoje, Revisões pendentes e Em andamento) foi aprovada e ainda precisa ser implementada/verificada em index.html."
+      "A simplificação da Visão geral (retirar Atividades de hoje, Revisões pendentes e Em andamento) foi aprovada e ainda precisa ser implementada/verificada em index.html.",
+      "Regra permanente de governança documental: toda funcionalidade nova, alteração relevante ou descontinuação deve ser refletida na Central de Documentação. Atualizar os procedimentos afetados, remover ou marcar como descontinuadas as instruções obsoletas e atualizar o PDC com a decisão, o impacto, os arquivos envolvidos e os próximos passos."
     ],
     "proximos_passos": [
+      "Aplicar a regra permanente: revisar a Central de Documentação sempre que uma funcionalidade for criada, alterada ou descontinuada.",
       "Concluir a Central de Documentação e adicionar seu acesso ao painel inicial.",
       "Simplificar a Visão geral e ampliar o calendário conforme decisão registrada.",
       "Conferir e completar os procedimentos de informações pedagógicas, assuntos e materiais com os fluxos exatos do repositório.",
@@ -215,7 +217,8 @@
       "Gerar e publicar o PDF vigente do PDC."
     ],
     "historico": [
-      "v1.0 — 26/11/2026: criação da estrutura inicial da Central de Documentação, com manual operacional e resumo do PDC."
+      "v1.0 — 26/11/2026: criação da estrutura inicial da Central de Documentação, com manual operacional e resumo do PDC.",
+      "v1.1 — 26/11/2026: inclusão da regra permanente de atualização da Central de Documentação para funcionalidades novas, alteradas ou descontinuadas."
     ]
   }
 }
