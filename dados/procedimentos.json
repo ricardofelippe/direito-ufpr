@@ -1,0 +1,221 @@
+{
+  "categorias": [
+    {
+      "titulo": "1. Disciplinas e currículo",
+      "procedimentos": [
+        {
+          "titulo": "Como atualizar informações pedagógicas",
+          "objetivo": "Atualizar as informações oficiais da disciplina com base na ficha curricular da UFPR.",
+          "passos": [
+            "Localize a disciplina na página do currículo.",
+            "Consulte a ficha oficial da UFPR e identifique os campos que precisam de atualização.",
+            "Confirme o arquivo e o fluxo de cadastro vigentes antes de editar.",
+            "Atualize somente informações confirmadas na fonte oficial, preservando os demais dados.",
+            "Publique e confira as informações no cartão da disciplina."
+          ],
+          "arquivos": [
+            "dados/estrutura.json",
+            "direito.html"
+          ]
+        },
+        {
+          "titulo": "Como adicionar, editar ou excluir assuntos da disciplina",
+          "objetivo": "Manter a organização de unidades e assuntos.",
+          "passos": [
+            "Localize a disciplina e a unidade correspondente.",
+            "Use o fluxo de gerenciamento de assuntos disponível no site.",
+            "Para editar, confirme o identificador do assunto antes de alterar seus dados.",
+            "Para excluir, verifique se há conteúdos ou registros de progresso vinculados.",
+            "Acompanhe o GitHub Actions e confira a contagem de assuntos no site."
+          ],
+          "arquivos": [
+            "dados/estrutura.json",
+            "direito.html"
+          ],
+          "observacao": "Antes de excluir, confirmar os vínculos e o fluxo vigente. Não editar diretamente o JSON sem preservar os dados associados."
+        },
+        {
+          "titulo": "Como alterar o status de uma disciplina",
+          "objetivo": "Atualizar a situação administrativa da disciplina.",
+          "passos": [
+            "Localize o cartão da disciplina.",
+            "Use o seletor de status abaixo do cartão.",
+            "Escolha a situação desejada e envie a solicitação.",
+            "Acompanhe o GitHub Actions e confira o status no site."
+          ],
+          "arquivos": [
+            "direito.html",
+            "dados/estrutura.json"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "2. Cronograma acadêmico",
+      "procedimentos": [
+        {
+          "titulo": "Como cadastrar ou atualizar o cronograma previsto",
+          "objetivo": "Extrair atividades do Plano de Ensino no NotebookLM e registrá-las na oferta correta.",
+          "pre_requisitos": [
+            "Plano de Ensino atualizado nas fontes do NotebookLM.",
+            "Disciplina com status Ativa.",
+            "Período letivo correto no formato AAAA/S."
+          ],
+          "passos": [
+            "Abra o NotebookLM da disciplina e confira se o Plano de Ensino mais recente está carregado.",
+            "Execute o prompt abaixo, substituindo o nome do arquivo pelo nome exato da fonte.",
+            "Confira se disciplina e período no JSON correspondem ao cartão e à oferta.",
+            "Verifique se as datas estão em AAAA-MM-DD ou null; não use DD/MM/AAAA no JSON.",
+            "No site, abra o cartão da disciplina ativa e expanda Cronograma previsto de atividades.",
+            "Se ainda não houver oferta, informe o período letivo. Cole o JSON e clique em Validar JSON.",
+            "Confira o resultado e clique em Continuar para salvar no GitHub.",
+            "Envie a solicitação criada no GitHub e acompanhe o GitHub Actions.",
+            "Atualize o site com Ctrl + F5 e confira o cronograma no cartão e as atividades no calendário."
+          ],
+          "arquivos": [
+            "dados/ofertas.json",
+            ".github/workflows/importar-cronograma.yml",
+            ".github/ISSUE_TEMPLATE/importar-cronograma.md",
+            "direito.html",
+            "index.html"
+          ],
+          "prompt": "Analise o Plano de Ensino [NOME EXATO DO ARQUIVO]. Extraia somente provas, trabalhos, seminários, apresentações, entregas e outras atividades acadêmicas específicas. Não inclua aulas ou leituras comuns. Não invente dados. Use datas AAAA-MM-DD ou null se não houver data. Ordene por data, deixando atividades sem data ao final. Se nenhuma atividade for identificada, use lista vazia. Se as fontes forem insuficientes, informe isso. Responda somente com JSON válido no formato combinado: disciplina, periodo, status_extracao, atividades (tipo, titulo, data, observacao) e observacoes_gerais."
+        },
+        {
+          "titulo": "Como corrigir uma atividade do cronograma",
+          "objetivo": "Corrigir título, data, tipo ou observação de uma atividade cadastrada.",
+          "passos": [
+            "Identifique a oferta correta (disciplina e período).",
+            "Prepare um JSON atualizado com todas as atividades que devem permanecer na oferta.",
+            "Use o campo de importação do cronograma no cartão ativo e valide o JSON.",
+            "Confira se a lista está completa antes de enviar.",
+            "Envie a solicitação e confira o resultado no GitHub Actions e no calendário."
+          ],
+          "observacao": "Até confirmar o comportamento exato do workflow, trate a importação como atualização da lista da oferta inteira. Não envie uma lista parcial sem verificar."
+        }
+      ]
+    },
+    {
+      "titulo": "3. Materiais e biblioteca",
+      "procedimentos": [
+        {
+          "titulo": "Como cadastrar ou substituir um PDF",
+          "objetivo": "Adicionar um documento à biblioteca ou associá-lo a uma disciplina.",
+          "passos": [
+            "Abra a área de cadastro de materiais.",
+            "Preencha os campos solicitados e selecione o PDF.",
+            "Confira título, disciplina, categoria e descrição.",
+            "Envie a solicitação e acompanhe o GitHub Actions.",
+            "Confira o documento na biblioteca e teste o link."
+          ],
+          "arquivos": [
+            "documentos.json",
+            "biblioteca.html"
+          ],
+          "observacao": "Para substituir arquivo existente, use o fluxo específico e confirme se os vínculos serão preservados."
+        },
+        {
+          "titulo": "Como excluir um material",
+          "objetivo": "Remover um cadastro sem deixar referências quebradas.",
+          "passos": [
+            "Localize o material e confirme título, caminho e disciplina vinculada.",
+            "Verifique a opção de exclusão no fluxo de gerenciamento de PDFs.",
+            "Envie a solicitação e acompanhe o GitHub Actions.",
+            "Confira se o material deixou de aparecer e se os demais documentos continuam acessíveis."
+          ],
+          "arquivos": [
+            "documentos.json",
+            "biblioteca.html"
+          ],
+          "observacao": "Não exclua arquivos diretamente sem conferir os vínculos em documentos.json."
+        }
+      ]
+    },
+    {
+      "titulo": "4. Estudos e conteúdos",
+      "procedimentos": [
+        {
+          "titulo": "Como atualizar o progresso de um assunto",
+          "objetivo": "Registrar a situação de estudo de um assunto.",
+          "passos": [
+            "Abra o ambiente de estudos da disciplina.",
+            "Localize o assunto e altere os indicadores disponíveis.",
+            "Confira os valores antes de salvar.",
+            "Envie a solicitação e acompanhe o GitHub Actions.",
+            "Confira o estado atualizado no cartão do assunto."
+          ],
+          "arquivos": [
+            "dados/progresso.json",
+            "disciplina.html"
+          ],
+          "observacao": "Confira a interface publicada antes de usar instruções antigas sobre datas de estudo e revisão."
+        },
+        {
+          "titulo": "Como cadastrar ou atualizar resumos e conteúdos",
+          "objetivo": "Adicionar ou corrigir conteúdos associados a um assunto.",
+          "passos": [
+            "Localize a disciplina e o assunto ao qual o conteúdo pertence.",
+            "Use o fluxo de cadastro ou importação disponível no ambiente de estudos.",
+            "Confira o identificador do assunto e o conteúdo antes de enviar.",
+            "Acompanhe o GitHub Actions e confira o conteúdo no ambiente de estudos."
+          ],
+          "arquivos": [
+            "dados/conteudos.json"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "5. Administração e manutenção",
+      "procedimentos": [
+        {
+          "titulo": "Como verificar uma execução do GitHub Actions",
+          "objetivo": "Confirmar se uma solicitação enviada pelo site foi processada.",
+          "passos": [
+            "Abra o repositório ricardofelippe/Direito-UFPR no GitHub.",
+            "Acesse a aba Actions.",
+            "Localize a execução iniciada no horário do envio ou abra a Issue correspondente.",
+            "Confira se o resultado está como success ou failure.",
+            "Se falhar, abra a execução, identifique a etapa com erro e copie a mensagem completa antes de tentar novamente."
+          ]
+        },
+        {
+          "titulo": "Como solicitar uma alteração no site",
+          "objetivo": "Manter mudanças pequenas, rastreáveis e testadas.",
+          "passos": [
+            "Descreva o comportamento atual e o comportamento esperado.",
+            "Identifique arquivos de interface, dados, workflow e modelo de Issue envolvidos.",
+            "Consulte a versão atual dos arquivos no GitHub antes de editar.",
+            "Faça uma alteração pequena por vez e preserve os dados existentes.",
+            "Publique, aguarde os workflows aplicáveis e teste no site com Ctrl + F5.",
+            "Atualize este manual e o PDC quando a mudança alterar uma rotina ou decisão."
+          ]
+        }
+      ]
+    }
+  ],
+  "pdc": {
+    "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
+    "versao": "1.0",
+    "atualizado_em": "26/11/2026",
+    "resumo": "O projeto utiliza GitHub Pages para publicação, arquivos JSON para dados e GitHub Actions para processar operações enviadas pelo site. A Central de Documentação separa o manual de uso cotidiano do registro técnico e plano de retomada.",
+    "aviso_pdf": "PDF do PDC: será vinculado aqui após a publicação do arquivo no repositório. Enquanto isso, esta seção apresenta o resumo estruturado do PDC.",
+    "estado": [
+      "Arquivos centrais conhecidos: index.html, direito.html, dados/estrutura.json, dados/progresso.json, dados/conteudos.json, dados/ofertas.json e documentos.json.",
+      "O cronograma é vinculado à oferta da disciplina e ao período letivo. A importação deve aparecer apenas para disciplinas Ativas.",
+      "O fluxo do cronograma utiliza NotebookLM, JSON, validação no site e GitHub Actions.",
+      "Teoria do Direito 2028/1 contém dados simulados usados nos testes; não tratar como Plano de Ensino oficial.",
+      "A simplificação da Visão geral (retirar Atividades de hoje, Revisões pendentes e Em andamento) foi aprovada e ainda precisa ser implementada/verificada em index.html."
+    ],
+    "proximos_passos": [
+      "Concluir a Central de Documentação e adicionar seu acesso ao painel inicial.",
+      "Simplificar a Visão geral e ampliar o calendário conforme decisão registrada.",
+      "Conferir e completar os procedimentos de informações pedagógicas, assuntos e materiais com os fluxos exatos do repositório.",
+      "Documentar as rotinas restantes de cadastro, edição e exclusão.",
+      "Gerar e publicar o PDF vigente do PDC."
+    ],
+    "historico": [
+      "v1.0 — 26/11/2026: criação da estrutura inicial da Central de Documentação, com manual operacional e resumo do PDC."
+    ]
+  }
+}
