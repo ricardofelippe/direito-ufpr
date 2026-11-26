@@ -245,8 +245,10 @@
         renderizarCalendario();
       } catch(erro) {
         console.error(erro);
-        $('atualizacao-dados').textContent='Não foi possível carregar os indicadores. Verifique a publicação dos arquivos JSON.';
-        $('atualizacao-dados').className='error';
+        ['total-finalizadas','total-ativas','total-pendentes'].forEach(id => {
+          const indicador = $(id);
+          if (indicador) indicador.textContent = '—';
+        });
         $('calendar-events').textContent='Calendário indisponível no momento.';
       }
     })();
