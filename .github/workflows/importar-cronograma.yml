@@ -96,7 +96,7 @@ jobs:
               const arquivo = JSON.parse(fs.readFileSync(ofertasPath, 'utf8'));
               if (!Array.isArray(arquivo.ofertas)) throw new Error('Formato inválido em dados/ofertas.json.');
               const correspondentes = arquivo.ofertas.filter(item => item.id === ofertaId);
-              if (correspondentes.length !== 1) throw new Error('Oferta não encontrada ou duplicada: ' + ofertaId);
+              if (correspondentes.length > 1) throw new Error('Oferta duplicada: ' + ofertaId);
               let oferta;
               if (correspondentes.length === 1) {
                 oferta = correspondentes[0];
