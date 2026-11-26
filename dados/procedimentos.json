@@ -196,10 +196,10 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.0",
+    "versao": "2.1",
     "atualizado_em": "26/11/2026",
-    "resumo": "Documento de transição técnica e operacional para retomada em outra conversa ou IA: objetivo, arquitetura, decisões, regras de negócio, fluxos verificados, limitações, estado atual e instruções de continuidade.",
-    "aviso_pdf": "PDC completo — versão 2.0. Use o link abaixo para abrir ou baixar o PDF.",
+    "resumo": "Registro mestre de decisões e transição técnica. Consolida entendimentos de todas as etapas, decisões vigentes, decisões substituídas, arquitetura, fluxos, estado verificado e instruções para outra conversa ou IA.",
+    "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Repositório: ricardofelippe/Direito-UFPR; publicação: https://ricardofelippe.github.io/Direito-UFPR/; branch principal conhecida: main.",
       "Arquivos centrais: index.html, direito.html, disciplina.html, biblioteca.html, cadastro.html, procedimentos.html, dados/estrutura.json, dados/progresso.json, dados/conteudos.json, dados/ofertas.json, dados/procedimentos.json e documentos.json.",
@@ -209,8 +209,8 @@
       "Modelo híbrido aprovado: NotebookLM concentra geração de questões e flashcards; o site organiza, armazena e acompanha os estudos.",
       "A simplificação da Visão geral foi aprovada, mas index.html ainda contém quatro indicadores e o painel Atividades de hoje; implementação pendente.",
       "A regra permanente exige atualizar a Central e o PDC em toda funcionalidade nova, alteração relevante ou descontinuação.",
-      "A captura da Central exibiu versão 1.0 embora o JSON contivesse 1.1; conferir cache/publicação e exibição dinâmica da versão.",
-      "O PDF integral v2.0 deve estar disponível em docs/PDC_Direito_UFPR_v2.0.pdf."
+      "O PDF integral v2.0 deve estar disponível em docs/PDC_Direito_UFPR_v2.0.pdf.",
+      "A versão 2.1 consolida entendimentos históricos recuperados das etapas anteriores e diferencia decisões vigentes de propostas antigas ou substituídas."
     ],
     "proximos_passos": [
       "Validar a Central publicada, sua versão e o link para o PDF integral.",
@@ -222,7 +222,8 @@
     "historico": [
       "v1.0 — 26/11/2026: criação da estrutura inicial da Central de Documentação, com manual operacional e resumo do PDC.",
       "v1.1 — 26/11/2026: inclusão da regra permanente de atualização da Central de Documentação para funcionalidades novas, alteradas ou descontinuadas.",
-      "v2.0 — 26/11/2026: PDC ampliado para documento de transição técnica e operacional, com arquitetura, decisões, fluxos, limitações, estado e instruções de retomada."
+      "v2.0 — 26/11/2026: PDC ampliado para documento de transição técnica e operacional, com arquitetura, decisões, fluxos, limitações, estado e instruções de retomada.",
+      "v2.1 — 26/11/2026: consolidação de entendimentos históricos das etapas anteriores, registro de decisões substituídas, regras de trabalho com IA e orientação para seleção/cópia integral do PDC na página."
     ],
     "pdf_url": "docs/PDC_Direito_UFPR_v2.0.pdf",
     "conteudo_completo": [
@@ -420,6 +421,58 @@
           "v1.1 — 26/11/2026: regra permanente de governança documental.",
           "v2.0 — 26/11/2026: consolidação do PDC como documento completo de transição, com arquitetura, decisões, fluxos verificados, limites, estado e instruções de retomada.",
           "Este documento deve ser atualizado sempre que o sistema, suas regras ou sua arquitetura mudarem."
+        ]
+      },
+      {
+        "titulo": "13. Histórico consolidado de entendimentos e decisões das etapas anteriores",
+        "paragrafos": [
+          "O projeto foi desenvolvido de forma incremental, com retomadas em diferentes conversas. As decisões abaixo devem ser consideradas parte do contexto permanente, ainda que a conversa atual não contenha todo o histórico. Em caso de divergência, prevalecem a decisão explícita mais recente do usuário e o comportamento efetivamente verificado no repositório.",
+          "O objetivo é uma biblioteca e plataforma pessoal de acompanhamento do currículo de Direito da UFPR, publicada exclusivamente pelo GitHub Pages. O usuário quer manter o projeto no ecossistema GitHub, com arquivos JSON, GitHub Actions e Issues como mecanismo de registro de operações. Não migrar a publicação para Vercel nem introduzir infraestrutura alternativa sem autorização.",
+          "A plataforma foi concebida para apoiar um percurso de longo prazo no curso, com organização por disciplinas, unidades e assuntos, materiais, conteúdos de estudo, progresso e calendário. O planejamento do curso foi discutido para o período 2028–2033, mas não significa que todas as disciplinas tenham ofertas ou datas oficiais cadastradas.",
+          "Foi estabelecida uma rotina de estudo de referência de 30 minutos por dia. Essa informação é contexto de planejamento, não deve virar uma obrigação rígida nem gerar métricas ou alertas intrusivos.",
+          "As fichas curriculares oficiais da UFPR são a fonte de referência para dados curriculares. Preservar códigos e identificadores existentes. A estrutura curricular e o progresso são responsabilidades separadas: dados/estrutura.json descreve o currículo; dados/progresso.json registra acompanhamento. Não confundir status administrativo da disciplina (por exemplo, Ativa) com progresso de aprendizagem.",
+          "Na auditoria curricular anterior foram registrados 71 disciplinas, 75 unidades e 310 assuntos; em uma etapa foi informado que o primeiro ano estava concluído com 9 disciplinas. Os números podem mudar conforme a estrutura evolua; sempre conferir o JSON atual antes de tratá-los como totais vigentes.",
+          "O projeto passou por discussão de registros com múltiplas datas de estudo, histórico editável/excluível e histórico de revisões. Também houve correção de exclusão de uma sessão de 24/11/2026, preservando o registro de 25/11/2026 e uma data de revisão de 01/12/2026. Esses registros históricos devem ser preservados nos dados. Posteriormente, o usuário priorizou simplificar a interface e reduzir a carga administrativa, retirando do escopo inicial visualizações/rotinas de datas de estudo e revisão. Não apagar os dados existentes por causa da simplificação visual.",
+          "A arquitetura híbrida aprovada atribui ao NotebookLM a geração de questões e flashcards a partir das fontes fornecidas pelo usuário; o site fica responsável por organizar disciplinas, materiais, resumos, progresso e acompanhamento. O site não deve duplicar desnecessariamente as funções de geração já realizadas no NotebookLM.",
+          "Foram desenvolvidos fluxos para biblioteca e cadastro de materiais, organização de documentos por disciplina/categoria e consulta de PDFs. O usuário quer evitar materiais duplicados, manter links contextuais entre disciplina e biblioteca e simplificar o cadastro, incluindo seleção de PDF de pastas locais quando o fluxo vigente oferecer esse recurso. Confirmar a implementação atual antes de descrever detalhes operacionais.",
+          "Foram discutidas páginas e áreas: index.html como entrada/painel; direito.html como currículo; disciplina.html como ambiente da disciplina; biblioteca.html e cadastro.html para materiais; Central de Documentação como manual e PDC. Uma página planejamento.html foi considerada em arquitetura anterior, mas não deve ser presumida como existente ou ativa sem verificar o repositório.",
+          "O painel inicial deve ser simples. Decisão mais recente aprovada: retirar os indicadores 'Atividades de hoje', 'Revisões pendentes' e 'Em andamento', manter 'Assuntos concluídos' e 'Disciplinas ativas' e ampliar o calendário acadêmico para ocupar o espaço. Essa alteração foi aprovada, mas o estado de implementação deve ser conferido no index.html antes de considerar concluída.",
+          "Preferências de interface já discutidas: estilo acadêmico/institucional; tema escuro; cores coerentes entre páginas; cartões objetivos e menores; filtros acionados quando necessários; cartões de disciplina expansíveis para descrição, código e status; códigos das disciplinas visíveis; materiais obrigatórios destacados conforme a classificação correta; evitar duplicações e textos genéricos como 'Descrição não cadastrada', preferindo 'Informações pedagógicas'.",
+          "Foram discutidas informações pedagógicas, assuntos, datas de estudo e revisão, cronogramas de oferta, histórico, materiais obrigatórios, busca curricular, filtros por disciplina e categoria, e integração do calendário com datas previstas. Essas decisões devem ser tratadas como requisitos históricos; a implementação atual de cada uma precisa ser confirmada no código antes de orientar o usuário."
+        ]
+      },
+      {
+        "titulo": "14. Decisões substituídas, obsoletas ou que exigem confirmação",
+        "itens": [
+          "Planos anteriores de adicionar novas plataformas de hospedagem ou serviços externos não estão vigentes: a publicação definida é GitHub Pages.",
+          "Propostas antigas de uma página planejamento.html e de um sistema mais amplo de revisões/relatórios não são automaticamente requisitos atuais. Verificar se foram implementadas e se continuam desejadas.",
+          "A ideia inicial de registrar detalhadamente datas de estudo e revisão foi posteriormente simplificada na interface. Preservar históricos existentes; não reintroduzir controles visuais removidos sem nova aprovação.",
+          "Indicadores 'Atividades de hoje', 'Revisões pendentes' e 'Em andamento' devem ser removidos da Visão geral conforme decisão mais recente; manter 'Assuntos concluídos' e 'Disciplinas ativas' e ampliar o calendário. Enquanto não houver confirmação no site, registrar como aprovado e pendente, não como implementado.",
+          "Qualquer procedimento genérico do Manual Operacional que não tenha sido confrontado com o formulário, workflow e código atuais deve ser marcado como pendente de validação. Não apresentar suposições como instruções confirmadas.",
+          "Dados de teste, especialmente a oferta teoria-do-direito-2028-1, não são dados oficiais de oferta nem cronograma real. Nunca misturar simulações com atividades acadêmicas oficiais."
+        ]
+      },
+      {
+        "titulo": "15. Regras de trabalho entre usuário e IA",
+        "itens": [
+          "Conduzir o desenvolvimento em passos curtos e sequenciais: explicar o objetivo da alteração, identificar os arquivos envolvidos, realizar uma mudança, pedir que o usuário teste e aguardar confirmação antes de avançar.",
+          "Não despejar listas extensas de tarefas nem fazer várias mudanças independentes em uma única etapa. O usuário prefere implementação acompanhada e confirmação a cada passo.",
+          "Quando o usuário disser 'vamos continuar' ou retomar uma etapa, recuperar o histórico e o estado real do repositório antes de pedir que repita informações já conhecidas.",
+          "Antes de editar arquivo existente: buscar conteúdo e SHA atuais; nunca trabalhar sobre cópia antiga. Para atualizações sucessivas do mesmo arquivo, executar em sequência.",
+          "Preservar todos os dados e identificadores. Não substituir JSON completo por exemplos, não apagar histórico e não fazer migrações destrutivas sem explicar consequências e obter autorização.",
+          "Após cada mudança: validar sintaxe JSON/HTML, conferir os arquivos e workflows relacionados, verificar execução do GitHub Actions e orientar teste publicado com Ctrl+F5.",
+          "Separar explicitamente: decisão aprovada, implementação realizada, implementação testada, pendência e hipótese. Não dizer que algo está concluído apenas porque o código foi alterado.",
+          "Em toda funcionalidade nova, alteração relevante ou descontinuação, atualizar na mesma etapa a Central de Documentação, os procedimentos afetados, este PDC e o PDF. Marcar entendimentos obsoletos como substituídos, preservando o histórico e registrando qual decisão mais recente prevalece.",
+          "Este PDC é o registro mestre de continuidade, mas não substitui a leitura do repositório. A próxima IA deve conferir código, JSON, workflows e Issues atuais antes de fazer qualquer alteração."
+        ]
+      },
+      {
+        "titulo": "16. Como tratar a evolução e obsolescência dos entendimentos",
+        "paragrafos": [
+          "Não apagar silenciosamente uma decisão antiga. Quando um entendimento mudar, registrar a decisão anterior como substituída, indicar a nova decisão, data aproximada ou versão, motivo quando conhecido e impacto nos arquivos/funcionalidades.",
+          "Manter no início de cada seção a regra vigente. O histórico deve ficar em seção própria para não confundir uma decisão antiga com uma instrução atual.",
+          "Se não for possível determinar se uma decisão ainda está vigente, identificá-la como 'a confirmar' e consultar o usuário antes de alterar comportamento. Nunca resolver lacunas inventando uma decisão.",
+          "Antes de encerrar cada etapa, comparar o que foi pedido, o que foi implementado e o que foi testado; atualizar o estado do projeto e gerar novamente o PDF a partir deste mesmo conteúdo estruturado."
         ]
       }
     ]
