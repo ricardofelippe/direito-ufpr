@@ -9,7 +9,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, ListFlowabl
 with open("dados/procedimentos.json", encoding="utf-8") as f:
     data = json.load(f)
 pdc = data["pdc"]
-out = pdc.get("pdf_url", "docs/PDC_Direito_UFPR_v2.0.pdf")
+out = pdc.get("pdf_url", "docs/PDC_Direito_UFPR_v2.1.pdf")
 os.makedirs(os.path.dirname(out), exist_ok=True)
 styles = getSampleStyleSheet()
 styles.add(ParagraphStyle(name="CoverX", parent=styles["Title"], fontSize=20, leading=25, alignment=TA_CENTER, textColor=colors.HexColor("#12304a"), spaceAfter=12))
