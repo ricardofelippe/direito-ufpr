@@ -21,6 +21,7 @@
     .metric{display:block;padding:17px 18px;border-top:3px solid var(--azul, #19c7ce);color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}.metric[href]:hover{border-color:var(--gold);transform:translateY(-2px)}.metric[href]:focus-visible{outline:2px solid var(--navy2);outline-offset:3px}.metric .number{font:30px Georgia,serif;color:var(--gold);display:block}.metric .label{font:12px Arial,sans-serif;color:var(--muted)}
     .columns{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.panel{padding:19px}.panel h3{font-size:16px;font-weight:normal;color:#c3d0df;margin:0 0 12px}
     .agenda-item{display:block;padding:11px 0;border-top:1px solid var(--line);color:inherit;text-decoration:none}.agenda-item:first-of-type{border-top:0}.agenda-item[href]:hover strong{color:var(--gold);text-decoration:underline}.agenda-item[href]:focus-visible{outline:2px solid var(--navy2);outline-offset:3px}.tag{display:inline-block;font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:.07em;color:#bfeff0;background:var(--blue-soft);padding:3px 7px;margin-right:7px}
+    .calendar-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.calendar-month{font:17px Georgia,serif;color:var(--ink);text-transform:capitalize}.calendar-nav{display:flex;gap:6px}.calendar-nav button{border:1px solid var(--line);background:var(--navy);color:var(--gold);border-radius:4px;padding:5px 10px;cursor:pointer}.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.calendar-weekday{text-align:center;color:var(--muted);font:10px Arial,sans-serif;padding:4px 0}.calendar-day{min-height:34px;border:1px solid transparent;border-radius:4px;background:transparent;color:var(--ink);font:12px Arial,sans-serif;cursor:pointer;position:relative}.calendar-day:hover,.calendar-day:focus-visible{border-color:var(--gold);outline:none}.calendar-day.outside{opacity:.28}.calendar-day.today{border-color:var(--muted)}.calendar-day.selected{background:var(--blue-soft);border-color:var(--gold);font-weight:bold}.calendar-day.has-events:after{content:"";position:absolute;width:5px;height:5px;border-radius:50%;background:var(--gold);bottom:3px;left:calc(50% - 2.5px)}.calendar-events{margin-top:16px;border-top:1px solid var(--line);padding-top:10px}.calendar-events h4{margin:0 0 8px;color:#c3d0df;font-size:13px;font-weight:normal}.calendar-event{padding:8px 0;border-top:1px solid var(--line)}.calendar-event:first-of-type{border-top:0}.calendar-event strong{display:block;font-size:13px}.calendar-event .muted{font-size:11px}.calendar-weight{color:#f2d17e;font-weight:bold}
     .muted{color:var(--muted);font-size:13px}.shortcuts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
     .shortcut{padding:18px;text-decoration:none;transition:border-color .15s,transform .15s}.shortcut:hover{border-color:var(--navy2);transform:translateY(-2px)}
     .shortcut .symbol{font:22px Georgia,serif;color:var(--gold)}.shortcut strong{display:block;color:var(--ink);font-size:17px;font-weight:normal;margin:7px 0 3px}.shortcut span:last-child{font:12px Arial,sans-serif;color:var(--muted)}
@@ -61,8 +62,16 @@
           <div id="agenda-hoje"><p class="muted">Carregando agenda…</p></div>
         </div>
         <div class="panel">
-          <h3>Próximas revisões</h3>
-          <div id="proximas-revisoes"><p class="muted">Carregando revisões…</p></div>
+          <h3>Calendário acadêmico</h3>
+          <div class="calendar-head">
+            <strong class="calendar-month" id="calendar-month">Carregando…</strong>
+            <div class="calendar-nav">
+              <button type="button" id="calendar-prev" aria-label="Mês anterior">‹</button>
+              <button type="button" id="calendar-next" aria-label="Próximo mês">›</button>
+            </div>
+          </div>
+          <div class="calendar-grid" id="calendar-grid" aria-label="Calendário mensal"></div>
+          <div class="calendar-events" id="calendar-events"><p class="muted">Carregando atividades…</p></div>
         </div>
       </div>
     </section>
@@ -103,18 +112,68 @@
         const detalhe = document.createElement('div'); detalhe.className='muted'; detalhe.textContent=disciplina + (data ? ' · ' + formatar(data) : '');
         item.append(tag,strong,detalhe); alvo.appendChild(item);
       };
+      let eventosCalendario = [];
+      let mesExibido = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+      let dataSelecionada = isoHoje;
+      const nomeMes = data => data.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+      const renderizarEventosSelecionados = () => {
+        const area = $('calendar-events');
+        area.replaceChildren();
+        const titulo = document.createElement('h4');
+        titulo.textContent = 'Atividades de ' + formatar(dataSelecionada);
+        area.appendChild(titulo);
+        const doDia = eventosCalendario.filter(x=>x.data===dataSelecionada);
+        if(!doDia.length){
+          const msg=document.createElement('p');msg.className='muted';msg.textContent='Nenhuma atividade prevista para esta data.';area.appendChild(msg);return;
+        }
+        doDia.forEach(evento=>{
+          const item=document.createElement('div');item.className='calendar-event';
+          const tipo=document.createElement('span');tipo.className='tag';tipo.textContent=evento.tipo;
+          const tituloEvento=document.createElement('strong');tituloEvento.textContent=evento.titulo;
+          const detalhe=document.createElement('div');detalhe.className='muted';
+          detalhe.textContent=evento.disciplina+(evento.peso?' · Peso '+evento.peso+'%':'');
+          item.append(tipo,tituloEvento,detalhe);area.appendChild(item);
+        });
+      };
+      const renderizarCalendario = () => {
+        $('calendar-month').textContent=nomeMes(mesExibido);
+        const grid=$('calendar-grid');grid.replaceChildren();
+        ['D','S','T','Q','Q','S','S'].forEach(d=>{
+          const el=document.createElement('div');el.className='calendar-weekday';el.textContent=d;grid.appendChild(el);
+        });
+        const primeiro=new Date(mesExibido.getFullYear(),mesExibido.getMonth(),1);
+        const inicio=new Date(primeiro);inicio.setDate(1-primeiro.getDay());
+        const datasComEvento=new Set(eventosCalendario.map(x=>x.data));
+        for(let i=0;i<42;i++){
+          const dia=new Date(inicio);dia.setDate(inicio.getDate()+i);
+          const iso=[dia.getFullYear(),String(dia.getMonth()+1).padStart(2,'0'),String(dia.getDate()).padStart(2,'0')].join('-');
+          const botao=document.createElement('button');botao.type='button';botao.className='calendar-day';botao.textContent=dia.getDate();
+          if(dia.getMonth()!==mesExibido.getMonth())botao.classList.add('outside');
+          if(iso===isoHoje)botao.classList.add('today');
+          if(iso===dataSelecionada)botao.classList.add('selected');
+          if(datasComEvento.has(iso))botao.classList.add('has-events');
+          botao.setAttribute('aria-label',formatar(iso)+(datasComEvento.has(iso)?', possui atividades':''));
+          botao.addEventListener('click',()=>{dataSelecionada=iso;mesExibido=new Date(dia.getFullYear(),dia.getMonth(),1);renderizarCalendario();renderizarEventosSelecionados();});
+          grid.appendChild(botao);
+        }
+        renderizarEventosSelecionados();
+      };
+      $('calendar-prev').addEventListener('click',()=>{mesExibido.setMonth(mesExibido.getMonth()-1);dataSelecionada=[mesExibido.getFullYear(),String(mesExibido.getMonth()+1).padStart(2,'0'),'01'].join('-');renderizarCalendario();});
+      $('calendar-next').addEventListener('click',()=>{mesExibido.setMonth(mesExibido.getMonth()+1);dataSelecionada=[mesExibido.getFullYear(),String(mesExibido.getMonth()+1).padStart(2,'0'),'01'].join('-');renderizarCalendario();});
       try {
-        const [rEstrutura,rProgresso] = await Promise.all([
+        const [rEstrutura,rProgresso,rOfertas] = await Promise.all([
           fetch('./dados/estrutura.json',{cache:'no-cache'}),
-          fetch('./dados/progresso.json',{cache:'no-cache'})
+          fetch('./dados/progresso.json',{cache:'no-cache'}),
+          fetch('./dados/ofertas.json',{cache:'no-cache'})
         ]);
         if(!rEstrutura.ok || !rProgresso.ok) throw new Error('Não foi possível carregar os arquivos de dados.');
         const estrutura = await rEstrutura.json();
         const dados = await rProgresso.json();
+        const dadosOfertas = rOfertas.ok ? await rOfertas.json() : {ofertas:[]};
         const disciplinas = Array.isArray(estrutura.disciplinas) ? estrutura.disciplinas : [];
         const assuntos = Array.isArray(estrutura.assuntos) ? estrutura.assuntos : [];
         const registros = Array.isArray(dados.progresso) ? dados.progresso : [];
-        const mapa = new Map(registros.map(x=>[x.assunto_id,x]));
+        const ofertas = Array.isArray(dadosOfertas.ofertas) ? dadosOfertas.ofertas : [];
         const concluidos = registros.filter(x=>x.situacao_geral==='concluido').length;
         const andamento = registros.filter(x=>x.situacao_geral==='em_andamento').length;
         const revisoes = registros.filter(x=>x.data_revisao && x.data_revisao<=isoHoje && x.revisao_status!=='concluido' && x.revisao_status!=='nao_se_aplica').length;
@@ -137,22 +196,33 @@
         });
         if(atividades.length) atividades.forEach(x=>adicionar(agenda,x.tipo,x.nome,x.disciplina,x.data,x.disciplinaId,x.assuntoId));
         else {const msg=document.createElement('p');msg.className='muted';msg.textContent='Nenhuma atividade cadastrada para hoje. As datas aparecerão aqui conforme forem registradas nos assuntos.';agenda.appendChild(msg);}
-        const proximas=$('proximas-revisoes'); proximas.replaceChildren();
-        const futuras=registros.filter(x=>x.data_revisao && x.data_revisao>isoHoje && x.revisao_status!=='concluido' && x.revisao_status!=='nao_se_aplica').sort((a,b)=>a.data_revisao.localeCompare(b.data_revisao)).slice(0,5);
-        if(futuras.length) futuras.forEach(reg=>{
-          const assunto=assuntos.find(x=>x.id===reg.assunto_id);
-          const disciplinaId=(assunto||{}).disciplina_id;
-          adicionar(proximas,'Revisão',nomesAssuntos.get(reg.assunto_id)||reg.assunto_id,nomesDisciplinas.get(disciplinaId)||'Disciplina',reg.data_revisao,disciplinaId,reg.assunto_id);
-        });
-        else {const msg=document.createElement('p');msg.className='muted';msg.textContent='Nenhuma revisão futura cadastrada.';proximas.appendChild(msg);}
+
+        const mapaCodigos = new Map(disciplinas.map(x=>[x.id,x.codigo||x.cod||'']));
+        eventosCalendario = ofertas.flatMap(oferta=>{
+          const disciplina = nomesDisciplinas.get(oferta.disciplina_id)||oferta.disciplina||'Disciplina';
+          const codigo = mapaCodigos.get(oferta.disciplina_id);
+          return (Array.isArray(oferta.cronograma_previsto)?oferta.cronograma_previsto:[])
+            .filter(atividade=>/^\d{4}-\d{2}-\d{2}$/.test(String(atividade.data||'')))
+            .map(atividade=>{
+              const observacao=String(atividade.observacao||'');
+              const pesoMatch=observacao.match(/peso\s*(?:de\s*)?(\d+(?:[.,]\d+)?)\s*%/i);
+              const tipos={prova:'Prova',trabalho:'Trabalho',seminario:'Seminário',entrega:'Entrega',outro:'Outra atividade'};
+              return {data:atividade.data,tipo:tipos[atividade.tipo]||'Outra atividade',titulo:atividade.titulo||'Atividade sem título',disciplina:(codigo?codigo+' · ':'')+disciplina,peso:pesoMatch?pesoMatch[1].replace(',','.'):null,periodo:oferta.periodo||''};
+            });
+        }).sort((a,b)=>a.data.localeCompare(b.data)||a.disciplina.localeCompare(b.disciplina,'pt-BR'));
+        const futuras=eventosCalendario.filter(x=>x.data>=isoHoje);
+        const referencia=futuras[0]||eventosCalendario[eventosCalendario.length-1];
+        if(referencia){const [ano,mes]=referencia.data.split('-').map(Number);mesExibido=new Date(ano,mes-1,1);dataSelecionada=referencia.data;}
+        else {mesExibido=new Date(hoje.getFullYear(),hoje.getMonth(),1);dataSelecionada=isoHoje;}
+        renderizarCalendario();
       } catch(erro) {
         console.error(erro);
         $('atualizacao-dados').textContent='Não foi possível carregar os indicadores. Verifique a publicação dos arquivos JSON.';
         $('atualizacao-dados').className='error';
         $('agenda-hoje').textContent='Agenda indisponível no momento.';
-        $('proximas-revisoes').textContent='Revisões indisponíveis no momento.';
+        $('calendar-events').textContent='Calendário indisponível no momento.';
       }
     })();
-  </script>
+  </script>>
 </body>
 </html>
