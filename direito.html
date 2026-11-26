@@ -1852,7 +1852,7 @@
         const situacao = parametros.get('filtroSituacao');
         const revisoes = parametros.get('filtroRevisoes');
         filtrosDisciplinasAplicados = {
-          administrativo: ['ativa', 'inativa', 'pendente'].includes(administrativo) ? administrativo : 'todos',
+          administrativo: ['ativa', 'inativa', 'pendente', 'finalizada'].includes(administrativo) ? administrativo : 'todos',
           inicio: 'todos',
           situacao: ['em_andamento', 'concluido', 'pendente', 'nao_iniciado'].includes(situacao) ? situacao : 'todos',
           revisoes: revisoes === 'pendentes' ? 'pendentes' : 'todos'
