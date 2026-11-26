@@ -326,6 +326,65 @@
       border-top: 1px solid var(--borda);
     }
 
+    .cronograma-previsto .ficha-pedagogica-conteudo {
+      padding: 10px 11px 12px;
+    }
+
+    .atividade-cronograma {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--borda);
+    }
+
+    .atividade-cronograma:last-child {
+      border-bottom: 0;
+      padding-bottom: 4px;
+    }
+
+    .atividade-cronograma-cabecalho {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 7px;
+    }
+
+    .atividade-cronograma-tipo {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border: 1px solid rgba(47, 213, 211, .28);
+      border-radius: 20px;
+      background: rgba(47, 213, 211, .09);
+      color: var(--azul-claro);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .atividade-cronograma-data {
+      color: var(--texto-secundario);
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .atividade-cronograma-titulo {
+      margin: 0;
+      color: var(--texto);
+      font-size: 14px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .atividade-cronograma-observacao {
+      margin: 6px 0 0;
+      color: var(--texto-secundario);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
     .importacao-cronograma {
       margin-top: 12px;
       padding-top: 10px;
@@ -1333,18 +1392,29 @@
             return a.data.localeCompare(b.data);
           });
           atividadesOrdenadas.forEach(atividade => {
-            const item = criarElemento('div', 'atividade-cronograma');
+            const item = criarElemento('article', 'atividade-cronograma');
+            const cabecalho = criarElemento('div', 'atividade-cronograma-cabecalho');
+            const tipo = String(atividade.tipo || 'outro');
+            const tiposRotulo = {
+              prova: 'Prova',
+              trabalho: 'Trabalho',
+              seminario: 'Seminário',
+              entrega: 'Entrega',
+              outro: 'Outra atividade'
+            };
+            cabecalho.appendChild(criarElemento(
+              'span',
+              'atividade-cronograma-tipo',
+              tiposRotulo[tipo] || 'Outra atividade'
+            ));
             const data = atividade.data
               ? atividade.data.split('-').reverse().join('/')
               : 'Data a definir';
-            item.appendChild(criarElemento('strong', '', atividade.titulo || 'Atividade sem título'));
-            item.appendChild(criarElemento(
-              'p',
-              '',
-              (atividade.tipo || 'outro') + ' · ' + data
-            ));
+            cabecalho.appendChild(criarElemento('span', 'atividade-cronograma-data', data));
+            item.appendChild(cabecalho);
+            item.appendChild(criarElemento('h4', 'atividade-cronograma-titulo', atividade.titulo || 'Atividade sem título'));
             if (atividade.observacao) {
-              item.appendChild(criarElemento('p', '', atividade.observacao));
+              item.appendChild(criarElemento('p', 'atividade-cronograma-observacao', atividade.observacao));
             }
             corpoCronograma.appendChild(item);
           });
