@@ -521,11 +521,12 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.25",
+    "versao": "2.26",
     "atualizado_em": "26/11/2026",
-    "resumo": "Ajusta o alinhamento vertical dos controles da barra de busca do currículo: campo, botões Buscar/Limpar e acionador Filtros passam a compartilhar a mesma altura visual.",
+    "resumo": "Refina o posicionamento do troféu dos cartões de disciplinas finalizadas, usando seletor CSS específico para fixá-lo no canto superior direito, no topo do cartão.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
+      "Ajuste complementar em direito.html: o troféu das disciplinas finalizadas agora usa seletor CSS específico do cartão e posicionamento absoluto no topo direito da área de resumo, com espaçamento em relação ao ícone de expandir. A primeira tentativa de posicionamento não ficou visualmente correta na captura do usuário; esta correção reforça a especificidade CSS.",
       "Barra de busca do currículo em direito.html: alinhamento vertical corrigido. Campo de busca, botões Buscar e Limpar e acionador Filtros padronizados com altura de 36px; painel Filtros alinhado ao topo da linha de controles, evitando a aparência de deslocamento vertical observada na captura enviada.",
       "Identidade visual da Visão geral atualizada em index.html: cartões de disciplinas finalizadas, ativas e pendentes receberam ilustrações vetoriais discretas (troféu dourado, corredor turquesa e calendário âmbar), posicionadas no canto superior direito. Em direito.html, o troféu das disciplinas finalizadas também foi reposicionado no canto superior direito do cartão.",
       "Regra de atualização do PDC: manter data e hora da última atualização nos metadados `atualizado_em`, `atualizado_as` e `fuso_horario`. Usar o horário local de Brasília/São Paulo (America/Sao_Paulo), registrar horas no formato HH:MM:SS e atualizar esses campos em toda alteração efetiva do PDC. A hora representa o momento em que o conteúdo do PDC foi atualizado no repositório; não confundir com o horário de publicação do site ou de geração do PDF.",
@@ -545,6 +546,7 @@
       "Última alteração visual nesta etapa: campo de busca de direito.html mantém borda turquesa e realce sutil permanentes, sem mudança de aparência ao receber/perder foco; botões Buscar, Limpar e Filtros continuam alinhados ao lado."
     ],
     "proximos_passos": [
+      "Validar no navegador a posição do troféu no topo direito do cartão finalizado após Ctrl+F5. Confirmar que não se sobrepõe ao ícone de expandir (+) nem ao código/nome.",
       "Validar visualmente a barra de busca em direito.html após Ctrl+F5, especialmente o alinhamento entre campo, Buscar, Limpar e Filtros em desktop e telas estreitas.",
       "Validar visualmente no navegador os três ícones da Visão geral e o troféu no canto superior direito dos cartões de disciplinas finalizadas; conferir responsividade em tela estreita.",
       "Em toda atualização futura do PDC, atualizar também `atualizado_em`, `atualizado_as` e `fuso_horario` com data e hora local de São Paulo (America/Sao_Paulo), no formato HH:MM:SS; conferir que a página de consulta do PDC apresente a data e a hora.",
@@ -561,11 +563,11 @@
       "Manter documentação, PDC e PDF sincronizados com alterações efetivamente implementadas; verificar Actions e publicação antes de declarar conclusão."
     ],
     "historico": [
-      "v2.21 — 26/11/2026: documentação atualizada para o cadastro direto de resumos em disciplina.html (título e conteúdo; IDs automáticos; confirmação final via Issue/GitHub); repositório e URLs normalizados para ricardofelippe/direito-ufpr; Laboratório de Argumentação definido como principal prioridade futura, em área/página exclusiva vinculada a cada disciplina.",
       "v2.22 — 26/11/2026: incluído no roadmap um mini simulado integrado após a conclusão do Laboratório. Cenário fictício em 2028; seleção aleatória de 80% a 100% das disciplinas/assuntos do período; geração de Planos de Aula simulados com datas de provas e trabalhos; uma disciplina sem PDF para testar ausência documental; execução ponta a ponta dos fluxos do sistema, com dados isolados e identificação de simulação.",
       "v2.23 — 26/11/2026 às 19:27:54 (America/Sao_Paulo, UTC−03:00): PDC passa a registrar data, hora e fuso horário da última atualização; regra incluída para todas as atualizações futuras.",
       "v2.24 — 26/11/2026 às 19:30:06 (America/Sao_Paulo, UTC−03:00): adicionadas ilustrações vetoriais aos cartões da Visão geral (troféu, corredor e calendário) e troféu reposicionado no canto superior direito dos cartões finalizados.",
-      "v2.25 — 26/11/2026 às 19:30:54 (America/Sao_Paulo, UTC−03:00): alinhamento vertical da barra de busca do currículo corrigido, com controles padronizados em 36px."
+      "v2.25 — 26/11/2026 às 19:30:54 (America/Sao_Paulo, UTC−03:00): alinhamento vertical da barra de busca do currículo corrigido, com controles padronizados em 36px.",
+      "v2.26 — 26/11/2026 às 19:31:55 (America/Sao_Paulo, UTC−03:00): corrigida a posição do troféu no cartão de disciplina finalizada com seletor CSS específico e posicionamento absoluto no topo direito."
     ],
     "pdf_url": "docs/PDC_Direito_UFPR_v2.20.pdf",
     "conteudo_completo": [
@@ -988,9 +990,22 @@
           "Acionador Filtros alinhado ao topo da linha principal.",
           "Comportamento funcional dos controles preservado."
         ]
+      },
+      {
+        "titulo": "25. Correção de posicionamento do troféu no cartão de disciplina finalizada",
+        "paragrafos": [
+          "Após a captura do usuário mostrar que o troféu ainda aparecia abaixo do código da disciplina, foi aplicada uma correção com seletor CSS mais específico: `.cartao-disciplina.disciplina-finalizada > .resumo-cartao-disciplina > .icone-trofeu-disciplina`.",
+          "O ícone passa a ter posicionamento absoluto no topo direito do resumo do cartão, com `top: 12px` e `right: 42px`, mantendo espaço para o indicador de expansão do cartão. O elemento pai também recebe `position: relative` de forma específica.",
+          "A alteração foi gravada no repositório. É necessário confirmar visualmente com atualização forçada do navegador e verificar se o troféu não se sobrepõe ao botão de expansão, código ou nome."
+        ],
+        "itens": [
+          "Seletor específico para o cartão finalizado.",
+          "Posição: topo 12px; direita 42px.",
+          "Validação visual pelo usuário ainda pendente."
+        ]
       }
     ],
-    "atualizado_as": "19:30:54",
+    "atualizado_as": "19:31:55",
     "fuso_horario": "America/Sao_Paulo (UTC−03:00)"
   }
 }
