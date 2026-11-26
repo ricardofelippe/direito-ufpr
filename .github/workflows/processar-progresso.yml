@@ -100,18 +100,26 @@ jobs:
               execFileSync('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com']);
               execFileSync('git', ['add', progressoPath]);
 
-              try {
-                execFileSync('git', ['commit', '-m', 'Atualiza progresso: ' + assuntoId]);
-                execFileSync('git', ['push']);
-              } catch (gitError) {
-                throw new Error('Não foi possível publicar a atualização no GitHub: ' + gitError.message);
+              // Se os valores enviados já forem iguais aos registrados,
+              // não há commit a criar. Isso é um resultado válido, não uma falha.
+              const semAlteracoes = execFileSync('git', ['diff', '--cached', '--quiet'], { stdio: 'ignore' }) === undefined;
+
+              if (!semAlteracoes) {
+                try {
+                  execFileSync('git', ['commit', '-m', 'Atualiza progresso: ' + assuntoId]);
+                  execFileSync('git', ['push']);
+                } catch (gitError) {
+                  throw new Error('Não foi possível publicar a atualização no GitHub: ' + gitError.message);
+                }
               }
 
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issueNumber,
-                body: 'Progresso do assunto `' + assuntoId + '` validado e salvo. Os históricos e demais campos anteriores foram preservados. A publicação do GitHub Pages pode levar alguns instantes.'
+                body: semAlteracoes
+                  ? 'Os dados foram validados. O assunto `' + assuntoId + '` já possuía esses mesmos indicadores; nenhuma alteração foi necessária. Os históricos e demais campos foram preservados.'
+                  : 'Progresso do assunto `' + assuntoId + '` validado e salvo. Os históricos e demais campos anteriores foram preservados. A publicação do GitHub Pages pode levar alguns instantes.'
               });
 
               await github.rest.issues.update({
