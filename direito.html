@@ -1168,10 +1168,16 @@
       }
 
       function ordenarRegistros(registros) {
+        // A ordenação visual prioriza disciplinas ativas, sem alterar
+        // a ordem curricular nem a numeração original de cada disciplina.
+        const prioridadeStatus = { ativa: 0, pendente: 1, inativa: 2, finalizada: 3 };
         return [...registros].sort((a, b) => {
+          const prioridadeA = prioridadeStatus[String(a.status || 'pendente').toLowerCase()] ?? 2;
+          const prioridadeB = prioridadeStatus[String(b.status || 'pendente').toLowerCase()] ?? 2;
           const ordemA = Number.isFinite(Number(a.ordem)) ? Number(a.ordem) : 9999;
           const ordemB = Number.isFinite(Number(b.ordem)) ? Number(b.ordem) : 9999;
-          return ordemA - ordemB || String(a.nome || '').localeCompare(String(b.nome || ''), 'pt-BR');
+          return prioridadeA - prioridadeB || ordemA - ordemB ||
+            String(a.nome || '').localeCompare(String(b.nome || ''), 'pt-BR');
         });
       }
 
