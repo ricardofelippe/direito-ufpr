@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Baixar repositório
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - name: Validar e atualizar status
         uses: actions/github-script@v7
@@ -39,7 +42,7 @@ jobs:
                 throw new Error('O campo "' + titulo + '" deve aparecer exatamente uma vez.');
               }
               const restante = body.split(marcador)[1];
-              const valor = restante.replace(/^\r?\n+/, '').split(/\r?\n### /, 1)[0].trim();
+              const valor = restante.replace(/^\\r?\\n+/, '').split(/\\r?\\n### /, 1)[0].trim();
               if (!valor) throw new Error('Informe um valor para "' + titulo + '".');
               return valor;
             }
@@ -61,37 +64,61 @@ jobs:
               if (!/^[a-z0-9][a-z0-9-]{0,179}$/.test(disciplinaId)) {
                 throw new Error('Identificador de disciplina inválido.');
               }
-
               if (!permitidos.includes(novoStatus)) {
                 throw new Error('Status inválido. Utilize ativa, inativa, pendente ou finalizada.');
               }
 
-              const estrutura = JSON.parse(fs.readFileSync(caminho, 'utf8'));
-              if (!Array.isArray(estrutura.disciplinas)) {
-                throw new Error('A lista de disciplinas não foi encontrada em estrutura.json.');
-              }
+              execFileSync('git', ['config', 'user.name', 'github-actions[bot]']);
+              execFileSync('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com']);
 
-              const disciplina = estrutura.disciplinas.find(x => x.id === disciplinaId);
-              if (!disciplina) throw new Error('A disciplina informada não existe.');
+              let atualizado = false;
+              let statusAnterior = null;
+              const maxTentativas = 5;
 
-              const statusAnterior = String(disciplina.status || 'pendente').toLowerCase();
-              if (statusAnterior === novoStatus) {
-                await comentar('O status da disciplina já estava como **' + novoStatus + '**. Nenhuma alteração foi necessária.');
-              } else {
+              for (let tentativa = 1; tentativa <= maxTentativas; tentativa++) {
+                // Sempre parte do estado mais recente da branch principal.
+                // Assim, alterações feitas por outros workflows são preservadas.
+                execFileSync('git', ['fetch', 'origin', 'main']);
+                execFileSync('git', ['reset', '--hard', 'origin/main']);
+
+                const estrutura = JSON.parse(fs.readFileSync(caminho, 'utf8'));
+                if (!Array.isArray(estrutura.disciplinas)) {
+                  throw new Error('A lista de disciplinas não foi encontrada em estrutura.json.');
+                }
+
+                const disciplina = estrutura.disciplinas.find(x => x.id === disciplinaId);
+                if (!disciplina) throw new Error('A disciplina informada não existe.');
+
+                statusAnterior = String(disciplina.status || 'pendente').toLowerCase();
+                if (statusAnterior === novoStatus) {
+                  atualizado = true;
+                  break;
+                }
+
                 disciplina.status = novoStatus;
-                fs.writeFileSync(caminho, JSON.stringify(estrutura, null, 2) + '\n', 'utf8');
-
-                execFileSync('git', ['config', 'user.name', 'github-actions[bot]']);
-                execFileSync('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com']);
+                fs.writeFileSync(caminho, JSON.stringify(estrutura, null, 2) + '\\n', 'utf8');
                 execFileSync('git', ['add', caminho]);
                 execFileSync('git', ['commit', '-m', 'Atualiza status da disciplina: ' + disciplinaId]);
-                execFileSync('git', ['push']);
 
-                await comentar(
-                  'Status administrativo atualizado com sucesso: **' + statusAnterior +
-                  ' → ' + novoStatus + '**. A página será atualizada após a publicação do GitHub Pages.'
-                );
+                try {
+                  execFileSync('git', ['push', 'origin', 'HEAD:main'], { stdio: 'pipe' });
+                  atualizado = true;
+                  break;
+                } catch (erroPush) {
+                  core.warning('Tentativa ' + tentativa + ' de ' + maxTentativas + ' não conseguiu publicar. O repositório mudou durante a gravação; a próxima tentativa buscará a versão atual e reaplicará somente o status solicitado.');
+                  if (tentativa === maxTentativas) {
+                    throw new Error('O repositório recebeu alterações simultâneas e não foi possível publicar após ' + maxTentativas + ' tentativas. A solicitação pode ser executada novamente; nenhuma alteração remota foi sobrescrita.');
+                  }
+                }
               }
+
+              if (!atualizado) throw new Error('Não foi possível confirmar a atualização do status.');
+
+              await comentar(
+                statusAnterior === novoStatus
+                  ? 'O status da disciplina já estava como **' + novoStatus + '**. Nenhuma alteração adicional foi necessária.'
+                  : 'Status administrativo atualizado com sucesso: **' + statusAnterior + ' → ' + novoStatus + '**. A atualização foi aplicada sobre a versão mais recente do currículo, preservando alterações de outras automações. A página será atualizada após a publicação do GitHub Pages.'
+              );
 
               await github.rest.issues.update({
                 owner: context.repo.owner,
@@ -101,5 +128,5 @@ jobs:
               });
             } catch (erro) {
               core.setFailed(erro.message);
-              await comentar('Não foi possível atualizar o status: **' + erro.message + '**. Corrija os dados e abra uma nova solicitação.');
+              await comentar('Não foi possível atualizar o status: **' + erro.message + '**. Corrija os dados ou abra uma nova solicitação.');
             }
