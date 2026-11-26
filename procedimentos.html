@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Central de Documentação | Direito UFPR</title>
+<style>
+:root{--bg:#070b12;--navy:#0c1420;--surface:#101b29;--line:#1b3041;--text:#e6edf5;--muted:#a5b8ca;--cyan:#19c7ce;--soft:#10343d}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Georgia,serif}a{color:inherit}.top{background:var(--navy);border-bottom:1px solid var(--line);padding:18px 5%;display:flex;justify-content:space-between;font:13px Arial}.top a{text-decoration:none;border:1px solid var(--line);padding:7px 11px;border-radius:4px}main{max-width:1080px;margin:32px auto;padding:0 22px 50px}.eyebrow{font:11px Arial;color:var(--cyan);letter-spacing:.14em;text-transform:uppercase}h1{font-size:30px;font-weight:normal;margin:8px 0}.intro,.muted{color:var(--muted)}.tabs{display:flex;gap:8px;margin:22px 0}.tab{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:5px;padding:10px 14px;cursor:pointer}.tab[aria-selected=true]{border-color:var(--cyan);background:var(--soft);color:#8cf5f2}.search{width:100%;padding:12px;background:var(--navy);border:1px solid var(--line);border-radius:5px;color:var(--text)}.category{margin:24px 0}.category h2{font-size:18px;font-weight:normal;color:#c3d0df}.item,.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;margin:8px 0}.item summary{cursor:pointer;padding:13px 15px;color:#8cebed;font:600 14px Arial;list-style:none}.item summary:after{content:"+";float:right;color:var(--cyan);font-size:18px}.item[open] summary:after{content:"−"}.body{padding:4px 18px 16px;border-top:1px solid var(--line);font-size:13px}.body h3{font:600 13px Arial;color:#c3d0df;margin:15px 0 5px}.body li{margin:5px 0}.panel[hidden]{display:none}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.card{padding:18px;margin:12px 0}.label{font:10px Arial;color:var(--cyan);letter-spacing:.12em;text-transform:uppercase}.card h2{font-size:20px;font-weight:normal}.notice{background:var(--soft);border-left:3px solid var(--cyan);padding:10px 12px;font-size:13px}.history{padding:10px;border-bottom:1px solid var(--line);font-size:13px}.hidden{display:none!important}footer{text-align:center;border-top:1px solid var(--line);padding:18px;color:var(--muted);font:11px Arial}@media(max-width:700px){.grid{grid-template-columns:1fr}h1{font-size:25px}}
+</style></head><body>
+<header class="top"><strong>PLATAFORMA DE ESTUDOS · DIREITO UFPR</strong><a href="index.html">← Painel inicial</a></header>
+<main><div class="eyebrow">Documentação do sistema</div><h1>Central de Documentação</h1><p class="intro">Consulte como utilizar, atualizar e manter as funcionalidades da plataforma.</p>
+<div class="tabs"><button class="tab" id="btn-manual" aria-selected="true">Manual operacional</button><button class="tab" id="btn-pdc" aria-selected="false">Plano de continuidade (PDC)</button></div>
+<section id="manual"><p class="muted">Abra um procedimento para consultar objetivo, pré-requisitos, passo a passo, arquivos envolvidos e orientações para problemas comuns.</p><input id="search" class="search" type="search" placeholder="Pesquisar procedimento..."><div id="catalogo">Carregando procedimentos...</div></section>
+<section id="pdc" class="panel" hidden><div class="grid"><article class="card"><div class="label">Versão vigente</div><h2 id="pdc-title"></h2><p class="muted" id="pdc-meta"></p><p id="pdc-summary"></p><div class="notice" id="pdc-notice"></div></article><article class="card"><div class="label">Retomada do projeto</div><h2>Próximas etapas</h2><ul id="pdc-next"></ul></article></div><div class="card"><h2>Estado e decisões do projeto</h2><div id="pdc-state"></div></div><div class="card"><h2>Histórico de versões</h2><div id="pdc-history"></div></div></section></main>
+<footer>Central de Documentação · Plataforma de Estudos — Direito UFPR</footer>
+<script>
+(async function(){
+const $=function(id){return document.getElementById(id)};
+function show(which){var m=which==="manual";$("manual").hidden=!m;$("pdc").hidden=m;$("btn-manual").setAttribute("aria-selected",String(m));$("btn-pdc").setAttribute("aria-selected",String(!m))}
+$("btn-manual").onclick=function(){show("manual")};$("btn-pdc").onclick=function(){show("pdc")};
+try{
+const response=await fetch("./dados/procedimentos.json",{cache:"no-cache"});if(!response.ok)throw new Error("Falha ao carregar dados/procedimentos.json");
+const data=await response.json();const root=$("catalogo");
+(data.categorias||[]).forEach(function(cat){
+const section=document.createElement("section");section.className="category";
+const heading=document.createElement("h2");heading.textContent=cat.titulo;section.appendChild(heading);
+(cat.procedimentos||[]).forEach(function(proc){
+const details=document.createElement("details");details.className="item";details.dataset.text=(cat.titulo+" "+proc.titulo+" "+(proc.objetivo||"")).toLowerCase();
+const summary=document.createElement("summary");summary.textContent=proc.titulo;details.appendChild(summary);
+const body=document.createElement("div");body.className="body";
+function add(label,items,ordered){if(!items||!items.length)return;const h=document.createElement("h3");h.textContent=label;body.appendChild(h);if(Array.isArray(items)){const list=document.createElement(ordered?"ol":"ul");items.forEach(function(value){const li=document.createElement("li");li.textContent=value;list.appendChild(li)});body.appendChild(list)}else{const p=document.createElement("p");p.textContent=items;body.appendChild(p)}}
+add("Objetivo",proc.objetivo);add("Pré-requisitos",proc.pre_requisitos);add("Passo a passo",proc.passos,true);add("Arquivos envolvidos",proc.arquivos);add("Erros comuns e soluções",proc.erros);
+if(proc.prompt){const h=document.createElement("h3");h.textContent="Prompt de apoio";body.appendChild(h);const pre=document.createElement("pre");pre.textContent=proc.prompt;body.appendChild(pre)}
+if(proc.observacao){const note=document.createElement("p");note.className="notice";note.textContent=proc.observacao;body.appendChild(note)}
+details.appendChild(body);section.appendChild(details)
+});root.appendChild(section)
+});
+$("search").addEventListener("input",function(){const q=$("search").value.trim().toLowerCase();document.querySelectorAll(".item").forEach(function(d){const visible=!q||d.dataset.text.includes(q);d.classList.toggle("hidden",!visible);if(q&&visible)d.open=true});document.querySelectorAll(".category").forEach(function(c){c.classList.toggle("hidden",!c.querySelector(".item:not(.hidden)"))})});
+const p=data.pdc||{};$("pdc-title").textContent=p.titulo||"Plano de Continuidade";$("pdc-meta").textContent="Versão "+(p.versao||"—")+" · Atualizado em "+(p.atualizado_em||"—");$("pdc-summary").textContent=p.resumo||"";$("pdc-notice").textContent=p.aviso_pdf||"";
+(p.proximos_passos||[]).forEach(function(x){const li=document.createElement("li");li.textContent=x;$("pdc-next").appendChild(li)});
+(p.estado||[]).forEach(function(x){const el=document.createElement("p");el.textContent=x;$("pdc-state").appendChild(el)});
+(p.historico||[]).forEach(function(x){const el=document.createElement("p");el.className="history";el.textContent=x;$("pdc-history").appendChild(el)});
+}catch(error){$("catalogo").textContent="Não foi possível carregar os procedimentos: "+error.message;$("pdc-notice").textContent="Não foi possível carregar os dados do PDC."}
+})();
+</script></body></html>
