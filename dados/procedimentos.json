@@ -520,9 +520,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.3",
+    "versao": "2.4",
     "atualizado_em": "26/11/2026",
-    "resumo": "Registro mestre de decisões e transição técnica. Consolida entendimentos de todas as etapas, decisões vigentes, decisões substituídas, arquitetura, fluxos, estado verificado e instruções para outra conversa ou IA. Esta versão estabelece um padrão de manual com fluxo operacional visual seguido de instruções detalhadas, e registra limitações confirmadas em fluxos de assuntos e materiais.",
+    "resumo": "Registro mestre de decisões e transição técnica. Consolida arquitetura, decisões vigentes, fluxos, estado verificado e instruções de retomada. Esta versão registra a simplificação implementada no painel inicial: dois indicadores e calendário acadêmico ampliado.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Repositório: ricardofelippe/Direito-UFPR; publicação: https://ricardofelippe.github.io/Direito-UFPR/; branch principal conhecida: main.",
@@ -545,13 +545,13 @@
       "Auditar fluxos restantes e atualizar Manual/PDC após cada mudança."
     ],
     "historico": [
-      "v1.1 — 26/11/2026: inclusão da regra permanente de atualização da Central de Documentação para funcionalidades novas, alteradas ou descontinuadas.",
       "v2.0 — 26/11/2026: PDC ampliado para documento de transição técnica e operacional, com arquitetura, decisões, fluxos, limitações, estado e instruções de retomada.",
       "v2.1 — 26/11/2026: consolidação de entendimentos históricos das etapas anteriores, registro de decisões substituídas, regras de trabalho com IA e orientação para seleção/cópia integral do PDC na página.",
       "v2.2 — 26/11/2026: procedimento de atualização das informações pedagógicas reescrito com base na estrutura JSON e no código de exibição atuais; documentado que a edição é direta em dados/estrutura.json, sem workflow específico.",
-      "v2.3 — 26/11/2026: padronização dos procedimentos do Manual Operacional com fluxo resumido visual, detalhamento por etapas, validações e tratamento de erros; correção de escopo: gerenciamento de assuntos permite criar/editar, sem exclusão; gerenciamento de PDFs remove associações/arquivos, não o cadastro do material."
+      "v2.3 — 26/11/2026: padronização dos procedimentos do Manual Operacional com fluxo resumido visual, detalhamento por etapas, validações e tratamento de erros; correção de escopo: gerenciamento de assuntos permite criar/editar, sem exclusão; gerenciamento de PDFs remove associações/arquivos, não o cadastro do material.",
+      "v2.4 — 26/11/2026: implementação da simplificação da Visão geral, remoção do painel Atividades de hoje e ampliação do calendário acadêmico."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.3.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.4.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -678,7 +678,7 @@
         "paragrafos": [
           "dados/progresso.json mantém registros associados ao assunto por assunto_id. Na amostra atual existem campos de situação geral, conteúdo, questões e revisão, além de históricos de estudos e revisões em alguns registros. Preservar esses dados mesmo que a interface seja simplificada. Não presumir que todos os assuntos tenham todos os campos ou históricos.",
           "dados/conteudos.json possui coleções separadas de resumos, revisões, questões e flashcards. O modelo híbrido aprovado concentra a geração de questões e flashcards no NotebookLM, enquanto o site organiza, armazena e acompanha os estudos. Não duplicar no site a geração de conteúdo que já é feita no NotebookLM sem uma decisão explícita.",
-          "A simplificação de acompanhamento foi discutida para reduzir a carga administrativa. A decisão mais recente sobre a Visão geral foi retirar os indicadores 'Em andamento' e 'Revisões pendentes', mantendo 'Assuntos concluídos' e 'Disciplinas ativas', e ampliar o calendário. O index.html consultado ainda contém quatro indicadores e o painel 'Atividades de hoje'; portanto, essa simplificação ainda não está implementada/verificada."
+          "A simplificação aprovada foi implementada em index.html: a Visão geral mantém somente os indicadores 'Assuntos concluídos' e 'Disciplinas ativas'; foram retirados 'Em andamento', 'Revisões pendentes' e o painel 'Atividades de hoje'. O calendário acadêmico passou a ocupar a largura disponível na seção. A alteração é exclusivamente visual: dados/progresso.json e os históricos de estudo/revisão foram preservados; o calendário continua lendo dados/ofertas.json."
         ]
       },
       {
@@ -707,16 +707,14 @@
         "subtitulos": [
           {
             "titulo": "Implementado/identificado",
-            "texto": "GitHub Pages; arquivos JSON centrais; workflows/Issues para operações; estrutura de ofertas e cronograma; importação de cronograma por NotebookLM → JSON → site → Issue → GitHub Actions; calendário que agrega atividades com data; Central de Documentação com Manual e PDC; atalho da Central no painel inicial."
+            "texto": "GitHub Pages; arquivos JSON centrais; workflows/Issues para operações; estrutura de ofertas e cronograma; importação de cronograma por NotebookLM → JSON → site → Issue → GitHub Actions; calendário que agrega atividades com data; Central de Documentação com Manual e PDC; atalho da Central no painel inicial. Simplificação da Visão geral publicada no código: dois indicadores e calendário acadêmico em largura ampliada."
           },
           {
             "titulo": "Pendente ou exige validação",
-            "texto": "Simplificação da Visão geral; ampliar o calendário conforme decisão; revisar procedimentos genéricos para refletir os workflows reais; completar rotinas de cadastro/edição/exclusão; validar o comportamento completo da Central publicada; disponibilizar o PDF vigente do PDC em URL do próprio site/repositório."
+            "texto": "revisar procedimentos genéricos para refletir os workflows reais; completar rotinas de cadastro/edição/exclusão; validar o comportamento completo da Central publicada; disponibilizar o PDF vigente do PDC em URL do próprio site/repositório."
           }
         ],
-        "paragrafos": [
-          "A página da Central consultada ainda apresentava 'Versão 1.0' na captura do usuário, embora dados/procedimentos.json já contivesse versão 1.1. Verificar cache/publicação e garantir que procedimentos.html renderize a versão carregada do JSON, sem texto fixo antigo."
-        ]
+        "paragrafos": []
       },
       {
         "titulo": "10. Procedimento para retomar o projeto em outra IA",
@@ -736,7 +734,6 @@
         "itens": [
           "Validar a Central de Documentação publicada e corrigir a exibição da versão/PDF.",
           "Finalizar os procedimentos operacionais com base nos formulários e workflows efetivamente existentes.",
-          "Implementar a simplificação aprovada da Visão geral e ampliar o calendário, em uma alteração controlada.",
           "Auditar as demais páginas e fluxos, atualizando o manual a cada mudança."
         ]
       },
@@ -762,7 +759,7 @@
           "A arquitetura híbrida aprovada atribui ao NotebookLM a geração de questões e flashcards a partir das fontes fornecidas pelo usuário; o site fica responsável por organizar disciplinas, materiais, resumos, progresso e acompanhamento. O site não deve duplicar desnecessariamente as funções de geração já realizadas no NotebookLM.",
           "Foram desenvolvidos fluxos para biblioteca e cadastro de materiais, organização de documentos por disciplina/categoria e consulta de PDFs. O usuário quer evitar materiais duplicados, manter links contextuais entre disciplina e biblioteca e simplificar o cadastro, incluindo seleção de PDF de pastas locais quando o fluxo vigente oferecer esse recurso. Confirmar a implementação atual antes de descrever detalhes operacionais.",
           "Foram discutidas páginas e áreas: index.html como entrada/painel; direito.html como currículo; disciplina.html como ambiente da disciplina; biblioteca.html e cadastro.html para materiais; Central de Documentação como manual e PDC. Uma página planejamento.html foi considerada em arquitetura anterior, mas não deve ser presumida como existente ou ativa sem verificar o repositório.",
-          "O painel inicial deve ser simples. Decisão mais recente aprovada: retirar os indicadores 'Atividades de hoje', 'Revisões pendentes' e 'Em andamento', manter 'Assuntos concluídos' e 'Disciplinas ativas' e ampliar o calendário acadêmico para ocupar o espaço. Essa alteração foi aprovada, mas o estado de implementação deve ser conferido no index.html antes de considerar concluída.",
+          "O painel inicial deve ser simples. Decisão aprovada e implementada em 26/11/2026: retirar os indicadores 'Atividades de hoje', 'Revisões pendentes' e 'Em andamento', manter 'Assuntos concluídos' e 'Disciplinas ativas' e ampliar o calendário acadêmico. A implementação foi registrada na versão 2.4 do PDC.",
           "Preferências de interface já discutidas: estilo acadêmico/institucional; tema escuro; cores coerentes entre páginas; cartões objetivos e menores; filtros acionados quando necessários; cartões de disciplina expansíveis para descrição, código e status; códigos das disciplinas visíveis; materiais obrigatórios destacados conforme a classificação correta; evitar duplicações e textos genéricos como 'Descrição não cadastrada', preferindo 'Informações pedagógicas'.",
           "Foram discutidas informações pedagógicas, assuntos, datas de estudo e revisão, cronogramas de oferta, histórico, materiais obrigatórios, busca curricular, filtros por disciplina e categoria, e integração do calendário com datas previstas. Essas decisões devem ser tratadas como requisitos históricos; a implementação atual de cada uma precisa ser confirmada no código antes de orientar o usuário."
         ]
@@ -773,7 +770,7 @@
           "Planos anteriores de adicionar novas plataformas de hospedagem ou serviços externos não estão vigentes: a publicação definida é GitHub Pages.",
           "Propostas antigas de uma página planejamento.html e de um sistema mais amplo de revisões/relatórios não são automaticamente requisitos atuais. Verificar se foram implementadas e se continuam desejadas.",
           "A ideia inicial de registrar detalhadamente datas de estudo e revisão foi posteriormente simplificada na interface. Preservar históricos existentes; não reintroduzir controles visuais removidos sem nova aprovação.",
-          "Indicadores 'Atividades de hoje', 'Revisões pendentes' e 'Em andamento' devem ser removidos da Visão geral conforme decisão mais recente; manter 'Assuntos concluídos' e 'Disciplinas ativas' e ampliar o calendário. Enquanto não houver confirmação no site, registrar como aprovado e pendente, não como implementado.",
+          "A decisão de remover 'Atividades de hoje', 'Revisões pendentes' e 'Em andamento' da Visão geral foi implementada em 26/11/2026; manter somente 'Assuntos concluídos' e 'Disciplinas ativas' e o calendário ampliado.",
           "Qualquer procedimento genérico do Manual Operacional que não tenha sido confrontado com o formulário, workflow e código atuais deve ser marcado como pendente de validação. Não apresentar suposições como instruções confirmadas.",
           "Dados de teste, especialmente a oferta teoria-do-direito-2028-1, não são dados oficiais de oferta nem cronograma real. Nunca misturar simulações com atividades acadêmicas oficiais."
         ]
