@@ -30,6 +30,11 @@
       "assunto_id": "economia-politica-assunto-01-01",
       "situacao_geral": "em_andamento",
       "conteudo_status": "nao_iniciado"
+    },
+    {
+      "assunto_id": "economia-politica-assunto-01-02",
+      "situacao_geral": "concluido",
+      "conteudo_status": "nao_iniciado"
     }
   ]
 }
