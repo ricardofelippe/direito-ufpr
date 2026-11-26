@@ -2022,145 +2022,133 @@
         const campo = document.getElementById('campo-busca-curriculo');
         const resultados = document.getElementById('resultados-busca-curriculo');
         const filtros = document.getElementById('filtros-busca-curriculo');
+        const botaoBuscar = document.getElementById('aplicar-busca-curriculo');
+        const botaoLimpar = document.getElementById('limpar-busca-curriculo');
+
         let filtroAtivo = 'todos';
-        let termoAplicado = '';
         const disciplinas = Array.isArray(estrutura.disciplinas) ? estrutura.disciplinas : [];
         const unidades = Array.isArray(estrutura.unidades) ? estrutura.unidades : [];
         const assuntos = Array.isArray(estrutura.assuntos) ? estrutura.assuntos : [];
 
         function adicionarResultado(tipo, nome, contexto, disciplinaId, categoria, assuntoId = null) {
+          if (!disciplinaId) return;
           const link = criarElemento('a', 'resultado-busca-curriculo');
           link.dataset.categoria = categoria;
-
           const parametros = new URLSearchParams({ id: disciplinaId });
           if (assuntoId) parametros.set('assunto', assuntoId);
-
-          link.href = `disciplina.html?${parametros.toString()}`;
+          link.href = 'disciplina.html?' + parametros.toString();
           link.appendChild(criarElemento('span', 'tipo-resultado-busca', tipo));
           link.appendChild(criarElemento('span', 'nome-resultado-busca', nome));
-          if (contexto) {
-            link.appendChild(criarElemento('span', 'contexto-resultado-busca', contexto));
-          }
+          if (contexto) link.appendChild(criarElemento('span', 'contexto-resultado-busca', contexto));
           resultados.appendChild(link);
         }
 
+        function aplicarFiltroResultados() {
+          const itens = resultados.querySelectorAll('.resultado-busca-curriculo');
+          let visiveis = 0;
+          itens.forEach(item => {
+            item.hidden = filtroAtivo !== 'todos' && item.dataset.categoria !== filtroAtivo;
+            if (!item.hidden) visiveis++;
+          });
+          filtros.querySelectorAll('[data-filtro]').forEach(botao => {
+            botao.setAttribute('aria-pressed', String(botao.dataset.filtro === filtroAtivo));
+          });
+          const mensagemFiltro = resultados.querySelector('.mensagem-filtro-busca');
+          if (mensagemFiltro) mensagemFiltro.remove();
+          if (filtroAtivo !== 'todos' && itens.length && !visiveis) {
+            resultados.appendChild(criarElemento('p', 'mensagem-busca-curriculo mensagem-filtro-busca',
+              'Nenhum resultado encontrado neste tipo.'));
+          }
+        }
+
         function pesquisar() {
-          const termoOriginal = termoAplicado;
+          const termoOriginal = campo.value.trim();
           const termo = normalizarTexto(termoOriginal);
           resultados.replaceChildren();
           filtros.hidden = !termo;
-
           if (!termo) return;
 
           let quantidade = 0;
-          const limite = 40;
+          const limite = 100;
+          const adicionarSeCorresponder = (texto, callback) => {
+            if (quantidade >= limite || !normalizarTexto(texto).includes(termo)) return;
+            callback();
+            quantidade++;
+          };
 
           disciplinas.forEach(disciplina => {
-            if (quantidade >= limite) return;
-            const nome = disciplina.nome || 'Disciplina sem nome';
-            const codigo = disciplina.codigo || '';
-            if (normalizarTexto(nome).includes(termo) || normalizarTexto(codigo).includes(termo)) {
-              adicionarResultado(
-                codigo ? `Disciplina · ${codigo}` : 'Disciplina',
-                nome,
-                disciplina.ano ? `${disciplina.ano}º ano` : 'Ano não informado',
+            adicionarSeCorresponder(
+              [disciplina.nome, disciplina.codigo, disciplina.descricao].filter(Boolean).join(' '),
+              () => adicionarResultado(
+                disciplina.codigo ? 'Disciplina · ' + disciplina.codigo : 'Disciplina',
+                disciplina.nome || 'Disciplina sem nome',
+                disciplina.ano ? disciplina.ano + 'º ano' : 'Ano não informado',
                 disciplina.id,
                 'disciplina'
-              );
-              quantidade++;
-            }
+              )
+            );
           });
 
           unidades.forEach(unidade => {
-            if (quantidade >= limite) return;
-            const nome = unidade.nome || unidade.titulo || 'Unidade sem nome';
-            if (!normalizarTexto(nome).includes(termo)) return;
             const disciplina = disciplinas.find(item => item.id === unidade.disciplina_id);
             if (!disciplina) return;
-            adicionarResultado('Unidade temática', nome, `Disciplina: ${disciplina.nome}`, disciplina.id, 'unidade');
-            quantidade++;
+            adicionarSeCorresponder(
+              [unidade.nome, unidade.titulo, unidade.descricao].filter(Boolean).join(' '),
+              () => adicionarResultado('Unidade temática', unidade.nome || unidade.titulo || 'Unidade sem nome',
+                'Disciplina: ' + disciplina.nome, disciplina.id, 'unidade')
+            );
           });
 
           assuntos.forEach(assunto => {
-            if (quantidade >= limite) return;
-            const nome = assunto.nome || assunto.titulo || 'Assunto sem nome';
-            if (!normalizarTexto(nome).includes(termo)) return;
-
             const unidade = unidades.find(item => item.id === assunto.unidade_id);
             const disciplinaId = assunto.disciplina_id || (unidade && unidade.disciplina_id);
             const disciplina = disciplinas.find(item => item.id === disciplinaId);
             if (!disciplina) return;
-
-            const contexto = unidade
-              ? `Disciplina: ${disciplina.nome} · Unidade: ${unidade.nome || unidade.titulo || 'Sem título'}`
-              : `Disciplina: ${disciplina.nome} · Associação direta à disciplina`;
-
-            adicionarResultado('Assunto', nome, contexto, disciplina.id, 'assunto', assunto.id);
-            quantidade++;
+            adicionarSeCorresponder(
+              [assunto.nome, assunto.titulo, assunto.descricao].filter(Boolean).join(' '),
+              () => {
+                const contexto = unidade
+                  ? 'Disciplina: ' + disciplina.nome + ' · Unidade: ' + (unidade.nome || unidade.titulo || 'Sem título')
+                  : 'Disciplina: ' + disciplina.nome;
+                adicionarResultado('Assunto', assunto.nome || assunto.titulo || 'Assunto sem nome',
+                  contexto, disciplina.id, 'assunto', assunto.id);
+              }
+            );
           });
 
           if (!quantidade) {
-            resultados.appendChild(criarElemento(
-              'p',
-              'mensagem-busca-curriculo',
-              `Nenhum resultado encontrado para “${termoOriginal}”.`
-            ));
-          } else if (quantidade === limite) {
-            resultados.appendChild(criarElemento(
-              'p',
-              'mensagem-busca-curriculo',
-              `Exibindo os primeiros ${limite} resultados. Refine a busca para encontrar outros registros.`
-            ));
+            resultados.appendChild(criarElemento('p', 'mensagem-busca-curriculo',
+              'Nenhum resultado encontrado para “' + termoOriginal + '”.'));
+          } else if (quantidade >= limite) {
+            resultados.appendChild(criarElemento('p', 'mensagem-busca-curriculo',
+              'Exibindo os primeiros ' + limite + ' resultados. Refine a busca para encontrar outros registros.'));
           }
+          aplicarFiltroResultados();
         }
 
         filtros.querySelectorAll('[data-filtro]').forEach(botao => {
           botao.addEventListener('click', () => {
-            filtroAtivo = botao.dataset.filtro;
-            filtros.querySelectorAll('[data-filtro]').forEach(item => {
-              item.setAttribute('aria-pressed', String(item === botao));
-            });
-            pesquisar();
+            filtroAtivo = botao.dataset.filtro || 'todos';
+            aplicarFiltroResultados();
           });
         });
 
-        const pesquisarOriginal = pesquisar;
-        pesquisar = function() {
-          pesquisarOriginal();
-          if (filtroAtivo !== 'todos') {
-            resultados.querySelectorAll('.resultado-busca-curriculo').forEach(item => {
-              item.hidden = item.dataset.categoria !== filtroAtivo;
-            });
-            const visiveis = [...resultados.querySelectorAll('.resultado-busca-curriculo')]
-              .filter(item => !item.hidden).length;
-            const mensagem = resultados.querySelector('.mensagem-busca-curriculo');
-            if (!visiveis && !mensagem) {
-              resultados.appendChild(criarElemento('p', 'mensagem-busca-curriculo', 'Nenhum resultado encontrado neste tipo.'));
-            }
-          }
-        };
-
-        document.getElementById('aplicar-busca-curriculo')?.addEventListener('click', () => {
-          termoAplicado = campo.value.trim();
+        botaoBuscar?.addEventListener('click', pesquisar);
+        campo.addEventListener('input', () => {
+          filtroAtivo = 'todos';
           pesquisar();
         });
-
         campo.addEventListener('keydown', evento => {
           if (evento.key === 'Enter') {
             evento.preventDefault();
-            termoAplicado = campo.value.trim();
             pesquisar();
           }
         });
-
-        document.getElementById('limpar-busca-curriculo')?.addEventListener('click', () => {
+        botaoLimpar?.addEventListener('click', () => {
           campo.value = '';
-          termoAplicado = '';
           filtroAtivo = 'todos';
-          filtros.querySelectorAll('[data-filtro]').forEach(botao => {
-            botao.setAttribute('aria-pressed', String(botao.dataset.filtro === 'todos'));
-          });
           pesquisar();
+          campo.focus();
         });
       }
 
