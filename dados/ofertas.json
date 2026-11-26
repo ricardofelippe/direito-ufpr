@@ -11,7 +11,30 @@
         "arquivo": "documentos/planos-de-ensino/teoria-do-direito-2028-1.pdf",
         "nome_original": "plano_ensino_simulado_teoria_do_direito_2028_1.pdf",
         "versao": 1
-      }
+      },
+      "cronograma_previsto": [
+        {
+          "tipo": "prova",
+          "titulo": "Avaliação 1 — questões dissertativas",
+          "data": "2028-04-16",
+          "observacao": "Questões dissertativas; peso de 30% na nota final."
+        },
+        {
+          "tipo": "seminario",
+          "titulo": "Seminários em grupo",
+          "data": "2028-05-21",
+          "observacao": "Atividade em grupo; peso de 30% na nota final."
+        },
+        {
+          "tipo": "prova",
+          "titulo": "Avaliação 2",
+          "data": "2028-05-28",
+          "observacao": "Precedida de revisão no cronograma; peso de 40% na nota final."
+        }
+      ],
+      "status_extracao": "atividades_encontradas",
+      "observacoes_gerais": "Datas e pesos extraídos do plano de ensino simulado para testes cadastrais.",
+      "cronograma_atualizado_em": "2026-11-26T14:44:43.744Z"
     }
   ]
 }
