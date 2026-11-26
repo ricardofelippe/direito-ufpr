@@ -879,6 +879,13 @@
       cursor: pointer;
     }
 
+    /* O atributo hidden deve prevalecer sobre os estilos de layout flex/grid. */
+    .filtros-busca-curriculo[hidden],
+    .resultados-busca-curriculo[hidden],
+    .indicador-filtros-ativos[hidden] {
+      display: none !important;
+    }
+
     .filtros-busca-curriculo {
       display: flex;
       flex-wrap: wrap;
