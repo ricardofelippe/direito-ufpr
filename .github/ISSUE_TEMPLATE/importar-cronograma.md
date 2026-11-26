@@ -2,7 +2,6 @@
 name: Importar cronograma previsto
 about: Salvar atividades extraídas do Plano de Ensino pelo NotebookLM
 title: "[Importar cronograma] "
-labels: cronograma-previsto
 assignees: ricardofelippe
 ---
 
