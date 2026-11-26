@@ -521,11 +521,12 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.22",
+    "versao": "2.23",
     "atualizado_em": "26/11/2026",
-    "resumo": "Inclui no plano de continuidade um mini simulado integrado de uso do sistema, a ser realizado após a conclusão da área exclusiva do Laboratório de Argumentação Jurídica. A simulação representará o início do curso em 2028 e testará planejamento acadêmico, cronogramas, documentos e acompanhamento de estudos.",
+    "resumo": "Inclui horário exato e fuso horário nos metadados de atualização do PDC, para identificar não apenas a data, mas também a hora da última atualização.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
+      "Regra de atualização do PDC: manter data e hora da última atualização nos metadados `atualizado_em`, `atualizado_as` e `fuso_horario`. Usar o horário local de Brasília/São Paulo (America/Sao_Paulo), registrar horas no formato HH:MM:SS e atualizar esses campos em toda alteração efetiva do PDC. A hora representa o momento em que o conteúdo do PDC foi atualizado no repositório; não confundir com o horário de publicação do site ou de geração do PDF.",
       "Repositório vigente: ricardofelippe/direito-ufpr (nome em minúsculas); branch principal: main; publicação: https://ricardofelippe.github.io/direito-ufpr/. Referências antigas com 'Direito-UFPR' maiúsculo foram substituídas nesta documentação.",
       "Última alteração em disciplina.html: seleção explícita de assunto por botão no cartão; ao selecionar, a aba de conteúdos filtra pelo assunto.",
       "Cadastro individual de resumos: formulário direto em disciplina.html com campos Título do resumo e Conteúdo do resumo. Disciplina, unidade e assunto são preenchidos automaticamente. O botão Enviar para o GitHub abre uma Issue pré-preenchida; o usuário ainda precisa conferir e enviar. O workflow processar-resumo.yml grava em dados/conteudos.json. A alteração foi gravada, mas o teste visual/funcional em navegador ainda depende de confirmação do usuário.",
@@ -542,6 +543,7 @@
       "Última alteração visual nesta etapa: campo de busca de direito.html mantém borda turquesa e realce sutil permanentes, sem mudança de aparência ao receber/perder foco; botões Buscar, Limpar e Filtros continuam alinhados ao lado."
     ],
     "proximos_passos": [
+      "Em toda atualização futura do PDC, atualizar também `atualizado_em`, `atualizado_as` e `fuso_horario` com data e hora local de São Paulo (America/Sao_Paulo), no formato HH:MM:SS; conferir que a página de consulta do PDC apresente a data e a hora.",
       "Prioridade principal: desenhar, estruturar e validar o Laboratório de Argumentação Jurídica como área/página exclusiva, acessível a partir de cada disciplina e recebendo automaticamente a disciplina e o assunto selecionado.",
       "Antes de programar o Laboratório, fechar o modelo funcional: objetivos, fluxo de uma sessão, modalidades oral, escrita e debate, treinamento por assunto ou disciplina inteira, método socrático, critérios de avaliação e registro da evolução.",
       "Definir a divisão de responsabilidades entre NotebookLM (fontes e preparação de conteúdo), treinador por IA (interação oral, escrita e debate) e site (organização, entrada no Laboratório e histórico resumido). Não criar APIs, workflows ou gravações internas sem necessidade e aprovação.",
@@ -555,11 +557,11 @@
       "Manter documentação, PDC e PDF sincronizados com alterações efetivamente implementadas; verificar Actions e publicação antes de declarar conclusão."
     ],
     "historico": [
-      "v2.18 — 26/11/2026: encerramento da etapa; atualizada a sequência de melhorias, corrigidas regras documentais conflitantes de ordenação/numeração e registrada avaliação qualitativa de maturidade 7,0/10.",
       "v2.19 — 26/11/2026: reforçado o destaque dos cartões de assuntos por situação geral; 'Em andamento' recebe tom turquesa e pulsação suave, 'Concluído' recebe tom verde estável e 'Pendente' mantém âmbar, respeitando movimento reduzido.",
       "v2.20 — 26/11/2026: Visão geral do painel inicial passa a focar nos totais de disciplinas finalizadas, ativas e pendentes, com cartões clicáveis e filtro de finalizadas habilitado no currículo.",
       "v2.21 — 26/11/2026: documentação atualizada para o cadastro direto de resumos em disciplina.html (título e conteúdo; IDs automáticos; confirmação final via Issue/GitHub); repositório e URLs normalizados para ricardofelippe/direito-ufpr; Laboratório de Argumentação definido como principal prioridade futura, em área/página exclusiva vinculada a cada disciplina.",
-      "v2.22 — 26/11/2026: incluído no roadmap um mini simulado integrado após a conclusão do Laboratório. Cenário fictício em 2028; seleção aleatória de 80% a 100% das disciplinas/assuntos do período; geração de Planos de Aula simulados com datas de provas e trabalhos; uma disciplina sem PDF para testar ausência documental; execução ponta a ponta dos fluxos do sistema, com dados isolados e identificação de simulação."
+      "v2.22 — 26/11/2026: incluído no roadmap um mini simulado integrado após a conclusão do Laboratório. Cenário fictício em 2028; seleção aleatória de 80% a 100% das disciplinas/assuntos do período; geração de Planos de Aula simulados com datas de provas e trabalhos; uma disciplina sem PDF para testar ausência documental; execução ponta a ponta dos fluxos do sistema, com dados isolados e identificação de simulação.",
+      "v2.23 — 26/11/2026 às 19:27:54 (America/Sao_Paulo, UTC−03:00): PDC passa a registrar data, hora e fuso horário da última atualização; regra incluída para todas as atualizações futuras."
     ],
     "pdf_url": "docs/PDC_Direito_UFPR_v2.20.pdf",
     "conteudo_completo": [
@@ -939,7 +941,24 @@
           "Segurança dos dados: isolar e tornar reversíveis os dados simulados; não sobrescrever dados acadêmicos reais.",
           "Entrega: relatório de execução, falhas, lacunas e melhorias necessárias."
         ]
+      },
+      {
+        "titulo": "22. Registro de data e hora da atualização do PDC",
+        "paragrafos": [
+          "A partir da versão 2.23, o PDC deve informar o momento de sua última atualização com data, hora e fuso horário. A data permanece no campo `atualizado_em`, a hora local no campo `atualizado_as` (formato HH:MM:SS) e o fuso no campo `fuso_horario` (IANA: America/Sao_Paulo, UTC−03:00).",
+          "Sempre que o conteúdo do PDC for efetivamente alterado, atualizar os três campos no mesmo commit. O horário deve corresponder ao momento da atualização do conteúdo no repositório, e não ser estimado nem confundido com a publicação do site ou com a geração do PDF.",
+          "A interface que apresenta o PDC deverá exibir data e hora juntas, incluindo a indicação do fuso horário. Se o PDF for atualizado, ele também deverá apresentar o mesmo carimbo temporal do PDC que lhe deu origem."
+        ],
+        "itens": [
+          "Data: atualizado_em, formato DD/MM/AAAA.",
+          "Hora: atualizado_as, formato HH:MM:SS.",
+          "Fuso: fuso_horario, valor America/Sao_Paulo (UTC−03:00).",
+          "Atualizar os três campos em toda alteração efetiva do PDC.",
+          "Exibir data, hora e fuso na página do PDC e no PDF correspondente."
+        ]
       }
-    ]
+    ],
+    "atualizado_as": "19:27:54",
+    "fuso_horario": "America/Sao_Paulo (UTC−03:00)"
   }
 }
