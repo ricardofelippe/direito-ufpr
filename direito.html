@@ -1435,8 +1435,8 @@
               resultadoValidacao.textContent =
                 'JSON válido. ' + resumoStatus[dados.status_extracao] +
                 '. ' + dados.atividades.length + ' atividade(s).' +
-                (dados.observacoes_gerais ? '\\nObservações: ' + dados.observacoes_gerais : '') +
-                '\\nConfira os dados antes de continuar. A gravação ocorrerá após confirmar a solicitação no GitHub.';
+                (dados.observacoes_gerais ? '\nObservações: ' + dados.observacoes_gerais : '') +
+                '\nConfira os dados antes de continuar. A gravação ocorrerá após confirmar a solicitação no GitHub.';
               botaoEnviar.hidden = false;
             } catch (erro) {
               resultadoValidacao.classList.add('erro');
@@ -1454,7 +1454,7 @@
               '```json',
               JSON.stringify(dadosValidados, null, 2),
               '```'
-            ].join('\\n');
+            ].join('\n');
             const url = new URL('https://github.com/ricardofelippe/Direito-UFPR/issues/new');
             url.searchParams.set('template', 'importar-cronograma.md');
             url.searchParams.set('title', '[Importar cronograma] ' + oferta.disciplina + ' — ' + oferta.periodo);
