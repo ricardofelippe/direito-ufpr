@@ -1164,6 +1164,15 @@
       font-weight: 700;
     }
 
+    .icone-trofeu-disciplina {
+      display: inline-block;
+      margin: 0 0 7px 8px;
+      font-size: 17px;
+      line-height: 1;
+      vertical-align: middle;
+      filter: drop-shadow(0 1px 3px rgba(243, 212, 119, .35));
+    }
+
     /* Barra compacta de busca e filtros: ferramentas secundárias ao currículo. */
     .ferramentas-curriculo {
       position: relative;
@@ -1469,6 +1478,11 @@
           cartao.classList.add('disciplina-ativa');
         } else if (status === 'finalizada') {
           cartao.classList.add('disciplina-finalizada');
+          const trofeu = criarElemento('span', 'icone-trofeu-disciplina', '🏆');
+          trofeu.setAttribute('role', 'img');
+          trofeu.setAttribute('aria-label', 'Disciplina finalizada');
+          trofeu.setAttribute('title', 'Disciplina finalizada');
+          resumo.insertBefore(trofeu, topo);
         }
         const rotulosStatus = {
           ativa: 'Ativa',
