@@ -28,6 +28,13 @@
       "lote_id": "notebooklm-1795528914304-0lc5p9",
       "titulo": "Teste de integração NotebookLM",
       "conteudo": "# Teste de integração NotebookLM\r\n\r\nEste é um conteúdo de teste para verificar a importação e o salvamento no sistema de estudos."
+    },
+    {
+      "id": "resumo-1795720012107-84",
+      "assunto_id": "teoria-do-direito-assunto-02",
+      "titulo": "Digite o título",
+      "ordem": 1,
+      "conteudo": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxuuuuuuuuuuuuuuuuuuuuuu"
     }
   ],
   "revisoes": [
