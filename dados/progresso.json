@@ -25,6 +25,11 @@
       "assunto_id": "direito-civil-a-assunto-01",
       "situacao_geral": "em_andamento",
       "conteudo_status": "nao_iniciado"
+    },
+    {
+      "assunto_id": "economia-politica-assunto-01-01",
+      "situacao_geral": "em_andamento",
+      "conteudo_status": "nao_iniciado"
     }
   ]
 }
