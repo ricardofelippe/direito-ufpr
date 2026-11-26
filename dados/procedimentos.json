@@ -520,9 +520,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.17",
+    "versao": "2.18",
     "atualizado_em": "26/11/2026",
-    "resumo": "Registro mestre de decisões e transição técnica. Consolida arquitetura, decisões vigentes, fluxos e estado verificado. Esta versão mantém o campo de busca visualmente destacado de forma permanente, sem depender do foco, preservando o alinhamento dos botões ao lado.",
+    "resumo": "Registro mestre de decisões, arquitetura, fluxos e continuidade. Consolida a interface curricular atual, as regras vigentes de ordenação/numeração, a busca e a avaliação de maturidade do projeto. A versão 2.18 encerra a etapa de 26/11/2026 e organiza as próximas melhorias por prioridade.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Repositório: ricardofelippe/Direito-UFPR; publicação: https://ricardofelippe.github.io/Direito-UFPR/; branch principal conhecida: main.",
@@ -531,27 +531,29 @@
       "Oferta teoria-do-direito-2028-1 está marcada como simulação; não é Plano de Ensino oficial.",
       "O workflow importar-cronograma.yml valida e substitui a lista cronograma_previsto da oferta; correções devem enviar a lista completa que deve permanecer.",
       "Modelo híbrido aprovado: NotebookLM concentra geração de questões e flashcards; o site organiza, armazena e acompanha os estudos.",
-      "A simplificação da Visão geral foi aprovada, mas index.html ainda contém quatro indicadores e o painel Atividades de hoje; implementação pendente.",
       "A regra permanente exige atualizar a Central e o PDC em toda funcionalidade nova, alteração relevante ou descontinuação.",
       "O PDF integral v2.0 deve estar disponível em docs/PDC_Direito_UFPR_v2.0.pdf.",
       "A versão 2.1 consolida entendimentos históricos recuperados das etapas anteriores e diferencia decisões vigentes de propostas antigas ou substituídas.",
-      "O procedimento 'Como atualizar informações pedagógicas' foi detalhado na versão 2.2 após conferir direito.html e dados/estrutura.json. A rotina atual é edição direta do JSON; não foi identificado workflow/Issue Template específico para essa operação."
+      "O procedimento 'Como atualizar informações pedagógicas' foi detalhado na versão 2.2 após conferir direito.html e dados/estrutura.json. A rotina atual é edição direta do JSON; não foi identificado workflow/Issue Template específico para essa operação.",
+      "Última alteração visual nesta etapa: campo de busca de direito.html mantém borda turquesa e realce sutil permanentes, sem mudança de aparência ao receber/perder foco; botões Buscar, Limpar e Filtros continuam alinhados ao lado."
     ],
     "proximos_passos": [
-      "Validar a Central publicada, sua versão e o link para o PDF integral.",
-      "Conferir a publicação do PDF v2.0 no repositório.",
-      "Completar procedimentos operacionais com base nos workflows e formulários reais.",
-      "Implementar a simplificação aprovada da Visão geral e ampliar o calendário, em alteração isolada.",
-      "Auditar fluxos restantes e atualizar Manual/PDC após cada mudança."
+      "Validar no navegador, com Ctrl+F5, a busca curricular e confirmar que o destaque permanente está discreto e que os botões continuam alinhados; testar pesquisa, Enter, filtros por tipo e Limpar.",
+      "Revisar e consolidar a regra de ordenação/numeração dos cartões: disciplinas ativas primeiro; sequência NN/total acompanha a ordem visual; filtros recalculam numeradores visíveis e mantêm denominador total da categoria. Corrigir qualquer texto/documentação que ainda descreva regra antiga.",
+      "Auditar os procedimentos do Manual Operacional contra os workflows, templates e páginas atuais; completar os que ainda não expliquem o fluxo integral e marcar limitações reais.",
+      "Fazer auditoria funcional de ponta a ponta dos fluxos mais importantes: status da disciplina, cadastro/associação de PDFs, progresso, resumos/conteúdos e importação de cronograma.",
+      "Revisar a experiência de index.html: calendário, indicadores, Acesso rápido recolhível e responsividade em telas menores; implementar somente ajustes aprovados, um por vez.",
+      "Revisar dados/ofertas.json e distinguir dados simulados de ofertas reais; não apresentar atividades de simulação como calendário oficial.",
+      "Depois da auditoria funcional, priorizar melhorias de acessibilidade, mensagens de erro, validação de formulários e prevenção de gravações concorrentes."
     ],
     "historico": [
-      "v2.13 — 26/11/2026: automação de status corrigida para buscar a versão mais recente de main e reaplicar somente o status solicitado, com até cinco tentativas em caso de gravações simultâneas.",
       "v2.14 — 26/11/2026: cartões de disciplinas ativas passam a aparecer primeiro em cada ano/categoria; numeração NN/total permanece fixa e independente da ordem visual. Regra de ordenação exclusivamente curricular da v2.10 explicitamente substituída.",
       "v2.15 — 26/11/2026: busca do currículo corrigida para atualizar durante a digitação, manter execução por botão/Enter e pesquisar também descrições, com filtros por tipo e limpeza funcional.",
       "v2.16 — 26/11/2026: numeração NN/total passa a acompanhar a ordem visual dos cartões (anos em sequência e ativos primeiro dentro de cada ano/categoria); filtros recalculam a sequência visível, mantendo o total completo no denominador.",
-      "v2.17 — 26/11/2026: campo de busca passa a manter borda e destaque turquesa permanentes, sem depender do foco; alinhamento dos botões laterais preservado."
+      "v2.17 — 26/11/2026: campo de busca passa a manter borda e destaque turquesa permanentes, sem depender do foco; alinhamento dos botões laterais preservado.",
+      "v2.18 — 26/11/2026: encerramento da etapa; atualizada a sequência de melhorias, corrigidas regras documentais conflitantes de ordenação/numeração e registrada avaliação qualitativa de maturidade 7,0/10."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.17.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.18.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -705,13 +707,12 @@
           "No painel inicial, o cabeçalho oferece dois acessos independentes: Currículo (direito.html) e Biblioteca geral (biblioteca.html). Na seção Acesso rápido, priorizar as áreas disponíveis — Currículo, Biblioteca geral e Central de documentação — e manter Planejamento e Portfólio visualmente esmaecidos, sem link e com indicação de indisponibilidade até que sejam implementados.",
           "Evitar duplicidade de navegação no painel inicial: o cabeçalho contém apenas a identificação da Plataforma; os acessos para Currículo e Biblioteca geral aparecem uma única vez na seção Acesso rápido.",
           "Na página do currículo, busca e filtros devem ter baixo destaque visual e ficar reunidos em uma barra compacta. O campo de busca permanece visível; os filtros administrativos, início dos estudos e situação geral ficam recolhidos por padrão e são abertos sob demanda. Mostrar indicador discreto quando houver filtros ativos. Preservar IDs, critérios, pesquisa por disciplina/unidade/assunto e comportamento de aplicação/limpeza.",
-          "A numeração NN/total acompanha a posição visual dos cartões. Dentro de cada categoria, a sequência percorre os anos na ordem em que aparecem na página; em cada ano, disciplinas com status 'ativa' vêm primeiro e as demais vêm depois, preservando a ordem curricular entre elas. O numerador é sequencial entre os cartões atualmente exibidos (01, 02, 03...), enquanto o denominador permanece o total completo de disciplinas daquela categoria (por exemplo, 01/51). Quando filtros ocultarem cartões, a numeração dos cartões visíveis é recalculada para continuar sequencial, sem alterar o denominador total da categoria. Portanto, a numeração é uma posição de exibição, não um identificador curricular permanente.",
+          "A ordenação visual dos cartões prioriza primeiro as disciplinas com status 'ativa' dentro de cada ano/categoria; as demais vêm depois, preservando entre elas a ordem curricular. A numeração NN/total acompanha a ordem efetivamente renderizada: o numerador é sequencial entre os cartões exibidos e recalcula após filtros; o denominador permanece o total completo da categoria. Não descrever esta numeração como posição curricular fixa nem independente da ordenação.",
           "Na busca do currículo, os botões de tipo de resultado (Todos, Disciplinas, Unidades temáticas e Assuntos) devem permanecer ocultos enquanto não houver termo de pesquisa aplicado. Ao executar uma busca, aparecem para refinar os resultados; ao limpar o termo, voltam a ficar ocultos. Regras CSS de display não podem sobrepor o atributo HTML hidden.",
           "O Acesso rápido do painel inicial deve ficar logo após o texto de apresentação, antes da Visão geral, em um elemento recolhível (details/summary) fechado por padrão. Expandido, mostra atalhos disponíveis em grade compacta; Planejamento e Portfólio permanecem esmaecidos e sem link. A grade adapta o número de colunas à largura da tela. O objetivo é evitar que os atalhos ocupem permanentemente espaço vertical ou concorram com o calendário e os indicadores.",
           "A automação de alteração do status administrativo (.github/workflows/atualizar-status-disciplina.yml) deve sempre buscar a versão mais recente de main antes de editar dados/estrutura.json. Em caso de rejeição de push por atualização concorrente, deve descartar a cópia local, buscar novamente a versão remota, reaplicar somente o status solicitado ao identificador da disciplina e tentar publicar novamente (limite de cinco tentativas). Nunca forçar push nem sobrescrever alterações de outros workflows. O workflow deve informar o resultado na Issue e fechá-la somente após confirmar que o status solicitado está aplicado.",
           "A ordenação visual por status tem prioridade definida: primeiro todas as disciplinas com status 'ativa'; em seguida, os demais status, respeitando a ordem curricular fixa entre eles. A regra anterior registrada na versão 2.10 — manter todos os cartões exclusivamente na ordem curricular independentemente do status — fica substituída por esta regra. A numeração NN/total continua fixa e independente.",
           "A busca do currículo deve responder imediatamente à digitação (sem exigir clique em Buscar), mantendo também o botão Buscar e a tecla Enter como formas de execução. Deve pesquisar nomes, códigos e descrições de disciplinas, unidades temáticas e assuntos; normalizar acentos e maiúsculas/minúsculas; permitir filtrar os resultados por Todos, Disciplinas, Unidades temáticas e Assuntos; e oferecer Limpar para zerar a pesquisa e retornar ao estado inicial. Resultados de unidades e assuntos devem apontar para a disciplina correspondente, e resultados de assuntos devem preservar o ID do assunto no link.",
-          "A regra anterior de numeração curricular fixa e independente da posição visual, registrada nas versões 2.10 e 2.14, está substituída a partir da v2.16. A numeração deve corresponder exatamente à ordem renderizada, inclusive após alteração de status e aplicação de filtros.",
           "Na barra de busca do currículo, o campo de texto deve manter destaque visual permanente e discreto (borda turquesa e realce sutil), independentemente de estar ou não em foco. O foco não deve aumentar a espessura nem alterar a aparência da borda. Os botões Buscar, Limpar e Filtros permanecem alinhados ao lado do campo conforme o layout compacto atual; não reorganizar esse alinhamento ao ajustar o destaque."
         ]
       },
@@ -724,7 +725,7 @@
           },
           {
             "titulo": "Pendente ou exige validação",
-            "texto": "completar rotinas de cadastro/edição/exclusão; disponibilizar o PDF vigente do PDC em URL do próprio site/repositório."
+            "texto": "Validar visualmente no navegador a última alteração da busca; auditar a consistência da documentação com as regras atuais de ordenação e numeração; concluir auditoria funcional dos fluxos operacionais; revisar responsividade e acessibilidade; conferir se o PDF v2.18 foi gerado e publicado. A maturidade atribuída nesta versão é uma avaliação qualitativa do estágio do projeto, não uma certificação ou auditoria formal."
           }
         ],
         "paragrafos": []
@@ -745,9 +746,11 @@
       {
         "titulo": "11. Próxima sequência recomendada",
         "itens": [
-          "Validar a Central de Documentação publicada e corrigir a exibição da versão/PDF.",
-          "Finalizar os procedimentos operacionais com base nos formulários e workflows efetivamente existentes.",
-          "Auditar as demais páginas e fluxos, atualizando o manual a cada mudança."
+          "Primeiro: teste visual e funcional da busca curricular após a alteração de destaque permanente.",
+          "Segundo: saneamento documental das regras de ordenação e numeração e auditoria dos procedimentos do Manual.",
+          "Terceiro: testes ponta a ponta das automações e fluxos de dados mais utilizados, incluindo tratamento de erro e concorrência.",
+          "Quarto: auditoria de responsividade, acessibilidade e consistência visual entre index.html, direito.html, disciplina.html e biblioteca.html.",
+          "Quinto: somente após estabilizar o núcleo, avaliar novas funcionalidades, sem ampliar desnecessariamente a carga administrativa."
         ]
       },
       {
@@ -837,6 +840,57 @@
           "Detalhar cada etapa imediatamente abaixo do fluxo.",
           "Separar fatos confirmados de limitações e itens pendentes.",
           "Atualizar o procedimento e o PDC sempre que formulário, workflow, arquivo ou regra de negócio mudar."
+        ]
+      },
+      {
+        "titulo": "19. Encerramento da etapa de 26/11/2026 — maturidade e próximos ciclos",
+        "paragrafos": [
+          "A etapa foi encerrada após ajustes de interface no currículo e correções/aperfeiçoamentos acumulados na busca, ordenação visual, numeração dos cartões, navegação do painel inicial, documentação e automação de status. A última alteração desta etapa deixa o campo de busca com destaque turquesa permanente e discreto, sem depender do foco, preservando o alinhamento lateral dos botões.",
+          "Avaliação qualitativa de maturidade: 7,0/10 (plataforma funcional em estágio intermediário-avançado, com núcleo de organização e automações já estabelecido, mas ainda necessitando de validação sistemática e saneamento documental). A nota considera arquitetura e separação de dados, funcionalidades implementadas, automações, documentação, experiência de uso e confiabilidade operacional. Não representa auditoria independente, teste de segurança ou garantia de ausência de falhas."
+        ],
+        "tabela": [
+          [
+            "Dimensão",
+            "Avaliação",
+            "Justificativa resumida"
+          ],
+          [
+            "Arquitetura e organização dos dados",
+            "8/10",
+            "Páginas e arquivos JSON com responsabilidades identificáveis; currículo, progresso, conteúdos e ofertas separados."
+          ],
+          [
+            "Funcionalidades centrais",
+            "8/10",
+            "Currículo, cartões expansíveis, busca, filtros, biblioteca, calendário e acompanhamento já compõem um fluxo útil."
+          ],
+          [
+            "Automação e integração GitHub",
+            "7/10",
+            "Issues e Actions cobrem operações relevantes; já houve tratamento de concorrência, mas os fluxos precisam de testes recorrentes."
+          ],
+          [
+            "Documentação e continuidade",
+            "7/10",
+            "Central e PDC estruturados, com histórico e procedimentos; ainda é necessário conferir consistência de todas as instruções com o código atual."
+          ],
+          [
+            "Experiência e acessibilidade",
+            "6/10",
+            "Interface foi refinada, mas ainda precisa de validação em diferentes larguras, navegação por teclado, mensagens e estados de erro."
+          ],
+          [
+            "Testes e confiabilidade",
+            "6/10",
+            "Há validações pontuais e conferência de Actions; falta uma rotina de testes ponta a ponta e regressão sistemática."
+          ]
+        ],
+        "itens": [
+          "Prioridade 1 — Estabilização: validar a busca e filtros, conferir a numeração dos cartões e eliminar divergências entre documentação e comportamento real.",
+          "Prioridade 2 — Confiabilidade: testar os workflows críticos com casos válidos, inválidos e concorrentes; verificar se erros são comunicados sem perda de dados.",
+          "Prioridade 3 — Qualidade da interface: revisar responsividade, acessibilidade, consistência visual e mensagens de carregamento/vazio/erro.",
+          "Prioridade 4 — Governança: completar auditoria dos procedimentos e manter Manual, PDC e PDF sincronizados com cada alteração relevante.",
+          "Prioridade 5 — Evolução: só então considerar novas funções, priorizando valor acadêmico e simplicidade de manutenção."
         ]
       }
     ]
