@@ -326,6 +326,55 @@
       border-top: 1px solid var(--borda);
     }
 
+    .importacao-cronograma {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--borda);
+    }
+
+    .importacao-cronograma label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--texto-secundario);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .importacao-cronograma textarea {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 150px;
+      padding: 9px;
+      border: 1px solid var(--borda);
+      border-radius: 7px;
+      background: var(--fundo-secundario);
+      color: var(--texto);
+      font: 11px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace;
+      resize: vertical;
+    }
+
+    .botao-validar-cronograma {
+      margin-top: 8px;
+      padding: 8px 12px;
+      border: 0;
+      border-radius: 7px;
+      background: var(--azul);
+      color: #061116;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .resultado-validacao-cronograma {
+      margin-top: 9px;
+      color: var(--texto-secundario);
+      font-size: 11px;
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+
+    .resultado-validacao-cronograma.erro { color: #ff9b9b; }
+    .resultado-validacao-cronograma.sucesso { color: var(--azul-claro); }
+
     .ficha-campo {
       border-bottom: 1px solid var(--borda);
     }
@@ -1290,6 +1339,83 @@
           corpoCronograma.appendChild(criarElemento('p', 'estado-cronograma-vazio', mensagem));
         }
         painelCronograma.appendChild(corpoCronograma);
+
+        if (oferta) {
+          const importacao = criarElemento('div', 'importacao-cronograma');
+          const rotuloJson = criarElemento('label', '', 'Importar síntese JSON do NotebookLM');
+          const campoJson = criarElemento('textarea');
+          campoJson.id = 'json-cronograma-' + oferta.id;
+          campoJson.placeholder = 'Cole aqui o JSON produzido pelo NotebookLM.';
+          campoJson.setAttribute('aria-label', 'JSON do cronograma previsto');
+          const botaoValidar = criarElemento('button', 'botao-validar-cronograma', 'Validar JSON');
+          botaoValidar.type = 'button';
+          const resultadoValidacao = criarElemento('div', 'resultado-validacao-cronograma');
+          resultadoValidacao.setAttribute('aria-live', 'polite');
+
+          botaoValidar.addEventListener('click', () => {
+            resultadoValidacao.className = 'resultado-validacao-cronograma';
+            resultadoValidacao.textContent = '';
+            try {
+              const dados = JSON.parse(campoJson.value);
+              if (!dados || typeof dados !== 'object' || Array.isArray(dados)) {
+                throw new Error('O conteúdo precisa ser um objeto JSON.');
+              }
+              if (String(dados.disciplina || '').trim().toLowerCase() !==
+                  String(oferta.disciplina || '').trim().toLowerCase()) {
+                throw new Error('A disciplina do JSON não corresponde a esta oferta.');
+              }
+              if (dados.periodo !== oferta.periodo) {
+                throw new Error('O período do JSON não corresponde a esta oferta (' + oferta.periodo + ').');
+              }
+              if (!['atividades_encontradas', 'nenhuma_atividade_identificada', 'informacoes_insuficientes'].includes(dados.status_extracao)) {
+                throw new Error('status_extracao possui um valor não reconhecido.');
+              }
+              if (!Array.isArray(dados.atividades)) {
+                throw new Error('O campo atividades precisa ser uma lista.');
+              }
+              const tiposPermitidos = ['prova', 'trabalho', 'seminario', 'entrega', 'outro'];
+              dados.atividades.forEach((atividade, indice) => {
+                if (!atividade || typeof atividade !== 'object') {
+                  throw new Error('Atividade ' + (indice + 1) + ' inválida.');
+                }
+                if (!tiposPermitidos.includes(atividade.tipo)) {
+                  throw new Error('Tipo inválido na atividade ' + (indice + 1) + '.');
+                }
+                if (!String(atividade.titulo || '').trim()) {
+                  throw new Error('Informe o título da atividade ' + (indice + 1) + '.');
+                }
+                if (atividade.data !== null &&
+                    (typeof atividade.data !== 'string' ||
+                     !/^\d{4}-\d{2}-\d{2}$/.test(atividade.data) ||
+                     Number.isNaN(Date.parse(atividade.data + 'T00:00:00')))) {
+                  throw new Error('Data inválida na atividade ' + (indice + 1) + '. Use AAAA-MM-DD ou null.');
+                }
+              });
+
+              resultadoValidacao.classList.add('sucesso');
+              const resumoStatus = {
+                atividades_encontradas: 'Atividades identificadas',
+                nenhuma_atividade_identificada: 'Nenhuma atividade identificada nas fontes',
+                informacoes_insuficientes: 'Informações insuficientes nas fontes'
+              };
+              resultadoValidacao.textContent =
+                'JSON válido. ' + resumoStatus[dados.status_extracao] +
+                '. ' + dados.atividades.length + ' atividade(s) encontrada(s).' +
+                (dados.observacoes_gerais ? '\nObservações: ' + dados.observacoes_gerais : '') +
+                '\nValidação concluída. O envio ao GitHub será habilitado em uma próxima etapa.';
+            } catch (erro) {
+              resultadoValidacao.classList.add('erro');
+              resultadoValidacao.textContent = 'Não foi possível validar: ' + erro.message;
+            }
+          });
+
+          importacao.appendChild(rotuloJson);
+          importacao.appendChild(campoJson);
+          importacao.appendChild(botaoValidar);
+          importacao.appendChild(resultadoValidacao);
+          corpoCronograma.appendChild(importacao);
+        }
+
         conteudo.appendChild(painelCronograma);
 
         if (possuiFicha) {
