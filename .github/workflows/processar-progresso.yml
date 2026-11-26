@@ -8,7 +8,6 @@ permissions:
   contents: write
   issues: write
 
-# Evita duas gravações simultâneas no mesmo arquivo de progresso.
 concurrency:
   group: atualizar-progresso-estudos
   cancel-in-progress: false
@@ -30,140 +29,70 @@ jobs:
             const { execFileSync } = require('child_process');
 
             const issueNumber = context.payload.issue.number;
-            const body = context.payload.issue.body || '';
+            const body = (context.payload.issue.body || '').replace(/\r/g, '');
             const progressoPath = 'dados/progresso.json';
 
             function obterCampo(titulo) {
-              const marcador = '### ' + titulo;
+              const marcador = '### ' + titulo + '\n';
               const inicio = body.indexOf(marcador);
-
-              if (inicio < 0) {
-                throw new Error('Campo ausente: ' + titulo);
-              }
-
+              if (inicio < 0) throw new Error('Campo ausente: ' + titulo);
               const restante = body.slice(inicio + marcador.length);
-              const valor = restante.split(/\r?\n### /, 1)[0].trim();
+              const fim = restante.indexOf('\n### ');
+              const valor = (fim < 0 ? restante : restante.slice(0, fim)).trim();
               return valor === 'No response' ? '' : valor;
             }
-            const opcoes = {
-              situacao_geral: ['nao_iniciado', 'em_andamento', 'concluido', 'pendente'],
-              conteudo_status: ['nao_iniciado', 'em_andamento', 'estudado'],
-              questoes_status: ['nao_iniciado', 'em_andamento', 'concluido', 'nao_se_aplica'],
-              revisao_status: ['nao_iniciado', 'em_andamento', 'concluido', 'nao_se_aplica']
-            };
 
             try {
               const assuntoId = obterCampo('ID do assunto');
-              const registroNovo = {
-                assunto_id: assuntoId,
-                situacao_geral: obterCampo('Situação geral'),
-                conteudo_status: obterCampo('Conteúdo estudado'),
-                questoes_status: obterCampo('Questões praticadas'),
-                revisao_status: obterCampo('Revisões realizadas'),
-                acao_historico: obterCampo('Ação no histórico') || 'adicionar',
-                tipo_historico: obterCampo('Tipo de histórico') || 'estudos',
-                data_registrada: obterCampo('Data registrada') || '',
-                nova_sessao_estudo: obterCampo('Nova sessão de estudo') || '',
-                nova_sessao_revisao: obterCampo('Nova sessão de revisão') || '',
-                data_revisao: obterCampo('Data de revisão') || ''
-              };
+              const situacaoGeral = obterCampo('Situação geral');
+              const conteudoStatus = obterCampo('Conteúdo estudado');
 
-              for (const campo of ['nova_sessao_estudo', 'nova_sessao_revisao', 'data_revisao']) {
-                const valor = registroNovo[campo];
-                if (valor && (!/^\d{4}-\d{2}-\d{2}$/.test(valor) || Number.isNaN(Date.parse(valor + 'T00:00:00Z')) || new Date(valor + 'T00:00:00Z').toISOString().slice(0, 10) !== valor)) {
-                  throw new Error('Data inválida no campo: ' + campo);
-                }
-              }
+              const opcoes = {
+                situacao_geral: ['nao_iniciado', 'em_andamento', 'concluido', 'pendente'],
+                conteudo_status: ['nao_iniciado', 'em_andamento', 'estudado']
+              };
 
               if (!/^[a-z0-9][a-z0-9-]{0,179}$/.test(assuntoId)) {
                 throw new Error('O ID do assunto possui formato inválido.');
               }
-
-              for (const [campo, valores] of Object.entries(opcoes)) {
-                if (!valores.includes(registroNovo[campo])) {
-                  throw new Error('Valor inválido para o campo: ' + campo);
-                }
+              if (!opcoes.situacao_geral.includes(situacaoGeral)) {
+                throw new Error('Valor inválido para Situação geral.');
+              }
+              if (!opcoes.conteudo_status.includes(conteudoStatus)) {
+                throw new Error('Valor inválido para Conteúdo estudado.');
               }
 
               const estrutura = JSON.parse(fs.readFileSync('dados/estrutura.json', 'utf8'));
-              const assunto = estrutura.assuntos.find(x => x.id === assuntoId);
-
+              const assunto = (estrutura.assuntos || []).find(x => x.id === assuntoId);
               if (!assunto) {
                 throw new Error('O assunto informado não existe em dados/estrutura.json.');
               }
 
               const dados = JSON.parse(fs.readFileSync(progressoPath, 'utf8'));
-
               if (!Array.isArray(dados.progresso)) {
                 throw new Error('A estrutura de dados/progresso.json é inválida.');
               }
 
               const encontrados = dados.progresso.filter(x => x.assunto_id === assuntoId);
-
               if (encontrados.length > 1) {
                 throw new Error('Há registros duplicados para este assunto. Corrija o arquivo antes de atualizar.');
               }
 
-              const acaoHistorico = registroNovo.acao_historico;
-              const dataRegistrada = registroNovo.data_registrada;
-              const tipoHistorico = registroNovo.tipo_historico;
-              const dataSessao = tipoHistorico === 'revisoes' ? registroNovo.nova_sessao_revisao : registroNovo.nova_sessao_estudo;
-              if (!['estudos','revisoes'].includes(tipoHistorico)) throw new Error('Tipo de histórico inválido.');
-              if (!['adicionar','editar','excluir'].includes(acaoHistorico)) throw new Error('Ação de histórico inválida.');
-              for (const data of [dataRegistrada, dataSessao]) {
-                if (data && (!/^\d{4}-\d{2}-\d{2}$/.test(data) || Number.isNaN(Date.parse(data+'T00:00:00Z')) || new Date(data+'T00:00:00Z').toISOString().slice(0,10)!==data)) throw new Error('Data inválida no histórico de estudos.');
-              }
-              delete registroNovo.acao_historico;
-              delete registroNovo.tipo_historico;
-              delete registroNovo.nova_sessao_revisao;
-              delete registroNovo.data_registrada;
-              delete registroNovo.nova_sessao_estudo;
-              delete registroNovo.data_estudo;
-
               let registro;
               if (encontrados.length === 1) {
                 registro = encontrados[0];
-                // Atualiza os indicadores sem apagar o histórico acumulado.
-                Object.assign(registro, registroNovo);
+                // Atualiza somente os dois indicadores da interface simplificada.
+                // Históricos e campos antigos são preservados sem alteração.
+                registro.situacao_geral = situacaoGeral;
+                registro.conteudo_status = conteudoStatus;
               } else {
-                registro = { ...registroNovo, historico_estudos: [] };
+                registro = {
+                  assunto_id: assuntoId,
+                  situacao_geral: situacaoGeral,
+                  conteudo_status: conteudoStatus
+                };
                 dados.progresso.push(registro);
               }
-
-              if (!Array.isArray(registro.historico_estudos)) {
-                registro.historico_estudos = [];
-              }
-
-              // Migra a data antiga para o histórico antes de registrar novas sessões.
-              if (registro.data_estudo && !registro.historico_estudos.some(x => x.data === registro.data_estudo)) {
-                registro.historico_estudos.push({ data: registro.data_estudo });
-              }
-
-              const chaveHistorico = tipoHistorico === 'revisoes' ? 'historico_revisoes' : 'historico_estudos';
-              if (!Array.isArray(registro[chaveHistorico])) registro[chaveHistorico] = [];
-              const historico = registro[chaveHistorico];
-              if (acaoHistorico === 'adicionar') {
-                if (dataSessao) {
-                  if (historico.some(x => x.data === dataSessao)) throw new Error('Essa data já consta no histórico.');
-                  historico.push({ data: dataSessao });
-                }
-              } else {
-                if (!dataRegistrada) throw new Error('Informe a data registrada.');
-                const indice = historico.findIndex(x => x.data === dataRegistrada);
-                if (indice < 0) throw new Error('A data informada não foi encontrada no histórico.');
-                if (acaoHistorico === 'editar') {
-                  if (!dataSessao) throw new Error('Informe a nova data.');
-                  if (historico.some((x,i) => i !== indice && x.data === dataSessao)) throw new Error('A nova data já existe no histórico.');
-                  historico[indice].data = dataSessao;
-                } else {
-                  historico.splice(indice,1);
-                  // Evita que a data antiga de estudo seja migrada novamente após sua exclusão.
-                  if (tipoHistorico === 'estudos' && registro.data_estudo === dataRegistrada) {
-                    delete registro.data_estudo;
-                  }
-                }
-              }
-              historico.sort((a,b) => a.data.localeCompare(b.data));
 
               fs.writeFileSync(progressoPath, JSON.stringify(dados, null, 2) + '\n', 'utf8');
 
@@ -182,7 +111,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issueNumber,
-                body: 'Progresso do assunto `' + assuntoId + '` validado e salvo em `dados/progresso.json`. A publicação do GitHub Pages pode levar alguns instantes.'
+                body: 'Progresso do assunto `' + assuntoId + '` validado e salvo. Os históricos e demais campos anteriores foram preservados. A publicação do GitHub Pages pode levar alguns instantes.'
               });
 
               await github.rest.issues.update({
@@ -191,10 +120,8 @@ jobs:
                 issue_number: issueNumber,
                 state: 'closed'
               });
-
             } catch (error) {
               core.setFailed(error.message);
-
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
