@@ -1166,14 +1166,19 @@
 
     .resumo-cartao-disciplina { position: relative; }
 
-    .icone-trofeu-disciplina {
+    .cartao-disciplina.disciplina-finalizada > .resumo-cartao-disciplina {
+      position: relative;
+    }
+
+    .cartao-disciplina.disciplina-finalizada > .resumo-cartao-disciplina > .icone-trofeu-disciplina {
       position: absolute;
       top: 12px;
-      right: 38px;
-      display: inline-block;
+      right: 42px;
+      display: block;
       margin: 0;
       font-size: 17px;
       line-height: 1;
+      z-index: 2;
       filter: drop-shadow(0 1px 3px rgba(243, 212, 119, .35));
     }
 
