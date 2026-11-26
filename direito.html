@@ -1438,7 +1438,7 @@
             item.appendChild(cabecalho);
 
             const observacaoOriginal = String(atividade.observacao || '');
-            const pesoEncontrado = observacaoOriginal.match(/peso\\s*(?:de\\s*)?(\\d+(?:[.,]\\d+)?)\\s*%/i);
+            const pesoEncontrado = observacaoOriginal.match(/peso\s*(?:de\s*)?(\d+(?:[.,]\d+)?)\s*%/i);
             const linhaTitulo = criarElemento('div', 'atividade-cronograma-linha-titulo');
             const tituloNumerado = criarElemento(
               'h4',
@@ -1456,8 +1456,8 @@
             item.appendChild(linhaTitulo);
 
             const observacaoLimpa = observacaoOriginal
-              .replace(/[,;]?\\s*peso\\s*(?:de\\s*)?\\d+(?:[.,]\\d+)?\\s*%(?:\\s*(?:na|da)\\s+nota\\s+final)?/i, '')
-              .replace(/^\\s*[,;:.]\\s*|[,;:.]\\s*$/g, '')
+              .replace(/[,;]?\s*peso\s*(?:de\s*)?\d+(?:[.,]\d+)?\s*%(?:\s*(?:na|da)\s+nota\s+final)?/i, '')
+              .replace(/^\s*[,;:.]\s*|[,;:.]\s*$/g, '')
               .trim();
             if (observacaoLimpa) {
               item.appendChild(criarElemento('p', 'atividade-cronograma-observacao', observacaoLimpa));
