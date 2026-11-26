@@ -52,34 +52,89 @@
           "observacao": "Importante: a rotina foi conferida no código atual. direito.html lê dados/estrutura.json e exibe os campos de informacoes_pedagogicas. Não foi identificado workflow/Issue Template específico para editar essa ficha; portanto, não seguir instruções antigas que mencionem formulário ou GitHub Actions para esta operação. A ficha curricular é permanente e distinta do plano de ensino/cronograma de uma oferta. Preserve a fonte oficial e registre somente o que ela sustenta."
         },
         {
-          "titulo": "Como adicionar, editar ou excluir assuntos da disciplina",
-          "objetivo": "Manter a organização de unidades e assuntos.",
+          "titulo": "Como criar ou editar assuntos da disciplina",
+          "objetivo": "Criar um novo assunto curricular ou editar os dados de um assunto existente. O workflow atualmente implementado aceita as operações criar e editar; não existe operação de exclusão nesse workflow. A exclusão não deve ser simulada por edição manual nem executada sem uma rotina própria que preserve conteúdos e progresso vinculados.",
           "passos": [
-            "Localize a disciplina e a unidade correspondente.",
-            "Use o fluxo de gerenciamento de assuntos disponível no site.",
-            "Para editar, confirme o identificador do assunto antes de alterar seus dados.",
-            "Para excluir, verifique se há conteúdos ou registros de progresso vinculados.",
-            "Acompanhe o GitHub Actions e confira a contagem de assuntos no site."
+            "Abra o repositório GitHub ricardofelippe/Direito-UFPR e confirme que está na branch main. Navegue até dados/estrutura.json. As coleções disciplinas, unidades e assuntos são independentes; procure cada registro na coleção correspondente.",
+            "Copie os identificadores exatos: disciplina.id; unidade.id, se houver vínculo; e assunto.id, somente para edição. Confirme que a unidade selecionada possui disciplina_id igual ao ID da disciplina.",
+            "Abra uma nova Issue no repositório. Como não há um arquivo de formulário em .github/ISSUE_TEMPLATE para gerenciar assuntos, não escolha um formulário semelhante. Use o título iniciado exatamente por [Gerenciar assunto].",
+            "No corpo da Issue, inclua cada marcador abaixo exatamente uma vez e coloque seu valor na linha imediatamente seguinte: <!-- OPERACAO --> (criar ou editar); <!-- ASSUNTO_ID --> (ID existente para editar; deixe a linha seguinte vazia ao criar); <!-- DISCIPLINA_ID --> (ID da disciplina); <!-- UNIDADE_ID --> (ID da unidade ou null para vínculo direto); <!-- NOME --> (nome do assunto); <!-- DESCRICAO --> (descrição, pode ficar vazia); <!-- ORDEM --> (inteiro positivo que define a posição). Não altere a grafia dos marcadores.",
+            "Para criar, use OPERACAO = criar. O workflow gera um ID a partir do nome e do número da Issue, define status inicial pendente e adiciona o registro ao array assuntos. Não informe um ID inventado para o novo assunto.",
+            "Para editar, use OPERACAO = editar e informe o ASSUNTO_ID existente. O workflow atualiza disciplina_id, unidade_id, nome, descricao e ordem do registro encontrado. Confirme cuidadosamente o ID antes de enviar.",
+            "Revise os limites conhecidos: nome obrigatório com até 180 caracteres; descrição com até 2.000 caracteres; ordem deve ser inteiro maior que zero. Operações permitidas são somente criar e editar.",
+            "Envie a Issue. O workflow .github/workflows/gerenciar-assuntos.yml é acionado quando a Issue é aberta/reaberta, o título começa com [Gerenciar assunto] e o autor é ricardofelippe. Ele valida os marcadores, altera dados/estrutura.json, faz commit e push, comenta o resultado e fecha a Issue em caso de sucesso.",
+            "Abra a aba Actions e localize Gerenciar assuntos curriculares. Em sucesso, leia o comentário da Issue e anote o ID gerado ou atualizado. Em falha, leia a mensagem; o workflow informa que nenhuma alteração foi confirmada. Corrija os dados e abra uma nova Issue.",
+            "Após a publicação do GitHub Pages, atualize direito.html com Ctrl+F5 e confira o assunto na disciplina e unidade corretas. Verifique também se a contagem de assuntos foi atualizada."
           ],
           "arquivos": [
-            "dados/estrutura.json",
-            "direito.html"
+            "dados/estrutura.json — contém as coleções independentes disciplinas, unidades e assuntos; o workflow altera somente a coleção assuntos.",
+            ".github/workflows/gerenciar-assuntos.yml — valida a Issue e cria ou edita o assunto.",
+            "Não existe atualmente um arquivo em .github/ISSUE_TEMPLATE dedicado a este fluxo; a Issue deve ser preparada com os marcadores exigidos pelo workflow.",
+            "direito.html — visualiza o currículo; não é o arquivo de armazenamento dos assuntos."
           ],
-          "observacao": "Antes de excluir, confirmar os vínculos e o fluxo vigente. Não editar diretamente o JSON sem preservar os dados associados."
+          "observacao": "Limitação confirmada no código: gerenciar-assuntos.yml implementa somente criar e editar. Não há formulário próprio nem rotina de exclusão. A exclusão de assuntos permanece indisponível e exige projeto específico que trate os vínculos em dados/conteudos.json e dados/progresso.json.",
+          "pre_requisitos": [
+            "Acesso ao repositório ricardofelippe/Direito-UFPR e permissão para abrir Issues.",
+            "Identificadores exatos da disciplina e, quando aplicável, da unidade temática. Consulte dados/estrutura.json; não use apenas o nome como identificador.",
+            "Para editar, copie o ID exato do assunto existente. Para criar, defina nome, descrição e ordem.",
+            "Confirme se o assunto ficará vinculado a uma unidade existente ou diretamente à disciplina. Para vínculo direto, o campo UNIDADE_ID deve receber null.",
+            "Atenção: não há Issue Template próprio para este workflow. A Issue precisa respeitar os marcadores descritos no passo a passo."
+          ],
+          "fluxo": [
+            "Localizar disciplina, unidade e assunto em dados/estrutura.json",
+            "Preparar uma Issue manual com o título [Gerenciar assunto]",
+            "Preencher os marcadores exigidos pelo workflow",
+            "Enviar a Issue e acompanhar gerenciar-assuntos.yml",
+            "Conferir o registro em dados/estrutura.json e no site"
+          ],
+          "erros": [
+            "A Issue não iniciou o workflow: confirme se o título começa exatamente com [Gerenciar assunto], se foi aberta/reaberta e se o autor é ricardofelippe.",
+            "Marcador ausente ou repetido: cada comentário HTML exigido deve aparecer exatamente uma vez, com o valor na linha imediatamente seguinte.",
+            "Disciplina ou unidade não encontrada: copie os IDs diretamente de dados/estrutura.json e confirme que a unidade pertence à disciplina informada.",
+            "Falha ao editar: confirme se ASSUNTO_ID corresponde a um registro existente e se OPERACAO está escrito como editar.",
+            "Ordem inválida: informe um número inteiro maior que zero. Nome e descrição também devem respeitar os limites indicados.",
+            "Não existe operação de exclusão neste workflow. Não tente excluir um assunto alterando seu nome ou removendo o objeto manualmente; conteúdos e progresso podem continuar referenciando o ID."
+          ]
         },
         {
           "titulo": "Como alterar o status de uma disciplina",
           "objetivo": "Atualizar a situação administrativa da disciplina.",
           "passos": [
-            "Localize o cartão da disciplina.",
-            "Use o seletor de status abaixo do cartão.",
-            "Escolha a situação desejada e envie a solicitação.",
-            "Acompanhe o GitHub Actions e confira o status no site."
+            "Abra https://ricardofelippe.github.io/Direito-UFPR/direito.html e localize o cartão da disciplina. Confirme nome e código antes de alterar.",
+            "No controle de status administrativo do cartão, selecione o novo valor. O seletor disponibiliza ativa, inativa, pendente e finalizada.",
+            "Após selecionar, use o link de ação que aparece junto ao seletor. O site monta uma Issue com o título [Atualizar status da disciplina] e preenche o identificador da disciplina e o novo status.",
+            "No GitHub, confira se o título e o corpo da Issue correspondem à disciplina correta. O formulário .github/ISSUE_TEMPLATE/atualizar-status-disciplina.md exige os campos Identificador da disciplina e Novo status. Não troque o ID por código ou nome.",
+            "Envie a Issue. O workflow .github/workflows/atualizar-status-disciplina.yml é acionado na abertura/reabertura, desde que o título tenha o prefixo esperado e o autor seja ricardofelippe.",
+            "O workflow valida o identificador, valida o status, localiza a disciplina no array disciplinas de dados/estrutura.json e altera somente o campo status. Em seguida faz commit e push, comenta o resultado e fecha a Issue.",
+            "Na aba Actions, confirme a execução Atualizar status administrativo da disciplina. Leia também o comentário da Issue: ele informa o status anterior e o novo, ou que nenhuma alteração era necessária.",
+            "Depois da publicação, atualize direito.html com Ctrl+F5. Confirme que o cartão da mesma disciplina apresenta o status selecionado."
           ],
           "arquivos": [
-            "direito.html",
-            "dados/estrutura.json"
-          ]
+            "direito.html — exibe o seletor e monta a URL da Issue com o ID e o status.",
+            ".github/ISSUE_TEMPLATE/atualizar-status-disciplina.md — modelo da solicitação.",
+            ".github/workflows/atualizar-status-disciplina.yml — valida e grava a alteração.",
+            "dados/estrutura.json — campo disciplinas[].status."
+          ],
+          "pre_requisitos": [
+            "Acesso à página publicada do currículo e ao GitHub com permissão para abrir Issues.",
+            "A disciplina deve estar identificada pelo código ou ID exibido no cartão; status administrativo não é o mesmo que progresso de aprendizagem.",
+            "Os únicos valores aceitos pelo workflow são ativa, inativa, pendente e finalizada."
+          ],
+          "fluxo": [
+            "Abrir direito.html e localizar o cartão da disciplina",
+            "Escolher o novo status no seletor do cartão",
+            "Abrir a Issue pré-preenchida no GitHub e conferir os campos",
+            "Executar atualizar-status-disciplina.yml",
+            "Conferir comentário de sucesso e status publicado"
+          ],
+          "erros": [
+            "O link de envio não aparece: selecione um status no controle do cartão; o link só é exibido após a seleção.",
+            "A Issue não inicia o workflow: confira o prefixo do título, autor e se a Issue foi aberta/reaberta.",
+            "Identificador inválido ou disciplina não encontrada: não edite o ID manualmente; volte ao cartão e gere uma nova solicitação.",
+            "Status inválido: use exatamente ativa, inativa, pendente ou finalizada.",
+            "O Actions concluiu, mas o cartão parece antigo: aguarde a publicação do Pages e atualize com Ctrl+F5."
+          ],
+          "observacao": "Este campo representa a situação administrativa da disciplina no currículo. Não confundir com situacao_geral ou conteudo_status em dados/progresso.json."
         }
       ]
     },
@@ -90,41 +145,89 @@
           "titulo": "Como cadastrar ou atualizar o cronograma previsto",
           "objetivo": "Extrair atividades do Plano de Ensino no NotebookLM e registrá-las na oferta correta.",
           "pre_requisitos": [
-            "Plano de Ensino atualizado nas fontes do NotebookLM.",
-            "Disciplina com status Ativa.",
-            "Período letivo correto no formato AAAA/S."
+            "Plano de Ensino/Plano de Aula correspondente à oferta, preferencialmente documento oficial do professor/UFPR.",
+            "Fonte correta carregada no NotebookLM; identifique o arquivo pelo nome exato.",
+            "Disciplina com status administrativo Ativa para que o painel apresente o controle de importação.",
+            "Período letivo no formato AAAA/S e oferta correta já cadastrada. Se a oferta ainda não existir, primeiro utilize o procedimento de cadastro de nova oferta; não confunda criação de oferta com importação de cronograma.",
+            "JSON com disciplina, periodo, status_extracao, atividades e observacoes_gerais."
           ],
           "passos": [
-            "Abra o NotebookLM da disciplina e confira se o Plano de Ensino mais recente está carregado.",
-            "Execute o prompt abaixo, substituindo o nome do arquivo pelo nome exato da fonte.",
-            "Confira se disciplina e período no JSON correspondem ao cartão e à oferta.",
-            "Verifique se as datas estão em AAAA-MM-DD ou null; não use DD/MM/AAAA no JSON.",
-            "No site, abra o cartão da disciplina ativa e expanda Cronograma previsto de atividades.",
-            "Se ainda não houver oferta, informe o período letivo. Cole o JSON e clique em Validar JSON.",
-            "Confira o resultado e clique em Continuar para salvar no GitHub.",
-            "Envie a solicitação criada no GitHub e acompanhe o GitHub Actions.",
-            "Atualize o site com Ctrl + F5 e confira o cronograma no cartão e as atividades no calendário."
+            "Confirme a oferta que receberá o cronograma. A oferta é identificada por disciplina, período letivo e ID; não associe atividades a outra turma ou período.",
+            "No NotebookLM, abra o notebook da disciplina e confirme que o Plano de Ensino correto está entre as fontes. Não use plano de outra oferta como se fosse o atual.",
+            "Execute o prompt de apoio abaixo, substituindo o nome entre colchetes pelo nome exato da fonte. O NotebookLM deve extrair somente atividades acadêmicas previstas e não deve inventar datas, pesos ou eventos.",
+            "Copie o JSON produzido e confira disciplina e período. Os tipos permitidos são prova, trabalho, seminario, entrega e outro. As datas devem estar em AAAA-MM-DD ou null.",
+            "Se o NotebookLM informar informacoes_insuficientes, não tente importar. Revise as fontes ou os dados com intervenção humana. O workflow só grava atividades_encontradas e nenhuma_atividade_identificada.",
+            "No site, abra direito.html, localize a disciplina Ativa e expanda Cronograma previsto de atividades. Selecione a oferta/período correto conforme a interface apresentada.",
+            "Cole o JSON no campo de importação e clique em Validar JSON. Leia o resultado da validação; corrija erros antes de continuar. A validação do navegador não substitui a validação do workflow.",
+            "Use a ação para continuar/salvar no GitHub. O site prepara uma Issue baseada em .github/ISSUE_TEMPLATE/importar-cronograma.md, com o identificador da oferta e o JSON completo.",
+            "Confira o identificador da oferta e o bloco JSON na Issue. Envie-a. O workflow .github/workflows/importar-cronograma.yml valida os campos, a estrutura, os tipos, as datas, a correspondência disciplina/período e a unicidade da oferta.",
+            "Em sucesso, o workflow substitui cronograma_previsto da oferta em dados/ofertas.json, faz commit/push, comenta a Issue e a fecha. Em erro, a execução falha e a Issue recebe uma mensagem; nenhuma atualização é publicada.",
+            "Confira a execução Importar cronograma previsto na aba Actions e leia o comentário da Issue. Depois atualize direito.html e index.html com Ctrl+F5; confira o cronograma no cartão da oferta e os eventos com data no calendário."
           ],
           "arquivos": [
-            "dados/ofertas.json",
-            ".github/workflows/importar-cronograma.yml",
-            ".github/ISSUE_TEMPLATE/importar-cronograma.md",
-            "direito.html",
-            "index.html"
+            "direito.html — exibe o campo de importação para disciplinas Ativas, valida JSON e prepara a Issue.",
+            ".github/ISSUE_TEMPLATE/importar-cronograma.md — campos Oferta e JSON do cronograma.",
+            ".github/workflows/importar-cronograma.yml — valida e grava o cronograma.",
+            "dados/ofertas.json — campo cronograma_previsto da oferta.",
+            "index.html — agrega atividades datadas no calendário."
           ],
-          "prompt": "Analise o Plano de Ensino [NOME EXATO DO ARQUIVO]. Extraia somente provas, trabalhos, seminários, apresentações, entregas e outras atividades acadêmicas específicas. Não inclua aulas ou leituras comuns. Não invente dados. Use datas AAAA-MM-DD ou null se não houver data. Ordene por data, deixando atividades sem data ao final. Se nenhuma atividade for identificada, use lista vazia. Se as fontes forem insuficientes, informe isso. Responda somente com JSON válido no formato combinado: disciplina, periodo, status_extracao, atividades (tipo, titulo, data, observacao) e observacoes_gerais."
+          "prompt": "Analise o Plano de Ensino [NOME EXATO DO ARQUIVO]. Extraia somente provas, trabalhos, seminários, apresentações, entregas e outras atividades acadêmicas específicas. Não inclua aulas ou leituras comuns. Não invente dados. Use datas AAAA-MM-DD ou null se não houver data. Ordene por data, deixando atividades sem data ao final. Se nenhuma atividade for identificada, use lista vazia. Se as fontes forem insuficientes, informe isso. Responda somente com JSON válido no formato combinado: disciplina, periodo, status_extracao, atividades (tipo, titulo, data, observacao) e observacoes_gerais.",
+          "fluxo": [
+            "Plano de Ensino oficial",
+            "NotebookLM: extrair atividades e gerar JSON",
+            "Site: identificar oferta e validar JSON",
+            "GitHub Issue: importar cronograma",
+            "GitHub Actions: validar e gravar em dados/ofertas.json",
+            "Site e calendário: conferir resultado"
+          ],
+          "erros": [
+            "Oferta não encontrada: confirme o ID exato e se a oferta já foi cadastrada para a disciplina e período.",
+            "Importação não aparece: confira se a disciplina está com status Ativa e se a página foi atualizada.",
+            "JSON inválido: valide aspas, vírgulas, chaves, arrays, tipos e datas; não inclua comentários ou texto fora do JSON.",
+            "Status informacoes_insuficientes: não importar; confira se o Plano de Ensino está carregado e se a extração pode ser sustentada pelas fontes.",
+            "Workflow falhou: abra a execução e a Issue, leia a mensagem completa, corrija o JSON e crie nova solicitação.",
+            "Calendário não mostra atividade: confirme se a atividade tem data válida e se a oferta importada é a mesma exibida no painel."
+          ],
+          "observacao": "A importação substitui a lista cronograma_previsto inteira da oferta. Para corrigir uma atividade, envie a lista completa de atividades que devem permanecer. Limite verificado no workflow: até 100 atividades. A oferta teoria-do-direito-2028-1 é uma simulação, não um cronograma acadêmico oficial."
         },
         {
           "titulo": "Como corrigir uma atividade do cronograma",
           "objetivo": "Corrigir título, data, tipo ou observação de uma atividade cadastrada.",
           "passos": [
-            "Identifique a oferta correta (disciplina e período).",
-            "Prepare um JSON atualizado com todas as atividades que devem permanecer na oferta.",
-            "Use o campo de importação do cronograma no cartão ativo e valide o JSON.",
-            "Confira se a lista está completa antes de enviar.",
-            "Envie a solicitação e confira o resultado no GitHub Actions e no calendário."
+            "Abra o cartão da disciplina e identifique a oferta pelo período letivo. Compare a atividade exibida com o Plano de Ensino que fundamenta o cronograma.",
+            "Prepare novamente o JSON da oferta com todas as atividades que devem permanecer, já incluindo a atividade corrigida. Não prepare somente o item alterado.",
+            "Confira disciplina, periodo, status_extracao, tipo, titulo, data e observacao. Use null quando não houver data confirmada; não invente datas para completar o calendário.",
+            "No site, abra o campo de importação do cronograma da disciplina Ativa, selecione a mesma oferta e valide o JSON completo.",
+            "Antes de enviar, compare a lista do JSON com a lista atual e confirme que nenhuma atividade válida foi omitida. A importação substitui a lista cronograma_previsto inteira.",
+            "Continue para o GitHub, confira o ID da oferta e o JSON integral na Issue e envie a solicitação.",
+            "Acompanhe o workflow Importar cronograma previsto. Em sucesso, a lista completa será gravada em dados/ofertas.json; em falha, leia o comentário e não considere a correção publicada.",
+            "Atualize a página com Ctrl+F5 e confira a atividade corrigida no cartão e no calendário. Verifique também se as demais atividades continuam presentes."
           ],
-          "observacao": "Até confirmar o comportamento exato do workflow, trate a importação como atualização da lista da oferta inteira. Não envie uma lista parcial sem verificar."
+          "observacao": "A correção não é uma edição isolada de um único evento. O workflow recebe e grava a lista completa de cronograma_previsto. Preserve todas as atividades que devem continuar na oferta.",
+          "pre_requisitos": [
+            "A oferta correta já deve existir em dados/ofertas.json.",
+            "Tenha o cronograma completo e corrigido, incluindo todas as atividades que devem continuar cadastradas.",
+            "Confirme se a correção é de título, tipo, data ou observação e se a informação consta na fonte oficial."
+          ],
+          "fluxo": [
+            "Identificar oferta e atividade com erro",
+            "Corrigir o conjunto completo de atividades no NotebookLM/JSON",
+            "Validar o JSON no site",
+            "Enviar a Issue de importação",
+            "Conferir substituição integral da lista e calendário"
+          ],
+          "arquivos": [
+            "dados/ofertas.json — lista cronograma_previsto da oferta.",
+            "direito.html — interface de validação e envio.",
+            ".github/ISSUE_TEMPLATE/importar-cronograma.md — Issue de importação.",
+            ".github/workflows/importar-cronograma.yml — substitui a lista da oferta após validar."
+          ],
+          "erros": [
+            "Uma atividade desapareceu após a correção: provavelmente foi enviada uma lista parcial. Reimporte a lista completa com todos os eventos que devem permanecer.",
+            "Data incorreta: confirme a data na fonte oficial e use AAAA-MM-DD; se a fonte não indicar dia, use null.",
+            "Correção foi enviada para outra turma: confira o ID da oferta e o período antes de enviar.",
+            "Issue falhou: consulte o comentário e a execução do Actions; corrija os dados e abra nova Issue."
+          ]
         }
       ]
     },
@@ -135,32 +238,92 @@
           "titulo": "Como cadastrar ou substituir um PDF",
           "objetivo": "Adicionar um documento à biblioteca ou associá-lo a uma disciplina.",
           "passos": [
-            "Abra a área de cadastro de materiais.",
-            "Preencha os campos solicitados e selecione o PDF.",
-            "Confira título, disciplina, categoria e descrição.",
-            "Envie a solicitação e acompanhe o GitHub Actions.",
-            "Confira o documento na biblioteca e teste o link."
+            "Abra https://ricardofelippe.github.io/Direito-UFPR/cadastro.html. A página oferece modos para gerenciar materiais; escolha se está criando um material novo ou administrando arquivos de um material existente.",
+            "Para cadastrar um material sem anexar PDF por upload, use o modo de novo material e preencha título, disciplina, categoria, descrição e, se aplicável, o caminho do arquivo. A solicitação utiliza o formulário Cadastrar material e o workflow processar-cadastro.yml.",
+            "Para cadastrar material enviando o PDF diretamente, utilize o formulário Enviar material com PDF. Preencha título, disciplina, categoria e descrição, anexe o PDF e envie. A Issue começa com [Novo material] e é processada por processar-envio-material.yml.",
+            "Para adicionar ou substituir PDFs de um material já cadastrado, use a área de material existente e o formulário Gerenciar PDFs de um material. Escolha a operação, informe título e disciplina exatos e, para substituição, informe o caminho do PDF existente e anexe o novo arquivo.",
+            "No caso de gerenciar PDFs, o formulário .github/ISSUE_TEMPLATE/gerenciar-pdfs.yml permite Adicionar PDFs, Substituir PDF ou Remover PDF. Para adicionar, anexe um ou mais PDFs; para substituir, indique o arquivo-alvo e anexe o novo PDF; para remover, indique o arquivo-alvo e não anexe outro.",
+            "Antes de enviar, confira título, disciplina, categoria, caminho e operação. O workflow gerenciar-pdfs.yml exige que o material exista uma única vez com a combinação exata de título e disciplina; se houver duplicidade, a execução falha para evitar alteração ambígua.",
+            "Envie a Issue. Identifique o workflow pelo prefixo do título: [Cadastro de material], [Novo material] ou [Gerenciar PDFs]. Não escolha manualmente um workflow_dispatch diferente sem que o procedimento correspondente indique isso.",
+            "Abra Actions e confira a execução correspondente. Leia o comentário da Issue para saber quantos PDFs foram adicionados, se houve substituição ou remoção e quantos arquivos continuam associados ao material.",
+            "Depois da publicação, abra biblioteca.html, localize o material e teste o link de cada PDF. Atualize com Ctrl+F5 se a página ainda mostrar a versão anterior."
           ],
           "arquivos": [
-            "documentos.json",
-            "biblioteca.html"
+            "cadastro.html — interface de cadastro e gerenciamento de materiais.",
+            ".github/ISSUE_TEMPLATE/cadastrar-material.yml e .github/workflows/processar-cadastro.yml — cadastro sem upload direto, conforme os campos do formulário.",
+            ".github/ISSUE_TEMPLATE/enviar-material.yml e .github/workflows/processar-envio-material.yml — cadastro com PDF anexado.",
+            ".github/ISSUE_TEMPLATE/gerenciar-pdfs.yml e .github/workflows/gerenciar-pdfs.yml — adicionar, substituir ou remover PDFs de material existente.",
+            "documentos.json — metadados e caminhos dos arquivos associados.",
+            "documentos/ — arquivos PDF armazenados no repositório.",
+            "biblioteca.html — consulta e abertura dos materiais."
           ],
-          "observacao": "Para substituir arquivo existente, use o fluxo específico e confirme se os vínculos serão preservados."
+          "observacao": "São operações diferentes: cadastrar material, cadastrar com PDF e gerenciar PDFs de material existente. O workflow gerenciar-pdfs.yml altera as associações e arquivos PDF, mas não exclui o cadastro do material em documentos.json. Não trate 'Remover PDF' como 'Excluir material'.",
+          "fluxo": [
+            "Abrir cadastro.html",
+            "Escolher novo material ou material existente",
+            "Preencher dados e selecionar/anexar PDF",
+            "Enviar a Issue correspondente",
+            "GitHub Actions: cadastrar ou gerenciar PDFs",
+            "Conferir biblioteca e abrir o PDF"
+          ],
+          "pre_requisitos": [
+            "Acesso à página cadastro.html e ao GitHub para enviar a Issue criada pelo formulário.",
+            "Título e disciplina corretos; para material existente, usar título e disciplina exatamente como cadastrados.",
+            "PDF em formato válido. Para upload pela Issue, respeitar o limite indicado pelo formulário (25 MB por arquivo no formulário de associação; confira o limite exibido no formulário específico usado).",
+            "Para substituir PDF, identificar o caminho do arquivo atual e confirmar que ele pertence ao material selecionado."
+          ],
+          "erros": [
+            "Material não encontrado: confira título e disciplina exatamente como aparecem na biblioteca.",
+            "Materiais duplicados: não prossiga com a gestão de PDFs até resolver a duplicidade; o workflow exige uma única correspondência.",
+            "Arquivo-alvo inválido: copie o caminho completo do PDF existente e confirme que ele está associado ao material.",
+            "Upload não processado: verifique extensão PDF, limite de tamanho e se o anexo foi incluído na Issue.",
+            "Workflow falhou: leia a mensagem na Issue e o passo com erro em Actions; corrija e abra uma nova solicitação.",
+            "PDF atualizado, mas não abre na biblioteca: confira se o caminho em documentos.json corresponde ao arquivo existente no repositório e se o Pages já publicou a mudança."
+          ]
         },
         {
-          "titulo": "Como excluir um material",
-          "objetivo": "Remover um cadastro sem deixar referências quebradas.",
+          "titulo": "Como remover um PDF associado a um material",
+          "objetivo": "Remover a associação de um arquivo PDF de um material existente. Esta operação não exclui o cadastro do material da biblioteca.",
           "passos": [
-            "Localize o material e confirme título, caminho e disciplina vinculada.",
-            "Verifique a opção de exclusão no fluxo de gerenciamento de PDFs.",
-            "Envie a solicitação e acompanhe o GitHub Actions.",
-            "Confira se o material deixou de aparecer e se os demais documentos continuam acessíveis."
+            "Abra biblioteca.html e localize o material. Confirme título e disciplina; não use apenas o nome do arquivo para identificar o registro.",
+            "Abra os detalhes do material e identifique o caminho do PDF que deseja remover. Se o material tiver vários PDFs, confira cuidadosamente qual deles será retirado.",
+            "Acesse cadastro.html e abra a área de gerenciamento de material existente. Selecione Gerenciar PDFs e escolha a operação Remover PDF.",
+            "Preencha título e disciplina exatamente como constam em documentos.json. No campo Arquivo-alvo, informe o caminho completo do PDF a remover. Não anexe arquivos nesta operação.",
+            "Confira a solicitação. O workflow gerenciar-pdfs.yml verifica se o arquivo pertence ao material e se outro material também utiliza o mesmo caminho.",
+            "Envie a Issue [Gerenciar PDFs]. O workflow remove a associação selecionada. O arquivo físico só é excluído do repositório se nenhum outro material o utilizar.",
+            "O workflow atualiza documentos.json: se ainda houver PDFs, atualiza arquivos e arquivo; se não houver nenhum, remove essas propriedades, mas mantém o cadastro do material.",
+            "Acompanhe Actions e leia o comentário de conclusão, que informa o arquivo removido e a quantidade de PDFs restantes.",
+            "Atualize biblioteca.html com Ctrl+F5. Confirme que o PDF não está mais associado ao material e que os demais PDFs e materiais continuam acessíveis."
           ],
           "arquivos": [
-            "documentos.json",
-            "biblioteca.html"
+            "biblioteca.html — localizar o material e os PDFs associados.",
+            "cadastro.html — iniciar o gerenciamento do material existente.",
+            ".github/ISSUE_TEMPLATE/gerenciar-pdfs.yml — formulário da operação.",
+            ".github/workflows/gerenciar-pdfs.yml — valida a associação, atualiza metadados e remove o arquivo físico somente quando não compartilhado.",
+            "documentos.json — associações de PDFs; o cadastro do material é preservado.",
+            "documentos/ — arquivos PDF físicos."
           ],
-          "observacao": "Não exclua arquivos diretamente sem conferir os vínculos em documentos.json."
+          "observacao": "Não há, no fluxo verificado, procedimento para excluir o registro completo de um material da biblioteca. Este procedimento remove somente um PDF associado; o cadastro permanece em documentos.json mesmo quando fica sem arquivos associados.",
+          "fluxo": [
+            "Localizar o material na biblioteca",
+            "Copiar título, disciplina e caminho exato do PDF",
+            "Abrir Gerenciar PDFs e escolher Remover PDF",
+            "Enviar Issue [Gerenciar PDFs]",
+            "Conferir workflow, documentos.json e arquivo",
+            "Verificar a biblioteca publicada"
+          ],
+          "pre_requisitos": [
+            "Material existente identificado por título e disciplina exatos.",
+            "Caminho completo do PDF que será removido, copiado da associação atual do material.",
+            "Confirmação de que deseja remover somente aquele PDF, e não excluir o registro do material.",
+            "Acesso ao formulário Gerenciar PDFs de um material no cadastro.html."
+          ],
+          "erros": [
+            "Arquivo não pertence ao material: confirme título, disciplina e caminho completo.",
+            "Outro material utiliza o mesmo PDF: o arquivo físico é preservado; somente a associação deste material é removida.",
+            "Issue falhou: confira se a operação é Remover PDF, se Arquivo-alvo está preenchido e se nenhum PDF foi anexado.",
+            "Material continua aparecendo na biblioteca: isso é esperado; esta rotina remove PDF(s), não o cadastro do material."
+          ]
         }
       ]
     },
@@ -171,30 +334,86 @@
           "titulo": "Como atualizar o progresso de um assunto",
           "objetivo": "Registrar a situação de estudo de um assunto.",
           "passos": [
-            "Abra o ambiente de estudos da disciplina.",
-            "Localize o assunto e altere os indicadores disponíveis.",
-            "Confira os valores antes de salvar.",
-            "Envie a solicitação e acompanhe o GitHub Actions.",
-            "Confira o estado atualizado no cartão do assunto."
+            "Abra o ambiente de estudos da disciplina em disciplina.html e selecione o assunto correto. Confirme o nome e o identificador do assunto.",
+            "Altere os controles disponíveis no cartão: Situação geral e Conteúdo estudado. As opções atuais são definidas no código da página; não confunda os dois campos.",
+            "A interface prepara uma Issue usando o modelo .github/ISSUE_TEMPLATE/atualizar-progresso.md. O corpo contém ID do assunto, Situação geral e Conteúdo estudado.",
+            "Antes de enviar, confira o ID e os valores selecionados. O workflow usa o ID para localizar o registro em dados/progresso.json; não substitua por nome do assunto.",
+            "Envie a Issue com o prefixo [Atualizar progresso]. O workflow processar-progresso.yml é acionado na abertura e valida os campos e valores permitidos.",
+            "O workflow atualiza ou cria o registro associado ao assunto_id em dados/progresso.json, preservando os demais registros e campos do arquivo. Acompanhe a execução na aba Actions.",
+            "Em sucesso, confira a mensagem da Issue e a execução concluída. Em falha, leia o erro e não considere o progresso atualizado.",
+            "Após a publicação, atualize disciplina.html com Ctrl+F5 e confira os dois indicadores no cartão do assunto."
           ],
           "arquivos": [
-            "dados/progresso.json",
-            "disciplina.html"
+            "disciplina.html — controles de progresso e montagem da solicitação.",
+            ".github/ISSUE_TEMPLATE/atualizar-progresso.md — campos da Issue.",
+            ".github/workflows/processar-progresso.yml — valida e grava os dados.",
+            "dados/progresso.json — registros de progresso associados a assunto_id."
           ],
-          "observacao": "Confira a interface publicada antes de usar instruções antigas sobre datas de estudo e revisão."
+          "observacao": "A interface atual simplifica o acompanhamento em Situação geral e Conteúdo estudado. Há históricos de estudo/revisão em dados/progresso.json que devem ser preservados; não invente nem altere datas por este procedimento.",
+          "pre_requisitos": [
+            "ID exato do assunto, obtido na estrutura curricular ou no ambiente de estudos.",
+            "Acesso ao repositório para abrir uma Issue.",
+            "Conhecer a situação real do estudo; não alterar campos para produzir uma métrica artificial."
+          ],
+          "fluxo": [
+            "Abrir disciplina.html e localizar o assunto",
+            "Alterar Situação geral e Conteúdo estudado",
+            "Conferir ID e valores na Issue",
+            "Enviar [Atualizar progresso]",
+            "Executar processar-progresso.yml",
+            "Conferir dados/progresso.json e cartão"
+          ],
+          "erros": [
+            "Assunto não encontrado: confirme o ID e não use o nome como substituto.",
+            "Valor inválido: use uma opção oferecida pelo controle da página; o workflow valida os valores permitidos.",
+            "Issue não processada: confira o prefixo [Atualizar progresso], autor e execução em Actions.",
+            "Interface mostra valor antigo: aguarde publicação e atualize com Ctrl+F5."
+          ]
         },
         {
           "titulo": "Como cadastrar ou atualizar resumos e conteúdos",
           "objetivo": "Adicionar ou corrigir conteúdos associados a um assunto.",
           "passos": [
-            "Localize a disciplina e o assunto ao qual o conteúdo pertence.",
-            "Use o fluxo de cadastro ou importação disponível no ambiente de estudos.",
-            "Confira o identificador do assunto e o conteúdo antes de enviar.",
-            "Acompanhe o GitHub Actions e confira o conteúdo no ambiente de estudos."
+            "Localize em dados/estrutura.json os IDs da disciplina, unidade e assunto. Os três identificadores devem corresponder à mesma cadeia curricular.",
+            "Para cadastrar um resumo individual, use o modelo .github/ISSUE_TEMPLATE/novo-resumo.md. Preencha os marcadores DISCIPLINA_ID, UNIDADE_ID, ASSUNTO_ID e TITULO; insira o texto completo entre CONTEUDO_INICIO e CONTEUDO_FIM.",
+            "Envie a Issue com o título iniciado por [Novo resumo]. O workflow processar-resumo.yml valida os marcadores, extrai o conteúdo e grava o registro na coleção resumos de dados/conteudos.json.",
+            "Para cadastrar uma revisão de literatura, use .github/ISSUE_TEMPLATE/nova-revisao.md. Preencha IDs, título, referência bibliográfica e data de elaboração; insira o texto entre os marcadores de início e fim. O workflow processar-revisao.yml grava na coleção revisões.",
+            "Para importar conteúdos gerados no NotebookLM em lote, use o painel administrativo que prepara o payload e aciona o workflow_dispatch importar-notebooklm.yml. O input payload recebe JSON; o workflow aceita os tipos resumos, questoes ou flashcards, valida o lote e os IDs e grava os registros em dados/conteudos.json.",
+            "Não confunda os fluxos: as Issues individuais são para resumo e revisão; a importação NotebookLM é o fluxo em lote para resumos, questões ou flashcards. Use o procedimento e o formato correspondentes ao tipo de conteúdo.",
+            "Antes de enviar, revise ortografia, integridade do texto, IDs e duplicidade. Não inclua conteúdo de outra disciplina/assunto apenas porque o título é semelhante.",
+            "Acompanhe o workflow correspondente em Actions. Em sucesso, confira o comentário/resultado e a atualização do arquivo. Em falha, leia a mensagem e corrija o payload ou os marcadores antes de tentar novamente.",
+            "Após a publicação, abra disciplina.html, selecione o assunto e confira o conteúdo na seção correspondente. Atualize com Ctrl+F5 se necessário."
           ],
           "arquivos": [
-            "dados/conteudos.json"
-          ]
+            "dados/estrutura.json — fonte dos IDs da disciplina, unidade e assunto.",
+            ".github/ISSUE_TEMPLATE/novo-resumo.md e .github/workflows/processar-resumo.yml — resumo individual.",
+            ".github/ISSUE_TEMPLATE/nova-revisao.md e .github/workflows/processar-revisao.yml — revisão individual.",
+            "painel administrativo e .github/workflows/importar-notebooklm.yml — importação em lote a partir de payload JSON.",
+            "dados/conteudos.json — coleções resumos, revisões, questões e flashcards.",
+            "disciplina.html — consulta dos conteúdos associados ao assunto."
+          ],
+          "pre_requisitos": [
+            "ID exato da disciplina, unidade e assunto obtido em dados/estrutura.json.",
+            "Conteúdo revisado e associado ao assunto correto.",
+            "Definir o tipo de registro: resumo/revisão via Issue própria ou importação em lote do NotebookLM.",
+            "Não enviar questões ou flashcards como se fossem resumos; cada tipo tem sua coleção e regra de importação."
+          ],
+          "fluxo": [
+            "Identificar disciplina, unidade e assunto",
+            "Preparar conteúdo no NotebookLM ou texto revisado",
+            "Escolher o fluxo: Issue de resumo/revisão ou importação NotebookLM",
+            "Validar IDs e conteúdo",
+            "Executar workflow correspondente",
+            "Conferir dados/conteudos.json e ambiente de estudo"
+          ],
+          "erros": [
+            "ID incompatível: confira disciplina_id, unidade_id e assunto_id diretamente na estrutura curricular.",
+            "Texto incompleto: confira os marcadores CONTEUDO_INICIO e CONTEUDO_FIM e não deixe o conteúdo fora deles.",
+            "Workflow individual não inicia: confira o prefixo [Novo resumo] ou [Nova revisão] e use o template correto.",
+            "Importação NotebookLM falha: valide JSON, versão do payload, lote_id, tipo, quantidade de registros e IDs. O workflow impõe limites e validações próprias.",
+            "Conteúdo não aparece: confirme a coleção correta em dados/conteudos.json e se o registro aponta para o assunto selecionado."
+          ],
+          "observacao": "O modelo híbrido aprovado mantém a geração de questões e flashcards no NotebookLM e usa o site para organizar, armazenar e acompanhar. Não presumir que exista formulário web para cada tipo; conferir o fluxo e o payload efetivamente disponíveis."
         }
       ]
     },
@@ -205,33 +424,97 @@
           "titulo": "Como verificar uma execução do GitHub Actions",
           "objetivo": "Confirmar se uma solicitação enviada pelo site foi processada.",
           "passos": [
-            "Abra o repositório ricardofelippe/Direito-UFPR no GitHub.",
-            "Acesse a aba Actions.",
-            "Localize a execução iniciada no horário do envio ou abra a Issue correspondente.",
-            "Confira se o resultado está como success ou failure.",
-            "Se falhar, abra a execução, identifique a etapa com erro e copie a mensagem completa antes de tentar novamente."
-          ]
+            "Abra https://github.com/ricardofelippe/Direito-UFPR e confirme que está no repositório correto.",
+            "Clique na aba Actions. A lista mostra execuções recentes; use o horário aproximado do envio e o nome do workflow para localizar a execução correspondente.",
+            "Selecione a execução e confira o status geral: sucesso (verde), falha (vermelho), em andamento (amarelo) ou cancelada. Não considere uma execução em andamento como concluída.",
+            "Abra o job e expanda as etapas. Se houve falha, identifique a primeira etapa marcada com erro e leia a mensagem completa. Copie o texto integral antes de solicitar ajuda.",
+            "Volte à Issue que originou a execução. Muitos workflows comentam o resultado e fecham a Issue em caso de sucesso; alguns fluxos mantêm a Issue aberta quando há erro. Leia o comentário, pois ele pode trazer o motivo e o identificador gravado.",
+            "Se a execução terminou com sucesso, confirme o arquivo de dados correspondente no GitHub: por exemplo, estrutura.json, progresso.json, conteudos.json, ofertas.json ou documentos.json, conforme a operação.",
+            "Aguarde a publicação do GitHub Pages e atualize a página correspondente com Ctrl+F5. O sucesso do workflow confirma o processamento no repositório, mas a conferência visual confirma a apresentação no site.",
+            "Se houver falha, não crie várias Issues repetidas sem entender o erro. Corrija os dados ou o formulário e abra uma nova solicitação, preservando a execução e a Issue anteriores como histórico."
+          ],
+          "pre_requisitos": [
+            "Issue ou execução manual enviada ao repositório ricardofelippe/Direito-UFPR.",
+            "Saber aproximadamente quando a solicitação foi enviada e qual operação foi executada.",
+            "Acesso à aba Actions e, quando aplicável, à Issue que originou o workflow."
+          ],
+          "fluxo": [
+            "Enviar operação pelo site/GitHub",
+            "Abrir repositório e aba Actions",
+            "Localizar workflow pela operação e horário",
+            "Conferir status e etapa com erro",
+            "Ler comentário da Issue",
+            "Validar arquivo e página publicados"
+          ],
+          "arquivos": [
+            "GitHub — aba Actions do repositório.",
+            "GitHub — Issue que originou a operação e seus comentários.",
+            "Arquivo JSON ou PDF correspondente à operação.",
+            "Página GitHub Pages relacionada à funcionalidade."
+          ],
+          "erros": [
+            "Não aparece execução: confira se a Issue foi aberta/reaberta, se o título contém o prefixo exato esperado e se o autor atende à condição do workflow.",
+            "Execução falhou: abra o job e leia a primeira etapa com erro; não se limite ao status vermelho.",
+            "Execução verde, mas dados não mudaram: confira se a solicitação era válida e se o workflow informou que nenhuma alteração era necessária.",
+            "Dados atualizados, página antiga: aguarde o Pages e use Ctrl+F5; confira se está na página correta.",
+            "Issue fechada sem compreender o resultado: leia os comentários e verifique o commit/arquivo alterado antes de repetir a operação."
+          ],
+          "observacao": "Os workflows não têm todos o mesmo comportamento de sucesso/erro. Sempre leia o YAML correspondente e o comentário da Issue; não presuma que toda falha mantém a Issue aberta ou que toda execução verde implica que o conteúdo visual já foi atualizado."
         },
         {
           "titulo": "Como solicitar uma alteração no site",
           "objetivo": "Manter mudanças pequenas, rastreáveis e testadas.",
           "passos": [
-            "Descreva o comportamento atual e o comportamento esperado.",
-            "Identifique arquivos de interface, dados, workflow e modelo de Issue envolvidos.",
-            "Consulte a versão atual dos arquivos no GitHub antes de editar.",
-            "Faça uma alteração pequena por vez e preserve os dados existentes.",
-            "Publique, aguarde os workflows aplicáveis e teste no site com Ctrl + F5.",
-            "Atualize este manual e o PDC quando a mudança alterar uma rotina ou decisão."
-          ]
+            "Descreva o problema observável, a página em que ocorre e o resultado esperado. Use captura de tela quando ajudar a localizar o elemento, mas não substitua a descrição do comportamento.",
+            "Identifique se a mudança afeta apenas apresentação (HTML/CSS/JavaScript), dados (JSON), formulário de Issue, workflow do GitHub Actions ou mais de uma dessas camadas.",
+            "Antes de editar, consulte a versão atual de cada arquivo no repositório e registre seu SHA. Não trabalhe sobre cópia antiga; se o mesmo arquivo receber alterações sucessivas, faça-as em sequência.",
+            "Leia os arquivos relacionados e seus vínculos. Por exemplo, mudanças no currículo podem envolver direito.html, dados/estrutura.json e workflows; mudanças de conteúdo podem envolver disciplina.html, dados/conteudos.json e Issue templates.",
+            "Defina uma alteração pequena e isolada. Explique quais arquivos serão modificados, o que será preservado e quais riscos existem. Não remova campos, IDs, históricos ou funcionalidades sem autorização explícita.",
+            "Faça a alteração e revise o diff. Valide JSON com python -m json.tool quando aplicável; confira estrutura HTML/JavaScript e os nomes de campos esperados pelos workflows.",
+            "Registre commit com mensagem objetiva. Se houver workflow acionado pelo commit, acompanhe a execução na aba Actions. Se a alteração for de dados, confirme que os registros existentes continuam presentes.",
+            "Aguarde a publicação do GitHub Pages. Teste a página afetada com Ctrl+F5 e execute a operação real quando isso puder ser feito sem risco aos dados. Diferencie código publicado de comportamento efetivamente testado.",
+            "Quando a alteração modificar um procedimento ou decisão, atualize dados/procedimentos.json e o PDC; confira a Central publicada e a geração do PDF. Registre no histórico o que mudou, arquivos envolvidos, estado de teste e pendências.",
+            "Encerre a etapa somente depois de comparar pedido, implementação e teste. Informe claramente o que foi implementado, o que foi testado e o que ainda depende de validação."
+          ],
+          "pre_requisitos": [
+            "Descrição clara do comportamento atual e do comportamento esperado.",
+            "Identificação da página e, se possível, do elemento afetado.",
+            "Acesso ao repositório e conhecimento do arquivo que provavelmente será afetado; a identificação final deve ser confirmada pela leitura do código."
+          ],
+          "fluxo": [
+            "Descrever problema e resultado esperado",
+            "Identificar página, dados e automações afetadas",
+            "Ler versão atual e SHA dos arquivos",
+            "Planejar alteração isolada e preservar dados",
+            "Editar e validar diff/sintaxe",
+            "Commit e verificar Actions/Pages",
+            "Testar com Ctrl+F5",
+            "Atualizar Manual e PDC"
+          ],
+          "arquivos": [
+            "Arquivo HTML/CSS/JavaScript da página afetada.",
+            "Arquivos JSON de dados relacionados.",
+            ".github/ISSUE_TEMPLATE/ e .github/workflows/ quando a operação depender de Issues/Actions.",
+            "dados/procedimentos.json e procedimentos.html para documentação.",
+            "docs/PDC_Direito_UFPR_vX.Y.pdf, gerado pelo workflow publicar-pdc-pdf.yml quando o PDC for alterado."
+          ],
+          "erros": [
+            "SHA mudou antes da edição: faça novo fetch e reconcilie as alterações; não force a gravação sobre versão mais recente.",
+            "JSON inválido: não publique até corrigir a sintaxe e validar novamente.",
+            "Workflow falhou: leia o log e a Issue; não declare a funcionalidade concluída.",
+            "Página não atualiza: confirme Pages, URL e cache; use Ctrl+F5.",
+            "Manual diverge do sistema: marque o procedimento como pendente de validação e corrija a documentação antes de considerar a etapa encerrada."
+          ],
+          "observacao": "Regra de desenvolvimento: uma alteração por vez, teste pelo usuário e confirmação antes de avançar. Toda alteração relevante deve atualizar a documentação correspondente."
         }
       ]
     }
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.2",
+    "versao": "2.3",
     "atualizado_em": "26/11/2026",
-    "resumo": "Registro mestre de decisões e transição técnica. Consolida entendimentos de todas as etapas, decisões vigentes, decisões substituídas, arquitetura, fluxos, estado verificado e instruções para outra conversa ou IA.",
+    "resumo": "Registro mestre de decisões e transição técnica. Consolida entendimentos de todas as etapas, decisões vigentes, decisões substituídas, arquitetura, fluxos, estado verificado e instruções para outra conversa ou IA. Esta versão estabelece um padrão de manual com fluxo operacional visual seguido de instruções detalhadas, e registra limitações confirmadas em fluxos de assuntos e materiais.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Repositório: ricardofelippe/Direito-UFPR; publicação: https://ricardofelippe.github.io/Direito-UFPR/; branch principal conhecida: main.",
@@ -258,9 +541,10 @@
       "v1.1 — 26/11/2026: inclusão da regra permanente de atualização da Central de Documentação para funcionalidades novas, alteradas ou descontinuadas.",
       "v2.0 — 26/11/2026: PDC ampliado para documento de transição técnica e operacional, com arquitetura, decisões, fluxos, limitações, estado e instruções de retomada.",
       "v2.1 — 26/11/2026: consolidação de entendimentos históricos das etapas anteriores, registro de decisões substituídas, regras de trabalho com IA e orientação para seleção/cópia integral do PDC na página.",
-      "v2.2 — 26/11/2026: procedimento de atualização das informações pedagógicas reescrito com base na estrutura JSON e no código de exibição atuais; documentado que a edição é direta em dados/estrutura.json, sem workflow específico."
+      "v2.2 — 26/11/2026: procedimento de atualização das informações pedagógicas reescrito com base na estrutura JSON e no código de exibição atuais; documentado que a edição é direta em dados/estrutura.json, sem workflow específico.",
+      "v2.3 — 26/11/2026: padronização dos procedimentos do Manual Operacional com fluxo resumido visual, detalhamento por etapas, validações e tratamento de erros; correção de escopo: gerenciamento de assuntos permite criar/editar, sem exclusão; gerenciamento de PDFs remove associações/arquivos, não o cadastro do material."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.2.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.3.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -517,6 +801,23 @@
           "A rotina foi conferida no código atual: não foi identificado workflow de GitHub Actions nem formulário de Issue específico para editar essa ficha. Portanto, a atualização é feita diretamente em dados/estrutura.json no GitHub, preservando o restante do objeto e do arquivo.",
           "Campos reconhecidos pelo site: fonte, fonte_titulo, fonte_data, ementa, programa, objetivo_geral, objetivos_especificos, procedimentos_didaticos, formas_avaliacao, bibliografia_basica, bibliografia_complementar e observacao. Os três primeiros identificam a fonte; os demais são exibidos quando contêm informação.",
           "Esta ficha não deve ser confundida com o plano de ensino de uma turma/oferta. Datas de prova, trabalho, seminário e entrega pertencem ao cronograma da oferta, não à ficha curricular permanente. O procedimento completo está no Manual Operacional, em 'Como atualizar informações pedagógicas'."
+        ]
+      },
+      {
+        "titulo": "18. Padrão obrigatório dos procedimentos do Manual Operacional",
+        "paragrafos": [
+          "A partir da versão 2.3, cada procedimento do Manual Operacional deve apresentar primeiro um fluxo operacional resumido, em sequência visual, e logo abaixo o detalhamento suficiente para executar a rotina sem depender de instruções genéricas.",
+          "O fluxo resumido deve representar a sequência real entre páginas do site, NotebookLM quando aplicável, validação dos dados, Issue/formulário, GitHub Actions, arquivos JSON e conferência da publicação. Não inserir etapas que não existam no fluxo implementado. Quando uma etapa não estiver confirmada, identificá-la como pendente de validação.",
+          "O detalhamento deve explicar objetivo, pré-requisitos, identificação dos registros, telas/campos, ações, arquivos envolvidos, automações, validação final, problemas comuns e cuidados com preservação de dados. Os nomes de formulários, campos e workflows devem ser conferidos nos arquivos atuais do repositório.",
+          "Limitações técnicas devem ser explícitas. No estado consultado em 26/11/2026, gerenciar-assuntos.yml implementa criar e editar, mas não excluir assuntos; gerenciar-pdfs.yml permite adicionar, substituir e remover PDFs, mas não exclui o cadastro do material em documentos.json.",
+          "O fluxo visual é a visão rápida; não substitui o detalhamento. A documentação só é considerada atualizada quando fluxo, instruções, arquivos e comportamento publicado estiverem coerentes."
+        ],
+        "itens": [
+          "Manter o fluxo resumido no início de cada procedimento.",
+          "Usar etapas curtas e nomes reconhecíveis pelo usuário.",
+          "Detalhar cada etapa imediatamente abaixo do fluxo.",
+          "Separar fatos confirmados de limitações e itens pendentes.",
+          "Atualizar o procedimento e o PDC sempre que formulário, workflow, arquivo ou regra de negócio mudar."
         ]
       }
     ]
