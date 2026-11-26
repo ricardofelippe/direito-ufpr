@@ -25,6 +25,35 @@
     .metric-ativas .metric-illustration{color:#35d5d8}
     .metric-pendentes .metric-illustration{color:#fbbf24}
     .metric-illustration.runner{width:39px;height:39px;right:14px;top:13px}
+    /* Ícones dos indicadores: regra específica após os estilos-base dos cartões. */
+    a.metric > span.metric-illustration {
+      position:absolute !important;
+      display:flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      top:14px !important;
+      right:15px !important;
+      width:34px !important;
+      height:34px !important;
+      z-index:5;
+      pointer-events:none;
+      opacity:1 !important;
+    }
+    a.metric > span.metric-illustration.runner {
+      top:12px !important;
+      right:13px !important;
+      width:39px !important;
+      height:39px !important;
+    }
+    a.metric > span.metric-illustration svg {
+      display:block !important;
+      width:100% !important;
+      height:100% !important;
+      overflow:visible;
+    }
+    a.metric.metric-finalizadas > span.metric-illustration {color:#e9bf55 !important}
+    a.metric.metric-ativas > span.metric-illustration {color:#35d5d8 !important}
+    a.metric.metric-pendentes > span.metric-illustration {color:#fbbf24 !important}
     .metric-ativas{border-top-color:#19c7ce}.metric-ativas .number{color:#35d5d8}
     .metric-pendentes{border-top-color:#f59e0b}.metric-pendentes .number{color:#fbbf24}
     @media(max-width:640px){.metrics{grid-template-columns:1fr}}
