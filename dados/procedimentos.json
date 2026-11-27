@@ -521,9 +521,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.27",
-    "atualizado_em": "26/11/2026",
-    "resumo": "Reforça as regras CSS dos ícones vetoriais dos cartões da Visão geral para garantir exibição, tamanho, cor e posicionamento acima dos estilos-base dos cartões.",
+    "versao": "2.28",
+    "atualizado_em": "27/11/2026",
+    "resumo": "Consolida decisões funcionais do Laboratório de Argumentação Jurídica e redefine Materiais como catálogo ligado ao Google Drive, com notebooks por disciplina no ecossistema Google Workspace.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Correção adicional em index.html após captura do usuário indicar que as três ilustrações ainda não apareciam na Visão geral. O markup SVG já estava presente no arquivo; foram adicionadas regras CSS mais específicas para `a.metric > span.metric-illustration`, com posicionamento absoluto, display flex, dimensões explícitas, z-index e cores por categoria, inclusive regra específica para o corredor. A publicação visual ainda depende de validação no navegador após atualização forçada.",
@@ -544,23 +544,19 @@
       "O PDF vigente deve acompanhar a versão registrada em pdc.versao e ser gerado pelo workflow 'Publicar PDF do PDC'; conferir o resultado da execução antes de afirmar que o arquivo está publicado.",
       "A versão 2.1 consolida entendimentos históricos recuperados das etapas anteriores e diferencia decisões vigentes de propostas antigas ou substituídas.",
       "O procedimento 'Como atualizar informações pedagógicas' foi detalhado na versão 2.2 após conferir direito.html e dados/estrutura.json. A rotina atual é edição direta do JSON; não foi identificado workflow/Issue Template específico para essa operação.",
-      "Última alteração visual nesta etapa: campo de busca de direito.html mantém borda turquesa e realce sutil permanentes, sem mudança de aparência ao receber/perder foco; botões Buscar, Limpar e Filtros continuam alinhados ao lado."
+      "Última alteração visual nesta etapa: campo de busca de direito.html mantém borda turquesa e realce sutil permanentes, sem mudança de aparência ao receber/perder foco; botões Buscar, Limpar e Filtros continuam alinhados ao lado.",
+      "Em 27/11/2026, foram aprovadas decisões funcionais do Laboratório: início livre, duração flexível, método socrático transversal, modalidades oral por texto/voz, argumentação escrita e debate, avaliação em seis critérios e cinco níveis, análise da evolução durante a sessão, relatório resumido com salvamento seletivo e regras de rigor documental nos modos documental e ampliado.",
+      "Em 27/11/2026, foi aprovada a organização de um notebook por disciplina no ecossistema integrado Google Workspace (NotebookLM/Gemini). O site permanece responsável pela classificação curricular e pelos vínculos dos materiais; a integração efetiva e as APIs disponíveis na licença Workspace ainda precisam ser verificadas.",
+      "Em 27/11/2026, foi aprovada a transformação da área Materiais em catálogo/indexador, não repositório. Google Drive será a fonte oficial dos arquivos; o site guardará metadados e links diretos, permitindo consulta por disciplina, unidade e assunto sem duplicar uploads. A automação de identificação/sincronização ainda não foi implementada; preservar arquivos existentes no GitHub até migração planejada e validada."
     ],
     "proximos_passos": [
-      "Validar novamente os ícones da Visão geral em index.html após Ctrl+F5. Se ainda não aparecerem, inspecionar no navegador se a versão publicada corresponde ao commit 706a4a38ffeddca9d62d41c2db03a028f7f6d8ca e verificar estilos computados/console antes de novas alterações.",
-      "Validar no navegador a posição do troféu no topo direito do cartão finalizado após Ctrl+F5. Confirmar que não se sobrepõe ao ícone de expandir (+) nem ao código/nome.",
-      "Validar visualmente a barra de busca em direito.html após Ctrl+F5, especialmente o alinhamento entre campo, Buscar, Limpar e Filtros em desktop e telas estreitas.",
-      "Validar visualmente no navegador os três ícones da Visão geral e o troféu no canto superior direito dos cartões de disciplinas finalizadas; conferir responsividade em tela estreita.",
-      "Em toda atualização futura do PDC, atualizar também `atualizado_em`, `atualizado_as` e `fuso_horario` com data e hora local de São Paulo (America/Sao_Paulo), no formato HH:MM:SS; conferir que a página de consulta do PDC apresente a data e a hora.",
-      "Prioridade principal: desenhar, estruturar e validar o Laboratório de Argumentação Jurídica como área/página exclusiva, acessível a partir de cada disciplina e recebendo automaticamente a disciplina e o assunto selecionado.",
-      "Antes de programar o Laboratório, fechar o modelo funcional: objetivos, fluxo de uma sessão, modalidades oral, escrita e debate, treinamento por assunto ou disciplina inteira, método socrático, critérios de avaliação e registro da evolução.",
-      "Definir a divisão de responsabilidades entre NotebookLM (fontes e preparação de conteúdo), treinador por IA (interação oral, escrita e debate) e site (organização, entrada no Laboratório e histórico resumido). Não criar APIs, workflows ou gravações internas sem necessidade e aprovação.",
-      "Depois de concluir a área do Laboratório, executar um mini simulado integrado de uso do sistema, com cenário fictício situado em 2028. Selecionar aleatoriamente entre 80% e 100% das disciplinas/assuntos previstos para um período acadêmico, deixando explícito o universo considerado e a proporção sorteada.",
-      "Para cada disciplina selecionada no mini simulado, preparar um Plano de Aula/Ensino simulado com cronograma e datas plausíveis de atividades, provas e trabalhos. Identificar claramente todo material como SIMULAÇÃO — NÃO OFICIAL; não apresentar datas ou documentos como fornecidos pela UFPR ou por professores reais.",
-      "Incluir intencionalmente uma disciplina selecionada sem Plano de Aula em PDF. Simular o fluxo de identificação da ausência documental e testar como o sistema registra a pendência, orienta a obtenção/extração das informações e evita inventar cronograma oficial.",
-      "Usar os Planos de Aula simulados para alimentar os recursos do sistema conforme os fluxos existentes: cadastro/importação de oferta e cronograma previsto, associação às disciplinas, consulta do calendário, acompanhamento de provas/trabalhos e uso dos conteúdos no Laboratório.",
-      "Executar o percurso como se o estudante estivesse efetivamente iniciando o período de 2028: consultar o painel, localizar disciplinas, conferir planos, datas e materiais, registrar sessões de estudo/revisão, acessar o Laboratório e acompanhar a evolução.",
-      "Registrar os resultados do mini simulado: etapas concluídas, erros, lacunas de interface, problemas de dados, dificuldades de operação, automações que falharam e melhorias necessárias. Não alterar dados reais do currículo ou históricos reais; usar conjunto de dados claramente isolado e reversível.",
+      "Continuar o planejamento funcional do Laboratório: fechar os pontos ainda pendentes da experiência, regras de interação, relatório, histórico e evolução, sem programar antes da especificação estar consolidada.",
+      "Desenhar e validar a arquitetura técnica Google Workspace: confirmar edição/licença, permissões e APIs disponíveis para Drive, NotebookLM/Gemini; distinguir recursos nativos da interface de recursos acessíveis programaticamente ao site.",
+      "Especificar o catálogo de Materiais: metadados mínimos, estrutura de pastas do Drive, identificação de arquivos, vínculo com disciplina/unidade/assunto, links de abertura, tratamento de arquivos movidos/renomeados/excluídos e sincronização.",
+      "Investigar como a seleção de materiais feita no site poderá ser aplicada ao contexto de uma sessão Gemini/NotebookLM. Não prometer controle programático das fontes do notebook sem validação da API/recurso para a conta Workspace concreta.",
+      "Definir plano de migração do acervo atualmente existente no GitHub para o Google Drive, sem excluir ou sobrescrever arquivos antes de conferir integridade, correspondência, links e cópias de segurança.",
+      "Depois de fechar o modelo funcional e a arquitetura, elaborar especificação formal e atualizar PDC, Manual e PDF antes de iniciar a implementação.",
+      "Após estruturar e validar o Laboratório, executar o mini simulado acadêmico de 2028, com dados fictícios isolados e reversíveis, conforme os requisitos já registrados.",
       "Testar no navegador o formulário direto de novo resumo: seleção do assunto, preenchimento de título/conteúdo, abertura da Issue pré-preenchida, envio e gravação pelo processar-resumo.yml. Não considerar o fluxo validado antes desse teste.",
       "Manter documentação, PDC e PDF sincronizados com alterações efetivamente implementadas; verificar Actions e publicação antes de declarar conclusão."
     ],
@@ -569,7 +565,8 @@
       "v2.24 — 26/11/2026 às 19:30:06 (America/Sao_Paulo, UTC−03:00): adicionadas ilustrações vetoriais aos cartões da Visão geral (troféu, corredor e calendário) e troféu reposicionado no canto superior direito dos cartões finalizados.",
       "v2.25 — 26/11/2026 às 19:30:54 (America/Sao_Paulo, UTC−03:00): alinhamento vertical da barra de busca do currículo corrigido, com controles padronizados em 36px.",
       "v2.26 — 26/11/2026 às 19:31:55 (America/Sao_Paulo, UTC−03:00): corrigida a posição do troféu no cartão de disciplina finalizada com seletor CSS específico e posicionamento absoluto no topo direito.",
-      "v2.27 — 26/11/2026 às 19:33:21 (America/Sao_Paulo, UTC−03:00): reforçadas regras CSS dos ícones SVG da Visão geral após captura mostrar ausência visual; validação de publicação pendente."
+      "v2.27 — 26/11/2026 às 19:33:21 (America/Sao_Paulo, UTC−03:00): reforçadas regras CSS dos ícones SVG da Visão geral após captura mostrar ausência visual; validação de publicação pendente.",
+      "v2.28 — 27/11/2026 às 11:16:00 (America/Sao_Paulo, UTC−03:00): consolidadas decisões funcionais do Laboratório de Argumentação Jurídica e aprovada a reorganização documental: um notebook por disciplina; Drive como repositório oficial; site como catálogo/indexador com metadados e links, sem cópias de arquivos. Integrações e automações permanecem pendentes de validação técnica."
     ],
     "pdf_url": "docs/PDC_Direito_UFPR_v2.20.pdf",
     "conteudo_completo": [
@@ -1020,9 +1017,44 @@
           "SVGs incorporados no próprio HTML; não dependem de arquivos de imagem externos.",
           "Status: CSS reforçado no repositório; validação visual ainda pendente."
         ]
+      },
+      {
+        "titulo": "27. Consolidação do planejamento funcional do Laboratório de Argumentação Jurídica — integração Google Workspace e reorganização dos materiais",
+        "paragrafos": [
+          "Em 27/11/2026, o planejamento funcional do Laboratório de Argumentação Jurídica avançou, sem implementação de código. As decisões abaixo foram aprovadas pelo usuário e devem ser tratadas como requisitos funcionais vigentes para a futura especificação e implementação.",
+          "Organização dos treinamentos: o estudante poderá iniciar livremente, escolhendo assunto específico ou disciplina inteira. A duração será flexível, sem tempo obrigatório nem encerramento automático; sugestões de duração poderão ser oferecidas sem impor limites.",
+          "Fluxo de sessão aprovado como referência: escolha do treinamento; configuração de escopo, modalidade, fontes e avaliação; preparação com objetivo e materiais; treinamento adaptativo; intervenções e avaliação contínua; encerramento no momento escolhido pelo estudante; apresentação de relatório e decisão do estudante de salvar ou descartar o registro.",
+          "O treinador deverá estimular a construção do raciocínio do estudante, por meio de perguntas, contrapontos, pedidos de justificativa e aprofundamento progressivo. O método socrático será metodologia transversal às modalidades, e não uma modalidade independente. As modalidades incluem simulação oral por texto, interação oral por voz, argumentação escrita e debate jurídico. A simulação oral por texto treina conteúdo, raciocínio e argumentação, mas não permite avaliar pronúncia, fluência ou espontaneidade da fala; a modalidade por voz poderá avaliar aspectos próprios da expressão oral, conforme os recursos técnicos disponíveis.",
+          "Modelo de avaliação aprovado: seis dimensões — domínio conceitual, fundamentação, raciocínio lógico, qualidade da argumentação, pensamento crítico e clareza da comunicação. Escala de cinco níveis: 1 Insuficiente; 2 Inicial; 3 Adequado; 4 Avançado; 5 Excelente. Os pesos poderão variar conforme a modalidade. A avaliação deverá distinguir desempenho inicial, desempenho após orientação e desempenho consolidado, reconhecendo a evolução durante a sessão, e não apenas a resposta final.",
+          "O relatório final deverá conter síntese do desempenho, pontos fortes, pontos a desenvolver, evolução durante a sessão e recomendações de estudo/treinamento. O histórico será resumido, não uma transcrição integral. Ao final, o relatório será apresentado e o estudante escolherá salvá-lo ou descartá-lo; registros salvos poderão ser consultados e excluídos individualmente. Relatórios anteriores poderão contribuir para identificar dificuldades recorrentes.",
+          "Fontes e rigor acadêmico: antes de cada sessão, o estudante poderá escolher entre modo documental e modo ampliado e selecionar os materiais que deseja utilizar, inclusive todos os materiais disponíveis. No modo documental, a fundamentação ficará restrita aos materiais selecionados; se forem insuficientes, a IA deverá declarar a insuficiência e não completar lacunas com conhecimento externo. No modo ampliado, poderá complementar com conhecimento externo, identificando claramente o que vem dos documentos e o que é complemento externo. Em ambos os modos, é proibido atribuir a uma fonte afirmação que ela não contém, inventar referências ou ocultar insuficiência documental.",
+          "Ecossistema de IA pretendido: o usuário utiliza Google Workspace e confirmou que já consegue acessar/criar notebooks do NotebookLM diretamente no ambiente Gemini, conforme a interface apresentada. O planejamento deverá tratar Gemini e NotebookLM como ferramentas integradas no ecossistema Google, e não pressupor duas plataformas sem relação. A divisão funcional pretendida é: NotebookLM/notebook da disciplina para organização e consulta das fontes; Gemini para condução interativa, questionamentos, avaliação e apoio à elaboração de relatórios; site Direito UFPR para organização acadêmica, configuração, seleção, histórico e acompanhamento. Essa divisão é conceitual e depende de validação técnica dos recursos disponíveis na licença Workspace e das APIs efetivamente acessíveis.",
+          "Organização dos notebooks: foi aprovada a regra de um notebook por disciplina, em vez de um notebook por assunto ou por sessão. O notebook reúne as fontes documentais da disciplina; o site continua sendo a fonte oficial da classificação curricular e mantém os vínculos entre disciplina, unidade, assunto e material. Ao iniciar por um assunto, o site deverá sugerir inicialmente os materiais associados a ele, permitindo incluir materiais de outros assuntos ou selecionar todos os materiais da disciplina.",
+          "Reorganização da área Materiais: foi aprovada a mudança conceitual de repositório para catálogo/índice documental. Google Drive será o repositório oficial dos arquivos originais; o site não deverá armazenar cópias dos PDFs ou outros documentos. No site haverá somente os metadados necessários à organização (por exemplo, título, disciplina, unidade, assunto, tipo e identificador/endereço do arquivo) e um link para abrir o documento diretamente no Google Drive. A consulta do catálogo deverá permitir navegar por disciplina, unidade e assunto sem exigir novo upload dos arquivos para o site.",
+          "A classificação curricular permanece sob responsabilidade do site: Disciplina → Unidade → Assunto → Material → Notebook. O Google Drive guarda os arquivos; o NotebookLM fornece o ambiente documental inteligente; o Gemini conduz as interações; o site organiza o estudo e acompanha a evolução. O objetivo é evitar cadastro e armazenamento duplicados e manter uma única cópia oficial de cada documento.",
+          "Automação pretendida: investigar integração autorizada com Google Drive para identificar arquivos e metadados e associá-los ao catálogo do site, evitando inserir manualmente o mesmo documento em dois lugares. A proposta é que o usuário carregue o arquivo uma única vez no Drive e que o catálogo do site apresente o documento com seu link. A leitura automática das pastas/arquivos, sincronização, atualização de metadados, permissões e eventual integração com fontes do NotebookLM ainda não foram implementadas nem validadas. Não afirmar que o site consegue alterar automaticamente a seleção de fontes de um notebook até comprovar API/recurso disponível para a conta Workspace concreta.",
+          "Arquitetura e segurança: GitHub Pages permanece como hospedagem do site, sem armazenar credenciais ou chaves privadas. Qualquer integração com Drive/Gemini deverá usar mecanismo de autenticação apropriado, permissões mínimas e serviço seguro para operações que não possam ser executadas diretamente no navegador. Não presumir que a conta Google Workspace comum inclua APIs ou recursos exclusivos de edição empresarial. Antes de implementar, verificar a licença Workspace, as APIs e os limites de acesso efetivamente disponíveis.",
+          "Estado desta etapa: planejamento funcional em andamento; decisões acima aprovadas; nenhuma alteração de código, integração Google, migração de arquivos ou exclusão de materiais foi realizada nesta etapa. Os arquivos atualmente existentes no GitHub devem ser preservados até que um plano de migração seja definido, executado e validado. A futura transição deverá evitar perda de dados e manter links e registros consistentes."
+        ],
+        "itens": [
+          "Início dos treinamentos: livre; por assunto ou disciplina inteira.",
+          "Duração: flexível; sem limite obrigatório ou encerramento automático.",
+          "Método socrático: transversal às modalidades.",
+          "Modalidades: oral por texto, oral por voz, argumentação escrita e debate jurídico.",
+          "Avaliação: seis critérios aprovados, escala de cinco níveis e pesos variáveis conforme modalidade.",
+          "Avaliar evolução durante a sessão, distinguindo desempenho inicial, após orientação e consolidado.",
+          "Relatório resumido; estudante decide salvar ou descartar; histórico salvo consultável e excluível individualmente.",
+          "Dois modos de fontes: documental e ampliado; insuficiência documental sempre declarada; nenhuma atribuição indevida às fontes.",
+          "Ferramentas pretendidas: NotebookLM e Gemini integrados no ecossistema Google Workspace; divisão funcional sujeita a validação técnica.",
+          "Um notebook por disciplina; site controla a classificação curricular e seleção pretendida dos materiais.",
+          "Google Drive é o repositório oficial; site é catálogo/indexador e mantém links, sem cópias dos arquivos.",
+          "Consulta no site por disciplina, unidade e assunto, sem novo upload dos materiais.",
+          "Automatizar a identificação e indexação dos arquivos do Drive é objetivo, ainda pendente de estudo técnico.",
+          "Nenhuma implementação ou migração foi realizada; preservar os arquivos existentes até plano de transição validado."
+        ]
       }
     ],
-    "atualizado_as": "19:33:21",
+    "atualizado_as": "11:16:00",
     "fuso_horario": "America/Sao_Paulo (UTC−03:00)"
   }
 }
