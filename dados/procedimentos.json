@@ -521,7 +521,7 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.54",
+    "versao": "2.55",
     "atualizado_em": "27/11/2026",
     "resumo": "Consolida a eliminação da Biblioteca geral independente e a especificação aprovada da aba Materiais dentro das disciplinas, preservando a arquitetura automática Drive → Google Apps Script → catálogo JSON → páginas das disciplinas. O cadastro manual de links não é o fluxo definitivo. A especificação funcional e o modelo de dados estão aprovados; a automação, a adaptação da aba Materiais e a retirada coordenada da página antiga ainda não foram implementadas.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
@@ -593,7 +593,8 @@
       "Regras de cadastro aprovadas em 27/11/2026 — o ID será gerado automaticamente pelo sistema, em sequência no padrão mat-001, mat-002 etc., verificando os registros existentes para evitar duplicidade. Todo material deverá ter pelo menos um arquivo. Não haverá campo de classificação/categoria obrigatório. Campos do material: título, descrição opcional, vínculos curriculares, ordem e arquivos nomeados.",
       "Regra de governança para a automação: o Apps Script será responsável pela coleta/identificação dos arquivos e pela geração/atualização do catálogo; os vínculos curriculares disciplina/unidade/assunto precisam ser derivados de uma convenção de pastas/metadados que ainda será especificada e validada. Não presumir que o nome de um PDF, sozinho, identifica com segurança o vínculo curricular. O fluxo deverá prever tratamento de duplicidades, arquivos movidos/renomeados/excluídos, falhas de sincronização e validação dos IDs curriculares.",
       "Compatibilização documental: a versão 2.50 e o procedimento manual de cadastro em dados/catalogo_materiais.json registram uma etapa provisória, não a arquitetura final. A especificação hierárquica aprovada nesta versão substitui qualquer orientação incompatível. Nenhuma alteração de código, integração real do Apps Script, alteração do catálogo, remoção de biblioteca.html ou migração de arquivos foi executada nesta consolidação.",
-      "Regra permanente de governança e continuidade — registrada em 27/11/2026: nenhuma recomendação, proposta ou decisão do assistente poderá contrariar, substituir ou revogar silenciosamente uma decisão aprovada e vigente neste PDC. Antes de propor solução ou executar alteração, o assistente deverá consultar o PDC, identificar as decisões aplicáveis e verificar expressamente a compatibilidade da proposta com elas. Se houver conflito, deverá apontá-lo claramente, explicar a divergência e pedir orientação ao usuário antes de prosseguir. Propostas novas devem ser identificadas como propostas, não como decisões aprovadas. Uma decisão anterior só poderá ser alterada mediante manifestação expressa do usuário e atualização coordenada do PDC, preservando o histórico e registrando o que foi superado, por quê e a partir de quando. O PDC é a referência normativa principal para continuidade do projeto; o assistente não deve presumir autorização para alterar requisitos com base em conveniência técnica ou preferência própria."
+      "Regra permanente de governança e continuidade — registrada em 27/11/2026: nenhuma recomendação, proposta ou decisão do assistente poderá contrariar, substituir ou revogar silenciosamente uma decisão aprovada e vigente neste PDC. Antes de propor solução ou executar alteração, o assistente deverá consultar o PDC, identificar as decisões aplicáveis e verificar expressamente a compatibilidade da proposta com elas. Se houver conflito, deverá apontá-lo claramente, explicar a divergência e pedir orientação ao usuário antes de prosseguir. Propostas novas devem ser identificadas como propostas, não como decisões aprovadas. Uma decisão anterior só poderá ser alterada mediante manifestação expressa do usuário e atualização coordenada do PDC, preservando o histórico e registrando o que foi superado, por quê e a partir de quando. O PDC é a referência normativa principal para continuidade do projeto; o assistente não deve presumir autorização para alterar requisitos com base em conveniência técnica ou preferência própria.",
+      "Regra de apresentação do histórico, aprovada em 27/11/2026: o campo de histórico resumido do PDC deverá exibir somente as cinco versões mais recentes. Essa limitação vale apenas para a lista resumida de versões; não autoriza apagar decisões, entendimentos, justificativas ou registros históricos detalhados das seções do PDC. O histórico completo permanece preservado no conteúdo detalhado e nas seções históricas. Em cada atualização, manter no resumo as cinco versões mais recentes e retirar da lista resumida apenas as entradas mais antigas, sem eliminar seu conteúdo histórico detalhado."
     ],
     "proximos_passos": [
       "Especificar a convenção de pastas/metadados no Google Drive que permitirá ao Apps Script identificar disciplina, unidade e assunto, validando os IDs contra dados/estrutura.json.",
@@ -608,26 +609,14 @@
       "Manter os PDFs e registros existentes preservados até migração e validação; não excluir materiais ou catálogos por antecipação."
     ],
     "historico": [
-      "Versão 2.34 — 27/11/2026 às 13:48:25: aprovado o armazenamento conjunto do relatório textual completo e do JSON estruturado no histórico de cada sessão do Laboratório.",
-      "Versão 2.33 — 27/11/2026 às 13:37:44: aprovada a regra de que a atividade começa diretamente em conversa no Gemini/NotebookLM, com demanda livre do usuário; Gemini conduz com prompt mestre, NotebookLM apoia nas fontes e o site atua no acompanhamento/registro posterior.",
-      "Versão 2.32 — 27/11/2026: formalizado o procedimento para continuar o desenvolvimento diretamente no GitHub quando o GitHub Desktop estiver indisponível e atualizar o espelho do Google Drive posteriormente.",
-      "Versão 2.31 — 27/11/2026: corrigida a apresentação do carimbo temporal. A página e o PDF devem mostrar somente a data e a hora local de Brasília, sem identificação textual do fuso.",
-      "v2.23 — 26/11/2026 às 19:27:54 (America/Sao_Paulo, UTC−03:00): PDC passa a registrar data, hora e fuso horário da última atualização; regra incluída para todas as atualizações futuras.",
-      "v2.24 — 26/11/2026 às 19:30:06 (America/Sao_Paulo, UTC−03:00): adicionadas ilustrações vetoriais aos cartões da Visão geral (troféu, corredor e calendário) e troféu reposicionado no canto superior direito dos cartões finalizados.",
-      "v2.25 — 26/11/2026 às 19:30:54 (America/Sao_Paulo, UTC−03:00): alinhamento vertical da barra de busca do currículo corrigido, com controles padronizados em 36px.",
-      "v2.26 — 26/11/2026 às 19:31:55 (America/Sao_Paulo, UTC−03:00): corrigida a posição do troféu no cartão de disciplina finalizada com seletor CSS específico e posicionamento absoluto no topo direito.",
-      "v2.27 — 26/11/2026 às 19:33:21 (America/Sao_Paulo, UTC−03:00): reforçadas regras CSS dos ícones SVG da Visão geral após captura mostrar ausência visual; validação de publicação pendente.",
-      "v2.28 — 27/11/2026 às 11:16:00 (America/Sao_Paulo, UTC−03:00): consolidadas decisões funcionais do Laboratório de Argumentação Jurídica e aprovada a reorganização documental: um notebook por disciplina; Drive como repositório oficial; site como catálogo/indexador com metadados e links, sem cópias de arquivos. Integrações e automações permanecem pendentes de validação técnica.",
-      "v2.29 — 27/11/2026: renomeação do repositório para ricardofelippe/direito-ufpr-git; criação de disciplinas/ com 51 subpastas; atualização de links de Issues e instruções do PDC; Apps Script será utilizado para indexar no catálogo os materiais sincronizados no Google Drive.",
-      "v2.30 — 27/11/2026: formaliza a arquitetura espelhada GitHub–Google Drive, define a autoridade de cada ambiente e estabelece o Apps Script como gerador do catálogo JSON.",
-      "v2.47 — 27/11/2026: documentos.json esvaziado após autorização do usuário; auditoria identificou cadastro.html e os fluxos associados de cadastro/gerenciamento de PDFs como obsoletos em relação à arquitetura Drive → Apps Script → catálogo. Remoção coordenada ainda pendente de autorização.",
       "v2.48 — 27/11/2026: desativação coordenada do cadastro antigo; cadastro.html e cinco workflows/ quatro formulários de cadastro e gerenciamento de PDFs removidos; biblioteca.html convertida para consulta sem ações de edição; workflows não relacionados preservados.",
       "v2.49 — 27/11/2026: criada a base da Biblioteca privada em Google Apps Script; acesso planejado somente para o usuário implantador, execução sob sua identidade e escopo de leitura do Drive; configuração da pasta-raiz e implantação ainda pendentes.",
       "v2.50 — 27/11/2026: simplificada a Biblioteca para Drive com PDFs acessíveis por link e catálogo JSON público no GitHub; Apps Script privado removido; cadastro manual documentado.",
       "v2.53 — 27/11/2026: consolida a arquitetura automática Drive → Google Apps Script → catálogo JSON → páginas das disciplinas; declara o cadastro manual da versão 2.50 como etapa provisória superada; aprova a especificação hierárquica da aba Materiais, o modelo de dados, a geração automática de IDs e as regras de exibição. Implementação, automação e retirada da Biblioteca geral permanecem pendentes.",
-      "v2.54 — 27/11/2026: registrada regra permanente de governança: o PDC prevalece sobre recomendações do assistente; conflitos devem ser explicitados e submetidos ao usuário; propostas não aprovadas não podem ser tratadas como decisões; alterações de decisões exigem autorização expressa e atualização histórica do PDC."
+      "v2.54 — 27/11/2026: registrada regra permanente de governança: o PDC prevalece sobre recomendações do assistente; conflitos devem ser explicitados e submetidos ao usuário; propostas não aprovadas não podem ser tratadas como decisões; alterações de decisões exigem autorização expressa e atualização histórica do PDC.",
+      "v2.55 — 27/11/2026 às 17:37:16: histórico resumido limitado às cinco versões mais recentes; conteúdo histórico detalhado permanece integralmente preservado."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.53.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.55.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -1276,9 +1265,25 @@
           "Alterar decisões somente com autorização e atualização histórica do PDC.",
           "Na dúvida, perguntar; não presumir."
         ]
+      },
+      {
+        "titulo": "35. Regra de apresentação — histórico resumido limitado às cinco versões mais recentes",
+        "paragrafos": [
+          "Decisão aprovada pelo usuário em 27/11/2026: a lista resumida de versões exibida no histórico do PDC deverá conter somente as cinco versões mais recentes.",
+          "A limitação é exclusivamente visual/editorial e se aplica ao campo de histórico resumido de versões. Não significa apagar o histórico completo do projeto.",
+          "Todas as decisões, entendimentos, justificativas, mudanças de arquitetura, requisitos e registros detalhados anteriores devem permanecer preservados nas seções correspondentes do PDC. As seções históricas não devem ser removidas ou condensadas apenas para cumprir o limite de cinco versões.",
+          "A cada nova versão, atualizar a lista resumida para manter exatamente as cinco versões mais recentes. A entrada mais antiga sai apenas dessa lista resumida; seu conteúdo continua preservado no corpo histórico detalhado do PDC.",
+          "Esta regra deve ser observada junto à regra permanente de governança da Seção 34: o PDC continua sendo a referência normativa principal, e nenhuma decisão aprovada pode ser substituída silenciosamente."
+        ],
+        "itens": [
+          "Exibir somente as cinco versões mais recentes no histórico resumido.",
+          "Preservar integralmente o histórico detalhado e as decisões anteriores.",
+          "A cada atualização, retirar da lista resumida somente a versão mais antiga.",
+          "Não apagar seções históricas para reduzir o tamanho do histórico resumido."
+        ]
       }
     ],
-    "atualizado_as": "17:36:40",
+    "atualizado_as": "17:37:16",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
