@@ -332,6 +332,37 @@
             "Issue falhou: confira se a operação é Remover PDF, se Arquivo-alvo está preenchido e se nenhum PDF foi anexado.",
             "Material continua aparecendo na biblioteca: isso é esperado; esta rotina remove PDF(s), não o cadastro do material."
           ]
+        },
+        {
+          "titulo": "Como funciona o cadastro inicial de materiais a partir do Google Drive",
+          "objetivo": "Registrar a regra aprovada para converter arquivos encontrados diretamente nas pastas das disciplinas em materiais independentes no catálogo. Este texto documenta a regra funcional; a automação ainda não está implementada.",
+          "passos": [
+            "Coloque o arquivo diretamente na pasta do Google Drive correspondente à disciplina. A estrutura atual de pastas por disciplina deve ser preservada; não é necessário criar subpastas de unidades ou assuntos.",
+            "A automação futura deverá identificar a disciplina pelo código presente no nome da pasta e validar esse código em dados/estrutura.json. Não associar um arquivo a uma disciplina apenas por semelhança aproximada do nome.",
+            "Cada arquivo encontrado diretamente na pasta da disciplina deverá originar um material independente. Não agrupar arquivos por semelhança de nome, extensão ou localização.",
+            "O título inicial do material será o nome do arquivo sem a extensão. A descrição ficará vazia se não houver metadado adicional confirmado.",
+            "A automação deverá atribuir o próximo identificador sequencial livre no padrão mat-XXX. IDs já utilizados não poderão ser reutilizados, mesmo que o material correspondente tenha sido removido posteriormente.",
+            "Como o arquivo está diretamente na pasta da disciplina, o material será inicialmente geral: unidade_id e assunto_id permanecerão null.",
+            "Cada material terá inicialmente um único arquivo associado. A possibilidade de agrupar vários arquivos em um mesmo material dependerá de uma decisão e de uma convenção futura, caso seja necessária.",
+            "A regra aprovada não significa que o cadastro já esteja funcionando. Até a implementação e os testes, não editar manualmente o catálogo como se este procedimento estivesse ativo."
+          ],
+          "arquivos": [
+            "Google Drive — pasta existente da disciplina, identificada pelo código curricular.",
+            "dados/estrutura.json — validação do código e obtenção do ID canônico da disciplina.",
+            "dados/catalogo_materiais.json — destino futuro dos metadados, após implementação da automação."
+          ],
+          "pre_requisitos": [
+            "Pasta da disciplina existente no Google Drive.",
+            "Código curricular da pasta correspondente a um registro em dados/estrutura.json.",
+            "Implementação futura da automação Drive → Apps Script → catálogo."
+          ],
+          "erros": [
+            "Código da pasta não encontrado em dados/estrutura.json: não publicar o arquivo com disciplina presumida; registrar a exceção para tratamento seguro.",
+            "Arquivo já catalogado: comparar os identificadores e metadados conforme as regras de sincronização aprovadas; não criar duplicidade.",
+            "Nome de arquivo repetido: não agrupar automaticamente; a identidade do arquivo deve considerar o ID do Drive.",
+            "ID mat-XXX aparentemente disponível: conferir todo o histórico do catálogo antes de atribuí-lo; nunca reutilizar ID anteriormente empregado."
+          ],
+          "observacao": "Regra aprovada em 27/11/2026 às 19:22:57 e registrada no PDC v2.71. Implementação pendente. Não há ainda procedimento operacional ativo para cadastro automático; não utilizar este registro como indicação de que o Apps Script esteja configurado."
         }
       ]
     },
@@ -521,9 +552,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.70",
+    "versao": "2.71",
     "atualizado_em": "27/11/2026",
-    "resumo": "Aprovada organização progressiva dos materiais: preservar pastas atuais por disciplina, permitir documentos diretamente nelas como materiais gerais e deixar a classificação por unidade/assunto para quando houver necessidade, sem subpastas obrigatórias ou movimentação antecipada.",
+    "resumo": "Aprovada a regra inicial de cadastro: cada arquivo diretamente na pasta de uma disciplina será um material independente, com título derivado do nome do arquivo e descrição vazia; agrupamento futuro permanece possível.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Decisão aprovada em 27/11/2026: o usuário escolheu a Alternativa C — eliminar a Biblioteca geral como página/área independente. A intenção é que os materiais sejam consultados exclusivamente no contexto das páginas das disciplinas, em vez de manter uma página global separada. Esta é uma decisão de arquitetura e direção funcional, não uma implementação concluída. A página biblioteca.html, o catálogo dados/catalogo_materiais.json, o guia docs/GUIA_CATALOGO_MATERIAIS.md e os demais arquivos relacionados ainda não foram removidos nem alterados em decorrência desta decisão. Não excluir PDFs, registros ou o catálogo nesta fase. Na retomada, realizar análise de impacto antes de programar: identificar como os materiais serão apresentados nas páginas das disciplinas, verificar os vínculos disciplina/unidade/assunto, localizar links e navegação que apontam para biblioteca.html, revisar os dados e procedimentos operacionais, definir o destino do catálogo e do guia e planejar a retirada coordenada da página geral sem perda de dados ou links úteis. A busca global deixa de ser requisito da arquitetura escolhida, salvo nova decisão do usuário. Até a implementação e validação, considerar a retirada pendente; não anunciar a Biblioteca geral como eliminada.",
@@ -609,10 +640,11 @@
       "Decisão funcional aprovada em 27/11/2026: a integração Google Apps Script → GitHub utilizará autenticação por token Fine-grained do GitHub, restrito ao repositório ricardofelippe/direito-ufpr-git e às permissões mínimas necessárias para leitura e escrita de conteúdo. O token ficará armazenado exclusivamente nas propriedades do projeto Apps Script, nunca no código público, no catálogo JSON ou no site. O projeto Apps Script deverá permanecer privado e com edição restrita ao responsável pela integração. Criação do token, configuração, teste e validação permanecem pendentes; nenhuma credencial foi criada ou armazenada nesta etapa.",
       "Bloco funcional consolidado e aprovado pelo usuário em 27/11/2026: especificação da sincronização Drive → Apps Script → dados/catalogo_materiais.json. Reúne as decisões das versões 2.56 a 2.67: verificação diária na madrugada/início da manhã e acionamento manual; publicar somente quando houver alteração; comparar ID do Drive, nome, data de modificação, pasta e URL, usando hash MD5 para reconhecer conteúdo idêntico quando disponível; preservar registros de arquivos excluídos como indisponíveis; reativar restauração com mesmo ID; reconhecer reenvio com novo ID e conteúdo idêntico sem duplicar o material; não substituir automaticamente conteúdo diferente; priorizar automação e baixa carga administrativa; autenticar a escrita no GitHub por token Fine-grained restrito ao repositório, guardado nas propriedades privadas do Apps Script. Também foram aprovados como controles propostos: não publicar catálogo incompleto após falha de leitura; validar IDs curriculares contra dados/estrutura.json; evitar sobrescrever alterações mais recentes no GitHub; manter registro técnico de execuções e erros sem exigir acompanhamento diário. A consolidação não significa implementação. Permanecem pendentes: convenção de pastas/metadados no Drive, contrato técnico da atualização do catálogo no GitHub, detalhes de exceções e hash, testes em pasta de teste e validação ponta a ponta.",
       "Em 27/11/2026 às 18:05:59, foi aprovado o contrato técnico de publicação do catálogo no GitHub: consultar o arquivo atual e seu SHA, validar o JSON, atualizar dados/catalogo_materiais.json pela Contents API na branch main, proteger contra conflitos e sobrescrita, usar LockService e UrlFetchApp e gerar commit somente quando houver alteração efetiva. A implementação, a criação/configuração do token, a migração do formato antigo do catálogo e os testes ponta a ponta permanecem pendentes.",
-      "Em 27/11/2026 às 19:17:40, foi aprovada a organização progressiva dos materiais no Drive: manter pastas por disciplina, aceitar arquivos diretamente nelas como materiais gerais e não exigir subpastas de unidades/assuntos. A implementação da identificação e indexação permanece pendente; nenhuma pasta ou arquivo foi alterado."
+      "Em 27/11/2026 às 19:17:40, foi aprovada a organização progressiva dos materiais no Drive: manter pastas por disciplina, aceitar arquivos diretamente nelas como materiais gerais e não exigir subpastas de unidades/assuntos. A implementação da identificação e indexação permanece pendente; nenhuma pasta ou arquivo foi alterado.",
+      "Decisão aprovada em 27/11/2026 às 19:22:57: cada arquivo encontrado diretamente na pasta de uma disciplina será cadastrado inicialmente como um material independente. O título será o nome do arquivo sem a extensão; a descrição ficará vazia quando não houver metadado adicional; cada registro receberá o próximo ID mat-XXX livre, sem reutilização. O agrupamento de vários arquivos em um material poderá ser definido futuramente se houver necessidade e uma convenção simples. Não presumir agrupamentos por semelhança de nomes ou localização. Arquivos diretamente na pasta continuam como materiais gerais, com unidade_id e assunto_id null. Implementação pendente; nenhum arquivo, pasta ou catálogo foi alterado."
     ],
     "proximos_passos": [
-      "Especificar e implementar a leitura progressiva das pastas existentes por disciplina: reconhecer a disciplina pelo código validado em dados/estrutura.json e tratar arquivos diretamente na pasta como materiais gerais, deixando a classificação por unidade/assunto para uma etapa posterior e opcional.",
+      "Implementar a leitura progressiva das pastas existentes por disciplina: reconhecer a disciplina pelo código validado em dados/estrutura.json; tratar cada arquivo diretamente na pasta como um material independente, com título derivado do nome sem extensão, descrição vazia e próximo ID mat-XXX livre; manter unidade_id e assunto_id como null; deixar agrupamento de arquivos e classificação por unidade/assunto para etapas futuras opcionais.",
       "Implementar o contrato técnico aprovado para publicar dados/catalogo_materiais.json no GitHub, incluindo leitura do SHA, validação do JSON, tratamento de conflitos, LockService, UrlFetchApp e autenticação restrita.",
       "Definir como o Apps Script autenticado poderá atualizar o catálogo no GitHub com segurança, sem expor tokens, credenciais ou chaves no site público; verificar permissões e recursos disponíveis.",
       "Atualizar o Manual Operacional e o guia docs/GUIA_CATALOGO_MATERIAIS.md para retirar instruções de cadastro manual como fluxo definitivo e documentar o fluxo automático quando estiver tecnicamente especificado.",
@@ -624,11 +656,11 @@
       "Manter os PDFs e registros existentes preservados até migração e validação; não excluir materiais ou catálogos por antecipação."
     ],
     "historico": [
-      "v2.66 — 27/11/2026 às 17:57:04: aprovada execução da sincronização diária durante a madrugada/início da manhã; horário exato será definido na implementação.",
       "v2.67 — 27/11/2026 às 18:00:51: aprovada autenticação Apps Script–GitHub por token Fine-grained restrito ao repositório e a conteúdo; armazenamento privado nas propriedades do script, nunca no site público.",
       "v2.68 — 27/11/2026 às 18:02:47: aprovada a especificação funcional consolidada da sincronização Drive → Apps Script → catálogo, reunindo regras já aprovadas e controles de integridade; detalhes técnicos e implementação permanecem pendentes.",
       "v2.69 — 27/11/2026 às 18:05:59: aprovado o contrato técnico Apps Script–GitHub para leitura com SHA, publicação pela Contents API, validação, controle de concorrência e prevenção de sobrescrita; implementação e testes pendentes.",
-      "v2.70 — 27/11/2026 às 19:17:40: aprovada organização progressiva dos materiais no Drive, sem subpastas obrigatórias; arquivos diretamente na pasta da disciplina serão materiais gerais."
+      "v2.70 — 27/11/2026 às 19:17:40: aprovada organização progressiva dos materiais no Drive, sem subpastas obrigatórias; arquivos diretamente na pasta da disciplina serão materiais gerais.",
+      "v2.71 — 27/11/2026 às 19:22:57: aprovada a regra inicial um arquivo = um material independente; título derivado do nome sem extensão, descrição vazia e ID mat-XXX sequencial sem reutilização. Agrupamento futuro poderá ser definido se necessário."
     ],
     "pdf_url": "docs/PDC_Direito_UFPR_v2.70.pdf",
     "conteudo_completo": [
@@ -1545,9 +1577,29 @@
           "Não mover arquivos nem criar subpastas automaticamente nesta etapa.",
           "Automação e testes permanecem pendentes; nenhuma alteração no Drive foi realizada."
         ]
+      },
+      {
+        "titulo": "50. Regra aprovada — um arquivo do Drive corresponde inicialmente a um material",
+        "paragrafos": [
+          "Decisão aprovada expressamente pelo usuário em 27/11/2026 às 19:22:57: cada arquivo encontrado diretamente na pasta de uma disciplina será inicialmente cadastrado como um material independente. A regra complementa a organização progressiva aprovada na seção 49 e evita exigir uma convenção adicional de agrupamento de arquivos nesta fase.",
+          "O título inicial do material será derivado do nome do arquivo, removendo apenas a extensão. A descrição ficará vazia quando não houver informação adicional disponível. O material receberá o próximo identificador sequencial livre no padrão mat-XXX; identificadores já utilizados, inclusive os de materiais posteriormente removidos, não poderão ser reutilizados.",
+          "No cadastro inicial, cada material terá um único arquivo associado. A possibilidade de reunir vários arquivos em um mesmo material poderá ser acrescentada futuramente, caso surja necessidade prática e exista uma convenção simples e inequívoca para identificar o agrupamento. Não presumir que arquivos com nomes parecidos ou encontrados na mesma pasta pertencem ao mesmo material.",
+          "Esta regra não altera a classificação curricular aprovada na seção 49: arquivos diretamente na pasta da disciplina continuam sendo materiais gerais, com unidade_id e assunto_id iguais a null. A disciplina deverá ser identificada pelo código da pasta e validada contra dados/estrutura.json.",
+          "Estado: regra de cadastro inicial aprovada; implementação da leitura do Drive, geração dos registros e publicação no catálogo permanece pendente. Nenhum arquivo, pasta ou registro do catálogo foi alterado por esta decisão."
+        ],
+        "itens": [
+          "Um arquivo encontrado diretamente na pasta da disciplina = um material independente, inicialmente.",
+          "Título inicial = nome do arquivo sem a extensão.",
+          "Descrição vazia quando não houver metadado adicional.",
+          "Gerar o próximo ID mat-XXX livre; nunca reutilizar IDs anteriores.",
+          "Cada material terá inicialmente um único arquivo associado.",
+          "Agrupamento de vários arquivos poderá ser especificado futuramente, se necessário.",
+          "Arquivos diretamente na pasta da disciplina permanecem materiais gerais, com unidade_id e assunto_id null.",
+          "Implementação e testes permanecem pendentes; nenhum arquivo ou catálogo foi alterado."
+        ]
       }
     ],
-    "atualizado_as": "19:17:40",
+    "atualizado_as": "19:22:57",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
