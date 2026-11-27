@@ -1,0 +1,17 @@
+{
+  "versao": 1,
+  "atualizado_em": "2026-11-27",
+  "descricao": "Catálogo público de metadados e links para materiais armazenados no Google Drive. Os arquivos são compartilhados como 'Qualquer pessoa com o link — Leitor'.",
+  "materiais": [],
+  "exemplo": {
+    "titulo": "Exemplo de material",
+    "disciplina": "Teoria do Direito",
+    "disciplina_id": "dv457-teoria-do-direito",
+    "categoria": "Texto de estudo",
+    "descricao": "Descrição breve do conteúdo.",
+    "assunto": "",
+    "arquivos": [
+      "https://drive.google.com/file/d/ID_DO_ARQUIVO/view"
+    ]
+  }
+}
