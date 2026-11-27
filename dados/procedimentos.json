@@ -521,9 +521,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.49",
+    "versao": "2.50",
     "atualizado_em": "27/11/2026",
-    "resumo": "Registra a primeira implementação técnica da Biblioteca privada com Google Apps Script, leitura do Drive sob conta autenticada e interface de consulta; configuração e implantação pelo usuário ainda pendentes.",
+    "resumo": "Registra a simplificação da Biblioteca: PDFs no Drive com acesso por link, catálogo JSON público de metadados/URLs no GitHub e consulta pelo GitHub Pages. Protótipo privado Apps Script removido.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Correção adicional em index.html após captura do usuário indicar que as três ilustrações ainda não apareciam na Visão geral. O markup SVG já estava presente no arquivo; foram adicionadas regras CSS mais específicas para `a.metric > span.metric-illustration`, com posicionamento absoluto, display flex, dimensões explícitas, z-index e cores por categoria, inclusive regra específica para o corredor. A publicação visual ainda depende de validação no navegador após atualização forçada.",
@@ -576,12 +576,18 @@
       "Decisão de segurança aprovada pelo usuário: os materiais devem permanecer privados, acessíveis somente pela conta Google autorizada. A solução escolhida é um Apps Script implantado como aplicativo da Web, executado como o usuário implantador e com acesso restrito a MYSELF (Somente eu). O escopo declarado é drive.readonly; nenhum token OAuth é enviado ao navegador; o site público do GitHub não recebe metadados ou IDs privados.",
       "A fonte foi ajustada para guardar o ID da pasta-raiz na propriedade privada ROOT_FOLDER_ID do projeto Apps Script. A configuração real dessa propriedade, criação do projeto Apps Script, autorização do Drive, implantação privada e teste de acesso ainda dependem de ações do usuário no ambiente Google. Nenhum projeto foi implantado e nenhum arquivo real do Drive foi lido nesta etapa.",
       "A interface privada é servida pelo próprio Apps Script, separada da página pública GitHub Pages. A página biblioteca.html ainda não contém o endereço privado de implantação, pois esse endereço só existirá depois da implantação pelo usuário e não deve ser publicado no repositório público. A associação automática por IDs curriculares ainda não foi implementada; a primeira versão usa o caminho/nome das pastas como agrupamento.",
-      "Os arquivos de fonte e documentação foram adicionados exclusivamente ao GitHub. Não é necessário atualizar o espelho do Google Drive pelo GitHub Desktop."
+      "Os arquivos de fonte e documentação foram adicionados exclusivamente ao GitHub. Não é necessário atualizar o espelho do Google Drive pelo GitHub Desktop.",
+      "Em 27/11/2026, o usuário decidiu simplificar o acesso aos materiais: os arquivos do Google Drive poderão ser acessados por qualquer pessoa que possua o link, com permissão somente de leitor. A recomendação operacional é compartilhar individualmente os PDFs, não necessariamente pastas inteiras.",
+      "A arquitetura privada com Apps Script foi abandonada antes de ser implantada. Os quatro arquivos-fonte do protótipo foram removidos do repositório. Não houve implantação nem acesso aos arquivos reais do Drive.",
+      "Foi criado dados/catalogo_materiais.json como catálogo público de metadados e URLs dos PDFs. A biblioteca.html foi alterada para ler esse novo catálogo em conjunto com dados/estrutura.json; deixou de depender de documentos.json. O arquivo documentos.json permanece vazio como legado.",
+      "Foi criado docs/GUIA_CATALOGO_MATERIAIS.md com o procedimento manual: enviar PDF ao Drive, definir acesso 'Qualquer pessoa com o link — Leitor', copiar URL e cadastrar metadados no JSON pelo GitHub. A automação Drive → Apps Script → catálogo fica adiada, não implementada.",
+      "Limitação de segurança: qualquer pessoa que obtenha o link de um PDF poderá acessá-lo e compartilhá-lo. Não cadastrar materiais confidenciais, pessoais ou que não devam ter acesso por link. O catálogo JSON no GitHub também é público.",
+      "Alterações desta etapa são exclusivas do GitHub; não é necessário atualizar o espelho do Google Drive."
     ],
     "proximos_passos": [
-      "Configurar o projeto Google Apps Script conforme integracoes/google-apps-script/biblioteca/README.md: criar projeto, copiar Code.gs e Index.html, configurar appsscript.json, adicionar ROOT_FOLDER_ID nas Propriedades do script, autorizar leitura e executar getCatalog. Conferir se os PDFs e caminhos listados correspondem ao acervo real.",
-      "Implantar o Apps Script como aplicativo da Web com Executar como: Eu e Quem pode acessar: Somente eu. Testar acesso autenticado e confirmar que uma sessão sem a conta autorizada recebe bloqueio. Guardar a URL /exec de forma privada e só então decidir como criar um atalho seguro a partir do site.",
-      "Após validar a leitura do Drive, ajustar a organização do catálogo para associar as pastas e arquivos aos IDs oficiais de disciplina/unidade/assunto em dados/estrutura.json. Avaliar separadamente documentos que não sejam PDFs e planos de ensino hoje armazenados em documentos/planos-de-ensino.",
+      "Validar a nova Biblioteca publicada: adicionar um PDF não sensível de teste ao Drive, habilitar 'Qualquer pessoa com o link — Leitor', cadastrar o link e metadados em dados/catalogo_materiais.json e conferir a abertura a partir da biblioteca.html.",
+      "Após o teste, cadastrar os materiais reais no catálogo, usando nomes de disciplinas exatamente iguais aos de dados/estrutura.json e, quando possível, preencher disciplina_id.",
+      "Somente depois de a versão manual estar estável, avaliar se vale automatizar a leitura do Drive e a atualização do catálogo. A automação não é requisito para a primeira versão.",
       "Desenhar e validar a arquitetura técnica Google Workspace: confirmar edição/licença, permissões e APIs disponíveis para Drive, NotebookLM/Gemini; distinguir recursos nativos da interface de recursos acessíveis programaticamente ao site.",
       "Especificar o catálogo de Materiais: metadados mínimos, estrutura de pastas do Drive, identificação de arquivos, vínculo com disciplina/unidade/assunto, links de abertura, tratamento de arquivos movidos/renomeados/excluídos e sincronização.",
       "Investigar como a seleção de materiais feita no site poderá ser aplicada ao contexto de uma sessão Gemini/NotebookLM. Não prometer controle programático das fontes do notebook sem validação da API/recurso para a conta Workspace concreta.",
@@ -606,7 +612,8 @@
       "v2.30 — 27/11/2026: formaliza a arquitetura espelhada GitHub–Google Drive, define a autoridade de cada ambiente e estabelece o Apps Script como gerador do catálogo JSON.",
       "v2.47 — 27/11/2026: documentos.json esvaziado após autorização do usuário; auditoria identificou cadastro.html e os fluxos associados de cadastro/gerenciamento de PDFs como obsoletos em relação à arquitetura Drive → Apps Script → catálogo. Remoção coordenada ainda pendente de autorização.",
       "v2.48 — 27/11/2026: desativação coordenada do cadastro antigo; cadastro.html e cinco workflows/ quatro formulários de cadastro e gerenciamento de PDFs removidos; biblioteca.html convertida para consulta sem ações de edição; workflows não relacionados preservados.",
-      "v2.49 — 27/11/2026: criada a base da Biblioteca privada em Google Apps Script; acesso planejado somente para o usuário implantador, execução sob sua identidade e escopo de leitura do Drive; configuração da pasta-raiz e implantação ainda pendentes."
+      "v2.49 — 27/11/2026: criada a base da Biblioteca privada em Google Apps Script; acesso planejado somente para o usuário implantador, execução sob sua identidade e escopo de leitura do Drive; configuração da pasta-raiz e implantação ainda pendentes.",
+      "v2.50 — 27/11/2026: simplificada a Biblioteca para Drive com PDFs acessíveis por link e catálogo JSON público no GitHub; Apps Script privado removido; cadastro manual documentado."
     ],
     "pdf_url": "docs/PDC_Direito_UFPR_v2.32.pdf",
     "conteudo_completo": [
@@ -1187,9 +1194,32 @@
           "Estado: fonte criada; implantação, autorização e validação real pendentes.",
           "Não é necessário atualizar o Google Drive nesta etapa."
         ]
+      },
+      {
+        "titulo": "32. Simplificação da Biblioteca: Drive com acesso por link e catálogo JSON",
+        "paragrafos": [
+          "Em 27/11/2026, o usuário optou por simplificar a arquitetura e permitir acesso aos PDFs do Drive por link. A configuração recomendada é compartilhar cada arquivo individualmente como 'Qualquer pessoa com o link — Leitor'. O usuário foi informado de que qualquer pessoa que obtenha o link poderá abrir e compartilhar o arquivo; portanto, materiais confidenciais ou pessoais não devem ser cadastrados nesse modelo.",
+          "A arquitetura passa a ser: Google Drive como repositório oficial dos PDFs; GitHub como repositório público dos metadados e links; biblioteca.html como interface de consulta no GitHub Pages. Não haverá upload de PDFs no GitHub nem cadastro de arquivos pela interface da Biblioteca.",
+          "Foi criado dados/catalogo_materiais.json com os campos versao, atualizado_em, descricao e materiais. Cada material contém titulo, disciplina, disciplina_id, categoria, descricao, assunto e arquivos (lista de URLs HTTPS do Drive). A lista começa vazia. A biblioteca.html foi ajustada para carregar dados/catalogo_materiais.json e dados/estrutura.json, preservando a apresentação das disciplinas obrigatórias e os filtros existentes. A página valida os links para aceitar apenas endereços HTTPS de drive.google.com ou docs.google.com.",
+          "Foi criado docs/GUIA_CATALOGO_MATERIAIS.md com as instruções de cadastro manual no JSON. A associação inicial é feita pelo nome exato da disciplina em dados/estrutura.json; disciplina_id é guardado para permitir associação curricular mais robusta em etapa futura.",
+          "O protótipo privado do Apps Script criado na etapa anterior não foi implantado e foi removido do repositório. A automação do Drive para gerar o catálogo fica adiada até que o fluxo manual esteja validado. documentos.json permanece vazio como legado e não deve ser usado pela Biblioteca.",
+          "As alterações são exclusivas do GitHub e não exigem sincronização do espelho do Google Drive."
+        ],
+        "itens": [
+          "Compartilhamento recomendado: 'Qualquer pessoa com o link — Leitor', arquivo por arquivo.",
+          "Drive armazena PDFs; GitHub mantém catálogo JSON público com metadados e links.",
+          "Novo arquivo: dados/catalogo_materiais.json; começa com materiais vazio.",
+          "biblioteca.html consulta catalogo_materiais.json e dados/estrutura.json.",
+          "Cadastro manual documentado em docs/GUIA_CATALOGO_MATERIAIS.md.",
+          "Protótipo Apps Script privado removido; não foi implantado.",
+          "documentos.json permanece vazio como legado.",
+          "Automação futura é opcional e adiada.",
+          "Acesso por link não equivale a privacidade: qualquer pessoa que obtenha o link poderá acessar.",
+          "Não é necessário atualizar o Google Drive nesta etapa."
+        ]
       }
     ],
-    "atualizado_as": "14:41:49",
+    "atualizado_as": "14:46:44",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
