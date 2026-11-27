@@ -521,7 +521,7 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.65",
+    "versao": "2.66",
     "atualizado_em": "27/11/2026",
     "resumo": "Consolida a eliminação da Biblioteca geral independente e a especificação aprovada da aba Materiais dentro das disciplinas, preservando a arquitetura automática Drive → Google Apps Script → catálogo JSON → páginas das disciplinas. O cadastro manual de links não é o fluxo definitivo. A especificação funcional e o modelo de dados estão aprovados; a automação, a adaptação da aba Materiais e a retirada coordenada da página antiga ainda não foram implementadas.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
@@ -604,7 +604,8 @@
       "Decisão funcional aprovada em 27/11/2026: para reconhecer um arquivo reenviado ao Google Drive com novo ID como possível substituto de arquivo anteriormente catalogado, a sincronização deverá comparar o conteúdo por hash MD5, quando esse metadado estiver disponível. Se o conteúdo for idêntico, atualizar a referência do arquivo no registro existente, preservando o ID do material mat-XXX, os vínculos curriculares e o histórico, sem criar duplicidade. Se o conteúdo for diferente, não substituir automaticamente o registro anterior; encaminhar para tratamento/revisão. O hash MD5 é um identificador de igualdade de conteúdo, não uma garantia de autenticidade ou integridade criptográfica forte. Disponibilidade do hash, tratamento de arquivos sem hash e validação técnica ainda pendentes.",
       "Decisão funcional aprovada em 27/11/2026: quando um arquivo reenviado com novo ID tiver conteúdo diferente do arquivo anteriormente catalogado, o sistema deverá manter o registro anterior marcado como indisponível e apresentar o novo arquivo como possível inclusão/substituição para revisão. Não deverá substituir automaticamente o arquivo anterior nem alterar o material curricular existente sem confirmação. O fluxo de revisão, os dados apresentados e a forma de confirmação ainda serão especificados. Implementação pendente.",
       "Decisão aprovada em 27/11/2026: não criar painel separado de revisão de pendências de sincronização. A gestão de materiais e a automação devem priorizar simplicidade e baixa carga administrativa. Evitar exigir análise manual rotineira, confirmações frequentes ou manutenção de filas de pendências. Exceções devem ser tratadas pelo caminho mais simples e seguro possível, a especificar sem contrariar as decisões já aprovadas sobre preservação de registros e não substituição automática de conteúdo diferente. O fluxo simplificado para arquivos reenviados com conteúdo diferente ainda precisa ser definido.",
-      "Esclarecimento registrado em 27/11/2026: a diretriz de simplicidade não descarta as regras de sincronização, preservação e integridade já aprovadas; exige que sejam implementadas de modo a não criar dificuldades administrativas extras. O painel separado de revisão foi dispensado. A automação deverá resolver o que puder com segurança e solicitar intervenção pontual apenas quando realmente necessária, pelo meio mais simples, sem criar filas ou procedimentos desnecessários."
+      "Esclarecimento registrado em 27/11/2026: a diretriz de simplicidade não descarta as regras de sincronização, preservação e integridade já aprovadas; exige que sejam implementadas de modo a não criar dificuldades administrativas extras. O painel separado de revisão foi dispensado. A automação deverá resolver o que puder com segurança e solicitar intervenção pontual apenas quando realmente necessária, pelo meio mais simples, sem criar filas ou procedimentos desnecessários.",
+      "Decisão funcional aprovada em 27/11/2026: a verificação automática diária do Google Drive deverá ocorrer durante a madrugada/início da manhã, em horário de menor uso do sistema. O horário exato será definido na etapa de implementação do acionador do Google Apps Script, considerando os horários disponíveis e o fuso de Brasília. A decisão define a janela preferencial, não significa que a rotina já esteja implantada ou ativa."
     ],
     "proximos_passos": [
       "Especificar a convenção de pastas/metadados no Google Drive que permitirá ao Apps Script identificar disciplina, unidade e assunto, validando os IDs contra dados/estrutura.json.",
@@ -619,13 +620,13 @@
       "Manter os PDFs e registros existentes preservados até migração e validação; não excluir materiais ou catálogos por antecipação."
     ],
     "historico": [
-      "v2.61 — 27/11/2026 às 17:49:49: aprovado reativar registro existente quando o mesmo arquivo, identificado pelo ID original do Drive, voltar a ser encontrado; sem duplicar material.",
       "v2.62 — 27/11/2026 às 17:52:01: aprovado reconhecer reenvio com novo ID por comparação de conteúdo via hash MD5; se idêntico, atualizar referência preservando o material; se diferente, não substituir automaticamente.",
       "v2.63 — 27/11/2026 às 17:54:14: aprovado manter arquivo anterior indisponível e encaminhar novo arquivo com conteúdo diferente para revisão, sem substituição automática.",
       "v2.64 — 27/11/2026 às 17:55:05: descartado painel separado de revisão; princípio reforçado de simplicidade e baixa carga administrativa, evitando filas e confirmações rotineiras.",
-      "v2.65 — 27/11/2026 às 17:56:25: esclarecido que as regras de sincronização devem preservar segurança e integridade sem gerar trabalho administrativo extra; automação prioritária e intervenção pontual apenas quando necessária."
+      "v2.65 — 27/11/2026 às 17:56:25: esclarecido que as regras de sincronização devem preservar segurança e integridade sem gerar trabalho administrativo extra; automação prioritária e intervenção pontual apenas quando necessária.",
+      "v2.66 — 27/11/2026 às 17:57:04: aprovada execução da sincronização diária durante a madrugada/início da manhã; horário exato será definido na implementação."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.65.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.66.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -1432,9 +1433,24 @@
           "Escolher o procedimento mais simples possível; não criar tarefas administrativas extras.",
           "Qualquer mecanismo adicional deve ter necessidade justificada e aprovação do usuário."
         ]
+      },
+      {
+        "titulo": "45. Janela preferencial aprovada — sincronização diária na madrugada/início da manhã",
+        "paragrafos": [
+          "Decisão aprovada pelo usuário em 27/11/2026: a verificação automática diária do Google Drive deverá ocorrer durante a madrugada/início da manhã, em horário de menor uso do sistema.",
+          "O horário exato será definido durante a implementação do acionador do Google Apps Script, considerando os horários disponíveis e o fuso horário de Brasília.",
+          "A sincronização manual sob demanda permanece disponível como mecanismo complementar. Esta decisão define apenas a janela preferencial de execução; não significa que a rotina esteja implementada ou ativa."
+        ],
+        "itens": [
+          "Executar uma vez por dia durante a madrugada/início da manhã.",
+          "Escolher o horário exato na implementação do acionador.",
+          "Considerar o fuso horário de Brasília.",
+          "Sincronização manual sob demanda permanece prevista.",
+          "Implementação ainda pendente."
+        ]
       }
     ],
-    "atualizado_as": "17:56:25",
+    "atualizado_as": "17:57:04",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
