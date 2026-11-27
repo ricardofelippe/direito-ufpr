@@ -377,28 +377,8 @@
         });
 
         // =====================================
-        // LINKS PARA CADASTRO E GERENCIAMENTO
+        // EXIBIÇÃO DE MATERIAIS — SOMENTE CONSULTA
         // =====================================
-
-        // Todas as ações passam pela mesma página de gerenciamento.
-        // A etapa do GitHub só é aberta depois que o usuário confirma a operação.
-        function criarLinkAssociacao(texto, doc) {
-          return criarLinkGerenciamento(texto, doc, "Adicionar PDFs", "");
-        }
-
-        function criarLinkGerenciamento(texto, doc, operacao, arquivo) {
-          const parametros = new URLSearchParams({
-            modo: "gerenciar",
-            titulo: doc.titulo,
-            disciplina: doc.disciplina,
-            operacao: operacao
-          });
-          if (arquivo) parametros.set("arquivo_alvo", arquivo);
-          const link = document.createElement("a");
-          link.href = "cadastro.html?" + parametros.toString();
-          link.textContent = texto;
-          return link;
-        }
 
         function arquivosDoDocumento(doc) {
           return [...new Set([
@@ -440,25 +420,15 @@
               abrir.rel = "noopener noreferrer";
               item.appendChild(abrir);
 
-              const acoes = document.createElement("p");
-              acoes.className = "acoes-pdf";
-              acoes.append(
-                criarLinkGerenciamento("Substituir", doc, "Substituir PDF", caminho),
-                criarLinkGerenciamento("Remover", doc, "Remover PDF", caminho)
-              );
-              item.appendChild(acoes);
               listaArquivos.appendChild(item);
             });
             cartao.appendChild(listaArquivos);
 
-            const adicionar = document.createElement("p");
-            adicionar.appendChild(criarLinkGerenciamento("Adicionar PDFs", doc, "Adicionar PDFs", ""));
-            cartao.appendChild(adicionar);
           } else {
             const aviso = document.createElement("p");
             aviso.className = "sem-pdf";
             aviso.textContent = "PDF ainda não anexado.";
-            cartao.append(aviso, criarLinkAssociacao("Associar PDF", doc));
+            cartao.appendChild(aviso);
           }
 
           return cartao;
@@ -554,11 +524,6 @@
                 vazio.textContent = "Nenhum material cadastrado para esta disciplina.";
                 conteudo.appendChild(vazio);
               }
-
-              const cadastrar = document.createElement("a");
-              cadastrar.href = "cadastro.html?" + new URLSearchParams({ modo: "novo", disciplina: d.nome }).toString();
-              cadastrar.textContent = "Novo material";
-              conteudo.appendChild(cadastrar);
 
               cartao.appendChild(conteudo);
               secao.appendChild(cartao);
