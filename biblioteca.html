@@ -251,7 +251,9 @@
           respostaEstrutura.json()
         ]);
 
-        const todosDocumentos = Array.isArray(catalogo.materiais) ? catalogo.materiais : [];\n\n        // A Biblioteca geral exibe somente disciplinas obrigatórias
+        const todosDocumentos = Array.isArray(catalogo.materiais) ? catalogo.materiais : [];
+
+        // A Biblioteca geral exibe somente disciplinas obrigatórias
         // cadastradas na estrutura curricular oficial.
         const disciplinasObrigatorias = (estrutura.disciplinas || [])
           .filter(d => String(d.categoria || "").toLowerCase() === "obrigatoria");
