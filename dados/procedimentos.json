@@ -521,9 +521,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.33",
+    "versao": "2.34",
     "atualizado_em": "27/11/2026",
-    "resumo": "Consolida a arquitetura do Laboratório: o usuário inicia diretamente no Gemini/NotebookLM, apresenta sua demanda e a IA conduz a atividade; o site organiza e registra os resultados.",
+    "resumo": "Consolida o fluxo do Laboratório via Gemini/NotebookLM e define que o histórico armazenará relatório textual completo e dados estruturados em JSON.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Correção adicional em index.html após captura do usuário indicar que as três ilustrações ainda não apareciam na Visão geral. O markup SVG já estava presente no arquivo; foram adicionadas regras CSS mais específicas para `a.metric > span.metric-illustration`, com posicionamento absoluto, display flex, dimensões explícitas, z-index e cores por categoria, inclusive regra específica para o corredor. A publicação visual ainda depende de validação no navegador após atualização forçada.",
@@ -548,7 +548,8 @@
       "Em 27/11/2026, foram aprovadas decisões funcionais do Laboratório: início livre, duração flexível, método socrático transversal, modalidades oral por texto/voz, argumentação escrita e debate, avaliação em seis critérios e cinco níveis, análise da evolução durante a sessão, relatório resumido com salvamento seletivo e regras de rigor documental nos modos documental e ampliado.",
       "Em 27/11/2026, foi aprovada a organização de um notebook por disciplina no ecossistema integrado Google Workspace (NotebookLM/Gemini). O site permanece responsável pela classificação curricular e pelos vínculos dos materiais; a integração efetiva e as APIs disponíveis na licença Workspace ainda precisam ser verificadas.",
       "Em 27/11/2026, foi aprovada a transformação da área Materiais em catálogo/indexador, não repositório. Google Drive será a fonte oficial dos arquivos; o site guardará metadados e links diretos, permitindo consulta por disciplina, unidade e assunto sem duplicar uploads. A automação de identificação/sincronização ainda não foi implementada; preservar arquivos existentes no GitHub até migração planejada e validada.",
-      "Em 27/11/2026, foi aprovada a regra central de funcionamento do Laboratório: o usuário inicia diretamente uma conversa no Gemini/NotebookLM e apresenta sua demanda em linguagem natural. O Gemini, orientado por prompt mestre, interpreta a demanda e conduz a atividade; o NotebookLM apoia a fundamentação nas fontes selecionadas. O site não escolhe assunto nem interpreta a demanda: organiza o acompanhamento e recebe/registra os resultados posteriormente."
+      "Em 27/11/2026, foi aprovada a regra central de funcionamento do Laboratório: o usuário inicia diretamente uma conversa no Gemini/NotebookLM e apresenta sua demanda em linguagem natural. O Gemini, orientado por prompt mestre, interpreta a demanda e conduz a atividade; o NotebookLM apoia a fundamentação nas fontes selecionadas. O site não escolhe assunto nem interpreta a demanda: organiza o acompanhamento e recebe/registra os resultados posteriormente.",
+      "Em 27/11/2026, foi aprovada a retenção conjunta do relatório textual completo e dos dados estruturados em JSON para cada sessão do Laboratório. O primeiro preserva a análise qualitativa; o segundo permite validação e importação no histórico do site. A especificação definitiva do JSON e do importador permanece pendente."
     ],
     "proximos_passos": [
       "Continuar o planejamento funcional do Laboratório: fechar os pontos ainda pendentes da experiência, regras de interação, relatório, histórico e evolução, sem programar antes da especificação estar consolidada.",
@@ -562,6 +563,7 @@
       "Manter documentação, PDC e PDF sincronizados com alterações efetivamente implementadas; verificar Actions e publicação antes de declarar conclusão."
     ],
     "historico": [
+      "Versão 2.34 — 27/11/2026 às 13:48:25: aprovado o armazenamento conjunto do relatório textual completo e do JSON estruturado no histórico de cada sessão do Laboratório.",
       "Versão 2.33 — 27/11/2026 às 13:37:44: aprovada a regra de que a atividade começa diretamente em conversa no Gemini/NotebookLM, com demanda livre do usuário; Gemini conduz com prompt mestre, NotebookLM apoia nas fontes e o site atua no acompanhamento/registro posterior.",
       "Versão 2.32 — 27/11/2026: formalizado o procedimento para continuar o desenvolvimento diretamente no GitHub quando o GitHub Desktop estiver indisponível e atualizar o espelho do Google Drive posteriormente.",
       "Versão 2.31 — 27/11/2026: corrigida a apresentação do carimbo temporal. A página e o PDF devem mostrar somente a data e a hora local de Brasília, sem identificação textual do fuso.",
@@ -1044,7 +1046,8 @@
           "Automação pretendida: investigar integração autorizada com Google Drive para identificar arquivos e metadados e associá-los ao catálogo do site, evitando inserir manualmente o mesmo documento em dois lugares. A proposta é que o usuário carregue o arquivo uma única vez no Drive e que o catálogo do site apresente o documento com seu link. A leitura automática das pastas/arquivos, sincronização, atualização de metadados, permissões e eventual integração com fontes do NotebookLM ainda não foram implementadas nem validadas. Não afirmar que o site consegue alterar automaticamente a seleção de fontes de um notebook até comprovar API/recurso disponível para a conta Workspace concreta.",
           "Arquitetura e segurança: GitHub Pages permanece como hospedagem do site, sem armazenar credenciais ou chaves privadas. Qualquer integração com Drive/Gemini deverá usar mecanismo de autenticação apropriado, permissões mínimas e serviço seguro para operações que não possam ser executadas diretamente no navegador. Não presumir que a conta Google Workspace comum inclua APIs ou recursos exclusivos de edição empresarial. Antes de implementar, verificar a licença Workspace, as APIs e os limites de acesso efetivamente disponíveis.",
           "Estado desta etapa: planejamento funcional em andamento; decisões acima aprovadas; nenhuma alteração de código, integração Google, migração de arquivos ou exclusão de materiais foi realizada nesta etapa. Os arquivos atualmente existentes no GitHub devem ser preservados até que um plano de migração seja definido, executado e validado. A futura transição deverá evitar perda de dados e manter links e registros consistentes.",
-          "Regra funcional aprovada em 27/11/2026: o usuário não precisa iniciar nem preparar uma atividade pelo site. Ele poderá abrir diretamente uma conversa no Gemini/NotebookLM e apresentar sua demanda em linguagem natural, indicando livremente o assunto, a questão, a dificuldade ou o objetivo que deseja trabalhar. O Gemini, orientado por um prompt mestre previamente preparado, interpreta a demanda e conduz os próximos passos da atividade. O NotebookLM disponibiliza apoio documental com base nas fontes acadêmicas selecionadas, conforme os recursos efetivamente disponíveis. O site não escolhe o assunto, não interpreta a demanda e não atua como motor de inteligência: sua função é organizar o acompanhamento acadêmico e receber/registrar posteriormente os resultados da atividade."
+          "Regra funcional aprovada em 27/11/2026: o usuário não precisa iniciar nem preparar uma atividade pelo site. Ele poderá abrir diretamente uma conversa no Gemini/NotebookLM e apresentar sua demanda em linguagem natural, indicando livremente o assunto, a questão, a dificuldade ou o objetivo que deseja trabalhar. O Gemini, orientado por um prompt mestre previamente preparado, interpreta a demanda e conduz os próximos passos da atividade. O NotebookLM disponibiliza apoio documental com base nas fontes acadêmicas selecionadas, conforme os recursos efetivamente disponíveis. O site não escolhe o assunto, não interpreta a demanda e não atua como motor de inteligência: sua função é organizar o acompanhamento acadêmico e receber/registrar posteriormente os resultados da atividade.",
+          "Decisão aprovada em 27/11/2026: o histórico do Laboratório deverá armazenar tanto o relatório textual completo da atividade quanto os dados estruturados em JSON. O relatório textual permitirá consultar a análise qualitativa, os argumentos trabalhados, os pontos fortes, as dificuldades, a evolução e as recomendações; o JSON permitirá validar e importar os campos de sessão e as avaliações para o histórico do site. Os dois formatos serão produzidos pelo Gemini ao final da atividade. A estrutura definitiva do JSON, seus campos obrigatórios, validações e mecanismo de importação ainda deverão ser especificados antes da implementação."
         ],
         "itens": [
           "Início dos treinamentos: livre; por assunto ou disciplina inteira.",
@@ -1064,7 +1067,10 @@
           "O usuário inicia diretamente no Gemini/NotebookLM e apresenta sua demanda em linguagem natural; não precisa usar o site para preparar ou iniciar a sessão.",
           "Um prompt mestre previamente preparado orienta o Gemini; a IA interpreta a demanda e conduz a atividade.",
           "NotebookLM apoia a atividade com as fontes acadêmicas selecionadas, conforme os recursos disponíveis.",
-          "O site não escolhe assunto nem interpreta a demanda; organiza o acompanhamento e recebe/registra os resultados posteriormente."
+          "O site não escolhe assunto nem interpreta a demanda; organiza o acompanhamento e recebe/registra os resultados posteriormente.",
+          "Armazenar no histórico os dois formatos: relatório textual completo e dados estruturados em JSON.",
+          "O relatório textual preserva a análise qualitativa; o JSON permite validar e importar os dados da sessão e as avaliações.",
+          "Gemini deverá produzir ambos ao final da atividade; schema definitivo e importador ainda pendentes de especificação."
         ]
       },
       {
@@ -1086,7 +1092,7 @@
         ]
       }
     ],
-    "atualizado_as": "13:37:44",
+    "atualizado_as": "13:48:25",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
