@@ -521,7 +521,7 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.29",
+    "versao": "2.30",
     "atualizado_em": "27/11/2026",
     "resumo": "Consolida decisões funcionais do Laboratório de Argumentação Jurídica e redefine Materiais como catálogo ligado ao Google Drive, com notebooks por disciplina no ecossistema Google Workspace.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
@@ -567,7 +567,8 @@
       "v2.26 — 26/11/2026 às 19:31:55 (America/Sao_Paulo, UTC−03:00): corrigida a posição do troféu no cartão de disciplina finalizada com seletor CSS específico e posicionamento absoluto no topo direito.",
       "v2.27 — 26/11/2026 às 19:33:21 (America/Sao_Paulo, UTC−03:00): reforçadas regras CSS dos ícones SVG da Visão geral após captura mostrar ausência visual; validação de publicação pendente.",
       "v2.28 — 27/11/2026 às 11:16:00 (America/Sao_Paulo, UTC−03:00): consolidadas decisões funcionais do Laboratório de Argumentação Jurídica e aprovada a reorganização documental: um notebook por disciplina; Drive como repositório oficial; site como catálogo/indexador com metadados e links, sem cópias de arquivos. Integrações e automações permanecem pendentes de validação técnica.",
-      "v2.29 — 27/11/2026: renomeação do repositório para ricardofelippe/direito-ufpr-git; criação de disciplinas/ com 51 subpastas; atualização de links de Issues e instruções do PDC; Apps Script será utilizado para indexar no catálogo os materiais sincronizados no Google Drive."
+      "v2.29 — 27/11/2026: renomeação do repositório para ricardofelippe/direito-ufpr-git; criação de disciplinas/ com 51 subpastas; atualização de links de Issues e instruções do PDC; Apps Script será utilizado para indexar no catálogo os materiais sincronizados no Google Drive.",
+      "v2.30 — 27/11/2026: formaliza a arquitetura espelhada GitHub–Google Drive, define a autoridade de cada ambiente e estabelece o Apps Script como gerador do catálogo JSON."
     ],
     "pdf_url": "docs/PDC_Direito_UFPR_v2.28.pdf",
     "conteudo_completo": [
@@ -601,7 +602,9 @@
         "titulo": "3. Arquitetura e repositório",
         "paragrafos": [
           "Repositório GitHub: ricardofelippe/direito-ufpr-git-git. Branch principal: main. URL pública do site: depende da configuração de GitHub Pages e deve ser verificada em Settings > Pages; não presumir que seja idêntica ao nome do repositório.",
-          "Atualização de 27/11/2026: o repositório foi renomeado para ricardofelippe/direito-ufpr-git, mantendo a branch main. O repositório passou a conter a pasta disciplinas/, com 51 subpastas correspondentes às disciplinas obrigatórias do currículo, cada uma com arquivo .gitkeep para preservar a pasta vazia no Git e um README.md geral com a convenção de organização. A cópia/sincronização dessas pastas para o Google Drive será feita pelo usuário após clonar/atualizar o repositório. A URL pública do GitHub Pages deve ser verificada em Settings > Pages; não confundir o nome do repositório com o endereço de publicação."
+          "Atualização de 27/11/2026: o repositório foi renomeado para ricardofelippe/direito-ufpr-git, mantendo a branch main. O repositório passou a conter a pasta disciplinas/, com 51 subpastas correspondentes às disciplinas obrigatórias do currículo, cada uma com arquivo .gitkeep para preservar a pasta vazia no Git e um README.md geral com a convenção de organização. A cópia/sincronização dessas pastas para o Google Drive será feita pelo usuário após clonar/atualizar o repositório. A URL pública do GitHub Pages deve ser verificada em Settings > Pages; não confundir o nome do repositório com o endereço de publicação.",
+          "Princípio arquitetural aprovado em 27/11/2026: GitHub e Google Drive devem manter estruturas espelhadas. O GitHub é a referência principal para a organização de diretórios e disciplinas; o Google Drive é o repositório dos arquivos acadêmicos e materiais. A inclusão ou alteração de disciplinas e pastas estruturais começa no GitHub; a inclusão dos PDFs e demais materiais ocorre no Drive. O usuário atualiza/clona o repositório no Drive para manter o espelho. O Google Apps Script percorrerá o espelho no Drive, identificará pastas e arquivos e gerará o catálogo JSON consumido pelo site. O site funcionará como catálogo e interface de consulta, mantendo links para os arquivos no Drive, sem duplicar os materiais.",
+          "Limite operacional: Git e Google Drive não se sincronizam automaticamente apenas por terem a mesma estrutura. Até que exista uma automação validada, a atualização do espelho será feita pelo usuário por clonagem/atualização do repositório. Deve-se evitar editar simultaneamente a mesma estrutura nos dois locais; o GitHub prevalece para nomes e organização das pastas, e o Drive prevalece para o conteúdo dos materiais."
         ],
         "tabela": [
           [
@@ -1056,7 +1059,7 @@
         ]
       }
     ],
-    "atualizado_as": "16:10:00",
+    "atualizado_as": "13:20:53",
     "fuso_horario": "America/Sao_Paulo (UTC−03:00)"
   }
 }
