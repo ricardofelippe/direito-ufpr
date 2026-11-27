@@ -51,7 +51,7 @@ document.addEventListener("keydown",function(event){
   event.preventDefault();selectPdc();
  }
 });
-const p=data.pdc||{};$("pdc-title").textContent=p.titulo||"Plano de Continuidade";$("pdc-meta").textContent="Versão "+(p.versao||"—")+" · Atualizado em "+(p.atualizado_em||"—");$("pdc-summary").textContent=p.resumo||"";$("pdc-notice").textContent=p.aviso_pdf||"";const pdfLink=$("pdc-pdf-link");if(pdfLink&&p.pdf_url){pdfLink.href=p.pdf_url;pdfLink.textContent="Abrir / baixar PDC completo (PDF) — versão "+(p.versao||"vigente");}
+const p=data.pdc||{};$("pdc-title").textContent=p.titulo||"Plano de Continuidade";$("pdc-meta").textContent="Versão "+(p.versao||"—")+" · Atualizado em "+(p.atualizado_em||"—")+" às "+(p.atualizado_as||"—")+" · "+(p.fuso_horario||"fuso horário não informado");$("pdc-summary").textContent=p.resumo||"";$("pdc-notice").textContent=p.aviso_pdf||"";const pdfLink=$("pdc-pdf-link");if(pdfLink&&p.pdf_url){pdfLink.href=p.pdf_url;pdfLink.textContent="Abrir / baixar PDC completo (PDF) — versão "+(p.versao||"vigente");}
 (p.proximos_passos||[]).forEach(function(x){const li=document.createElement("li");li.textContent=x;$("pdc-next").appendChild(li)});
 
 (p.historico||[]).forEach(function(x){const el=document.createElement("p");el.className="history";el.textContent=x;$("pdc-history").appendChild(el)});
