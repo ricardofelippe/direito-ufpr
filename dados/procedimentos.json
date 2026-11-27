@@ -521,9 +521,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.69",
+    "versao": "2.70",
     "atualizado_em": "27/11/2026",
-    "resumo": "Registra a aprovação do contrato técnico para publicação segura do catálogo no GitHub pela integração Google Apps Script, incluindo consulta do SHA, validação do JSON, atualização pela Contents API, controle de concorrência e proteção contra sobrescrita. Implementação, credencial, migração do catálogo antigo e testes permanecem pendentes.",
+    "resumo": "Aprovada organização progressiva dos materiais: preservar pastas atuais por disciplina, permitir documentos diretamente nelas como materiais gerais e deixar a classificação por unidade/assunto para quando houver necessidade, sem subpastas obrigatórias ou movimentação antecipada.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Decisão aprovada em 27/11/2026: o usuário escolheu a Alternativa C — eliminar a Biblioteca geral como página/área independente. A intenção é que os materiais sejam consultados exclusivamente no contexto das páginas das disciplinas, em vez de manter uma página global separada. Esta é uma decisão de arquitetura e direção funcional, não uma implementação concluída. A página biblioteca.html, o catálogo dados/catalogo_materiais.json, o guia docs/GUIA_CATALOGO_MATERIAIS.md e os demais arquivos relacionados ainda não foram removidos nem alterados em decorrência desta decisão. Não excluir PDFs, registros ou o catálogo nesta fase. Na retomada, realizar análise de impacto antes de programar: identificar como os materiais serão apresentados nas páginas das disciplinas, verificar os vínculos disciplina/unidade/assunto, localizar links e navegação que apontam para biblioteca.html, revisar os dados e procedimentos operacionais, definir o destino do catálogo e do guia e planejar a retirada coordenada da página geral sem perda de dados ou links úteis. A busca global deixa de ser requisito da arquitetura escolhida, salvo nova decisão do usuário. Até a implementação e validação, considerar a retirada pendente; não anunciar a Biblioteca geral como eliminada.",
@@ -608,10 +608,11 @@
       "Decisão funcional aprovada em 27/11/2026: a verificação automática diária do Google Drive deverá ocorrer durante a madrugada/início da manhã, em horário de menor uso do sistema. O horário exato será definido na etapa de implementação do acionador do Google Apps Script, considerando os horários disponíveis e o fuso de Brasília. A decisão define a janela preferencial, não significa que a rotina já esteja implantada ou ativa.",
       "Decisão funcional aprovada em 27/11/2026: a integração Google Apps Script → GitHub utilizará autenticação por token Fine-grained do GitHub, restrito ao repositório ricardofelippe/direito-ufpr-git e às permissões mínimas necessárias para leitura e escrita de conteúdo. O token ficará armazenado exclusivamente nas propriedades do projeto Apps Script, nunca no código público, no catálogo JSON ou no site. O projeto Apps Script deverá permanecer privado e com edição restrita ao responsável pela integração. Criação do token, configuração, teste e validação permanecem pendentes; nenhuma credencial foi criada ou armazenada nesta etapa.",
       "Bloco funcional consolidado e aprovado pelo usuário em 27/11/2026: especificação da sincronização Drive → Apps Script → dados/catalogo_materiais.json. Reúne as decisões das versões 2.56 a 2.67: verificação diária na madrugada/início da manhã e acionamento manual; publicar somente quando houver alteração; comparar ID do Drive, nome, data de modificação, pasta e URL, usando hash MD5 para reconhecer conteúdo idêntico quando disponível; preservar registros de arquivos excluídos como indisponíveis; reativar restauração com mesmo ID; reconhecer reenvio com novo ID e conteúdo idêntico sem duplicar o material; não substituir automaticamente conteúdo diferente; priorizar automação e baixa carga administrativa; autenticar a escrita no GitHub por token Fine-grained restrito ao repositório, guardado nas propriedades privadas do Apps Script. Também foram aprovados como controles propostos: não publicar catálogo incompleto após falha de leitura; validar IDs curriculares contra dados/estrutura.json; evitar sobrescrever alterações mais recentes no GitHub; manter registro técnico de execuções e erros sem exigir acompanhamento diário. A consolidação não significa implementação. Permanecem pendentes: convenção de pastas/metadados no Drive, contrato técnico da atualização do catálogo no GitHub, detalhes de exceções e hash, testes em pasta de teste e validação ponta a ponta.",
-      "Em 27/11/2026 às 18:05:59, foi aprovado o contrato técnico de publicação do catálogo no GitHub: consultar o arquivo atual e seu SHA, validar o JSON, atualizar dados/catalogo_materiais.json pela Contents API na branch main, proteger contra conflitos e sobrescrita, usar LockService e UrlFetchApp e gerar commit somente quando houver alteração efetiva. A implementação, a criação/configuração do token, a migração do formato antigo do catálogo e os testes ponta a ponta permanecem pendentes."
+      "Em 27/11/2026 às 18:05:59, foi aprovado o contrato técnico de publicação do catálogo no GitHub: consultar o arquivo atual e seu SHA, validar o JSON, atualizar dados/catalogo_materiais.json pela Contents API na branch main, proteger contra conflitos e sobrescrita, usar LockService e UrlFetchApp e gerar commit somente quando houver alteração efetiva. A implementação, a criação/configuração do token, a migração do formato antigo do catálogo e os testes ponta a ponta permanecem pendentes.",
+      "Em 27/11/2026 às 19:17:40, foi aprovada a organização progressiva dos materiais no Drive: manter pastas por disciplina, aceitar arquivos diretamente nelas como materiais gerais e não exigir subpastas de unidades/assuntos. A implementação da identificação e indexação permanece pendente; nenhuma pasta ou arquivo foi alterado."
     ],
     "proximos_passos": [
-      "Especificar a convenção de pastas/metadados no Google Drive que permitirá ao Apps Script identificar disciplina, unidade e assunto, validando os IDs contra dados/estrutura.json.",
+      "Especificar e implementar a leitura progressiva das pastas existentes por disciplina: reconhecer a disciplina pelo código validado em dados/estrutura.json e tratar arquivos diretamente na pasta como materiais gerais, deixando a classificação por unidade/assunto para uma etapa posterior e opcional.",
       "Implementar o contrato técnico aprovado para publicar dados/catalogo_materiais.json no GitHub, incluindo leitura do SHA, validação do JSON, tratamento de conflitos, LockService, UrlFetchApp e autenticação restrita.",
       "Definir como o Apps Script autenticado poderá atualizar o catálogo no GitHub com segurança, sem expor tokens, credenciais ou chaves no site público; verificar permissões e recursos disponíveis.",
       "Atualizar o Manual Operacional e o guia docs/GUIA_CATALOGO_MATERIAIS.md para retirar instruções de cadastro manual como fluxo definitivo e documentar o fluxo automático quando estiver tecnicamente especificado.",
@@ -623,13 +624,13 @@
       "Manter os PDFs e registros existentes preservados até migração e validação; não excluir materiais ou catálogos por antecipação."
     ],
     "historico": [
-      "v2.65 — 27/11/2026 às 17:56:25: esclarecido que as regras de sincronização devem preservar segurança e integridade sem gerar trabalho administrativo extra; automação prioritária e intervenção pontual apenas quando necessária.",
       "v2.66 — 27/11/2026 às 17:57:04: aprovada execução da sincronização diária durante a madrugada/início da manhã; horário exato será definido na implementação.",
       "v2.67 — 27/11/2026 às 18:00:51: aprovada autenticação Apps Script–GitHub por token Fine-grained restrito ao repositório e a conteúdo; armazenamento privado nas propriedades do script, nunca no site público.",
       "v2.68 — 27/11/2026 às 18:02:47: aprovada a especificação funcional consolidada da sincronização Drive → Apps Script → catálogo, reunindo regras já aprovadas e controles de integridade; detalhes técnicos e implementação permanecem pendentes.",
-      "v2.69 — 27/11/2026 às 18:05:59: aprovado o contrato técnico Apps Script–GitHub para leitura com SHA, publicação pela Contents API, validação, controle de concorrência e prevenção de sobrescrita; implementação e testes pendentes."
+      "v2.69 — 27/11/2026 às 18:05:59: aprovado o contrato técnico Apps Script–GitHub para leitura com SHA, publicação pela Contents API, validação, controle de concorrência e prevenção de sobrescrita; implementação e testes pendentes.",
+      "v2.70 — 27/11/2026 às 19:17:40: aprovada organização progressiva dos materiais no Drive, sem subpastas obrigatórias; arquivos diretamente na pasta da disciplina serão materiais gerais."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.69.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.70.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -1523,9 +1524,30 @@
           "Token Fine-grained guardado exclusivamente nas propriedades privadas do Apps Script.",
           "Implementação, credencial, migração do catálogo antigo e testes ponta a ponta permanecem pendentes."
         ]
+      },
+      {
+        "titulo": "49. Organização progressiva dos materiais no Google Drive — sem subpastas obrigatórias",
+        "paragrafos": [
+          "Decisão aprovada pelo usuário em 27/11/2026: a organização dos materiais no Google Drive deverá ser progressiva e simples. Não será criada antecipadamente uma árvore completa de subpastas para todas as unidades e assuntos, nem será exigido que o usuário classifique ou mova todos os documentos antes de começar a utilizar o sistema.",
+          "A estrutura atual de pastas por disciplina será preservada. O usuário poderá inserir documentos diretamente na pasta correspondente à disciplina, identificada pelo código e nome já existentes, por exemplo disciplinas/dv457-teoria-do-direito. A identificação da disciplina deverá ser validada pela correspondência com o registro curricular em dados/estrutura.json, sem depender exclusivamente do texto do nome.",
+          "Arquivos encontrados diretamente na pasta da disciplina serão tratados inicialmente como materiais gerais da disciplina, sem vínculo obrigatório com unidade ou assunto. No modelo do catálogo, unidade_id e assunto_id poderão permanecer null, conforme a estrutura de dados já aprovada.",
+          "A organização mais específica por unidade ou assunto poderá ser adotada gradualmente, quando houver necessidade prática e após definição de uma forma simples de identificação. Não criar subpastas automaticamente nem exigir movimentação dos arquivos existentes nesta etapa.",
+          "A automação deverá respeitar a estrutura que efetivamente existir no Drive, identificar com segurança a disciplina e não inventar vínculos curriculares. Arquivos cuja associação não possa ser validada não deverão ser publicados com classificação presumida; a regra de tratamento desses casos deverá ser definida na implementação, mantendo a simplicidade operacional aprovada.",
+          "Estado: abordagem progressiva aprovada; implementação da leitura das pastas de disciplina e da classificação inicial como material geral ainda pendente. Nenhuma pasta ou arquivo foi criado, movido ou alterado nesta decisão."
+        ],
+        "itens": [
+          "Preservar as pastas atuais por disciplina.",
+          "Não criar antecipadamente subpastas de unidades e assuntos.",
+          "Permitir inserir documentos diretamente na pasta da disciplina.",
+          "Identificar a disciplina pelo código/pasta e validar contra dados/estrutura.json.",
+          "Arquivos diretamente na pasta da disciplina são materiais gerais; unidade_id e assunto_id ficam null.",
+          "Organização por unidade/assunto poderá surgir gradualmente, se necessária.",
+          "Não mover arquivos nem criar subpastas automaticamente nesta etapa.",
+          "Automação e testes permanecem pendentes; nenhuma alteração no Drive foi realizada."
+        ]
       }
     ],
-    "atualizado_as": "18:05:59",
+    "atualizado_as": "19:17:40",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
