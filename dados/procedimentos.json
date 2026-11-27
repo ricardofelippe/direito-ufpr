@@ -521,7 +521,7 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.67",
+    "versao": "2.68",
     "atualizado_em": "27/11/2026",
     "resumo": "Consolida a eliminação da Biblioteca geral independente e a especificação aprovada da aba Materiais dentro das disciplinas, preservando a arquitetura automática Drive → Google Apps Script → catálogo JSON → páginas das disciplinas. O cadastro manual de links não é o fluxo definitivo. A especificação funcional e o modelo de dados estão aprovados; a automação, a adaptação da aba Materiais e a retirada coordenada da página antiga ainda não foram implementadas.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
@@ -606,7 +606,8 @@
       "Decisão aprovada em 27/11/2026: não criar painel separado de revisão de pendências de sincronização. A gestão de materiais e a automação devem priorizar simplicidade e baixa carga administrativa. Evitar exigir análise manual rotineira, confirmações frequentes ou manutenção de filas de pendências. Exceções devem ser tratadas pelo caminho mais simples e seguro possível, a especificar sem contrariar as decisões já aprovadas sobre preservação de registros e não substituição automática de conteúdo diferente. O fluxo simplificado para arquivos reenviados com conteúdo diferente ainda precisa ser definido.",
       "Esclarecimento registrado em 27/11/2026: a diretriz de simplicidade não descarta as regras de sincronização, preservação e integridade já aprovadas; exige que sejam implementadas de modo a não criar dificuldades administrativas extras. O painel separado de revisão foi dispensado. A automação deverá resolver o que puder com segurança e solicitar intervenção pontual apenas quando realmente necessária, pelo meio mais simples, sem criar filas ou procedimentos desnecessários.",
       "Decisão funcional aprovada em 27/11/2026: a verificação automática diária do Google Drive deverá ocorrer durante a madrugada/início da manhã, em horário de menor uso do sistema. O horário exato será definido na etapa de implementação do acionador do Google Apps Script, considerando os horários disponíveis e o fuso de Brasília. A decisão define a janela preferencial, não significa que a rotina já esteja implantada ou ativa.",
-      "Decisão funcional aprovada em 27/11/2026: a integração Google Apps Script → GitHub utilizará autenticação por token Fine-grained do GitHub, restrito ao repositório ricardofelippe/direito-ufpr-git e às permissões mínimas necessárias para leitura e escrita de conteúdo. O token ficará armazenado exclusivamente nas propriedades do projeto Apps Script, nunca no código público, no catálogo JSON ou no site. O projeto Apps Script deverá permanecer privado e com edição restrita ao responsável pela integração. Criação do token, configuração, teste e validação permanecem pendentes; nenhuma credencial foi criada ou armazenada nesta etapa."
+      "Decisão funcional aprovada em 27/11/2026: a integração Google Apps Script → GitHub utilizará autenticação por token Fine-grained do GitHub, restrito ao repositório ricardofelippe/direito-ufpr-git e às permissões mínimas necessárias para leitura e escrita de conteúdo. O token ficará armazenado exclusivamente nas propriedades do projeto Apps Script, nunca no código público, no catálogo JSON ou no site. O projeto Apps Script deverá permanecer privado e com edição restrita ao responsável pela integração. Criação do token, configuração, teste e validação permanecem pendentes; nenhuma credencial foi criada ou armazenada nesta etapa.",
+      "Bloco funcional consolidado e aprovado pelo usuário em 27/11/2026: especificação da sincronização Drive → Apps Script → dados/catalogo_materiais.json. Reúne as decisões das versões 2.56 a 2.67: verificação diária na madrugada/início da manhã e acionamento manual; publicar somente quando houver alteração; comparar ID do Drive, nome, data de modificação, pasta e URL, usando hash MD5 para reconhecer conteúdo idêntico quando disponível; preservar registros de arquivos excluídos como indisponíveis; reativar restauração com mesmo ID; reconhecer reenvio com novo ID e conteúdo idêntico sem duplicar o material; não substituir automaticamente conteúdo diferente; priorizar automação e baixa carga administrativa; autenticar a escrita no GitHub por token Fine-grained restrito ao repositório, guardado nas propriedades privadas do Apps Script. Também foram aprovados como controles propostos: não publicar catálogo incompleto após falha de leitura; validar IDs curriculares contra dados/estrutura.json; evitar sobrescrever alterações mais recentes no GitHub; manter registro técnico de execuções e erros sem exigir acompanhamento diário. A consolidação não significa implementação. Permanecem pendentes: convenção de pastas/metadados no Drive, contrato técnico da atualização do catálogo no GitHub, detalhes de exceções e hash, testes em pasta de teste e validação ponta a ponta."
     ],
     "proximos_passos": [
       "Especificar a convenção de pastas/metadados no Google Drive que permitirá ao Apps Script identificar disciplina, unidade e assunto, validando os IDs contra dados/estrutura.json.",
@@ -621,13 +622,13 @@
       "Manter os PDFs e registros existentes preservados até migração e validação; não excluir materiais ou catálogos por antecipação."
     ],
     "historico": [
-      "v2.63 — 27/11/2026 às 17:54:14: aprovado manter arquivo anterior indisponível e encaminhar novo arquivo com conteúdo diferente para revisão, sem substituição automática.",
       "v2.64 — 27/11/2026 às 17:55:05: descartado painel separado de revisão; princípio reforçado de simplicidade e baixa carga administrativa, evitando filas e confirmações rotineiras.",
       "v2.65 — 27/11/2026 às 17:56:25: esclarecido que as regras de sincronização devem preservar segurança e integridade sem gerar trabalho administrativo extra; automação prioritária e intervenção pontual apenas quando necessária.",
       "v2.66 — 27/11/2026 às 17:57:04: aprovada execução da sincronização diária durante a madrugada/início da manhã; horário exato será definido na implementação.",
-      "v2.67 — 27/11/2026 às 18:00:51: aprovada autenticação Apps Script–GitHub por token Fine-grained restrito ao repositório e a conteúdo; armazenamento privado nas propriedades do script, nunca no site público."
+      "v2.67 — 27/11/2026 às 18:00:51: aprovada autenticação Apps Script–GitHub por token Fine-grained restrito ao repositório e a conteúdo; armazenamento privado nas propriedades do script, nunca no site público.",
+      "v2.68 — 27/11/2026 às 18:02:47: aprovada a especificação funcional consolidada da sincronização Drive → Apps Script → catálogo, reunindo regras já aprovadas e controles de integridade; detalhes técnicos e implementação permanecem pendentes."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.67.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.68.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -1468,9 +1469,35 @@
           "Nunca expor credenciais no site ou em arquivos públicos.",
           "Criação e validação ainda pendentes."
         ]
+      },
+      {
+        "titulo": "47. Especificação funcional consolidada e aprovada — sincronização Drive → Apps Script → catálogo",
+        "paragrafos": [
+          "Aprovada pelo usuário em 27/11/2026 como bloco funcional consolidado. Esta seção reúne as decisões aprovadas anteriormente, sem substituir nem apagar seu histórico detalhado.",
+          "Arquitetura: Google Drive mantém os arquivos originais; Google Apps Script consulta os arquivos e metadados, compara o estado encontrado com o catálogo e gera/atualiza dados/catalogo_materiais.json no repositório GitHub; as páginas das disciplinas consomem o catálogo. O site público não armazena cópias dos PDFs.",
+          "Execução: realizar uma verificação automática por dia, durante a madrugada/início da manhã, considerando o fuso de Brasília. Também deverá existir uma forma simples de executar a sincronização manualmente sob demanda. O horário exato será escolhido na implementação.",
+          "Publicação condicional: comparar o estado atual com o catálogo existente. Se não houver alteração relevante, não modificar o JSON nem gerar commit. Se houver alteração, validar o catálogo e então publicar a atualização.",
+          "Identificação e comparação: considerar identificador único do arquivo no Drive, nome, data da última modificação, identificação da pasta e URL de acesso. Utilizar hash MD5 para reconhecer conteúdo idêntico em arquivos reenviados com novo ID quando esse metadado estiver disponível. MD5 é utilizado como comparação prática de igualdade de conteúdo, não como garantia de autenticidade criptográfica.",
+          "Tratamento de arquivos: arquivo novo é identificado e cadastrado conforme a convenção curricular que ainda será definida; renomeação atualiza o nome preservando o registro; movimentação atualiza localização e vínculo somente conforme regras curriculares válidas; exclusão não remove imediatamente o registro, que passa a indisponível; restauração com mesmo ID reativa o registro existente; reenvio com novo ID e conteúdo idêntico atualiza a referência preservando ID mat-XXX, vínculos e histórico; conteúdo diferente não substitui automaticamente o anterior.",
+          "Simplicidade operacional: não criar painel separado de revisão de pendências. A automação deverá resolver as situações comuns com segurança e não gerar tarefas administrativas rotineiras. Intervenção do usuário somente quando indispensável para uma decisão segura, pelo meio mais simples disponível. Não criar filas, painéis ou procedimentos adicionais sem demonstrar necessidade e obter aprovação.",
+          "Segurança: a integração Apps Script → GitHub usará token Fine-grained limitado ao repositório ricardofelippe/direito-ufpr-git e às permissões mínimas necessárias para leitura e escrita de conteúdo. O token ficará exclusivamente nas propriedades privadas do Apps Script, nunca no código público, catálogo ou site. O projeto Apps Script permanecerá privado e com edição restrita.",
+          "Controles de integridade aprovados nesta consolidação: não publicar catálogo incompleto se ocorrer falha na leitura do Drive; validar identificadores curriculares contra dados/estrutura.json; evitar sobrescrever alterações mais recentes no GitHub; manter registro técnico de execuções e erros sem exigir acompanhamento diário.",
+          "Pendências expressas: definir convenção de pastas ou metadados no Drive para identificar disciplina, unidade e assunto; detalhar o contrato técnico de atualização do JSON no GitHub e o controle de concorrência; definir comportamento para casos sem hash e conteúdo diferente sem criar carga administrativa desnecessária; implementar e testar em pasta de teste; validar a integração ponta a ponta. A aprovação desta especificação não significa que qualquer automação esteja implementada ou ativa."
+        ],
+        "itens": [
+          "Verificação automática diária na madrugada/início da manhã e execução manual sob demanda.",
+          "Sem alteração relevante: não atualizar JSON nem gerar commit.",
+          "Comparar ID, nome, data de modificação, pasta e URL; hash MD5 quando disponível para igualdade de conteúdo.",
+          "Preservar registros excluídos como indisponíveis; reativar mesmo ID; reconhecer reenvio idêntico com novo ID sem duplicidade.",
+          "Não substituir automaticamente arquivo com conteúdo diferente.",
+          "Sem painel separado de revisão; automação e intervenção apenas quando indispensável.",
+          "Token Fine-grained restrito ao repositório, guardado somente nas propriedades privadas do Apps Script.",
+          "Não publicar catálogo incompleto; validar IDs curriculares; proteger contra sobrescrita concorrente; registrar erros tecnicamente.",
+          "Convenção Drive, contrato GitHub, exceções, testes e implementação permanecem pendentes."
+        ]
       }
     ],
-    "atualizado_as": "18:00:51",
+    "atualizado_as": "18:02:47",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
