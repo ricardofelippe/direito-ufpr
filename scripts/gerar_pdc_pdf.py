@@ -43,7 +43,7 @@ for sec in pdc.get("conteudo_completo", []):
 story.append(Spacer(1,8))
 story.append(Paragraph("Histórico de versões", styles["H1X"]))
 for item in pdc.get("historico", []): story.append(Paragraph(item, styles["BodyX"]))
-story.append(Paragraph("Referência do projeto: https://ricardofelippe.github.io/Direito-UFPR/", styles["BodyX"]))
+story.append(Paragraph("Referência do projeto: https://github.com/ricardofelippe/direito-ufpr-git/", styles["BodyX"]))
 def footer(canvas, doc):
     canvas.saveState()
     canvas.setFont("Helvetica",7)
