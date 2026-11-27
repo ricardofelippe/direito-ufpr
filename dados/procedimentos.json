@@ -521,7 +521,7 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.64",
+    "versao": "2.65",
     "atualizado_em": "27/11/2026",
     "resumo": "Consolida a eliminação da Biblioteca geral independente e a especificação aprovada da aba Materiais dentro das disciplinas, preservando a arquitetura automática Drive → Google Apps Script → catálogo JSON → páginas das disciplinas. O cadastro manual de links não é o fluxo definitivo. A especificação funcional e o modelo de dados estão aprovados; a automação, a adaptação da aba Materiais e a retirada coordenada da página antiga ainda não foram implementadas.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
@@ -603,7 +603,8 @@
       "Decisão funcional aprovada em 27/11/2026: se um arquivo marcado como indisponível voltar a ser encontrado no Google Drive com o mesmo identificador único do Drive, o Apps Script deverá reconhecer que é o arquivo original e reativar o registro já existente no catálogo, sem criar um novo material ou novo vínculo. A decisão depende da persistência do identificador do Drive e não se aplica automaticamente a um arquivo reenviado que receba novo ID; o tratamento de reenvios com novo ID será especificado separadamente. Implementação pendente.",
       "Decisão funcional aprovada em 27/11/2026: para reconhecer um arquivo reenviado ao Google Drive com novo ID como possível substituto de arquivo anteriormente catalogado, a sincronização deverá comparar o conteúdo por hash MD5, quando esse metadado estiver disponível. Se o conteúdo for idêntico, atualizar a referência do arquivo no registro existente, preservando o ID do material mat-XXX, os vínculos curriculares e o histórico, sem criar duplicidade. Se o conteúdo for diferente, não substituir automaticamente o registro anterior; encaminhar para tratamento/revisão. O hash MD5 é um identificador de igualdade de conteúdo, não uma garantia de autenticidade ou integridade criptográfica forte. Disponibilidade do hash, tratamento de arquivos sem hash e validação técnica ainda pendentes.",
       "Decisão funcional aprovada em 27/11/2026: quando um arquivo reenviado com novo ID tiver conteúdo diferente do arquivo anteriormente catalogado, o sistema deverá manter o registro anterior marcado como indisponível e apresentar o novo arquivo como possível inclusão/substituição para revisão. Não deverá substituir automaticamente o arquivo anterior nem alterar o material curricular existente sem confirmação. O fluxo de revisão, os dados apresentados e a forma de confirmação ainda serão especificados. Implementação pendente.",
-      "Decisão aprovada em 27/11/2026: não criar painel separado de revisão de pendências de sincronização. A gestão de materiais e a automação devem priorizar simplicidade e baixa carga administrativa. Evitar exigir análise manual rotineira, confirmações frequentes ou manutenção de filas de pendências. Exceções devem ser tratadas pelo caminho mais simples e seguro possível, a especificar sem contrariar as decisões já aprovadas sobre preservação de registros e não substituição automática de conteúdo diferente. O fluxo simplificado para arquivos reenviados com conteúdo diferente ainda precisa ser definido."
+      "Decisão aprovada em 27/11/2026: não criar painel separado de revisão de pendências de sincronização. A gestão de materiais e a automação devem priorizar simplicidade e baixa carga administrativa. Evitar exigir análise manual rotineira, confirmações frequentes ou manutenção de filas de pendências. Exceções devem ser tratadas pelo caminho mais simples e seguro possível, a especificar sem contrariar as decisões já aprovadas sobre preservação de registros e não substituição automática de conteúdo diferente. O fluxo simplificado para arquivos reenviados com conteúdo diferente ainda precisa ser definido.",
+      "Esclarecimento registrado em 27/11/2026: a diretriz de simplicidade não descarta as regras de sincronização, preservação e integridade já aprovadas; exige que sejam implementadas de modo a não criar dificuldades administrativas extras. O painel separado de revisão foi dispensado. A automação deverá resolver o que puder com segurança e solicitar intervenção pontual apenas quando realmente necessária, pelo meio mais simples, sem criar filas ou procedimentos desnecessários."
     ],
     "proximos_passos": [
       "Especificar a convenção de pastas/metadados no Google Drive que permitirá ao Apps Script identificar disciplina, unidade e assunto, validando os IDs contra dados/estrutura.json.",
@@ -618,13 +619,13 @@
       "Manter os PDFs e registros existentes preservados até migração e validação; não excluir materiais ou catálogos por antecipação."
     ],
     "historico": [
-      "v2.60 — 27/11/2026 às 17:48:10: aprovado preservar o registro de arquivos excluídos do Drive, marcando-os como indisponíveis em vez de removê-los imediatamente.",
       "v2.61 — 27/11/2026 às 17:49:49: aprovado reativar registro existente quando o mesmo arquivo, identificado pelo ID original do Drive, voltar a ser encontrado; sem duplicar material.",
       "v2.62 — 27/11/2026 às 17:52:01: aprovado reconhecer reenvio com novo ID por comparação de conteúdo via hash MD5; se idêntico, atualizar referência preservando o material; se diferente, não substituir automaticamente.",
       "v2.63 — 27/11/2026 às 17:54:14: aprovado manter arquivo anterior indisponível e encaminhar novo arquivo com conteúdo diferente para revisão, sem substituição automática.",
-      "v2.64 — 27/11/2026 às 17:55:05: descartado painel separado de revisão; princípio reforçado de simplicidade e baixa carga administrativa, evitando filas e confirmações rotineiras."
+      "v2.64 — 27/11/2026 às 17:55:05: descartado painel separado de revisão; princípio reforçado de simplicidade e baixa carga administrativa, evitando filas e confirmações rotineiras.",
+      "v2.65 — 27/11/2026 às 17:56:25: esclarecido que as regras de sincronização devem preservar segurança e integridade sem gerar trabalho administrativo extra; automação prioritária e intervenção pontual apenas quando necessária."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.64.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.65.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -1418,22 +1419,22 @@
       {
         "titulo": "44. Diretriz aprovada — simplicidade operacional e baixa carga administrativa",
         "paragrafos": [
-          "Decisão aprovada pelo usuário em 27/11/2026: não criar um painel separado de revisão de pendências de sincronização.",
-          "A gestão dos materiais e a automação deverão priorizar simplicidade e baixa carga administrativa. Evitar exigir análise manual rotineira, confirmações frequentes ou manutenção de filas de pendências pelo usuário.",
-          "O descarte do painel não revoga as regras já aprovadas de preservação dos registros de arquivos indisponíveis, reconhecimento de restauração pelo ID original e não substituição automática quando o conteúdo for diferente. O modo simplificado de tratar essas exceções ainda deverá ser especificado, sem introduzir complexidade operacional desnecessária.",
-          "Esta diretriz deve orientar as decisões futuras de interface, automação, sincronização, documentação e operação. Qualquer proposta que aumente significativamente a manutenção manual deverá ter sua necessidade justificada antes de ser adotada."
+          "Esclarecimento do usuário em 27/11/2026: as regras de sincronização e integridade discutidas devem ser implementadas de modo que não criem dificuldades extras de administração. O objetivo é manter a proteção dos dados e a confiabilidade do catálogo sem transformar exceções técnicas em tarefas rotineiras para o usuário.",
+          "A proposta de criar um painel separado de revisão de pendências foi dispensada. Isso não significa eliminar os tratamentos de exceção necessários, nem descartar as regras aprovadas para arquivos excluídos, restaurados ou reenviados.",
+          "A implementação deverá privilegiar automação e simplicidade. Somente quando uma situação não puder ser resolvida com segurança automaticamente deverá ser solicitada uma intervenção pontual, pelo meio mais simples disponível. Não criar filas, painéis ou procedimentos adicionais sem demonstrar necessidade e obter aprovação do usuário.",
+          "Esta diretriz não altera as regras funcionais anteriores: registros de arquivos excluídos são preservados como indisponíveis; restaurações com o mesmo ID reativam o registro; conteúdo idêntico reenviado com novo ID pode atualizar a referência após comparação; conteúdo diferente não substitui automaticamente o anterior. O modo operacional para tratar essa última exceção ainda será definido com foco em simplicidade."
         ],
         "itens": [
           "Não criar painel separado de revisão de pendências.",
-          "Priorizar operação simples e baixa carga administrativa.",
-          "Evitar filas de pendências e confirmações manuais rotineiras.",
-          "Preservar as regras anteriores de integridade dos registros.",
-          "Definir tratamento simplificado para exceções de conteúdo diferente.",
-          "Não implementar sem especificação e validação."
+          "Manter as regras de integridade e preservação de registros já aprovadas.",
+          "Priorizar que a automação resolva situações comuns sem intervenção do usuário.",
+          "Solicitar intervenção pontual somente quando necessária para uma decisão segura.",
+          "Escolher o procedimento mais simples possível; não criar tarefas administrativas extras.",
+          "Qualquer mecanismo adicional deve ter necessidade justificada e aprovação do usuário."
         ]
       }
     ],
-    "atualizado_as": "17:55:05",
+    "atualizado_as": "17:56:25",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
