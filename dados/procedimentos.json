@@ -521,9 +521,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.47",
+    "versao": "2.48",
     "atualizado_em": "27/11/2026",
-    "resumo": "Registra a limpeza integral do catálogo antigo e a identificação do fluxo de cadastro/gerenciamento de PDFs como obsoleto diante da arquitetura Drive → Apps Script → catálogo do site.",
+    "resumo": "Registra a desativação do cadastro antigo de materiais, a retirada dos links de gerenciamento da biblioteca e a preservação do catálogo vazio enquanto o novo fluxo integrado ao Google Drive é especificado.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Correção adicional em index.html após captura do usuário indicar que as três ilustrações ainda não apareciam na Visão geral. O markup SVG já estava presente no arquivo; foram adicionadas regras CSS mais específicas para `a.metric > span.metric-illustration`, com posicionamento absoluto, display flex, dimensões explícitas, z-index e cores por categoria, inclusive regra específica para o corredor. A publicação visual ainda depende de validação no navegador após atualização forçada.",
@@ -566,11 +566,16 @@
       "Em 27/11/2026, após autorização do usuário, os cinco registros restantes de documentos.json foram removidos. O arquivo foi verificado e agora contém uma lista vazia ([]). Nenhum arquivo PDF adicional foi excluído nesta operação; a pasta disciplinas/ e os demais arquivos do repositório foram preservados.",
       "Auditoria de cadastro.html: a página ainda implementa cadastro de materiais no GitHub, seleção de PDFs armazenados no repositório, associação manual de caminhos e gerenciamento de PDFs existentes. biblioteca.html mantém links para cadastro.html, incluindo ações de novo material e gerenciamento/associação de PDFs. Foram identificados workflows antigos de cadastro e gerenciamento: cadastrar-material.yml, processar-cadastro.yml, processar-envio-material.yml e gerenciar-pdfs.yml, além de formulários de Issue correspondentes.",
       "Conclusão arquitetural: cadastro.html, os links de cadastro/gerenciamento da biblioteca e os workflows que gravam ou manipulam documentos.json/PDFs no GitHub são incompatíveis com a arquitetura aprovada, na qual Google Drive é o repositório oficial, Apps Script deverá gerar/atualizar o catálogo e o site será somente interface de consulta. O cadastro.html é considerado obsoleto em sua função atual. Nesta etapa, a página, os workflows e os formulários ainda não foram excluídos nem desativados; a remoção coordenada depende de autorização e de auditoria final das dependências.",
-      "Os procedimentos operacionais antigos de cadastro/substituição/remoção de PDFs foram identificados como não aplicáveis ao fluxo futuro. Devem ser marcados como descontinuados até que o novo fluxo Drive → Apps Script → catálogo seja especificado, validado e implementado."
+      "Os procedimentos operacionais antigos de cadastro/substituição/remoção de PDFs foram identificados como não aplicáveis ao fluxo futuro. Devem ser marcados como descontinuados até que o novo fluxo Drive → Apps Script → catálogo seja especificado, validado e implementado.",
+      "Em 27/11/2026, foi executada a retirada coordenada do fluxo antigo de cadastro/gerenciamento de materiais. A página cadastro.html foi excluída; biblioteca.html foi ajustada para funcionar somente como consulta, sem links de novo material, associação, adição, substituição ou remoção de PDFs.",
+      "Foram excluídos os workflows .github/workflows/cadastrar-material.yml, processar-cadastro.yml, processar-envio-material.yml, gerenciar-pdfs.yml e associar-pdf.yml. Também foram excluídos os formulários de Issue .github/ISSUE_TEMPLATE/cadastrar-material.yml, enviar-material.yml, gerenciar-pdfs.yml e associar-pdf.yml. Os demais workflows e formulários foram preservados.",
+      "Foi realizada varredura dos workflows e formulários restantes. Não foram encontradas referências aos fluxos removidos de cadastro/gerenciamento nem a cadastro.html. O workflow processar-oferta.yml ainda grava o PDF do plano de ensino em documentos/planos-de-ensino; ele foi preservado porque trata do cadastro de oferta acadêmica, uma funcionalidade distinta. A compatibilização desse armazenamento com a arquitetura futura do Drive deverá ser analisada separadamente.",
+      "documentos.json foi mantido no repositório como arquivo legado vazio ([]) para evitar retirar prematuramente uma dependência de leitura da biblioteca. A biblioteca ainda lê esse arquivo e, nesta etapa, permanece sem materiais listados. A implementação do novo catálogo integrado ao Drive não foi iniciada.",
+      "Alterações realizadas exclusivamente em arquivos do site, workflows, formulários e documentação do GitHub. Não é necessário atualizar o espelho do Google Drive pelo GitHub Desktop."
     ],
     "proximos_passos": [
-      "Decidir e executar a desativação coordenada do cadastro antigo: remover da biblioteca os links de novo material/associação/gerenciamento; definir o destino de cadastro.html (recomendação: retirar do acesso público e excluir após conferência); revisar e desativar workflows e formulários de Issue que escrevem em documentos.json ou manipulam PDFs no GitHub. Antes de excluir cada arquivo, conferir dependências e preservar workflows não relacionados.",
-      "Especificar e validar o novo fluxo de materiais: Google Drive como repositório oficial; Google Apps Script para identificar arquivos e metadados e atualizar o catálogo JSON; site apenas para consulta e abertura dos links do Drive. Não reativar cadastro direto no GitHub.",
+      "Especificar e validar o novo fluxo de materiais: Google Drive como repositório oficial; Google Apps Script para identificar arquivos/metadados e atualizar o catálogo JSON; site apenas para consulta e abertura dos links do Drive. A biblioteca atual ainda lê documentos.json, vazio e legado; definir o novo arquivo/schema de catálogo e migrar a leitura somente após validar a integração.",
+      "Analisar separadamente o armazenamento dos planos de ensino em documentos/planos-de-ensino pelo workflow processar-oferta.yml e decidir sua futura adequação ao Google Drive, sem interromper o cadastro de ofertas acadêmicas.",
       "Concluir a especificação da Argumentação Escrita, detalhando como o estudante elabora e revisa a versão final e como a IA apresenta análise e avaliação. Depois, especificar Debate Jurídico e Simulação Oral, papéis da IA e do estudante, adaptações por voz/escrita e critérios de avaliação. Não programar antes da especificação estar consolidada.",
       "Desenhar e validar a arquitetura técnica Google Workspace: confirmar edição/licença, permissões e APIs disponíveis para Drive, NotebookLM/Gemini; distinguir recursos nativos da interface de recursos acessíveis programaticamente ao site.",
       "Especificar o catálogo de Materiais: metadados mínimos, estrutura de pastas do Drive, identificação de arquivos, vínculo com disciplina/unidade/assunto, links de abertura, tratamento de arquivos movidos/renomeados/excluídos e sincronização.",
@@ -594,7 +599,8 @@
       "v2.28 — 27/11/2026 às 11:16:00 (America/Sao_Paulo, UTC−03:00): consolidadas decisões funcionais do Laboratório de Argumentação Jurídica e aprovada a reorganização documental: um notebook por disciplina; Drive como repositório oficial; site como catálogo/indexador com metadados e links, sem cópias de arquivos. Integrações e automações permanecem pendentes de validação técnica.",
       "v2.29 — 27/11/2026: renomeação do repositório para ricardofelippe/direito-ufpr-git; criação de disciplinas/ com 51 subpastas; atualização de links de Issues e instruções do PDC; Apps Script será utilizado para indexar no catálogo os materiais sincronizados no Google Drive.",
       "v2.30 — 27/11/2026: formaliza a arquitetura espelhada GitHub–Google Drive, define a autoridade de cada ambiente e estabelece o Apps Script como gerador do catálogo JSON.",
-      "v2.47 — 27/11/2026: documentos.json esvaziado após autorização do usuário; auditoria identificou cadastro.html e os fluxos associados de cadastro/gerenciamento de PDFs como obsoletos em relação à arquitetura Drive → Apps Script → catálogo. Remoção coordenada ainda pendente de autorização."
+      "v2.47 — 27/11/2026: documentos.json esvaziado após autorização do usuário; auditoria identificou cadastro.html e os fluxos associados de cadastro/gerenciamento de PDFs como obsoletos em relação à arquitetura Drive → Apps Script → catálogo. Remoção coordenada ainda pendente de autorização.",
+      "v2.48 — 27/11/2026: desativação coordenada do cadastro antigo; cadastro.html e cinco workflows/ quatro formulários de cadastro e gerenciamento de PDFs removidos; biblioteca.html convertida para consulta sem ações de edição; workflows não relacionados preservados."
     ],
     "pdf_url": "docs/PDC_Direito_UFPR_v2.32.pdf",
     "conteudo_completo": [
@@ -650,8 +656,8 @@
             "Ambiente de estudo de uma disciplina/assunto; consultar a implementação atual antes de orientar operações."
           ],
           [
-            "biblioteca.html / cadastro.html",
-            "Consulta e cadastro de materiais da biblioteca."
+            "biblioteca.html",
+            "Catálogo de materiais para consulta; não oferece cadastro nem gerenciamento de PDFs. O catálogo integrado ao Drive ainda será especificado."
           ],
           [
             "procedimentos.html",
@@ -1131,9 +1137,31 @@
           "Novo modelo futuro: Drive → Apps Script → catálogo JSON → biblioteca do site.",
           "Estado: limpeza do catálogo concluída; desativação dos fluxos antigos pendente de autorização; novo catálogo ainda não implementado."
         ]
+      },
+      {
+        "titulo": "30. Retirada coordenada do cadastro antigo de materiais",
+        "paragrafos": [
+          "Em 27/11/2026, após autorização expressa do usuário, foi executada a retirada do fluxo antigo de cadastro e gerenciamento de PDFs armazenados no GitHub.",
+          "A página cadastro.html foi excluída. A biblioteca.html foi ajustada: foram removidos os links para cadastrar novo material, associar PDFs, adicionar PDFs, substituir PDFs e remover PDFs. Os cartões continuam apresentando os metadados e links de consulta existentes, quando houver materiais cadastrados. A biblioteca deixa de oferecer operações de escrita no catálogo.",
+          "Foram removidos cinco workflows: .github/workflows/cadastrar-material.yml, processar-cadastro.yml, processar-envio-material.yml, gerenciar-pdfs.yml e associar-pdf.yml. Foram removidos quatro formulários: .github/ISSUE_TEMPLATE/cadastrar-material.yml, enviar-material.yml, gerenciar-pdfs.yml e associar-pdf.yml. Eles compunham o fluxo de criação de registros, upload de PDFs e associação/substituição/remoção de arquivos.",
+          "Os workflows e formulários não relacionados foram preservados. Em particular, processar-oferta.yml continua ativo: ele cadastra uma oferta acadêmica e armazena seu plano de ensino em documentos/planos-de-ensino. Embora esse armazenamento ainda precise ser avaliado à luz da arquitetura futura do Drive, não é o mesmo fluxo de cadastro geral de materiais e não foi desativado nesta etapa.",
+          "Uma varredura dos workflows e formulários restantes não encontrou referências aos arquivos de cadastro removidos nem a cadastro.html. A biblioteca ainda carrega documentos.json, que foi mantido vazio ([]) como arquivo legado. Não foi implementado ainda o novo catálogo conectado ao Drive; portanto, a biblioteca poderá aparecer vazia até a especificação e integração do novo catálogo.",
+          "As alterações desta etapa são exclusivas do site, workflows, formulários e documentação no GitHub. Não é necessário atualizar o espelho do Google Drive pelo GitHub Desktop."
+        ],
+        "itens": [
+          "cadastro.html excluído.",
+          "biblioteca.html agora funciona como consulta, sem controles de cadastro/edição de PDFs.",
+          "Workflows removidos: cadastrar-material.yml, processar-cadastro.yml, processar-envio-material.yml, gerenciar-pdfs.yml e associar-pdf.yml.",
+          "Formulários removidos: cadastrar-material.yml, enviar-material.yml, gerenciar-pdfs.yml e associar-pdf.yml.",
+          "Workflows de currículo, progresso, resumos, revisões, ofertas e publicação do PDC preservados.",
+          "processar-oferta.yml preservado; seu uso de documentos/planos-de-ensino exige análise arquitetural separada.",
+          "documentos.json permanece como lista vazia, legado; a biblioteca ainda o consulta.",
+          "Novo catálogo Drive → Apps Script → site ainda não implementado.",
+          "Não é necessário atualizar o Google Drive nesta etapa."
+        ]
       }
     ],
-    "atualizado_as": "14:35:27",
+    "atualizado_as": "14:37:32",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
