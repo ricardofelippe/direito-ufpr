@@ -521,7 +521,7 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.62",
+    "versao": "2.63",
     "atualizado_em": "27/11/2026",
     "resumo": "Consolida a eliminação da Biblioteca geral independente e a especificação aprovada da aba Materiais dentro das disciplinas, preservando a arquitetura automática Drive → Google Apps Script → catálogo JSON → páginas das disciplinas. O cadastro manual de links não é o fluxo definitivo. A especificação funcional e o modelo de dados estão aprovados; a automação, a adaptação da aba Materiais e a retirada coordenada da página antiga ainda não foram implementadas.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
@@ -601,7 +601,8 @@
       "Decisão funcional aprovada em 27/11/2026: a comparação de arquivos entre Google Drive e catálogo deverá considerar cinco atributos: identificador único do arquivo no Drive, nome do arquivo, data da última modificação, identificação da pasta em que está armazenado e URL de acesso. Esses critérios servirão para identificar arquivos novos, alterados, movidos ou renomeados. A forma técnica de detectar alteração de conteúdo sem depender exclusivamente da data de modificação, e o tratamento de links/IDs após movimentações, ainda deverão ser especificados. Implementação pendente.",
       "Decisão funcional aprovada em 27/11/2026: quando a sincronização identificar que um arquivo anteriormente catalogado foi excluído do Google Drive, o sistema não deverá apagar imediatamente seu registro do catálogo. Deverá marcá-lo como indisponível, preservando seus metadados e histórico para permitir revisão e eventual correção de exclusão acidental. O formato exato do status, eventual prazo de retenção, procedimento de restauração e tratamento de exclusão permanente ainda serão especificados. Implementação pendente.",
       "Decisão funcional aprovada em 27/11/2026: se um arquivo marcado como indisponível voltar a ser encontrado no Google Drive com o mesmo identificador único do Drive, o Apps Script deverá reconhecer que é o arquivo original e reativar o registro já existente no catálogo, sem criar um novo material ou novo vínculo. A decisão depende da persistência do identificador do Drive e não se aplica automaticamente a um arquivo reenviado que receba novo ID; o tratamento de reenvios com novo ID será especificado separadamente. Implementação pendente.",
-      "Decisão funcional aprovada em 27/11/2026: para reconhecer um arquivo reenviado ao Google Drive com novo ID como possível substituto de arquivo anteriormente catalogado, a sincronização deverá comparar o conteúdo por hash MD5, quando esse metadado estiver disponível. Se o conteúdo for idêntico, atualizar a referência do arquivo no registro existente, preservando o ID do material mat-XXX, os vínculos curriculares e o histórico, sem criar duplicidade. Se o conteúdo for diferente, não substituir automaticamente o registro anterior; encaminhar para tratamento/revisão. O hash MD5 é um identificador de igualdade de conteúdo, não uma garantia de autenticidade ou integridade criptográfica forte. Disponibilidade do hash, tratamento de arquivos sem hash e validação técnica ainda pendentes."
+      "Decisão funcional aprovada em 27/11/2026: para reconhecer um arquivo reenviado ao Google Drive com novo ID como possível substituto de arquivo anteriormente catalogado, a sincronização deverá comparar o conteúdo por hash MD5, quando esse metadado estiver disponível. Se o conteúdo for idêntico, atualizar a referência do arquivo no registro existente, preservando o ID do material mat-XXX, os vínculos curriculares e o histórico, sem criar duplicidade. Se o conteúdo for diferente, não substituir automaticamente o registro anterior; encaminhar para tratamento/revisão. O hash MD5 é um identificador de igualdade de conteúdo, não uma garantia de autenticidade ou integridade criptográfica forte. Disponibilidade do hash, tratamento de arquivos sem hash e validação técnica ainda pendentes.",
+      "Decisão funcional aprovada em 27/11/2026: quando um arquivo reenviado com novo ID tiver conteúdo diferente do arquivo anteriormente catalogado, o sistema deverá manter o registro anterior marcado como indisponível e apresentar o novo arquivo como possível inclusão/substituição para revisão. Não deverá substituir automaticamente o arquivo anterior nem alterar o material curricular existente sem confirmação. O fluxo de revisão, os dados apresentados e a forma de confirmação ainda serão especificados. Implementação pendente."
     ],
     "proximos_passos": [
       "Especificar a convenção de pastas/metadados no Google Drive que permitirá ao Apps Script identificar disciplina, unidade e assunto, validando os IDs contra dados/estrutura.json.",
@@ -616,13 +617,13 @@
       "Manter os PDFs e registros existentes preservados até migração e validação; não excluir materiais ou catálogos por antecipação."
     ],
     "historico": [
-      "v2.58 — 27/11/2026 às 17:44:28: aprovado atualizar o catálogo e gerar commit somente quando a comparação detectar alterações; sem mudanças, nenhuma publicação.",
       "v2.59 — 27/11/2026 às 17:47:03: aprovados cinco critérios de comparação dos arquivos: ID do Drive, nome, data de modificação, pasta e URL; implementação e detalhes técnicos pendentes.",
       "v2.60 — 27/11/2026 às 17:48:10: aprovado preservar o registro de arquivos excluídos do Drive, marcando-os como indisponíveis em vez de removê-los imediatamente.",
       "v2.61 — 27/11/2026 às 17:49:49: aprovado reativar registro existente quando o mesmo arquivo, identificado pelo ID original do Drive, voltar a ser encontrado; sem duplicar material.",
-      "v2.62 — 27/11/2026 às 17:52:01: aprovado reconhecer reenvio com novo ID por comparação de conteúdo via hash MD5; se idêntico, atualizar referência preservando o material; se diferente, não substituir automaticamente."
+      "v2.62 — 27/11/2026 às 17:52:01: aprovado reconhecer reenvio com novo ID por comparação de conteúdo via hash MD5; se idêntico, atualizar referência preservando o material; se diferente, não substituir automaticamente.",
+      "v2.63 — 27/11/2026 às 17:54:14: aprovado manter arquivo anterior indisponível e encaminhar novo arquivo com conteúdo diferente para revisão, sem substituição automática."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.62.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.63.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -1397,9 +1398,24 @@
           "Arquivos sem hash e disponibilidade técnica: pendentes de especificação/validação.",
           "Implementação pendente."
         ]
+      },
+      {
+        "titulo": "43. Regra aprovada — revisão de reenvio com conteúdo diferente",
+        "paragrafos": [
+          "Decisão aprovada pelo usuário em 27/11/2026: quando um arquivo reenviado com novo ID do Drive apresentar conteúdo diferente do arquivo anteriormente catalogado, o sistema deverá manter o registro do arquivo anterior marcado como indisponível e apresentar o novo arquivo como possível inclusão/substituição para revisão.",
+          "O sistema não deverá substituir automaticamente o arquivo anterior nem alterar o material curricular existente sem confirmação. A decisão preserva o registro e evita que uma mudança de conteúdo seja interpretada como simples restauração.",
+          "O fluxo de revisão ainda deverá ser especificado, incluindo quais informações serão apresentadas para comparação, como o usuário confirmará a ação e como o catálogo será atualizado após a confirmação. A regra é funcional e não está implementada."
+        ],
+        "itens": [
+          "Manter o arquivo anterior marcado como indisponível.",
+          "Apresentar o arquivo novo como possível inclusão/substituição para revisão.",
+          "Não substituir automaticamente nem alterar o material sem confirmação.",
+          "Definir posteriormente interface, dados da revisão e procedimento de confirmação.",
+          "Implementação pendente."
+        ]
       }
     ],
-    "atualizado_as": "17:52:01",
+    "atualizado_as": "17:54:14",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
