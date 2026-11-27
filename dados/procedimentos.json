@@ -568,7 +568,7 @@
       "v2.27 — 26/11/2026 às 19:33:21 (America/Sao_Paulo, UTC−03:00): reforçadas regras CSS dos ícones SVG da Visão geral após captura mostrar ausência visual; validação de publicação pendente.",
       "v2.28 — 27/11/2026 às 11:16:00 (America/Sao_Paulo, UTC−03:00): consolidadas decisões funcionais do Laboratório de Argumentação Jurídica e aprovada a reorganização documental: um notebook por disciplina; Drive como repositório oficial; site como catálogo/indexador com metadados e links, sem cópias de arquivos. Integrações e automações permanecem pendentes de validação técnica."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.20.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.28.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -1054,7 +1054,7 @@
         ]
       }
     ],
-    "atualizado_as": "11:16:00",
+    "atualizado_as": "12:55:54",
     "fuso_horario": "America/Sao_Paulo (UTC−03:00)"
   }
 }
