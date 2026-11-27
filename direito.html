@@ -1651,7 +1651,7 @@
               '### JSON do cronograma','```json',
               JSON.stringify(dadosValidados,null,2),'```'
             ].join('\n');
-            const url=new URL('https://github.com/ricardofelippe/Direito-UFPR/issues/new');
+            const url=new URL('https://github.com/ricardofelippe/direito-ufpr-git/issues/new');
             url.searchParams.set('template','importar-cronograma.md');
             url.searchParams.set('title','[Importar cronograma] '+disciplina.nome+' — '+ofertaAlvo.periodo);
             url.searchParams.set('body',corpo);
@@ -1754,7 +1754,7 @@
             title: '[Atualizar status da disciplina] ' + (disciplina.codigo || disciplina.id),
             body: corpo
           });
-          acao.href = 'https://github.com/ricardofelippe/direito-ufpr/issues/new?' + parametros.toString();
+          acao.href = 'https://github.com/ricardofelippe/direito-ufpr-git/issues/new?' + parametros.toString();
           acao.hidden = false;
         });
 
