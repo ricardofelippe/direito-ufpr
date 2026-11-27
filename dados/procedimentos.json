@@ -521,9 +521,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.48",
+    "versao": "2.49",
     "atualizado_em": "27/11/2026",
-    "resumo": "Registra a desativação do cadastro antigo de materiais, a retirada dos links de gerenciamento da biblioteca e a preservação do catálogo vazio enquanto o novo fluxo integrado ao Google Drive é especificado.",
+    "resumo": "Registra a primeira implementação técnica da Biblioteca privada com Google Apps Script, leitura do Drive sob conta autenticada e interface de consulta; configuração e implantação pelo usuário ainda pendentes.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Correção adicional em index.html após captura do usuário indicar que as três ilustrações ainda não apareciam na Visão geral. O markup SVG já estava presente no arquivo; foram adicionadas regras CSS mais específicas para `a.metric > span.metric-illustration`, com posicionamento absoluto, display flex, dimensões explícitas, z-index e cores por categoria, inclusive regra específica para o corredor. A publicação visual ainda depende de validação no navegador após atualização forçada.",
@@ -571,12 +571,17 @@
       "Foram excluídos os workflows .github/workflows/cadastrar-material.yml, processar-cadastro.yml, processar-envio-material.yml, gerenciar-pdfs.yml e associar-pdf.yml. Também foram excluídos os formulários de Issue .github/ISSUE_TEMPLATE/cadastrar-material.yml, enviar-material.yml, gerenciar-pdfs.yml e associar-pdf.yml. Os demais workflows e formulários foram preservados.",
       "Foi realizada varredura dos workflows e formulários restantes. Não foram encontradas referências aos fluxos removidos de cadastro/gerenciamento nem a cadastro.html. O workflow processar-oferta.yml ainda grava o PDF do plano de ensino em documentos/planos-de-ensino; ele foi preservado porque trata do cadastro de oferta acadêmica, uma funcionalidade distinta. A compatibilização desse armazenamento com a arquitetura futura do Drive deverá ser analisada separadamente.",
       "documentos.json foi mantido no repositório como arquivo legado vazio ([]) para evitar retirar prematuramente uma dependência de leitura da biblioteca. A biblioteca ainda lê esse arquivo e, nesta etapa, permanece sem materiais listados. A implementação do novo catálogo integrado ao Drive não foi iniciada.",
-      "Alterações realizadas exclusivamente em arquivos do site, workflows, formulários e documentação do GitHub. Não é necessário atualizar o espelho do Google Drive pelo GitHub Desktop."
+      "Alterações realizadas exclusivamente em arquivos do site, workflows, formulários e documentação do GitHub. Não é necessário atualizar o espelho do Google Drive pelo GitHub Desktop.",
+      "Em 27/11/2026, foi criada no repositório a primeira versão-fonte da Biblioteca privada baseada em Google Apps Script, nos arquivos integracoes/google-apps-script/biblioteca/Code.gs, Index.html, appsscript.json e README.md. A solução percorre recursivamente uma pasta-raiz privada do Drive, lista PDFs, organiza os resultados pelo caminho das pastas, permite busca textual e abre o arquivo no Google Drive.",
+      "Decisão de segurança aprovada pelo usuário: os materiais devem permanecer privados, acessíveis somente pela conta Google autorizada. A solução escolhida é um Apps Script implantado como aplicativo da Web, executado como o usuário implantador e com acesso restrito a MYSELF (Somente eu). O escopo declarado é drive.readonly; nenhum token OAuth é enviado ao navegador; o site público do GitHub não recebe metadados ou IDs privados.",
+      "A fonte foi ajustada para guardar o ID da pasta-raiz na propriedade privada ROOT_FOLDER_ID do projeto Apps Script. A configuração real dessa propriedade, criação do projeto Apps Script, autorização do Drive, implantação privada e teste de acesso ainda dependem de ações do usuário no ambiente Google. Nenhum projeto foi implantado e nenhum arquivo real do Drive foi lido nesta etapa.",
+      "A interface privada é servida pelo próprio Apps Script, separada da página pública GitHub Pages. A página biblioteca.html ainda não contém o endereço privado de implantação, pois esse endereço só existirá depois da implantação pelo usuário e não deve ser publicado no repositório público. A associação automática por IDs curriculares ainda não foi implementada; a primeira versão usa o caminho/nome das pastas como agrupamento.",
+      "Os arquivos de fonte e documentação foram adicionados exclusivamente ao GitHub. Não é necessário atualizar o espelho do Google Drive pelo GitHub Desktop."
     ],
     "proximos_passos": [
-      "Especificar e validar o novo fluxo de materiais: Google Drive como repositório oficial; Google Apps Script para identificar arquivos/metadados e atualizar o catálogo JSON; site apenas para consulta e abertura dos links do Drive. A biblioteca atual ainda lê documentos.json, vazio e legado; definir o novo arquivo/schema de catálogo e migrar a leitura somente após validar a integração.",
-      "Analisar separadamente o armazenamento dos planos de ensino em documentos/planos-de-ensino pelo workflow processar-oferta.yml e decidir sua futura adequação ao Google Drive, sem interromper o cadastro de ofertas acadêmicas.",
-      "Concluir a especificação da Argumentação Escrita, detalhando como o estudante elabora e revisa a versão final e como a IA apresenta análise e avaliação. Depois, especificar Debate Jurídico e Simulação Oral, papéis da IA e do estudante, adaptações por voz/escrita e critérios de avaliação. Não programar antes da especificação estar consolidada.",
+      "Configurar o projeto Google Apps Script conforme integracoes/google-apps-script/biblioteca/README.md: criar projeto, copiar Code.gs e Index.html, configurar appsscript.json, adicionar ROOT_FOLDER_ID nas Propriedades do script, autorizar leitura e executar getCatalog. Conferir se os PDFs e caminhos listados correspondem ao acervo real.",
+      "Implantar o Apps Script como aplicativo da Web com Executar como: Eu e Quem pode acessar: Somente eu. Testar acesso autenticado e confirmar que uma sessão sem a conta autorizada recebe bloqueio. Guardar a URL /exec de forma privada e só então decidir como criar um atalho seguro a partir do site.",
+      "Após validar a leitura do Drive, ajustar a organização do catálogo para associar as pastas e arquivos aos IDs oficiais de disciplina/unidade/assunto em dados/estrutura.json. Avaliar separadamente documentos que não sejam PDFs e planos de ensino hoje armazenados em documentos/planos-de-ensino.",
       "Desenhar e validar a arquitetura técnica Google Workspace: confirmar edição/licença, permissões e APIs disponíveis para Drive, NotebookLM/Gemini; distinguir recursos nativos da interface de recursos acessíveis programaticamente ao site.",
       "Especificar o catálogo de Materiais: metadados mínimos, estrutura de pastas do Drive, identificação de arquivos, vínculo com disciplina/unidade/assunto, links de abertura, tratamento de arquivos movidos/renomeados/excluídos e sincronização.",
       "Investigar como a seleção de materiais feita no site poderá ser aplicada ao contexto de uma sessão Gemini/NotebookLM. Não prometer controle programático das fontes do notebook sem validação da API/recurso para a conta Workspace concreta.",
@@ -600,7 +605,8 @@
       "v2.29 — 27/11/2026: renomeação do repositório para ricardofelippe/direito-ufpr-git; criação de disciplinas/ com 51 subpastas; atualização de links de Issues e instruções do PDC; Apps Script será utilizado para indexar no catálogo os materiais sincronizados no Google Drive.",
       "v2.30 — 27/11/2026: formaliza a arquitetura espelhada GitHub–Google Drive, define a autoridade de cada ambiente e estabelece o Apps Script como gerador do catálogo JSON.",
       "v2.47 — 27/11/2026: documentos.json esvaziado após autorização do usuário; auditoria identificou cadastro.html e os fluxos associados de cadastro/gerenciamento de PDFs como obsoletos em relação à arquitetura Drive → Apps Script → catálogo. Remoção coordenada ainda pendente de autorização.",
-      "v2.48 — 27/11/2026: desativação coordenada do cadastro antigo; cadastro.html e cinco workflows/ quatro formulários de cadastro e gerenciamento de PDFs removidos; biblioteca.html convertida para consulta sem ações de edição; workflows não relacionados preservados."
+      "v2.48 — 27/11/2026: desativação coordenada do cadastro antigo; cadastro.html e cinco workflows/ quatro formulários de cadastro e gerenciamento de PDFs removidos; biblioteca.html convertida para consulta sem ações de edição; workflows não relacionados preservados.",
+      "v2.49 — 27/11/2026: criada a base da Biblioteca privada em Google Apps Script; acesso planejado somente para o usuário implantador, execução sob sua identidade e escopo de leitura do Drive; configuração da pasta-raiz e implantação ainda pendentes."
     ],
     "pdf_url": "docs/PDC_Direito_UFPR_v2.32.pdf",
     "conteudo_completo": [
@@ -1159,9 +1165,31 @@
           "Novo catálogo Drive → Apps Script → site ainda não implementado.",
           "Não é necessário atualizar o Google Drive nesta etapa."
         ]
+      },
+      {
+        "titulo": "31. Primeira implementação da Biblioteca privada com Google Apps Script",
+        "paragrafos": [
+          "Em 27/11/2026, o usuário confirmou que todos os materiais deverão permanecer privados. Foi adotada a arquitetura de uma aplicação da Web do Google Apps Script, separada do GitHub Pages, com execução sob a identidade do usuário implantador e permissão de acesso restrita ao próprio implantador. O Google documenta os modos de execução como proprietário ou usuário que acessa e os níveis de acesso MYSELF, DOMAIN, ANYONE e ANYONE_ANONYMOUS. Para este projeto, a configuração escolhida é USER_DEPLOYING + MYSELF.",
+          "A primeira versão-fonte foi criada no repositório em integracoes/google-apps-script/biblioteca/: Code.gs, Index.html, appsscript.json e README.md. O backend lê uma pasta-raiz do Drive e percorre subpastas até oito níveis, listando arquivos PDF não enviados à lixeira. Para cada arquivo, retorna nome, caminho relativo, pasta de disciplina/unidade/assunto, URL do Drive e data da última atualização. A interface permite busca textual e abre o arquivo no próprio Google Drive.",
+          "O projeto solicita somente o escopo drive.readonly. Não compartilha arquivos, não modifica permissões, não faz upload, não substitui nem exclui materiais. Nenhum token OAuth é transmitido ao navegador. O identificador da pasta-raiz deve ser armazenado na propriedade privada ROOT_FOLDER_ID do projeto Apps Script, não em arquivo público do GitHub.",
+          "A interface privada será hospedada pelo próprio Apps Script. A página pública biblioteca.html não deve receber a URL de implantação antes da validação e não deve carregar metadados privados. O primeiro agrupamento visual usa o nome da primeira pasta abaixo da raiz e exibe o caminho completo dos níveis inferiores; associação aos IDs curriculares ainda será etapa posterior.",
+          "Estado da implementação: código-fonte e instruções registrados no GitHub; ainda não foi criado ou implantado projeto no Google Apps Script, nem configurada a pasta-raiz, autorizada a leitura ou testado o acesso. Portanto, a integração ainda não está operacional. A próxima etapa exige que o usuário execute as ações descritas no README e informe o resultado do teste, sem compartilhar credenciais, tokens ou conteúdo privado."
+        ],
+        "itens": [
+          "Privacidade: arquivos e catálogo acessíveis somente pela conta autorizada; não usar compartilhamento público.",
+          "Apps Script Web App: executeAs USER_DEPLOYING; access MYSELF.",
+          "Escopo OAuth declarado: drive.readonly.",
+          "Pasta-raiz configurada por propriedade de script ROOT_FOLDER_ID.",
+          "Leitura recursiva de PDFs, até oito níveis de subpastas e limite de segurança de 3.000 PDFs.",
+          "Interface de busca por nome e caminho; agrupamento pela primeira pasta abaixo da raiz.",
+          "Abertura dos arquivos pelo Google Drive, respeitando as permissões da conta.",
+          "Código-fonte: integracoes/google-apps-script/biblioteca/Code.gs, Index.html, appsscript.json e README.md.",
+          "Estado: fonte criada; implantação, autorização e validação real pendentes.",
+          "Não é necessário atualizar o Google Drive nesta etapa."
+        ]
       }
     ],
-    "atualizado_as": "14:37:32",
+    "atualizado_as": "14:41:49",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
