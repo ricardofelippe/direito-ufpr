@@ -16,14 +16,14 @@ os.makedirs(os.path.dirname(out), exist_ok=True)
 # Carimbo do instante real em que este arquivo PDF está sendo gerado.
 gerado_em = datetime.now(ZoneInfo("America/Sao_Paulo"))
 data_hora_geracao = gerado_em.strftime("%d/%m/%Y às %H:%M:%S")
-fuso_geracao = "America/Sao_Paulo (UTC" + gerado_em.strftime("%z")[:3] + ":" + gerado_em.strftime("%z")[3:] + ")"
+
 styles = getSampleStyleSheet()
 styles.add(ParagraphStyle(name="CoverX", parent=styles["Title"], fontSize=20, leading=25, alignment=TA_CENTER, textColor=colors.HexColor("#12304a"), spaceAfter=12))
 styles.add(ParagraphStyle(name="SubX", parent=styles["Normal"], fontSize=10, leading=14, alignment=TA_CENTER, textColor=colors.HexColor("#536779"), spaceAfter=16))
 styles.add(ParagraphStyle(name="H1X", parent=styles["Heading1"], fontSize=14, leading=18, textColor=colors.HexColor("#12304a"), spaceBefore=12, spaceAfter=6))
 styles.add(ParagraphStyle(name="H2X", parent=styles["Heading2"], fontSize=10, leading=13, textColor=colors.HexColor("#087f89"), spaceBefore=8, spaceAfter=4))
 styles.add(ParagraphStyle(name="BodyX", parent=styles["BodyText"], fontSize=8.5, leading=12, spaceAfter=5))
-story = [Spacer(1, 1*cm), Paragraph("PLANO DE CONTINUIDADE DO PROJETO", styles["CoverX"]), Paragraph(pdc.get("titulo","Plataforma de Estudos — Direito UFPR"), styles["SubX"]), Paragraph("Versão %s · PDC atualizado em %s às %s (%s)<br/><b>PDF criado em %s (%s)</b><br/>Documento de transição técnica e operacional para retomada em outra conversa ou IA." % (pdc.get("versao",""), pdc.get("atualizado_em","—"), pdc.get("atualizado_as","—"), pdc.get("fuso_horario","fuso não informado"), data_hora_geracao, fuso_geracao), styles["SubX"])]
+story = [Spacer(1, 1*cm), Paragraph("PLANO DE CONTINUIDADE DO PROJETO", styles["CoverX"]), Paragraph(pdc.get("titulo","Plataforma de Estudos — Direito UFPR"), styles["SubX"]), Paragraph("Versão %s · PDC atualizado em %s às %s<br/><b>PDF criado em %s</b><br/>Documento de transição técnica e operacional para retomada em outra conversa ou IA." % (pdc.get("versao",""), pdc.get("atualizado_em","—"), pdc.get("atualizado_as","—"), data_hora_geracao), styles["SubX"])]
 for sec in pdc.get("conteudo_completo", []):
     story.append(Paragraph(sec.get("titulo",""), styles["H1X"]))
     for para in sec.get("paragrafos", []): story.append(Paragraph(para.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;"), styles["BodyX"]))
