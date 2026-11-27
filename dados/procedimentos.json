@@ -521,9 +521,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.68",
+    "versao": "2.69",
     "atualizado_em": "27/11/2026",
-    "resumo": "Consolida a eliminação da Biblioteca geral independente e a especificação aprovada da aba Materiais dentro das disciplinas, preservando a arquitetura automática Drive → Google Apps Script → catálogo JSON → páginas das disciplinas. O cadastro manual de links não é o fluxo definitivo. A especificação funcional e o modelo de dados estão aprovados; a automação, a adaptação da aba Materiais e a retirada coordenada da página antiga ainda não foram implementadas.",
+    "resumo": "Registra a aprovação do contrato técnico para publicação segura do catálogo no GitHub pela integração Google Apps Script, incluindo consulta do SHA, validação do JSON, atualização pela Contents API, controle de concorrência e proteção contra sobrescrita. Implementação, credencial, migração do catálogo antigo e testes permanecem pendentes.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Decisão aprovada em 27/11/2026: o usuário escolheu a Alternativa C — eliminar a Biblioteca geral como página/área independente. A intenção é que os materiais sejam consultados exclusivamente no contexto das páginas das disciplinas, em vez de manter uma página global separada. Esta é uma decisão de arquitetura e direção funcional, não uma implementação concluída. A página biblioteca.html, o catálogo dados/catalogo_materiais.json, o guia docs/GUIA_CATALOGO_MATERIAIS.md e os demais arquivos relacionados ainda não foram removidos nem alterados em decorrência desta decisão. Não excluir PDFs, registros ou o catálogo nesta fase. Na retomada, realizar análise de impacto antes de programar: identificar como os materiais serão apresentados nas páginas das disciplinas, verificar os vínculos disciplina/unidade/assunto, localizar links e navegação que apontam para biblioteca.html, revisar os dados e procedimentos operacionais, definir o destino do catálogo e do guia e planejar a retirada coordenada da página geral sem perda de dados ou links úteis. A busca global deixa de ser requisito da arquitetura escolhida, salvo nova decisão do usuário. Até a implementação e validação, considerar a retirada pendente; não anunciar a Biblioteca geral como eliminada.",
@@ -607,11 +607,12 @@
       "Esclarecimento registrado em 27/11/2026: a diretriz de simplicidade não descarta as regras de sincronização, preservação e integridade já aprovadas; exige que sejam implementadas de modo a não criar dificuldades administrativas extras. O painel separado de revisão foi dispensado. A automação deverá resolver o que puder com segurança e solicitar intervenção pontual apenas quando realmente necessária, pelo meio mais simples, sem criar filas ou procedimentos desnecessários.",
       "Decisão funcional aprovada em 27/11/2026: a verificação automática diária do Google Drive deverá ocorrer durante a madrugada/início da manhã, em horário de menor uso do sistema. O horário exato será definido na etapa de implementação do acionador do Google Apps Script, considerando os horários disponíveis e o fuso de Brasília. A decisão define a janela preferencial, não significa que a rotina já esteja implantada ou ativa.",
       "Decisão funcional aprovada em 27/11/2026: a integração Google Apps Script → GitHub utilizará autenticação por token Fine-grained do GitHub, restrito ao repositório ricardofelippe/direito-ufpr-git e às permissões mínimas necessárias para leitura e escrita de conteúdo. O token ficará armazenado exclusivamente nas propriedades do projeto Apps Script, nunca no código público, no catálogo JSON ou no site. O projeto Apps Script deverá permanecer privado e com edição restrita ao responsável pela integração. Criação do token, configuração, teste e validação permanecem pendentes; nenhuma credencial foi criada ou armazenada nesta etapa.",
-      "Bloco funcional consolidado e aprovado pelo usuário em 27/11/2026: especificação da sincronização Drive → Apps Script → dados/catalogo_materiais.json. Reúne as decisões das versões 2.56 a 2.67: verificação diária na madrugada/início da manhã e acionamento manual; publicar somente quando houver alteração; comparar ID do Drive, nome, data de modificação, pasta e URL, usando hash MD5 para reconhecer conteúdo idêntico quando disponível; preservar registros de arquivos excluídos como indisponíveis; reativar restauração com mesmo ID; reconhecer reenvio com novo ID e conteúdo idêntico sem duplicar o material; não substituir automaticamente conteúdo diferente; priorizar automação e baixa carga administrativa; autenticar a escrita no GitHub por token Fine-grained restrito ao repositório, guardado nas propriedades privadas do Apps Script. Também foram aprovados como controles propostos: não publicar catálogo incompleto após falha de leitura; validar IDs curriculares contra dados/estrutura.json; evitar sobrescrever alterações mais recentes no GitHub; manter registro técnico de execuções e erros sem exigir acompanhamento diário. A consolidação não significa implementação. Permanecem pendentes: convenção de pastas/metadados no Drive, contrato técnico da atualização do catálogo no GitHub, detalhes de exceções e hash, testes em pasta de teste e validação ponta a ponta."
+      "Bloco funcional consolidado e aprovado pelo usuário em 27/11/2026: especificação da sincronização Drive → Apps Script → dados/catalogo_materiais.json. Reúne as decisões das versões 2.56 a 2.67: verificação diária na madrugada/início da manhã e acionamento manual; publicar somente quando houver alteração; comparar ID do Drive, nome, data de modificação, pasta e URL, usando hash MD5 para reconhecer conteúdo idêntico quando disponível; preservar registros de arquivos excluídos como indisponíveis; reativar restauração com mesmo ID; reconhecer reenvio com novo ID e conteúdo idêntico sem duplicar o material; não substituir automaticamente conteúdo diferente; priorizar automação e baixa carga administrativa; autenticar a escrita no GitHub por token Fine-grained restrito ao repositório, guardado nas propriedades privadas do Apps Script. Também foram aprovados como controles propostos: não publicar catálogo incompleto após falha de leitura; validar IDs curriculares contra dados/estrutura.json; evitar sobrescrever alterações mais recentes no GitHub; manter registro técnico de execuções e erros sem exigir acompanhamento diário. A consolidação não significa implementação. Permanecem pendentes: convenção de pastas/metadados no Drive, contrato técnico da atualização do catálogo no GitHub, detalhes de exceções e hash, testes em pasta de teste e validação ponta a ponta.",
+      "Em 27/11/2026 às 18:05:59, foi aprovado o contrato técnico de publicação do catálogo no GitHub: consultar o arquivo atual e seu SHA, validar o JSON, atualizar dados/catalogo_materiais.json pela Contents API na branch main, proteger contra conflitos e sobrescrita, usar LockService e UrlFetchApp e gerar commit somente quando houver alteração efetiva. A implementação, a criação/configuração do token, a migração do formato antigo do catálogo e os testes ponta a ponta permanecem pendentes."
     ],
     "proximos_passos": [
       "Especificar a convenção de pastas/metadados no Google Drive que permitirá ao Apps Script identificar disciplina, unidade e assunto, validando os IDs contra dados/estrutura.json.",
-      "Detalhar o contrato de sincronização Apps Script → dados/catalogo_materiais.json: identificação estável de arquivos, nomes, URLs, data de atualização, duplicidades, arquivos movidos/renomeados/excluídos, falhas e recuperação.",
+      "Implementar o contrato técnico aprovado para publicar dados/catalogo_materiais.json no GitHub, incluindo leitura do SHA, validação do JSON, tratamento de conflitos, LockService, UrlFetchApp e autenticação restrita.",
       "Definir como o Apps Script autenticado poderá atualizar o catálogo no GitHub com segurança, sem expor tokens, credenciais ou chaves no site público; verificar permissões e recursos disponíveis.",
       "Atualizar o Manual Operacional e o guia docs/GUIA_CATALOGO_MATERIAIS.md para retirar instruções de cadastro manual como fluxo definitivo e documentar o fluxo automático quando estiver tecnicamente especificado.",
       "Implementar a aba Materiais em disciplina.html para ler dados/catalogo_materiais.json e renderizar a hierarquia, cartões, links e navegação contextual conforme a especificação aprovada.",
@@ -622,13 +623,13 @@
       "Manter os PDFs e registros existentes preservados até migração e validação; não excluir materiais ou catálogos por antecipação."
     ],
     "historico": [
-      "v2.64 — 27/11/2026 às 17:55:05: descartado painel separado de revisão; princípio reforçado de simplicidade e baixa carga administrativa, evitando filas e confirmações rotineiras.",
       "v2.65 — 27/11/2026 às 17:56:25: esclarecido que as regras de sincronização devem preservar segurança e integridade sem gerar trabalho administrativo extra; automação prioritária e intervenção pontual apenas quando necessária.",
       "v2.66 — 27/11/2026 às 17:57:04: aprovada execução da sincronização diária durante a madrugada/início da manhã; horário exato será definido na implementação.",
       "v2.67 — 27/11/2026 às 18:00:51: aprovada autenticação Apps Script–GitHub por token Fine-grained restrito ao repositório e a conteúdo; armazenamento privado nas propriedades do script, nunca no site público.",
-      "v2.68 — 27/11/2026 às 18:02:47: aprovada a especificação funcional consolidada da sincronização Drive → Apps Script → catálogo, reunindo regras já aprovadas e controles de integridade; detalhes técnicos e implementação permanecem pendentes."
+      "v2.68 — 27/11/2026 às 18:02:47: aprovada a especificação funcional consolidada da sincronização Drive → Apps Script → catálogo, reunindo regras já aprovadas e controles de integridade; detalhes técnicos e implementação permanecem pendentes.",
+      "v2.69 — 27/11/2026 às 18:05:59: aprovado o contrato técnico Apps Script–GitHub para leitura com SHA, publicação pela Contents API, validação, controle de concorrência e prevenção de sobrescrita; implementação e testes pendentes."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.68.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.69.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -1495,9 +1496,36 @@
           "Não publicar catálogo incompleto; validar IDs curriculares; proteger contra sobrescrita concorrente; registrar erros tecnicamente.",
           "Convenção Drive, contrato GitHub, exceções, testes e implementação permanecem pendentes."
         ]
+      },
+      {
+        "titulo": "48. Contrato técnico aprovado — publicação segura do catálogo no GitHub",
+        "paragrafos": [
+          "Aprovado expressamente pelo usuário em 27/11/2026. Esta seção registra o contrato técnico para a etapa Google Apps Script → GitHub, complementando a arquitetura funcional aprovada na seção 47. A aprovação define como a publicação deverá ocorrer; não significa que o Apps Script, a autenticação ou a sincronização estejam implementados.",
+          "Repositório e destino: atualizar exclusivamente o arquivo dados/catalogo_materiais.json, no repositório ricardofelippe/direito-ufpr-git e na branch main.",
+          "Leitura e preparação: o Apps Script deverá consultar a versão atual do arquivo no GitHub antes de publicar, obter o SHA do conteúdo existente, preparar o novo JSON e validar sua estrutura e integridade antes de enviar qualquer alteração. A atualização deverá utilizar o SHA da versão efetivamente consultada.",
+          "Publicação: utilizar a API REST de conteúdos do GitHub (Contents API) para atualizar o arquivo. A solicitação deverá incluir mensagem de commit objetiva, conteúdo integral codificado em Base64, SHA atual do arquivo e branch main. O token de autenticação será o Fine-grained já definido na seção 46, com acesso limitado ao repositório e permissões mínimas de Contents necessárias à leitura e escrita.",
+          "Concorrência e proteção contra sobrescrita: se o GitHub indicar conflito, SHA divergente ou outra condição que mostre que o arquivo mudou desde a leitura, o Apps Script não deverá sobrescrever a versão mais recente. Deverá consultar novamente o estado atual, comparar as alterações e somente prosseguir se for possível preservar as mudanças concorrentes com segurança. Se não for possível reconciliar com segurança, interromper a publicação e registrar tecnicamente o erro; não executar tentativas ilimitadas.",
+          "Execuções simultâneas: utilizar LockService do Google Apps Script para impedir que duas execuções deste projeto publiquem simultaneamente o mesmo catálogo. O bloqueio local complementa, mas não substitui, a validação do SHA no GitHub.",
+          "Comunicação HTTP: utilizar UrlFetchApp para as chamadas à API do GitHub. Tratar respostas de sucesso, conflito, falha de autenticação, falta de permissão, arquivo inexistente e erros de validação. Os detalhes técnicos devem ficar nos registros de execução, sem exigir acompanhamento rotineiro do usuário.",
+          "Publicação condicional: manter a regra aprovada de não gerar commit quando não houver alteração relevante. Quando houver alteração efetiva e o JSON estiver validado, realizar uma única atualização/commit do catálogo por execução bem-sucedida.",
+          "Credenciais: manter o token somente nas propriedades privadas do projeto Apps Script, conforme seção 46. Nunca inserir token em código público, dados/catalogo_materiais.json, páginas do site, logs ou mensagens de erro. O projeto Apps Script deverá permanecer privado e com edição restrita.",
+          "Estado e pendências: contrato técnico aprovado; implementação do código Apps Script, criação/configuração do token, teste de permissões, tratamento de conflitos, validação do formato atual do catálogo e testes ponta a ponta continuam pendentes. O catálogo existente ainda apresenta formato antigo e deverá ser migrado para o modelo de dados aprovado antes de a automação publicar registros definitivos. Não alterar o catálogo nem iniciar a implementação apenas com base nesta aprovação."
+        ],
+        "itens": [
+          "Destino exclusivo: ricardofelippe/direito-ufpr-git, branch main, arquivo dados/catalogo_materiais.json.",
+          "Consultar arquivo atual no GitHub e obter seu SHA antes de cada atualização.",
+          "Validar o JSON integral antes da publicação.",
+          "Atualizar pela GitHub Contents API com mensagem, conteúdo Base64, SHA atual e branch main.",
+          "Em conflito/SHA divergente: não sobrescrever; reler, comparar e reconciliar com segurança ou interromper.",
+          "Usar LockService para impedir execuções simultâneas do Apps Script.",
+          "Usar UrlFetchApp para comunicação HTTP e tratar erros sem tentativas ilimitadas.",
+          "Gerar um commit somente quando houver alteração efetiva e válida.",
+          "Token Fine-grained guardado exclusivamente nas propriedades privadas do Apps Script.",
+          "Implementação, credencial, migração do catálogo antigo e testes ponta a ponta permanecem pendentes."
+        ]
       }
     ],
-    "atualizado_as": "18:02:47",
+    "atualizado_as": "18:05:59",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
