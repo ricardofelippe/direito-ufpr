@@ -521,9 +521,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.37",
+    "versao": "2.38",
     "atualizado_em": "27/11/2026",
-    "resumo": "Consolida as modalidades pedagógicas iniciais e registra que a escolha do tema cabe ao estudante.",
+    "resumo": "Registra a escolha do tema pelo estudante e define o debate jurídico como colaboração para construir e testar uma argumentação sólida.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Correção adicional em index.html após captura do usuário indicar que as três ilustrações ainda não apareciam na Visão geral. O markup SVG já estava presente no arquivo; foram adicionadas regras CSS mais específicas para `a.metric > span.metric-illustration`, com posicionamento absoluto, display flex, dimensões explícitas, z-index e cores por categoria, inclusive regra específica para o corredor. A publicação visual ainda depende de validação no navegador após atualização forçada.",
@@ -553,10 +553,11 @@
       "Em 27/11/2026, foram aprovados onze princípios de comportamento do orientador do Laboratório: (1) não entregar respostas prontas; (2) exigir fundamentação; (3) aumentar progressivamente a dificuldade; (4) questionar e apresentar contrapontos intelectualmente honestos; (5) corrigir com precisão e explicar os motivos; (6) desenvolver autonomia intelectual; (7) respeitar o rigor e os limites das fontes; (8) conduzir diálogo socrático, não questionário; (9) respeitar o ritmo e a direção da sessão; (10) avaliar com base em evidências em três momentos; e (11) encerrar com síntese, avaliação, relatório completo e JSON, deixando ao estudante a decisão de salvar ou descartar o registro.",
       "Em 27/11/2026, foi aprovada a separação entre meio de interação e modalidade pedagógica no Laboratório. Meios de interação: voz e escrita. Modalidades pedagógicas: debate jurídico, argumentação escrita, simulação oral e outras a especificar. A interação por voz deve ser uma conversa oral dinâmica, não apenas ditado/transcrição. A escolha do meio não determina a modalidade da atividade.",
       "Em 27/11/2026, foram aprovadas como estrutura inicial quatro modalidades pedagógicas do Laboratório: argumentação escrita (construção e defesa de tese por escrito); debate jurídico (defesa de posições diante de argumentos contrários); simulação oral (situações jurídicas simuladas com exposição e questionamentos); e análise crítica (interpretação e avaliação de teorias, textos, decisões ou problemas jurídicos, identificando fundamentos, contradições e consequências). O método socrático será transversal às modalidades, que poderão ocorrer por voz ou escrita. A lista é uma estrutura inicial e poderá ser refinada na especificação.",
-      "Em 27/11/2026, foi definido que o estudante indicará o tema da atividade do Laboratório. A IA não deverá escolher nem propor espontaneamente um tema quando o estudante já pretende indicar o assunto. Poderá ajudar a delimitar, esclarecer ou sugerir alternativas somente quando o próprio estudante solicitar esse tipo de ajuda. Essa regra preserva a iniciativa do estudante e é compatível com o fluxo aprovado de início livre por demanda em linguagem natural."
+      "Em 27/11/2026, foi definido que o estudante indicará o tema da atividade do Laboratório. A IA não deverá escolher nem propor espontaneamente um tema quando o estudante já pretende indicar o assunto. Poderá ajudar a delimitar, esclarecer ou sugerir alternativas somente quando o próprio estudante solicitar esse tipo de ajuda. Essa regra preserva a iniciativa do estudante e é compatível com o fluxo aprovado de início livre por demanda em linguagem natural.",
+      "Em 27/11/2026, foi aprovada a definição revisada da modalidade Debate Jurídico. A IA atuará como interlocutora e colaboradora intelectual para construir e testar uma argumentação juridicamente consistente, não como opositora automática. Suas intervenções poderão complementar fundamentos, conceitos, autores e perspectivas; aprofundar aspectos relevantes; questionar lacunas, ambiguidades, premissas frágeis e conclusões precipitadas; apresentar posições divergentes quando isso ajudar a testar a tese; conectar fundamentos teóricos, jurídicos e documentais; e apoiar a organização lógica e coerente dos argumentos. A IA não deverá discordar por discordar nem concordar automaticamente. A divergência é instrumento de análise, não finalidade: o objetivo é construir uma base argumentativa sólida, fundamentada e defensável."
     ],
     "proximos_passos": [
-      "Detalhar o funcionamento de cada modalidade pedagógica do Laboratório, respeitando a regra de que o estudante escolhe o tema; definir dinâmica, papéis da IA e do estudante, tipos de atividade e critérios de avaliação aplicáveis, sem programar antes da especificação estar consolidada.",
+      "Detalhar o funcionamento das modalidades pedagógicas restantes do Laboratório, respeitando a escolha do tema pelo estudante e a finalidade de construção argumentativa sólida; definir dinâmica, papéis da IA e do estudante, tipos de atividade e critérios de avaliação aplicáveis, sem programar antes da especificação estar consolidada.",
       "Desenhar e validar a arquitetura técnica Google Workspace: confirmar edição/licença, permissões e APIs disponíveis para Drive, NotebookLM/Gemini; distinguir recursos nativos da interface de recursos acessíveis programaticamente ao site.",
       "Especificar o catálogo de Materiais: metadados mínimos, estrutura de pastas do Drive, identificação de arquivos, vínculo com disciplina/unidade/assunto, links de abertura, tratamento de arquivos movidos/renomeados/excluídos e sincronização.",
       "Investigar como a seleção de materiais feita no site poderá ser aplicada ao contexto de uma sessão Gemini/NotebookLM. Não prometer controle programático das fontes do notebook sem validação da API/recurso para a conta Workspace concreta.",
@@ -1096,7 +1097,7 @@
         ]
       }
     ],
-    "atualizado_as": "14:07:00",
+    "atualizado_as": "14:08:52",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
