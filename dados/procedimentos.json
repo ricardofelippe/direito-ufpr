@@ -521,7 +521,7 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.57",
+    "versao": "2.58",
     "atualizado_em": "27/11/2026",
     "resumo": "Consolida a eliminação da Biblioteca geral independente e a especificação aprovada da aba Materiais dentro das disciplinas, preservando a arquitetura automática Drive → Google Apps Script → catálogo JSON → páginas das disciplinas. O cadastro manual de links não é o fluxo definitivo. A especificação funcional e o modelo de dados estão aprovados; a automação, a adaptação da aba Materiais e a retirada coordenada da página antiga ainda não foram implementadas.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
@@ -596,7 +596,8 @@
       "Regra permanente de governança e continuidade — registrada em 27/11/2026: nenhuma recomendação, proposta ou decisão do assistente poderá contrariar, substituir ou revogar silenciosamente uma decisão aprovada e vigente neste PDC. Antes de propor solução ou executar alteração, o assistente deverá consultar o PDC, identificar as decisões aplicáveis e verificar expressamente a compatibilidade da proposta com elas. Se houver conflito, deverá apontá-lo claramente, explicar a divergência e pedir orientação ao usuário antes de prosseguir. Propostas novas devem ser identificadas como propostas, não como decisões aprovadas. Uma decisão anterior só poderá ser alterada mediante manifestação expressa do usuário e atualização coordenada do PDC, preservando o histórico e registrando o que foi superado, por quê e a partir de quando. O PDC é a referência normativa principal para continuidade do projeto; o assistente não deve presumir autorização para alterar requisitos com base em conveniência técnica ou preferência própria.",
       "Regra de apresentação do histórico, aprovada em 27/11/2026: o campo de histórico resumido do PDC deverá exibir somente as cinco versões mais recentes. Essa limitação vale apenas para a lista resumida de versões; não autoriza apagar decisões, entendimentos, justificativas ou registros históricos detalhados das seções do PDC. O histórico completo permanece preservado no conteúdo detalhado e nas seções históricas. Em cada atualização, manter no resumo as cinco versões mais recentes e retirar da lista resumida apenas as entradas mais antigas, sem eliminar seu conteúdo histórico detalhado.",
       "Decisão funcional aprovada em 27/11/2026: a sincronização do catálogo de materiais combinará verificação automática periódica do Google Drive pelo Apps Script com uma opção de execução manual sob demanda. A sincronização deverá tratar arquivos novos, alterados, renomeados, movidos e excluídos, além de duplicidades e inconsistências. Frequência, critérios técnicos, detecção e tratamento de cada evento ainda serão especificados; nenhuma automação está implementada ou validada.",
-      "Decisão funcional aprovada em 27/11/2026: a verificação automática periódica do Google Drive para sincronização do catálogo será diária. A sincronização manual sob demanda também permanece aprovada. O horário diário, a implementação do acionador no Apps Script e os detalhes de detecção e tratamento de alterações continuam pendentes de definição e validação."
+      "Decisão funcional aprovada em 27/11/2026: a verificação automática periódica do Google Drive para sincronização do catálogo será diária. A sincronização manual sob demanda também permanece aprovada. O horário diário, a implementação do acionador no Apps Script e os detalhes de detecção e tratamento de alterações continuam pendentes de definição e validação.",
+      "Decisão funcional aprovada em 27/11/2026: o Apps Script deverá comparar o estado atual dos arquivos do Google Drive com o catálogo JSON existente e somente publicar/atualizar o catálogo no GitHub quando detectar alterações relevantes. Se não houver mudanças, não deverá gerar commit nem atualizar o arquivo. A definição do que constitui alteração relevante, a comparação técnica, o tratamento de falhas e a implementação permanecem pendentes."
     ],
     "proximos_passos": [
       "Especificar a convenção de pastas/metadados no Google Drive que permitirá ao Apps Script identificar disciplina, unidade e assunto, validando os IDs contra dados/estrutura.json.",
@@ -611,13 +612,13 @@
       "Manter os PDFs e registros existentes preservados até migração e validação; não excluir materiais ou catálogos por antecipação."
     ],
     "historico": [
-      "v2.53 — 27/11/2026: consolida a arquitetura automática Drive → Google Apps Script → catálogo JSON → páginas das disciplinas; declara o cadastro manual da versão 2.50 como etapa provisória superada; aprova a especificação hierárquica da aba Materiais, o modelo de dados, a geração automática de IDs e as regras de exibição. Implementação, automação e retirada da Biblioteca geral permanecem pendentes.",
       "v2.54 — 27/11/2026: registrada regra permanente de governança: o PDC prevalece sobre recomendações do assistente; conflitos devem ser explicitados e submetidos ao usuário; propostas não aprovadas não podem ser tratadas como decisões; alterações de decisões exigem autorização expressa e atualização histórica do PDC.",
       "v2.55 — 27/11/2026 às 17:37:16: histórico resumido limitado às cinco versões mais recentes; conteúdo histórico detalhado permanece integralmente preservado.",
       "v2.56 — 27/11/2026 às 17:42:27: aprovado modelo de sincronização do catálogo com verificação automática periódica e execução manual sob demanda; tratamento de alterações e inconsistências será especificado.",
-      "v2.57 — 27/11/2026 às 17:43:31: definida verificação automática diária do Drive, mantendo a sincronização manual sob demanda; horário e implementação ainda pendentes."
+      "v2.57 — 27/11/2026 às 17:43:31: definida verificação automática diária do Drive, mantendo a sincronização manual sob demanda; horário e implementação ainda pendentes.",
+      "v2.58 — 27/11/2026 às 17:44:28: aprovado atualizar o catálogo e gerar commit somente quando a comparação detectar alterações; sem mudanças, nenhuma publicação."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.57.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.58.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -1314,9 +1315,23 @@
           "Acionador Apps Script e implementação: pendentes.",
           "Detecção de alterações e recuperação de falhas: pendentes."
         ]
+      },
+      {
+        "titulo": "38. Regra aprovada — atualização condicional do catálogo",
+        "paragrafos": [
+          "Decisão aprovada pelo usuário em 27/11/2026: o Apps Script deverá comparar o estado dos arquivos e metadados identificados no Google Drive com o catálogo JSON existente. O catálogo só deverá ser atualizado e publicado no GitHub quando forem detectadas alterações relevantes.",
+          "Quando a comparação não identificar mudanças, o processo deverá encerrar sem modificar o catálogo e sem gerar commit no GitHub. A execução da verificação, por si só, não justifica uma publicação.",
+          "Ainda será necessário especificar quais atributos serão comparados, como alterações de conteúdo serão detectadas, como evitar falsos positivos, como tratar falhas e como garantir que a comparação seja consistente. A regra define o comportamento esperado, mas não significa que o mecanismo esteja implementado ou validado."
+        ],
+        "itens": [
+          "Comparar o estado do Drive com o catálogo existente.",
+          "Havendo alteração relevante: atualizar o JSON e publicar no GitHub.",
+          "Não havendo alteração: não modificar o JSON nem gerar commit.",
+          "Critérios técnicos de comparação, falhas e implementação: pendentes."
+        ]
       }
     ],
-    "atualizado_as": "17:43:31",
+    "atualizado_as": "17:44:28",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
