@@ -16,23 +16,6 @@ function doGet() {
     .addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
 
-/**
- * Execute manualmente uma única vez no editor do Apps Script,
- * informando o ID da pasta-raiz do acervo no Google Drive.
- */
-function configurarPastaRaiz(idPasta) {
-  const id = String(idPasta || '').trim();
-  if (!id) throw new Error('Informe o ID da pasta-raiz do Google Drive.');
-
-  const pasta = DriveApp.getFolderById(id);
-  if (!pasta) throw new Error('Não foi possível localizar a pasta informada.');
-
-  PropertiesService.getScriptProperties()
-    .setProperty(CONFIG.ROOT_FOLDER_PROPERTY, id);
-
-  return 'Pasta configurada: ' + pasta.getName();
-}
-
 function getCatalog() {
   const rootId = PropertiesService.getScriptProperties()
     .getProperty(CONFIG.ROOT_FOLDER_PROPERTY);
