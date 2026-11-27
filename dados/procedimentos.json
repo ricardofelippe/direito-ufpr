@@ -521,9 +521,9 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.52",
+    "versao": "2.53",
     "atualizado_em": "27/11/2026",
-    "resumo": "Registra a decisão de eliminar a Biblioteca geral independente e concentrar a consulta aos materiais nas páginas das disciplinas. A decisão está aprovada, mas a retirada da página e a análise de impacto ainda não foram executadas.",
+    "resumo": "Consolida a eliminação da Biblioteca geral independente e a especificação aprovada da aba Materiais dentro das disciplinas, preservando a arquitetura automática Drive → Google Apps Script → catálogo JSON → páginas das disciplinas. O cadastro manual de links não é o fluxo definitivo. A especificação funcional e o modelo de dados estão aprovados; a automação, a adaptação da aba Materiais e a retirada coordenada da página antiga ainda não foram implementadas.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
     "estado": [
       "Decisão aprovada em 27/11/2026: o usuário escolheu a Alternativa C — eliminar a Biblioteca geral como página/área independente. A intenção é que os materiais sejam consultados exclusivamente no contexto das páginas das disciplinas, em vez de manter uma página global separada. Esta é uma decisão de arquitetura e direção funcional, não uma implementação concluída. A página biblioteca.html, o catálogo dados/catalogo_materiais.json, o guia docs/GUIA_CATALOGO_MATERIAIS.md e os demais arquivos relacionados ainda não foram removidos nem alterados em decorrência desta decisão. Não excluir PDFs, registros ou o catálogo nesta fase. Na retomada, realizar análise de impacto antes de programar: identificar como os materiais serão apresentados nas páginas das disciplinas, verificar os vínculos disciplina/unidade/assunto, localizar links e navegação que apontam para biblioteca.html, revisar os dados e procedimentos operacionais, definir o destino do catálogo e do guia e planejar a retirada coordenada da página geral sem perda de dados ou links úteis. A busca global deixa de ser requisito da arquitetura escolhida, salvo nova decisão do usuário. Até a implementação e validação, considerar a retirada pendente; não anunciar a Biblioteca geral como eliminada.",
@@ -584,20 +584,27 @@
       "Foi criado dados/catalogo_materiais.json como catálogo público de metadados e URLs dos PDFs. A biblioteca.html foi alterada para ler esse novo catálogo em conjunto com dados/estrutura.json; deixou de depender de documentos.json. O arquivo documentos.json permanece vazio como legado.",
       "Foi criado docs/GUIA_CATALOGO_MATERIAIS.md com o procedimento manual: enviar PDF ao Drive, definir acesso 'Qualquer pessoa com o link — Leitor', copiar URL e cadastrar metadados no JSON pelo GitHub. A automação Drive → Apps Script → catálogo fica adiada, não implementada.",
       "Limitação de segurança: qualquer pessoa que obtenha o link de um PDF poderá acessá-lo e compartilhá-lo. Não cadastrar materiais confidenciais, pessoais ou que não devam ter acesso por link. O catálogo JSON no GitHub também é público.",
-      "Alterações desta etapa são exclusivas do GitHub; não é necessário atualizar o espelho do Google Drive."
+      "Alterações desta etapa são exclusivas do GitHub; não é necessário atualizar o espelho do Google Drive.",
+      "Consolidação aprovada em 27/11/2026 — prevalência das decisões: a arquitetura principal continua sendo Google Drive → Google Apps Script → dados/catalogo_materiais.json → páginas das disciplinas no GitHub Pages. O Apps Script deverá coletar os arquivos e metadados do Drive e gerar/atualizar o catálogo, evitando que o usuário tenha de cadastrar manualmente cada link no JSON. A orientação manual da versão 2.50 foi uma solução provisória de transição e fica superada como fluxo definitivo. A automação não está implantada nem validada; não afirmar que já coleta arquivos.",
+      "Decisão aprovada em 27/11/2026 — destino da Biblioteca: eliminar a Biblioteca geral como página/área independente. A consulta dos materiais ocorrerá exclusivamente dentro das páginas das disciplinas, na aba Materiais. A página biblioteca.html, seus atalhos e referências só poderão ser retirados depois que a nova aba estiver implementada, testada e aprovada. Preservar catálogo, registros, links e arquivos até a migração e validação.",
+      "Especificação funcional aprovada em 27/11/2026 — aba Materiais: hierarquia Disciplina → Unidade → Assunto → Material. Materiais gerais da disciplina aparecem sempre no topo. Todas as unidades começam recolhidas. Unidades e assuntos sem materiais permanecem visíveis com a mensagem 'Nenhum material cadastrado'. Ao abrir Materiais a partir de um assunto, a unidade correspondente será expandida, a página rolará até o assunto e ele receberá destaque visual; o restante da estrutura continuará disponível.",
+      "Especificação funcional aprovada em 27/11/2026 — cartões e arquivos: cada material será apresentado em cartão expansível. Inicialmente aparece o título; ao expandir, aparecem a descrição opcional e os arquivos. Vários cartões podem permanecer abertos simultaneamente. Cada arquivo terá nome personalizado e link para o arquivo original no Google Drive. Um material pode conter um ou vários arquivos.",
+      "Modelo de dados aprovado em 27/11/2026 — cada registro terá id, disciplina_id, unidade_id, assunto_id, titulo, descricao, ordem e arquivos. Cada item de arquivos terá nome e url. unidade_id e assunto_id serão null quando o material não estiver vinculado à unidade/assunto correspondente. Os IDs curriculares serão obtidos de dados/estrutura.json; não duplicar nomes curriculares em campos de vínculo. A ordem do material será manual dentro do respectivo nível; a ordem dos arquivos será a sequência do array.",
+      "Regras de cadastro aprovadas em 27/11/2026 — o ID será gerado automaticamente pelo sistema, em sequência no padrão mat-001, mat-002 etc., verificando os registros existentes para evitar duplicidade. Todo material deverá ter pelo menos um arquivo. Não haverá campo de classificação/categoria obrigatório. Campos do material: título, descrição opcional, vínculos curriculares, ordem e arquivos nomeados.",
+      "Regra de governança para a automação: o Apps Script será responsável pela coleta/identificação dos arquivos e pela geração/atualização do catálogo; os vínculos curriculares disciplina/unidade/assunto precisam ser derivados de uma convenção de pastas/metadados que ainda será especificada e validada. Não presumir que o nome de um PDF, sozinho, identifica com segurança o vínculo curricular. O fluxo deverá prever tratamento de duplicidades, arquivos movidos/renomeados/excluídos, falhas de sincronização e validação dos IDs curriculares.",
+      "Compatibilização documental: a versão 2.50 e o procedimento manual de cadastro em dados/catalogo_materiais.json registram uma etapa provisória, não a arquitetura final. A especificação hierárquica aprovada nesta versão substitui qualquer orientação incompatível. Nenhuma alteração de código, integração real do Apps Script, alteração do catálogo, remoção de biblioteca.html ou migração de arquivos foi executada nesta consolidação."
     ],
     "proximos_passos": [
-      "Validar a nova Biblioteca publicada: adicionar um PDF não sensível de teste ao Drive, habilitar 'Qualquer pessoa com o link — Leitor', cadastrar o link e metadados em dados/catalogo_materiais.json e conferir a abertura a partir da biblioteca.html.",
-      "Após o teste, cadastrar os materiais reais no catálogo, usando nomes de disciplinas exatamente iguais aos de dados/estrutura.json e, quando possível, preencher disciplina_id.",
-      "Somente depois de a versão manual estar estável, avaliar se vale automatizar a leitura do Drive e a atualização do catálogo. A automação não é requisito para a primeira versão.",
-      "Desenhar e validar a arquitetura técnica Google Workspace: confirmar edição/licença, permissões e APIs disponíveis para Drive, NotebookLM/Gemini; distinguir recursos nativos da interface de recursos acessíveis programaticamente ao site.",
-      "Especificar o catálogo de Materiais: metadados mínimos, estrutura de pastas do Drive, identificação de arquivos, vínculo com disciplina/unidade/assunto, links de abertura, tratamento de arquivos movidos/renomeados/excluídos e sincronização.",
-      "Investigar como a seleção de materiais feita no site poderá ser aplicada ao contexto de uma sessão Gemini/NotebookLM. Não prometer controle programático das fontes do notebook sem validação da API/recurso para a conta Workspace concreta.",
-      "Definir plano de migração do acervo atualmente existente no GitHub para o Google Drive, sem excluir ou sobrescrever arquivos antes de conferir integridade, correspondência, links e cópias de segurança.",
-      "Depois de fechar o modelo funcional e a arquitetura, elaborar especificação formal e atualizar PDC, Manual e PDF antes de iniciar a implementação.",
-      "Após estruturar e validar o Laboratório, executar o mini simulado acadêmico de 2028, com dados fictícios isolados e reversíveis, conforme os requisitos já registrados.",
-      "Testar no navegador o formulário direto de novo resumo: seleção do assunto, preenchimento de título/conteúdo, abertura da Issue pré-preenchida, envio e gravação pelo processar-resumo.yml. Não considerar o fluxo validado antes desse teste.",
-      "Manter documentação, PDC e PDF sincronizados com alterações efetivamente implementadas; verificar Actions e publicação antes de declarar conclusão."
+      "Especificar a convenção de pastas/metadados no Google Drive que permitirá ao Apps Script identificar disciplina, unidade e assunto, validando os IDs contra dados/estrutura.json.",
+      "Detalhar o contrato de sincronização Apps Script → dados/catalogo_materiais.json: identificação estável de arquivos, nomes, URLs, data de atualização, duplicidades, arquivos movidos/renomeados/excluídos, falhas e recuperação.",
+      "Definir como o Apps Script autenticado poderá atualizar o catálogo no GitHub com segurança, sem expor tokens, credenciais ou chaves no site público; verificar permissões e recursos disponíveis.",
+      "Atualizar o Manual Operacional e o guia docs/GUIA_CATALOGO_MATERIAIS.md para retirar instruções de cadastro manual como fluxo definitivo e documentar o fluxo automático quando estiver tecnicamente especificado.",
+      "Implementar a aba Materiais em disciplina.html para ler dados/catalogo_materiais.json e renderizar a hierarquia, cartões, links e navegação contextual conforme a especificação aprovada.",
+      "Testar a renderização com registros de teste controlados e links válidos de arquivos não sensíveis, verificando unidades/assuntos vazios, materiais gerais, múltiplos arquivos, ordenação, expansão simultânea e entrada contextual por assunto.",
+      "Implementar e testar o Apps Script com uma pasta de teste no Drive; validar coleta, associação curricular, atualização do catálogo, duplicidades, movimentação, renomeação, exclusão e recuperação de erros.",
+      "Somente após a aba Materiais e a automação estarem validadas, retirar biblioteca.html e os atalhos em index.html/direito.html, revisar referências, preservar catálogo e links e atualizar a documentação.",
+      "Atualizar a Central de Documentação e o PDF do PDC para refletir somente os procedimentos efetivamente implementados; verificar os workflows e a publicação antes de declarar conclusão.",
+      "Manter os PDFs e registros existentes preservados até migração e validação; não excluir materiais ou catálogos por antecipação."
     ],
     "historico": [
       "Versão 2.34 — 27/11/2026 às 13:48:25: aprovado o armazenamento conjunto do relatório textual completo e do JSON estruturado no histórico de cada sessão do Laboratório.",
@@ -615,9 +622,10 @@
       "v2.47 — 27/11/2026: documentos.json esvaziado após autorização do usuário; auditoria identificou cadastro.html e os fluxos associados de cadastro/gerenciamento de PDFs como obsoletos em relação à arquitetura Drive → Apps Script → catálogo. Remoção coordenada ainda pendente de autorização.",
       "v2.48 — 27/11/2026: desativação coordenada do cadastro antigo; cadastro.html e cinco workflows/ quatro formulários de cadastro e gerenciamento de PDFs removidos; biblioteca.html convertida para consulta sem ações de edição; workflows não relacionados preservados.",
       "v2.49 — 27/11/2026: criada a base da Biblioteca privada em Google Apps Script; acesso planejado somente para o usuário implantador, execução sob sua identidade e escopo de leitura do Drive; configuração da pasta-raiz e implantação ainda pendentes.",
-      "v2.50 — 27/11/2026: simplificada a Biblioteca para Drive com PDFs acessíveis por link e catálogo JSON público no GitHub; Apps Script privado removido; cadastro manual documentado."
+      "v2.50 — 27/11/2026: simplificada a Biblioteca para Drive com PDFs acessíveis por link e catálogo JSON público no GitHub; Apps Script privado removido; cadastro manual documentado.",
+      "v2.53 — 27/11/2026: consolida a arquitetura automática Drive → Google Apps Script → catálogo JSON → páginas das disciplinas; declara o cadastro manual da versão 2.50 como etapa provisória superada; aprova a especificação hierárquica da aba Materiais, o modelo de dados, a geração automática de IDs e as regras de exibição. Implementação, automação e retirada da Biblioteca geral permanecem pendentes."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.32.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.53.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -650,7 +658,7 @@
         "paragrafos": [
           "Repositório GitHub: ricardofelippe/direito-ufpr-git-git. Branch principal: main. URL pública do site: depende da configuração de GitHub Pages e deve ser verificada em Settings > Pages; não presumir que seja idêntica ao nome do repositório.",
           "Atualização de 27/11/2026: o repositório foi renomeado para ricardofelippe/direito-ufpr-git, mantendo a branch main. O repositório passou a conter a pasta disciplinas/, com 51 subpastas correspondentes às disciplinas obrigatórias do currículo, cada uma com arquivo .gitkeep para preservar a pasta vazia no Git e um README.md geral com a convenção de organização. A cópia/sincronização dessas pastas para o Google Drive será feita pelo usuário após clonar/atualizar o repositório. A URL pública do GitHub Pages deve ser verificada em Settings > Pages; não confundir o nome do repositório com o endereço de publicação.",
-          "Princípio arquitetural aprovado em 27/11/2026: GitHub e Google Drive devem manter estruturas espelhadas. O GitHub é a referência principal para a organização de diretórios e disciplinas; o Google Drive é o repositório dos arquivos acadêmicos e materiais. A inclusão ou alteração de disciplinas e pastas estruturais começa no GitHub; a inclusão dos PDFs e demais materiais ocorre no Drive. O usuário atualiza/clona o repositório no Drive para manter o espelho. O Google Apps Script percorrerá o espelho no Drive, identificará pastas e arquivos e gerará o catálogo JSON consumido pelo site. O site funcionará como catálogo e interface de consulta, mantendo links para os arquivos no Drive, sem duplicar os materiais.",
+          "Princípio arquitetural vigente, consolidado em 27/11/2026: GitHub mantém o código do site, a estrutura curricular e o catálogo JSON; Google Drive é o repositório oficial dos arquivos originais; Google Apps Script percorre o Drive, identifica os arquivos e metadados e gera/atualiza dados/catalogo_materiais.json; as páginas das disciplinas consomem o catálogo e apresentam os links originais. Não haverá cadastro manual de cada link como fluxo definitivo nem cópias dos PDFs no GitHub. A estrutura curricular oficial dos vínculos é dados/estrutura.json. A Biblioteca geral independente será eliminada somente depois que a aba Materiais das disciplinas estiver implementada e validada.",
           "Limite operacional: Git e Google Drive não se sincronizam automaticamente apenas por terem a mesma estrutura. Até que exista uma automação validada, a atualização do espelho será feita pelo usuário por clonagem/atualização do repositório. Deve-se evitar editar simultaneamente a mesma estrutura nos dois locais; o GitHub prevalece para nomes e organização das pastas, e o Drive prevalece para o conteúdo dos materiais."
         ],
         "tabela": [
@@ -1084,7 +1092,7 @@
           "Organização dos notebooks: foi aprovada a regra de um notebook por disciplina, em vez de um notebook por assunto ou por sessão. O notebook reúne as fontes documentais da disciplina; o site continua sendo a fonte oficial da classificação curricular e mantém os vínculos entre disciplina, unidade, assunto e material. Ao iniciar por um assunto, o site deverá sugerir inicialmente os materiais associados a ele, permitindo incluir materiais de outros assuntos ou selecionar todos os materiais da disciplina.",
           "Reorganização da área Materiais: foi aprovada a mudança conceitual de repositório para catálogo/índice documental. Google Drive será o repositório oficial dos arquivos originais; o site não deverá armazenar cópias dos PDFs ou outros documentos. No site haverá somente os metadados necessários à organização (por exemplo, título, disciplina, unidade, assunto, tipo e identificador/endereço do arquivo) e um link para abrir o documento diretamente no Google Drive. A consulta do catálogo deverá permitir navegar por disciplina, unidade e assunto sem exigir novo upload dos arquivos para o site.",
           "A classificação curricular permanece sob responsabilidade do site: Disciplina → Unidade → Assunto → Material → Notebook. O Google Drive guarda os arquivos; o NotebookLM fornece o ambiente documental inteligente; o Gemini conduz as interações; o site organiza o estudo e acompanha a evolução. O objetivo é evitar cadastro e armazenamento duplicados e manter uma única cópia oficial de cada documento.",
-          "Automação pretendida: investigar integração autorizada com Google Drive para identificar arquivos e metadados e associá-los ao catálogo do site, evitando inserir manualmente o mesmo documento em dois lugares. A proposta é que o usuário carregue o arquivo uma única vez no Drive e que o catálogo do site apresente o documento com seu link. A leitura automática das pastas/arquivos, sincronização, atualização de metadados, permissões e eventual integração com fontes do NotebookLM ainda não foram implementadas nem validadas. Não afirmar que o site consegue alterar automaticamente a seleção de fontes de um notebook até comprovar API/recurso disponível para a conta Workspace concreta.",
+          "Automação aprovada como fluxo principal: o usuário adiciona o arquivo uma única vez ao Google Drive; Google Apps Script identifica o arquivo e seus metadados e gera/atualiza o catálogo JSON consumido pelo site. O usuário não deverá cadastrar manualmente cada link no catálogo. A associação curricular será feita com base em uma convenção de pastas/metadados ainda pendente de especificação. Permanecem pendentes o desenho técnico, regras de identificação, duplicidades, arquivos movidos/renomeados/excluídos, permissões, falhas e testes. Não presumir que o nome do PDF, isoladamente, identifica disciplina, unidade e assunto.",
           "Arquitetura e segurança: GitHub Pages permanece como hospedagem do site, sem armazenar credenciais ou chaves privadas. Qualquer integração com Drive/Gemini deverá usar mecanismo de autenticação apropriado, permissões mínimas e serviço seguro para operações que não possam ser executadas diretamente no navegador. Não presumir que a conta Google Workspace comum inclua APIs ou recursos exclusivos de edição empresarial. Antes de implementar, verificar a licença Workspace, as APIs e os limites de acesso efetivamente disponíveis.",
           "Estado desta etapa: planejamento funcional em andamento; decisões acima aprovadas; nenhuma alteração de código, integração Google, migração de arquivos ou exclusão de materiais foi realizada nesta etapa. Os arquivos atualmente existentes no GitHub devem ser preservados até que um plano de migração seja definido, executado e validado. A futura transição deverá evitar perda de dados e manter links e registros consistentes.",
           "Regra funcional aprovada em 27/11/2026: o usuário não precisa iniciar nem preparar uma atividade pelo site. Ele poderá abrir diretamente uma conversa no Gemini/NotebookLM e apresentar sua demanda em linguagem natural, indicando livremente o assunto, a questão, a dificuldade ou o objetivo que deseja trabalhar. O Gemini, orientado por um prompt mestre previamente preparado, interpreta a demanda e conduz os próximos passos da atividade. O NotebookLM disponibiliza apoio documental com base nas fontes acadêmicas selecionadas, conforme os recursos efetivamente disponíveis. O site não escolhe o assunto, não interpreta a demanda e não atua como motor de inteligência: sua função é organizar o acompanhamento acadêmico e receber/registrar posteriormente os resultados da atividade.",
@@ -1198,30 +1206,56 @@
         ]
       },
       {
-        "titulo": "32. Simplificação da Biblioteca: Drive com acesso por link e catálogo JSON",
+        "titulo": "32. Etapa provisória — catálogo JSON com cadastro manual (SUPERADA)",
         "paragrafos": [
-          "Em 27/11/2026, o usuário optou por simplificar a arquitetura e permitir acesso aos PDFs do Drive por link. A configuração recomendada é compartilhar cada arquivo individualmente como 'Qualquer pessoa com o link — Leitor'. O usuário foi informado de que qualquer pessoa que obtenha o link poderá abrir e compartilhar o arquivo; portanto, materiais confidenciais ou pessoais não devem ser cadastrados nesse modelo.",
-          "A arquitetura passa a ser: Google Drive como repositório oficial dos PDFs; GitHub como repositório público dos metadados e links; biblioteca.html como interface de consulta no GitHub Pages. Não haverá upload de PDFs no GitHub nem cadastro de arquivos pela interface da Biblioteca.",
-          "Foi criado dados/catalogo_materiais.json com os campos versao, atualizado_em, descricao e materiais. Cada material contém titulo, disciplina, disciplina_id, categoria, descricao, assunto e arquivos (lista de URLs HTTPS do Drive). A lista começa vazia. A biblioteca.html foi ajustada para carregar dados/catalogo_materiais.json e dados/estrutura.json, preservando a apresentação das disciplinas obrigatórias e os filtros existentes. A página valida os links para aceitar apenas endereços HTTPS de drive.google.com ou docs.google.com.",
-          "Foi criado docs/GUIA_CATALOGO_MATERIAIS.md com as instruções de cadastro manual no JSON. A associação inicial é feita pelo nome exato da disciplina em dados/estrutura.json; disciplina_id é guardado para permitir associação curricular mais robusta em etapa futura.",
-          "O protótipo privado do Apps Script criado na etapa anterior não foi implantado e foi removido do repositório. A automação do Drive para gerar o catálogo fica adiada até que o fluxo manual esteja validado. documentos.json permanece vazio como legado e não deve ser usado pela Biblioteca.",
-          "As alterações são exclusivas do GitHub e não exigem sincronização do espelho do Google Drive."
+          "Registro histórico: em 27/11/2026 foi adotado temporariamente o fluxo de compartilhamento dos PDFs do Drive por link e cadastro manual dos metadados em dados/catalogo_materiais.json. Esse fluxo permitiu criar o catálogo e documentar a transição, mas não representa a arquitetura definitiva.",
+          "Decisão consolidada na versão 2.53: o fluxo principal será Google Drive → Google Apps Script → dados/catalogo_materiais.json → páginas das disciplinas. O Apps Script deverá coletar arquivos e metadados e gerar/atualizar o catálogo. Portanto, a instrução de cadastrar manualmente cada link no JSON fica superada como procedimento definitivo.",
+          "Permanecem válidas as decisões de que o Drive guarda os PDFs originais, o GitHub guarda metadados e links, os PDFs não serão duplicados no GitHub e os links devem abrir os arquivos originais. A política de compartilhamento por link continua sujeita à decisão de acesso registrada: qualquer pessoa que obtenha o link poderá acessar o arquivo; não cadastrar conteúdo que não possa ser compartilhado dessa forma.",
+          "A automação Apps Script não está implantada nem validada. O catálogo existente e os arquivos relacionados devem ser preservados até que a nova integração e a aba Materiais sejam testadas. A página biblioteca.html ainda não foi retirada."
         ],
         "itens": [
-          "Compartilhamento recomendado: 'Qualquer pessoa com o link — Leitor', arquivo por arquivo.",
-          "Drive armazena PDFs; GitHub mantém catálogo JSON público com metadados e links.",
-          "Novo arquivo: dados/catalogo_materiais.json; começa com materiais vazio.",
-          "biblioteca.html consulta catalogo_materiais.json e dados/estrutura.json.",
-          "Cadastro manual documentado em docs/GUIA_CATALOGO_MATERIAIS.md.",
-          "Protótipo Apps Script privado removido; não foi implantado.",
-          "documentos.json permanece vazio como legado.",
-          "Automação futura é opcional e adiada.",
-          "Acesso por link não equivale a privacidade: qualquer pessoa que obtenha o link poderá acessar.",
-          "Não é necessário atualizar o Google Drive nesta etapa."
+          "Registro histórico da etapa provisória de cadastro manual.",
+          "Drive permanece como repositório oficial dos PDFs originais.",
+          "GitHub mantém o catálogo JSON de metadados e links.",
+          "Fluxo definitivo aprovado: Drive → Apps Script → catálogo JSON → páginas das disciplinas.",
+          "Cadastro manual de cada link no JSON: superado como fluxo definitivo.",
+          "Apps Script ainda não implantado nem validado.",
+          "Não excluir catálogo, registros, PDFs ou biblioteca.html antes da migração e dos testes."
+        ]
+      },
+      {
+        "titulo": "33. Especificação consolidada da aba Materiais e da automação Drive → Apps Script → catálogo",
+        "paragrafos": [
+          "Esta seção consolida as decisões aprovadas pelo usuário em 27/11/2026. Ela prevalece sobre propostas ou instruções anteriores incompatíveis, especialmente o cadastro manual de links no catálogo. Não representa implementação concluída.",
+          "Arquitetura: Google Drive armazena os arquivos originais; Google Apps Script percorre/consulta o Drive, identifica os arquivos e metadados e gera/atualiza dados/catalogo_materiais.json; as páginas das disciplinas no GitHub Pages consultam esse catálogo. O site não armazena cópias dos PDFs. O usuário não deverá cadastrar manualmente cada link no JSON como fluxo definitivo.",
+          "Destino da navegação: eliminar a Biblioteca geral independente. Os materiais serão consultados exclusivamente na aba Materiais de cada disciplina. A remoção de biblioteca.html e de seus atalhos só ocorrerá depois de implementar e validar a aba substituta, atualizar referências e documentação e preservar os dados e links.",
+          "Hierarquia visual: Disciplina → Unidade → Assunto → Material. Materiais gerais da disciplina aparecem sempre no topo. Todas as unidades começam recolhidas. Unidades e assuntos sem materiais continuam visíveis com a mensagem 'Nenhum material cadastrado'.",
+          "Acesso contextual: quando a aba Materiais for aberta a partir de um assunto, expandir automaticamente a unidade correspondente, rolar a página até o assunto e destacá-lo visualmente. O restante das unidades e assuntos permanece acessível.",
+          "Cartões: cada material é um cartão expansível. Recolhido, mostra o título. Expandido, mostra a descrição opcional e a lista de arquivos. Vários cartões podem permanecer abertos ao mesmo tempo.",
+          "Arquivos: cada material pode ter um ou vários arquivos. Cada arquivo possui nome personalizado e URL para o original no Google Drive. A sequência do array arquivos define a ordem dos links.",
+          "Ordenação: a ordem dos materiais é manual, pelo campo ordem, dentro de seu nível curricular. Não haverá classificação/categoria obrigatória. O cadastro mínimo do material contém título, descrição opcional, vínculos curriculares, ordem e arquivos.",
+          "Modelo de registro aprovado: id, disciplina_id, unidade_id, assunto_id, titulo, descricao, ordem e arquivos. Cada arquivo contém nome e url. unidade_id e assunto_id recebem null quando não houver vínculo naquele nível. Os IDs devem corresponder aos registros existentes em dados/estrutura.json; não usar nomes digitados livremente como chaves de associação.",
+          "Identificador: geração automática em sequência no padrão mat-001, mat-002 etc., sempre verificando todos os registros existentes para evitar colisão. A exclusão de um registro não autoriza reutilizar um ID já emitido.",
+          "Validação: todo material deve possuir pelo menos um arquivo. Não salvar material sem arquivo. A descrição pode ficar vazia. Não criar campo de classificação obrigatório.",
+          "Responsabilidade do Apps Script: coletar os arquivos e metadados do Drive e atualizar o catálogo. A forma de identificar disciplina, unidade e assunto ainda precisa ser especificada. A proposta deverá definir uma convenção de pastas ou metadados, validação contra dados/estrutura.json, duplicidades, movimentação, renomeação, exclusão, links, erros e recuperação de sincronização. Não inferir vínculo curricular apenas pelo título do PDF.",
+          "Estado: decisões funcionais e modelo de dados aprovados; implementação da aba Materiais, integração Apps Script, convenção de pastas/metadados, sincronização, atualização do Manual Operacional e retirada da Biblioteca geral permanecem pendentes. Não afirmar que o Drive já está sendo coletado automaticamente."
+        ],
+        "itens": [
+          "Arquitetura definitiva: Drive → Apps Script → catálogo JSON → páginas das disciplinas.",
+          "Biblioteca geral independente será eliminada após migração e validação.",
+          "Materiais gerais no topo; unidades recolhidas inicialmente; vazios visíveis.",
+          "Acesso contextual expande unidade, rola e destaca assunto.",
+          "Cartões expansíveis; vários podem ficar abertos.",
+          "Arquivos com nome personalizado e link original do Drive.",
+          "Ordenação manual; sem classificação obrigatória.",
+          "IDs curriculares de dados/estrutura.json.",
+          "ID do material automático mat-001 em diante, sem reutilização.",
+          "Pelo menos um arquivo por material.",
+          "Implementação e automação ainda pendentes."
         ]
       }
     ],
-    "atualizado_as": "15:02:21",
+    "atualizado_as": "17:34:57",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
