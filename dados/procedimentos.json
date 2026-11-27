@@ -8,7 +8,7 @@
           "objetivo": "Atualizar a ficha pedagógica exibida no cartão de uma disciplina, usando como fonte a documentação curricular oficial da UFPR. A ficha é armazenada no objeto da disciplina em dados/estrutura.json e exibida automaticamente em direito.html. Esta operação atualiza dados curriculares permanentes; não altera o cronograma específico de uma oferta letiva.",
           "passos": [
             "Identifique a disciplina no site: abra a página do currículo (direito.html), localize o cartão e anote o nome e o código curricular. O código é a chave prática para evitar alterar a disciplina errada.",
-            "Abra o arquivo de dados no GitHub: entre em https://github.com/ricardofelippe/direito-ufpr, confirme que está na branch main e navegue até dados/estrutura.json. Este é o arquivo que guarda os dados curriculares; não altere direito.html para mudar o texto de uma ficha.",
+            "Abra o arquivo de dados no GitHub: entre em https://github.com/ricardofelippe/direito-ufpr-git, confirme que está na branch main e navegue até dados/estrutura.json. Este é o arquivo que guarda os dados curriculares; não altere direito.html para mudar o texto de uma ficha.",
             "Localize o objeto correto dentro do array 'disciplinas'. Use a busca do navegador (Ctrl+F) pelo código exato, por exemplo \"DB449\". Confirme no mesmo objeto os campos 'id', 'codigo' e 'nome'. Não edite um objeto apenas porque o nome parece semelhante.",
             "Antes de alterar, leia o objeto inteiro da disciplina e preserve todos os campos que não fazem parte da atualização: id, codigo, nome, categoria, ano, descricao, ordem, status, unidades, assuntos e quaisquer outros dados existentes. Não substitua o objeto inteiro por um modelo reduzido.",
             "Dentro do objeto, localize a propriedade 'informacoes_pedagogicas'. Ela reúne os dados da ficha curricular que o site apresenta quando o usuário expande 'Informações pedagógicas · UFPR'. Se a propriedade já existir, atualize somente os campos que a fonte oficial efetivamente alterou. Se não existir, crie-a seguindo o formato descrito abaixo.",
@@ -37,7 +37,7 @@
             "Fonte oficial da UFPR — URL registrada em informacoes_pedagogicas.fonte ou documento curricular oficial atualizado."
           ],
           "pre_requisitos": [
-            "Acesso de edição ao repositório GitHub ricardofelippe/direito-ufpr, na branch main.",
+            "Acesso de edição ao repositório GitHub ricardofelippe/direito-ufpr-git, na branch main.",
             "Identificação inequívoca da disciplina pelo nome e, principalmente, pelo código curricular (por exemplo, DB449). Não localizar apenas pelo nome, pois podem existir nomes semelhantes.",
             "Documento oficial da UFPR correspondente à disciplina e à versão curricular aplicável. Preferir a Ficha 2 / ficha curricular disponibilizada pela Coordenação ou pelo curso de Direito da UFPR.",
             "Ter clareza sobre o escopo: esta rotina atualiza ementa, programa, objetivos, procedimentos didáticos, avaliação e bibliografia da ficha curricular. Datas de provas, trabalhos e entregas pertencem ao cronograma da oferta e devem ser atualizadas pelo procedimento 'Como cadastrar ou atualizar o cronograma previsto'."
@@ -63,7 +63,7 @@
           "titulo": "Como criar ou editar assuntos da disciplina",
           "objetivo": "Criar um novo assunto curricular ou editar os dados de um assunto existente. O workflow atualmente implementado aceita as operações criar e editar; não existe operação de exclusão nesse workflow. A exclusão não deve ser simulada por edição manual nem executada sem uma rotina própria que preserve conteúdos e progresso vinculados.",
           "passos": [
-            "Abra o repositório GitHub ricardofelippe/direito-ufpr e confirme que está na branch main. Navegue até dados/estrutura.json. As coleções disciplinas, unidades e assuntos são independentes; procure cada registro na coleção correspondente.",
+            "Abra o repositório GitHub ricardofelippe/direito-ufpr-git e confirme que está na branch main. Navegue até dados/estrutura.json. As coleções disciplinas, unidades e assuntos são independentes; procure cada registro na coleção correspondente.",
             "Copie os identificadores exatos: disciplina.id; unidade.id, se houver vínculo; e assunto.id, somente para edição. Confirme que a unidade selecionada possui disciplina_id igual ao ID da disciplina.",
             "Abra uma nova Issue no repositório. Como não há um arquivo de formulário em .github/ISSUE_TEMPLATE para gerenciar assuntos, não escolha um formulário semelhante. Use o título iniciado exatamente por [Gerenciar assunto].",
             "No corpo da Issue, inclua cada marcador abaixo exatamente uma vez e coloque seu valor na linha imediatamente seguinte: <!-- OPERACAO --> (criar ou editar); <!-- ASSUNTO_ID --> (ID existente para editar; deixe a linha seguinte vazia ao criar); <!-- DISCIPLINA_ID --> (ID da disciplina); <!-- UNIDADE_ID --> (ID da unidade ou null para vínculo direto); <!-- NOME --> (nome do assunto); <!-- DESCRICAO --> (descrição, pode ficar vazia); <!-- ORDEM --> (inteiro positivo que define a posição). Não altere a grafia dos marcadores.",
@@ -82,7 +82,7 @@
           ],
           "observacao": "Limitação confirmada no código: gerenciar-assuntos.yml implementa somente criar e editar. Não há formulário próprio nem rotina de exclusão. A exclusão de assuntos permanece indisponível e exige projeto específico que trate os vínculos em dados/conteudos.json e dados/progresso.json.",
           "pre_requisitos": [
-            "Acesso ao repositório ricardofelippe/direito-ufpr e permissão para abrir Issues.",
+            "Acesso ao repositório ricardofelippe/direito-ufpr-git e permissão para abrir Issues.",
             "Identificadores exatos da disciplina e, quando aplicável, da unidade temática. Consulte dados/estrutura.json; não use apenas o nome como identificador.",
             "Para editar, copie o ID exato do assunto existente. Para criar, defina nome, descrição e ordem.",
             "Confirme se o assunto ficará vinculado a uma unidade existente ou diretamente à disciplina. Para vínculo direto, o campo UNIDADE_ID deve receber null.",
@@ -433,7 +433,7 @@
           "titulo": "Como verificar uma execução do GitHub Actions",
           "objetivo": "Confirmar se uma solicitação enviada pelo site foi processada.",
           "passos": [
-            "Abra https://github.com/ricardofelippe/direito-ufpr e confirme que está no repositório correto.",
+            "Abra https://github.com/ricardofelippe/direito-ufpr-git e confirme que está no repositório correto.",
             "Clique na aba Actions. A lista mostra execuções recentes; use o horário aproximado do envio e o nome do workflow para localizar a execução correspondente.",
             "Selecione a execução e confira o status geral: sucesso (verde), falha (vermelho), em andamento (amarelo) ou cancelada. Não considere uma execução em andamento como concluída.",
             "Abra o job e expanda as etapas. Se houve falha, identifique a primeira etapa marcada com erro e leia a mensagem completa. Copie o texto integral antes de solicitar ajuda.",
@@ -443,7 +443,7 @@
             "Se houver falha, não crie várias Issues repetidas sem entender o erro. Corrija os dados ou o formulário e abra uma nova solicitação, preservando a execução e a Issue anteriores como histórico."
           ],
           "pre_requisitos": [
-            "Issue ou execução manual enviada ao repositório ricardofelippe/direito-ufpr.",
+            "Issue ou execução manual enviada ao repositório ricardofelippe/direito-ufpr-git.",
             "Saber aproximadamente quando a solicitação foi enviada e qual operação foi executada.",
             "Acesso à aba Actions e, quando aplicável, à Issue que originou o workflow."
           ],
@@ -531,7 +531,7 @@
       "Barra de busca do currículo em direito.html: alinhamento vertical corrigido. Campo de busca, botões Buscar e Limpar e acionador Filtros padronizados com altura de 36px; painel Filtros alinhado ao topo da linha de controles, evitando a aparência de deslocamento vertical observada na captura enviada.",
       "Identidade visual da Visão geral atualizada em index.html: cartões de disciplinas finalizadas, ativas e pendentes receberam ilustrações vetoriais discretas (troféu dourado, corredor turquesa e calendário âmbar), posicionadas no canto superior direito. Em direito.html, o troféu das disciplinas finalizadas também foi reposicionado no canto superior direito do cartão.",
       "Regra de atualização do PDC: manter data e hora da última atualização nos metadados `atualizado_em`, `atualizado_as` e `fuso_horario`. Usar o horário local de Brasília/São Paulo (America/Sao_Paulo), registrar horas no formato HH:MM:SS e atualizar esses campos em toda alteração efetiva do PDC. A hora representa o momento em que o conteúdo do PDC foi atualizado no repositório; não confundir com o horário de publicação do site ou de geração do PDF.",
-      "Repositório vigente: ricardofelippe/direito-ufpr (nome em minúsculas); branch principal: main; publicação: https://ricardofelippe.github.io/direito-ufpr/. Referências antigas com 'Direito-UFPR' maiúsculo foram substituídas nesta documentação.",
+      "Repositório de código vigente: ricardofelippe/direito-ufpr-git; branch principal: main. Endereço público do site: manter o domínio GitHub Pages já configurado e validar a publicação após a renomeação.m substituídas nesta documentação.",
       "Última alteração em disciplina.html: seleção explícita de assunto por botão no cartão; ao selecionar, a aba de conteúdos filtra pelo assunto.",
       "Cadastro individual de resumos: formulário direto em disciplina.html com campos Título do resumo e Conteúdo do resumo. Disciplina, unidade e assunto são preenchidos automaticamente. O botão Enviar para o GitHub abre uma Issue pré-preenchida; o usuário ainda precisa conferir e enviar. O workflow processar-resumo.yml grava em dados/conteudos.json. A alteração foi gravada, mas o teste visual/funcional em navegador ainda depende de confirmação do usuário.",
       "Decisão aprovada para o próximo ciclo: o Laboratório de Argumentação Jurídica será estruturado como área/página exclusiva, separada das áreas de Resumos, Revisões e Materiais, mas vinculada a cada disciplina e ao assunto selecionado. A aba/estrutura visual inicial criada anteriormente em disciplina.html é provisória e deverá ser reavaliada ao implementar a página exclusiva. O Laboratório é a prioridade principal da próxima etapa.",
@@ -599,7 +599,7 @@
       {
         "titulo": "3. Arquitetura e repositório",
         "paragrafos": [
-          "Repositório GitHub: ricardofelippe/direito-ufpr. Publicação GitHub Pages: https://ricardofelippe.github.io/direito-ufpr/. Branch principal conhecida: main."
+          "Repositório GitHub: ricardofelippe/direito-ufpr-git. Branch principal: main. URL pública do site: depende da configuração de GitHub Pages e deve ser verificada em Settings > Pages; não presumir que seja idêntica ao nome do repositório."
         ],
         "tabela": [
           [
@@ -751,7 +751,7 @@
         "titulo": "10. Procedimento para retomar o projeto em outra IA",
         "itens": [
           "Leia integralmente este PDC antes de propor mudanças.",
-          "Abra o repositório ricardofelippe/direito-ufpr e confira a branch main e os arquivos atuais. Este documento é orientação de continuidade, não substitui a leitura do código.",
+          "Abra o repositório ricardofelippe/direito-ufpr-git e confira a branch main e os arquivos atuais. Este documento é orientação de continuidade, não substitui a leitura do código.",
           "Leia especialmente dados/procedimentos.json, procedimentos.html, index.html, direito.html, dados/estrutura.json, dados/progresso.json, dados/conteudos.json, dados/ofertas.json e os workflows relacionados à tarefa.",
           "Compare o estado real do código com as seções Estado verificado e Pendências. Atualize o diagnóstico se o repositório tiver avançado.",
           "Apresente ao usuário uma única próxima ação pequena, explicando objetivo e arquivos envolvidos. Não execute várias mudanças em lote.",
