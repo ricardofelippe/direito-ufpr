@@ -19,8 +19,8 @@ Servir uma interface privada de consulta aos PDFs de uma pasta do Google Drive. 
 4. Crie um arquivo HTML chamado `Index` e copie o conteúdo de `Index.html`.
 5. Em Configurações do projeto, habilite a exibição do arquivo de manifesto `appsscript.json`; substitua o manifesto pelo deste diretório.
 6. Identifique a pasta-raiz do acervo no Drive. Copie somente o ID que aparece entre `/folders/` e o próximo separador na URL.
-7. No editor, selecione a função `configurarPastaRaiz`, informe o ID da pasta e execute uma única vez. Autorize o acesso solicitado. O ID fica em Propriedades do script, não no HTML nem no repositório.
-8. Execute `getCatalog` no editor e confirme que a lista retornada corresponde aos PDFs do acervo.
+7. Abra **Configurações do projeto → Propriedades do script → Adicionar propriedade do script**. Crie a propriedade `ROOT_FOLDER_ID` e informe o ID da pasta-raiz. Salve. O ID fica nas propriedades privadas do projeto, não no HTML nem no repositório.
+8. Execute `getCatalog` no editor e autorize a leitura do Drive quando solicitado. Confirme que a lista retornada corresponde aos PDFs do acervo.
 9. Selecione **Implantar → Nova implantação → App da Web**.
 10. Configure **Executar como: Eu** e **Quem pode acessar: Somente eu**. Não selecione acesso para qualquer pessoa.
 11. Implante, copie a URL terminada em `/exec` e guarde-a. Não publique a URL em páginas ou repositórios públicos.
