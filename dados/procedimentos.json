@@ -521,7 +521,7 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.31",
+    "versao": "2.32",
     "atualizado_em": "27/11/2026",
     "resumo": "Consolida decisões funcionais do Laboratório de Argumentação Jurídica e redefine Materiais como catálogo ligado ao Google Drive, com notebooks por disciplina no ecossistema Google Workspace.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
@@ -561,6 +561,7 @@
       "Manter documentação, PDC e PDF sincronizados com alterações efetivamente implementadas; verificar Actions e publicação antes de declarar conclusão."
     ],
     "historico": [
+      "Versão 2.32 — 27/11/2026: formalizado o procedimento para continuar o desenvolvimento diretamente no GitHub quando o GitHub Desktop estiver indisponível e atualizar o espelho do Google Drive posteriormente.",
       "Versão 2.31 — 27/11/2026: corrigida a apresentação do carimbo temporal. A página e o PDF devem mostrar somente a data e a hora local de Brasília, sem identificação textual do fuso.",
       "v2.23 — 26/11/2026 às 19:27:54 (America/Sao_Paulo, UTC−03:00): PDC passa a registrar data, hora e fuso horário da última atualização; regra incluída para todas as atualizações futuras.",
       "v2.24 — 26/11/2026 às 19:30:06 (America/Sao_Paulo, UTC−03:00): adicionadas ilustrações vetoriais aos cartões da Visão geral (troféu, corredor e calendário) e troféu reposicionado no canto superior direito dos cartões finalizados.",
@@ -571,7 +572,7 @@
       "v2.29 — 27/11/2026: renomeação do repositório para ricardofelippe/direito-ufpr-git; criação de disciplinas/ com 51 subpastas; atualização de links de Issues e instruções do PDC; Apps Script será utilizado para indexar no catálogo os materiais sincronizados no Google Drive.",
       "v2.30 — 27/11/2026: formaliza a arquitetura espelhada GitHub–Google Drive, define a autoridade de cada ambiente e estabelece o Apps Script como gerador do catálogo JSON."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.31.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.32.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -1058,9 +1059,27 @@
           "Automatizar a identificação e indexação dos arquivos do Drive é objetivo, ainda pendente de estudo técnico.",
           "Nenhuma implementação ou migração foi realizada; preservar os arquivos existentes até plano de transição validado."
         ]
+      },
+      {
+        "titulo": "28. Procedimento operacional — atualização do espelho no Google Drive pelo GitHub Desktop",
+        "paragrafos": [
+          "O trabalho no repositório GitHub pode continuar mesmo quando o usuário não tiver acesso ao computador ou ao GitHub Desktop. As alterações devem ser feitas diretamente no GitHub, sem interromper o desenvolvimento por causa da cópia local.",
+          "Sempre que uma alteração no GitHub criar, excluir ou modificar arquivos e pastas que também devam existir no espelho do Google Drive, o assistente deve informar expressamente que a atualização do Drive ficará pendente. Deve identificar, de forma objetiva, quais arquivos ou pastas foram afetados.",
+          "Quando o usuário voltar a ter acesso ao GitHub Desktop, a atualização do espelho deverá ser feita abrindo o repositório local, selecionando Fetch origin e, havendo alterações disponíveis, Pull origin. Não presumir que o Google Drive foi atualizado automaticamente.",
+          "Quando a alteração envolver somente arquivos exclusivos do funcionamento do site ou da documentação técnica que não precisem integrar o espelho de materiais, informar expressamente que não é necessário atualizar o Drive.",
+          "Esta orientação é uma regra permanente de comunicação e execução do projeto. Ela não impede nem condiciona novas alterações diretamente no GitHub."
+        ],
+        "itens": [
+          "GitHub é a referência principal para a estrutura versionada do projeto.",
+          "O desenvolvimento pode prosseguir diretamente no GitHub, mesmo sem acesso ao GitHub Desktop.",
+          "Para alterações que precisem ser espelhadas no Drive, informar que a sincronização local está pendente e listar os caminhos afetados.",
+          "Quando houver acesso ao computador, executar Fetch origin e depois Pull origin no GitHub Desktop.",
+          "Nunca afirmar que o Drive foi atualizado automaticamente.",
+          "Para alterações que não precisem estar no Drive, informar: não é necessário atualizar o Drive pelo GitHub Desktop."
+        ]
       }
     ],
-    "atualizado_as": "13:22:55",
+    "atualizado_as": "13:24:57",
     "fuso_horario": "America/Sao_Paulo"
   }
 }
