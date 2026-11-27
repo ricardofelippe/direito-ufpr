@@ -238,7 +238,7 @@
       try {
 
         const [resposta, respostaEstrutura] = await Promise.all([
-          fetch("./documentos.json"),
+          fetch("./dados/catalogo_materiais.json"),
           fetch("./dados/estrutura.json")
         ]);
 
@@ -246,12 +246,12 @@
           throw new Error("Erro ao carregar os dados da biblioteca ou do currículo.");
         }
 
-        const [todosDocumentos, estrutura] = await Promise.all([
+        const [catalogo, estrutura] = await Promise.all([
           resposta.json(),
           respostaEstrutura.json()
         ]);
 
-        // A Biblioteca geral exibe somente disciplinas obrigatórias
+        const todosDocumentos = Array.isArray(catalogo.materiais) ? catalogo.materiais : [];\n\n        // A Biblioteca geral exibe somente disciplinas obrigatórias
         // cadastradas na estrutura curricular oficial.
         const disciplinasObrigatorias = (estrutura.disciplinas || [])
           .filter(d => String(d.categoria || "").toLowerCase() === "obrigatoria");
@@ -588,7 +588,7 @@
         console.error(erro);
 
         estado.textContent =
-          "Erro ao carregar a biblioteca. Verifique documentos.json.";
+          "Erro ao carregar a biblioteca. Verifique dados/catalogo_materiais.json e dados/estrutura.json.";
 
       }
 
