@@ -384,7 +384,10 @@
           return [...new Set([
             ...(Array.isArray(doc.arquivos) ? doc.arquivos : []),
             doc.arquivo
-          ].filter(Boolean))];
+          ].filter(url =>
+            typeof url === "string" &&
+            /^https:\/\/(drive\.google\.com|docs\.google\.com)\//i.test(url)
+          ))];
         }
 
         function criarCartaoMaterial(doc) {
@@ -415,7 +418,7 @@
               const item = document.createElement("li");
               const abrir = document.createElement("a");
               abrir.href = caminho;
-              abrir.textContent = decodeURIComponent(caminho.split("/").pop()) || "PDF " + (indice + 1);
+              abrir.textContent = "Abrir PDF " + (indice + 1);
               abrir.target = "_blank";
               abrir.rel = "noopener noreferrer";
               item.appendChild(abrir);
