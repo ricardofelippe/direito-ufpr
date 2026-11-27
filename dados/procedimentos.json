@@ -521,7 +521,7 @@
   ],
   "pdc": {
     "titulo": "Plano de Continuidade — Currículo de Direito UFPR",
-    "versao": "2.30",
+    "versao": "2.31",
     "atualizado_em": "27/11/2026",
     "resumo": "Consolida decisões funcionais do Laboratório de Argumentação Jurídica e redefine Materiais como catálogo ligado ao Google Drive, com notebooks por disciplina no ecossistema Google Workspace.",
     "aviso_pdf": "O conteúdo abaixo é integral e selecionável. Na aba PDC, use Ctrl+A para selecionar somente o documento e Ctrl+C para copiá-lo. O PDF contém o mesmo conteúdo.",
@@ -561,6 +561,7 @@
       "Manter documentação, PDC e PDF sincronizados com alterações efetivamente implementadas; verificar Actions e publicação antes de declarar conclusão."
     ],
     "historico": [
+      "Versão 2.31 — 27/11/2026: corrigida a apresentação do carimbo temporal. A página e o PDF devem mostrar somente a data e a hora local de Brasília, sem identificação textual do fuso.",
       "v2.23 — 26/11/2026 às 19:27:54 (America/Sao_Paulo, UTC−03:00): PDC passa a registrar data, hora e fuso horário da última atualização; regra incluída para todas as atualizações futuras.",
       "v2.24 — 26/11/2026 às 19:30:06 (America/Sao_Paulo, UTC−03:00): adicionadas ilustrações vetoriais aos cartões da Visão geral (troféu, corredor e calendário) e troféu reposicionado no canto superior direito dos cartões finalizados.",
       "v2.25 — 26/11/2026 às 19:30:54 (America/Sao_Paulo, UTC−03:00): alinhamento vertical da barra de busca do currículo corrigido, com controles padronizados em 36px.",
@@ -570,7 +571,7 @@
       "v2.29 — 27/11/2026: renomeação do repositório para ricardofelippe/direito-ufpr-git; criação de disciplinas/ com 51 subpastas; atualização de links de Issues e instruções do PDC; Apps Script será utilizado para indexar no catálogo os materiais sincronizados no Google Drive.",
       "v2.30 — 27/11/2026: formaliza a arquitetura espelhada GitHub–Google Drive, define a autoridade de cada ambiente e estabelece o Apps Script como gerador do catálogo JSON."
     ],
-    "pdf_url": "docs/PDC_Direito_UFPR_v2.28.pdf",
+    "pdf_url": "docs/PDC_Direito_UFPR_v2.31.pdf",
     "conteudo_completo": [
       {
         "titulo": "Finalidade e regra de leitura",
@@ -955,16 +956,16 @@
       {
         "titulo": "22. Registro de data e hora da atualização do PDC",
         "paragrafos": [
-          "A partir da versão 2.23, o PDC deve informar o momento de sua última atualização com data, hora e fuso horário. A data permanece no campo `atualizado_em`, a hora local no campo `atualizado_as` (formato HH:MM:SS) e o fuso no campo `fuso_horario` (IANA: America/Sao_Paulo, UTC−03:00).",
-          "Sempre que o conteúdo do PDC for efetivamente alterado, atualizar os três campos no mesmo commit. O horário deve corresponder ao momento da atualização do conteúdo no repositório, e não ser estimado nem confundido com a publicação do site ou com a geração do PDF.",
-          "A interface que apresenta o PDC deverá exibir data e hora juntas, incluindo a indicação do fuso horário. Se o PDF for atualizado, ele também deverá apresentar o mesmo carimbo temporal do PDC que lhe deu origem."
+          "A data da última atualização do PDC permanece no campo `atualizado_em`, no formato DD/MM/AAAA. A hora local permanece no campo `atualizado_as`, no formato HH:MM:SS. O campo técnico `fuso_horario` pode ser mantido nos dados internos para cálculo e interpretação, mas não deve aparecer na página nem no PDF.",
+          "Sempre que o conteúdo do PDC for efetivamente alterado, atualizar a data e a hora no mesmo commit. O horário deve corresponder ao horário local de Brasília (UTC−03:00) no momento da atualização do conteúdo no repositório, e não ser estimado nem confundido com a publicação do site ou com a geração do PDF.",
+          "A interface e o PDF devem exibir somente a data e a hora, sem escrever o nome do fuso, a região `America/Sao_Paulo` ou o deslocamento UTC."
         ],
         "itens": [
           "Data: atualizado_em, formato DD/MM/AAAA.",
-          "Hora: atualizado_as, formato HH:MM:SS.",
-          "Fuso: fuso_horario, valor America/Sao_Paulo (UTC−03:00).",
-          "Atualizar os três campos em toda alteração efetiva do PDC.",
-          "Exibir data, hora e fuso na página do PDC e no PDF correspondente."
+          "Hora: atualizado_as, formato HH:MM:SS, horário local de Brasília.",
+          "Manter o fuso apenas como dado técnico interno, se necessário; não exibi-lo.",
+          "Atualizar data e hora em toda alteração efetiva do PDC.",
+          "Na página e no PDF, apresentar apenas: Atualizado em DD/MM/AAAA às HH:MM:SS."
         ]
       },
       {
@@ -1059,7 +1060,7 @@
         ]
       }
     ],
-    "atualizado_as": "13:20:53",
-    "fuso_horario": "America/Sao_Paulo (UTC−03:00)"
+    "atualizado_as": "13:22:55",
+    "fuso_horario": "America/Sao_Paulo"
   }
 }
